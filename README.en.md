@@ -20,6 +20,7 @@ value are on the gate side, not the probe side:
 |---|---|---|
 | Instrument check detection recall | **81.8%** (9/11) | Confirms the measuring tool catches signal **before** the main run |
 | Instrument check 3-run reproducibility | **0 SPLIT** / 55 | Verdicts do not wobble |
+| Side-room validation (English·biomedical / Korean·non-accounting) | **2/2 PASS**, recall 100% | The procedure works even when domain, language, and labeler all change |
 | Diagnostic cost | **1,650 calls → 165 calls** | Root-causing a failure at one tenth the cost |
 | Probe 3-vote consensus (Phase 1) | Recall held at 90%, review burden 38.9%→35.2%, **0 automated false positives** | An outward Pareto move obtained by **removing**, not adding |
 
@@ -326,21 +327,62 @@ The source literature behind the anchors comes from math (GSM8K), commonsense
 (CSQA), and biography-writing (FACTSCORE) benchmarks, none of which relate to
 accounting.
 
-> ### 🔴 That said, generality has **not been measured yet**
->
-> The table above is a **design claim** that there is no structural domain
-> dependence — it is not a measurement. Every number in this repository came
-> from a **single domain (K-IFRS), a single judge model, and a single labeler**.
-> The instrument check's 81.8% is no exception.
->
-> The discipline this repository applied to itself applies here too — **no claim
-> without evidence.** Until the instrument check is verified to catch signal on
-> a label set from another domain (cross-domain validation), generality is marked
-> **unverified**.
->
-> Verification plan: apply the same procedure to a public QA dataset differing in
-> both domain and language, and record the outcome in this section regardless of
-> whether it passes or fails.
+### Measured: validated in two side-rooms (2026-07-28)
+
+The previous version of this README marked this section **"unverified"**,
+because it held only a design claim with no measurement behind it. That marking
+is replaced by the measurement below.
+
+**The instrument check procedure was applied as-is to two datasets differing in
+domain, language, and labeler.** The judge prompt was not altered by a single
+character (the builder was imported), and the threshold was kept identical to
+the original room. The pre-declaration was committed before execution.
+
+| Room | Language | Domain | Labeler | recall | SPLIT | Verdict |
+|---|---|---|---|---|---|---|
+| Original room (K-IFRS) | Korean | Accounting standards | The author | 81.8% (9/11) | 0 | **PASS** |
+| Side-room 1 ([SciFact](https://arxiv.org/abs/2004.14500)) | **English** | **Biomedical** | **External** | 100% (22/22) | 0 | **PASS** |
+| Side-room 2 ([KLUE-NLI](https://arxiv.org/abs/2105.09680)) | Korean | **Non-accounting** | **External** | 100% (22/22) | 0 | **PASS** |
+
+What matters is that **PASS also came out of the two rooms whose labelers are
+external**. In the original room the author labeled the data and instrument-checked
+a judge the author had built, so the criteria could have been unconsciously
+aligned; that explanation is not supported.
+
+#### 🔴 And the axes split — recall is insensitive to language, precision is sensitive
+
+Side-room 1 alone changed language, domain, and labeler simultaneously, making
+causal attribution impossible. Side-room 2 separated them by **fixing the
+language to Korean**.
+
+| Metric | SciFact (en) | KLUE-NLI (ko) |
+|---|---|---|
+| Detection recall (gate metric) | 100% | 100% |
+| 3-run unanimous agreement | 72.7% | **92.7%** |
+| False positives (human S → problem verdict) | **36.4%** | **3.0%** |
+| Precision (reference only, outside the gate) | 64.7% | 95.7% |
+
+The failure of **missing** a problem was 0 in both languages, while the failure
+of **calling a non-problem a problem** rose 12-fold in English. Under the
+condition of a Korean prompt plus English evidence, the judge declared "outside
+the scope of the evidence" more often.
+
+**Which side is right is not something this experiment answers** — the judge may
+be stricter, or its understanding of the evidence may be shallower under the
+cross-language condition. Distinguishing them requires a condition with the
+prompt translated into English, and that changes one more variable, so it is
+left as a separate experiment.
+
+#### What is still not claimed
+
+- **This is not "it works in every domain."** What has been validated is 3 domains.
+- **Cross-model portability is unverified**: the judge is still a single
+  `claude-sonnet-4-6`.
+- Side-room 2 (NLI) is an entailment task, different in character from citation
+  verification.
+
+Full text: [`gate/SIDECHECK_PREREG.md`](gate/SIDECHECK_PREREG.md) (pre-declaration) ·
+[`gate/SIDECHECK_RESULT.md`](gate/SIDECHECK_RESULT.md) (result)
 
 For the same reason, **the "P1 rejected" verdict is valid only within these
 measurement conditions (K-IFRS + strong model + attached evidence)**. In other
@@ -385,6 +427,8 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   PHASE4_PREREGISTRATION.md # Phase 4 pre-declaration DRAFT (written before viewing Phase 3 results)
   INSTRUMENT_CHECK_PREREG.md   # Instrument check pre-declaration (committed before execution)
   INSTRUMENT_CHECK_RESULT.md   # Instrument check result — PASS, records that the author's diagnosis was wrong
+  SIDECHECK_PREREG.md   #   Side-room validation pre-declaration (§8 committed before viewing side-room 1 results)
+  SIDECHECK_RESULT.md   #   Results of both side-rooms — both PASS, recall↔precision axes split
   scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
   ab_verdict_chart.png
@@ -426,6 +470,25 @@ To port this to another domain, only the label sheet read by `load_units()` in
 `instrument_check_run.py` needs replacing (id / question / evidence /
 claim_text / human labels S·C·I).
 
+### Reproducing the side-room validation (domain portability)
+
+This is the measurement that applied the same procedure to two public datasets.
+The original data is not redistributed; the scripts fetch it directly from each
+source.
+
+```bash
+cd gate
+.venv/bin/python scripts/sidecheck_fetch.py          # SciFact (CC BY-NC 2.0)
+.venv/bin/python scripts/sidecheck_build_units.py    # 55 stratified items, fixed seed
+.venv/bin/python scripts/sidecheck2_build_units.py   # KLUE-NLI (CC BY-SA 4.0)
+for r in run1 run2 run3; do
+  .venv/bin/python scripts/sidecheck_run.py $r --room 1
+  .venv/bin/python scripts/sidecheck_run.py $r --room 2
+done
+.venv/bin/python scripts/sidecheck_score.py --room 1
+.venv/bin/python scripts/sidecheck_score.py --room 2
+```
+
 ## References
 
 - Anthropic (2026). *Verbalizable Representations Form a Global Workspace in Language Models.* transformer-circuits.pub/2026/workspace
@@ -438,6 +501,8 @@ claim_text / human labels S·C·I).
 - Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
 - FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — probe gaming / policy obfuscation
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
+- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — side-room validation 1 (SciFact)
+- Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — side-room validation 2 (KLUE-NLI)
 
 ## License and data provenance
 

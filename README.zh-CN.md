@@ -17,6 +17,7 @@
 |---|---|---|
 | 仪器校验检出召回率 | **81.8%**（9/11） | 在正式运行**之前**确认测量工具能否抓到信号 |
 | 仪器校验 3 轮再现性 | **SPLIT 0 例** / 55 | 判定不会摇摆 |
+| 隔壁房间 (side-room) 验证（英语·生物医学 / 韩语·非会计） | **2/2 PASS**，召回率 100% | 即使更换领域、语言与标注者，流程依然有效 |
 | 诊断成本 | **1,650 次调用 → 165 次调用** | 以十分之一的成本查明失败原因 |
 | 探针 3 票共识（Phase 1） | 召回率维持 90%，复核负担 38.9%→35.2%，**自动区间误报 0** | 不是靠加装、而是靠**剔除**得到的帕累托外移 |
 
@@ -265,18 +266,52 @@ Phase 3 为了避免循环论证，设了"生成假设所用的样本要从验�
 锚点所依据的文献本身来自数学（GSM8K）、常识（CSQA）、传记写作（FACTSCORE）等基准，
 与会计无关。
 
-> ### 🔴 但通用性目前**尚未经过实测**
->
-> 上表是"结构上不存在领域依赖"的**设计主张**，不是实测。
-> 本仓库的所有数值都出自**单一领域（K-IFRS）· 单一裁判模型 · 单一标注者**。
-> 仪器校验的 81.8% 也一样。
->
-> 本仓库把它对自己施加的规律同样施加到这里——**没有依据就不做主张。**
-> 在其他领域的标注集上验证仪器校验能否抓到信号（跨领域验证 cross-domain
-> validation）之前，通用性一律标注为**未验证 (unverified)**。
->
-> 验证计划：对领域与语言都不同的公开 QA 数据集应用同一套流程，
-> 并把结果——无论通过还是失败——都记录到本节。
+### 实测：在两个"隔壁房间"中完成验证 (2026-07-28)
+
+上一版 README 把本节标注为**"未验证 (unverified)"**，因为当时只有设计主张而没有实测。
+现将该标注替换为下述实测结果。
+
+**把仪器校验流程原封不动地应用到领域、语言与标注者都不同的两个数据集上**（跨领域验证
+cross-domain validation）。判定器提示词一个字都没改（直接 import 原构建器），
+阈值也与原来的房间保持一致。事前声明在执行前提交。
+
+| 房间 | 语言 | 领域 | 标注者 | recall（召回率） | SPLIT | 判定 |
+|---|---|---|---|---|---|---|
+| 原来的房间（K-IFRS） | 韩语 | 会计准则 | 作者 | 81.8%（9/11） | 0 | **PASS** |
+| 隔壁房间 1（[SciFact](https://arxiv.org/abs/2004.14500)） | **英语** | **生物医学** | **外部** | 100%（22/22） | 0 | **PASS** |
+| 隔壁房间 2（[KLUE-NLI](https://arxiv.org/abs/2105.09680)） | 韩语 | **非会计** | **外部** | 100%（22/22） | 0 | **PASS** |
+
+重要的是，**在标注者为外部人员的两个房间里同样得到 PASS**。原来的房间是由作者标注、
+再去校验作者自己做的判定器，因此存在基准被无意识对齐的可能性；而该解释未获支持。
+
+#### 🔴 而且两个轴分开了 — 召回率对语言不敏感，精确率则敏感
+
+仅凭隔壁房间 1，语言、领域与标注者是同时改变的，无法做原因归属。
+隔壁房间 2 **把语言固定为韩语**，从而实现了分离。
+
+| 指标 | SciFact (en) | KLUE-NLI (ko) |
+|---|---|---|
+| 检出召回率（门禁指标） | 100% | 100% |
+| 3 轮标注完全一致 | 72.7% | **92.7%** |
+| 误报（人工判 S → 判定为问题） | **36.4%** | **3.0%** |
+| 精确率 (precision)（门禁之外的参考值） | 64.7% | 95.7% |
+
+**漏掉**问题的失败在两种语言中都是 0；而把**不是问题的东西判为问题**的失败，
+在英语条件下增加到了 12 倍。即在韩语提示词 + 英文依据的条件下，
+判定器更频繁地宣告"超出依据范围"。
+
+**哪一侧才是对的，本实验回答不了**——可能是判定器变得更严格，
+也可能是在跨语言条件下对依据的理解变浅了。要区分这两者需要一个把提示词
+翻译成英语的条件，而那会再多改变一个变量，因此留作独立实验。
+
+#### 仍然不主张的东西
+
+- **不是"在所有领域都行得通"。** 已验证的是 3 个领域。
+- **模型间的可移植性尚未验证**。判定器依然只有 `claude-sonnet-4-6` 一个。
+- 隔壁房间 2（NLI）是蕴含判定任务，与引用验证的任务性质不同。
+
+全文：[`gate/SIDECHECK_PREREG.md`](gate/SIDECHECK_PREREG.md)（事前声明）·
+[`gate/SIDECHECK_RESULT.md`](gate/SIDECHECK_RESULT.md)（结果）
 
 同理，**"P1 废弃"判定的有效范围也仅限于本次实测条件（K-IFRS + 强模型 + 依据随附）**。
 在其他领域、更弱的模型、依据未随附的环境中，P1 仍可能有效——
@@ -319,6 +354,8 @@ gate/                   # 评分门禁包 + 语义层重评分 + Phase 1~3 实�
   PHASE4_PREREGISTRATION.md # Phase 4 事前声明 DRAFT（在查阅 Phase 3 结果前撰写）
   INSTRUMENT_CHECK_PREREG.md   # 仪器校验事前声明（执行前提交）
   INSTRUMENT_CHECK_RESULT.md   # 仪器校验结果 — PASS，记录作者的诊断是错的
+  SIDECHECK_PREREG.md   #   隔壁房间验证事前声明（§8 在查阅隔壁房间 1 结果前提交）
+  SIDECHECK_RESULT.md   #   两个隔壁房间的结果 — 均为 PASS，召回率↔精确率两轴分离
   scripts/              #   各 Phase 的运行器·评分器·原始数据（判定器在查阅结果前提交）
 docs/
   ab_verdict_chart.png
@@ -357,6 +394,24 @@ done
 若要移植到其他领域，只需替换 `instrument_check_run.py` 中 `load_units()` 所读取的
 标注表（id / question / evidence / claim_text / 人工标注 S·C·I）即可。
 
+### 隔壁房间验证的复现（领域可移植性）
+
+这是把同一套流程应用到两个公开数据集上的实测。原始数据不做再分发，
+由脚本直接从各自出处获取。
+
+```bash
+cd gate
+.venv/bin/python scripts/sidecheck_fetch.py          # SciFact (CC BY-NC 2.0)
+.venv/bin/python scripts/sidecheck_build_units.py    # 分层抽样 55 条，seed 固定
+.venv/bin/python scripts/sidecheck2_build_units.py   # KLUE-NLI (CC BY-SA 4.0)
+for r in run1 run2 run3; do
+  .venv/bin/python scripts/sidecheck_run.py $r --room 1
+  .venv/bin/python scripts/sidecheck_run.py $r --room 2
+done
+.venv/bin/python scripts/sidecheck_score.py --room 1
+.venv/bin/python scripts/sidecheck_score.py --room 2
+```
+
 ## 参考文献
 
 - Anthropic (2026). *Verbalizable Representations Form a Global Workspace in Language Models.* transformer-circuits.pub/2026/workspace
@@ -369,6 +424,8 @@ done
 - Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
 - FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — 探针博弈 / 策略混淆
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
+- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — 隔壁房间验证 1（SciFact）
+- Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — 隔壁房间验证 2（KLUE-NLI）
 
 ## 许可证与数据来源
 
