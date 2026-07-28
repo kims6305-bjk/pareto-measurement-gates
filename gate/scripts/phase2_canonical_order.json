@@ -1,0 +1,1409 @@
+[
+  {
+    "order": 1,
+    "id": "Q113-c1",
+    "qid": "Q113",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 2,
+    "id": "Q007-c1",
+    "qid": "Q007",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 3,
+    "id": "Q085-c2",
+    "qid": "Q085",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 4,
+    "id": "Q084-c3",
+    "qid": "Q084",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 5,
+    "id": "Q012-c1",
+    "qid": "Q012",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 6,
+    "id": "Q024-c2",
+    "qid": "Q024",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 7,
+    "id": "Q072-c6",
+    "qid": "Q072",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 8,
+    "id": "Q116-c1",
+    "qid": "Q116",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 9,
+    "id": "Q027-c1",
+    "qid": "Q027",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 10,
+    "id": "Q103-c3",
+    "qid": "Q103",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 11,
+    "id": "Q026-c1",
+    "qid": "Q026",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 12,
+    "id": "Q041-c1",
+    "qid": "Q041",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 13,
+    "id": "Q089-c3",
+    "qid": "Q089",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 14,
+    "id": "Q044-c2",
+    "qid": "Q044",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 15,
+    "id": "Q053-c2",
+    "qid": "Q053",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 16,
+    "id": "Q093-c3",
+    "qid": "Q093",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 17,
+    "id": "Q100-c1",
+    "qid": "Q100",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 18,
+    "id": "Q077-c1",
+    "qid": "Q077",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 19,
+    "id": "Q020-c1",
+    "qid": "Q020",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 20,
+    "id": "Q088-c1",
+    "qid": "Q088",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 21,
+    "id": "Q058-c4",
+    "qid": "Q058",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 22,
+    "id": "Q041-c2",
+    "qid": "Q041",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 23,
+    "id": "Q093-c1",
+    "qid": "Q093",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 24,
+    "id": "Q030-c4",
+    "qid": "Q030",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 25,
+    "id": "Q065-c3",
+    "qid": "Q065",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 26,
+    "id": "Q006-c1",
+    "qid": "Q006",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 27,
+    "id": "Q055-c1",
+    "qid": "Q055",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 28,
+    "id": "Q108-c4",
+    "qid": "Q108",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 29,
+    "id": "Q019-c1",
+    "qid": "Q019",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 30,
+    "id": "Q045-c1",
+    "qid": "Q045",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 31,
+    "id": "Q102-c1",
+    "qid": "Q102",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 32,
+    "id": "Q109-c3",
+    "qid": "Q109",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 33,
+    "id": "Q109-c5",
+    "qid": "Q109",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 34,
+    "id": "Q024-c3",
+    "qid": "Q024",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 35,
+    "id": "Q006-c3",
+    "qid": "Q006",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 36,
+    "id": "Q103-c1",
+    "qid": "Q103",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 37,
+    "id": "Q030-c2",
+    "qid": "Q030",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 38,
+    "id": "Q063-c3",
+    "qid": "Q063",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 39,
+    "id": "Q066-c3",
+    "qid": "Q066",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 40,
+    "id": "Q052-c2",
+    "qid": "Q052",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 41,
+    "id": "Q001-c2",
+    "qid": "Q001",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 42,
+    "id": "Q111-c2",
+    "qid": "Q111",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 43,
+    "id": "Q020-c2",
+    "qid": "Q020",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 44,
+    "id": "Q051-c3",
+    "qid": "Q051",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 45,
+    "id": "Q061-c1",
+    "qid": "Q061",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 46,
+    "id": "Q108-c2",
+    "qid": "Q108",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 47,
+    "id": "Q010-c1",
+    "qid": "Q010",
+    "layer": "distractor",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 48,
+    "id": "Q063-c1",
+    "qid": "Q063",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 49,
+    "id": "Q072-c1",
+    "qid": "Q072",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 50,
+    "id": "Q114-c1",
+    "qid": "Q114",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 51,
+    "id": "Q100-c2",
+    "qid": "Q100",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 52,
+    "id": "Q073-c2",
+    "qid": "Q073",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 53,
+    "id": "Q024-c1",
+    "qid": "Q024",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 54,
+    "id": "Q062-c2",
+    "qid": "Q062",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 55,
+    "id": "Q034-c1",
+    "qid": "Q034",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 56,
+    "id": "Q064-c3",
+    "qid": "Q064",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 57,
+    "id": "Q011-c1",
+    "qid": "Q011",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 58,
+    "id": "Q044-c1",
+    "qid": "Q044",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 59,
+    "id": "Q067-c2",
+    "qid": "Q067",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 60,
+    "id": "Q054-c3",
+    "qid": "Q054",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 61,
+    "id": "Q023-c2",
+    "qid": "Q023",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 62,
+    "id": "Q034-c2",
+    "qid": "Q034",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 63,
+    "id": "Q010-c4",
+    "qid": "Q010",
+    "layer": "distractor",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 64,
+    "id": "Q057-c3",
+    "qid": "Q057",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 65,
+    "id": "Q058-c1",
+    "qid": "Q058",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 66,
+    "id": "Q072-c3",
+    "qid": "Q072",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 67,
+    "id": "Q045-c2",
+    "qid": "Q045",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 68,
+    "id": "Q061-c3",
+    "qid": "Q061",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 69,
+    "id": "Q020-c3",
+    "qid": "Q020",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 70,
+    "id": "Q073-c1",
+    "qid": "Q073",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 71,
+    "id": "Q013-c3",
+    "qid": "Q013",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 72,
+    "id": "Q106-c2",
+    "qid": "Q106",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 73,
+    "id": "Q086-c1",
+    "qid": "Q086",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 74,
+    "id": "Q109-c1",
+    "qid": "Q109",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 75,
+    "id": "Q011-c2",
+    "qid": "Q011",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 76,
+    "id": "Q066-c1",
+    "qid": "Q066",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 77,
+    "id": "Q077-c4",
+    "qid": "Q077",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 78,
+    "id": "Q039-c1",
+    "qid": "Q039",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 79,
+    "id": "Q006-c2",
+    "qid": "Q006",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 80,
+    "id": "Q034-c3",
+    "qid": "Q034",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 81,
+    "id": "Q103-c2",
+    "qid": "Q103",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 82,
+    "id": "Q061-c2",
+    "qid": "Q061",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 83,
+    "id": "Q093-c2",
+    "qid": "Q093",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 84,
+    "id": "Q078-c1",
+    "qid": "Q078",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 85,
+    "id": "Q095-c2",
+    "qid": "Q095",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 86,
+    "id": "Q100-c3",
+    "qid": "Q100",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 87,
+    "id": "Q051-c1",
+    "qid": "Q051",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 88,
+    "id": "Q053-c4",
+    "qid": "Q053",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 89,
+    "id": "Q116-c2",
+    "qid": "Q116",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 90,
+    "id": "Q111-c1",
+    "qid": "Q111",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 91,
+    "id": "Q021-c1",
+    "qid": "Q021",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 92,
+    "id": "Q094-c2",
+    "qid": "Q094",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 93,
+    "id": "Q086-c4",
+    "qid": "Q086",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 94,
+    "id": "Q115-c1",
+    "qid": "Q115",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 95,
+    "id": "Q075-c3",
+    "qid": "Q075",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 96,
+    "id": "Q065-c2",
+    "qid": "Q065",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 97,
+    "id": "Q106-c1",
+    "qid": "Q106",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 98,
+    "id": "Q057-c1",
+    "qid": "Q057",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 99,
+    "id": "Q092-c5",
+    "qid": "Q092",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 100,
+    "id": "Q030-c1",
+    "qid": "Q030",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 101,
+    "id": "Q085-c1",
+    "qid": "Q085",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 102,
+    "id": "Q083-c4",
+    "qid": "Q083",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 103,
+    "id": "Q010-c3",
+    "qid": "Q010",
+    "layer": "distractor",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 104,
+    "id": "Q053-c3",
+    "qid": "Q053",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 105,
+    "id": "Q054-c1",
+    "qid": "Q054",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 106,
+    "id": "Q089-c1",
+    "qid": "Q089",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 107,
+    "id": "Q096-c2",
+    "qid": "Q096",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 108,
+    "id": "Q058-c2",
+    "qid": "Q058",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 109,
+    "id": "Q092-c4",
+    "qid": "Q092",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 110,
+    "id": "Q084-c1",
+    "qid": "Q084",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 111,
+    "id": "Q055-c2",
+    "qid": "Q055",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 112,
+    "id": "Q067-c1",
+    "qid": "Q067",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 113,
+    "id": "Q091-c3",
+    "qid": "Q091",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 114,
+    "id": "Q074-c1",
+    "qid": "Q074",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 115,
+    "id": "Q092-c3",
+    "qid": "Q092",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 116,
+    "id": "Q102-c3",
+    "qid": "Q102",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 117,
+    "id": "Q083-c2",
+    "qid": "Q083",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 118,
+    "id": "Q102-c2",
+    "qid": "Q102",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 119,
+    "id": "Q086-c2",
+    "qid": "Q086",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 120,
+    "id": "Q077-c2",
+    "qid": "Q077",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 121,
+    "id": "Q063-c4",
+    "qid": "Q063",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 122,
+    "id": "Q026-c2",
+    "qid": "Q026",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 123,
+    "id": "Q046-c1",
+    "qid": "Q046",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 124,
+    "id": "Q088-c3",
+    "qid": "Q088",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 125,
+    "id": "Q021-c2",
+    "qid": "Q021",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 126,
+    "id": "Q016-c1",
+    "qid": "Q016",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 127,
+    "id": "Q116-c3",
+    "qid": "Q116",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 128,
+    "id": "Q053-c1",
+    "qid": "Q053",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 129,
+    "id": "Q111-c3",
+    "qid": "Q111",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 130,
+    "id": "Q026-c3",
+    "qid": "Q026",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 131,
+    "id": "Q013-c2",
+    "qid": "Q013",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 132,
+    "id": "Q075-c2",
+    "qid": "Q075",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 133,
+    "id": "Q002-c1",
+    "qid": "Q002",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 134,
+    "id": "Q003-c3",
+    "qid": "Q003",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 135,
+    "id": "Q106-c3",
+    "qid": "Q106",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 136,
+    "id": "Q083-c1",
+    "qid": "Q083",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 137,
+    "id": "Q031-c1",
+    "qid": "Q031",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 138,
+    "id": "Q085-c3",
+    "qid": "Q085",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 139,
+    "id": "Q016-c4",
+    "qid": "Q016",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 140,
+    "id": "Q012-c2",
+    "qid": "Q012",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 141,
+    "id": "Q039-c2",
+    "qid": "Q039",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 142,
+    "id": "Q064-c1",
+    "qid": "Q064",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 143,
+    "id": "Q040-c1",
+    "qid": "Q040",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 144,
+    "id": "Q040-c2",
+    "qid": "Q040",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 145,
+    "id": "Q091-c2",
+    "qid": "Q091",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 146,
+    "id": "Q057-c2",
+    "qid": "Q057",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 147,
+    "id": "Q002-c3",
+    "qid": "Q002",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 148,
+    "id": "Q104-c3",
+    "qid": "Q104",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 149,
+    "id": "Q054-c4",
+    "qid": "Q054",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 150,
+    "id": "Q011-c3",
+    "qid": "Q011",
+    "layer": "normal",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 151,
+    "id": "Q040-c4",
+    "qid": "Q040",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 152,
+    "id": "Q019-c2",
+    "qid": "Q019",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 153,
+    "id": "Q108-c1",
+    "qid": "Q108",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 154,
+    "id": "Q091-c1",
+    "qid": "Q091",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 155,
+    "id": "Q065-c1",
+    "qid": "Q065",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 156,
+    "id": "Q003-c1",
+    "qid": "Q003",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 157,
+    "id": "Q114-c2",
+    "qid": "Q114",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 158,
+    "id": "Q013-c1",
+    "qid": "Q013",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 159,
+    "id": "Q114-c3",
+    "qid": "Q114",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 160,
+    "id": "Q076-c2",
+    "qid": "Q076",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 161,
+    "id": "Q096-c1",
+    "qid": "Q096",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 162,
+    "id": "Q012-c3",
+    "qid": "Q012",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 163,
+    "id": "Q044-c3",
+    "qid": "Q044",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 164,
+    "id": "Q076-c3",
+    "qid": "Q076",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 165,
+    "id": "Q052-c1",
+    "qid": "Q052",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 166,
+    "id": "Q076-c1",
+    "qid": "Q076",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 167,
+    "id": "Q078-c2",
+    "qid": "Q078",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 168,
+    "id": "Q016-c2",
+    "qid": "Q016",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 169,
+    "id": "Q094-c1",
+    "qid": "Q094",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 170,
+    "id": "Q001-c1",
+    "qid": "Q001",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 171,
+    "id": "Q048-c2",
+    "qid": "Q048",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 172,
+    "id": "Q062-c1",
+    "qid": "Q062",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 173,
+    "id": "Q095-c3",
+    "qid": "Q095",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 174,
+    "id": "Q003-c2",
+    "qid": "Q003",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 175,
+    "id": "Q096-c3",
+    "qid": "Q096",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 176,
+    "id": "Q115-c3",
+    "qid": "Q115",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 177,
+    "id": "Q104-c1",
+    "qid": "Q104",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 178,
+    "id": "Q075-c1",
+    "qid": "Q075",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 179,
+    "id": "Q010-c2",
+    "qid": "Q010",
+    "layer": "distractor",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 180,
+    "id": "Q066-c2",
+    "qid": "Q066",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 181,
+    "id": "Q088-c2",
+    "qid": "Q088",
+    "layer": "distractor",
+    "rule_type": "CONJUNCTIVE"
+  },
+  {
+    "order": 182,
+    "id": "Q051-c2",
+    "qid": "Q051",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 183,
+    "id": "Q048-c1",
+    "qid": "Q048",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 184,
+    "id": "Q016-c3",
+    "qid": "Q016",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 185,
+    "id": "Q056-c1",
+    "qid": "Q056",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 186,
+    "id": "Q115-c2",
+    "qid": "Q115",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 187,
+    "id": "Q089-c2",
+    "qid": "Q089",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 188,
+    "id": "Q002-c2",
+    "qid": "Q002",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 189,
+    "id": "Q095-c1",
+    "qid": "Q095",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 190,
+    "id": "Q112-c1",
+    "qid": "Q112",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 191,
+    "id": "Q056-c2",
+    "qid": "Q056",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 192,
+    "id": "Q064-c2",
+    "qid": "Q064",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 193,
+    "id": "Q023-c1",
+    "qid": "Q023",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 194,
+    "id": "Q045-c3",
+    "qid": "Q045",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 195,
+    "id": "Q104-c2",
+    "qid": "Q104",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 196,
+    "id": "Q113-c2",
+    "qid": "Q113",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 197,
+    "id": "Q084-c2",
+    "qid": "Q084",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 198,
+    "id": "Q048-c3",
+    "qid": "Q048",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 199,
+    "id": "Q094-c3",
+    "qid": "Q094",
+    "layer": "normal",
+    "rule_type": "SELECTION"
+  },
+  {
+    "order": 200,
+    "id": "Q031-c2",
+    "qid": "Q031",
+    "layer": "normal",
+    "rule_type": "OTHER"
+  },
+  {
+    "order": 201,
+    "id": "Q078-c3",
+    "qid": "Q078",
+    "layer": "distractor",
+    "rule_type": "OTHER"
+  }
+]

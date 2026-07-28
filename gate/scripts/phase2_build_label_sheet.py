@@ -87,6 +87,19 @@ dropped = len(rows) - len(kept)
 rows = kept
 print(f"[문항당 주장 캡 {CAP}] {dropped}건 제외 (선택규칙 문항은 캡 면제)")
 
+# --- N 절단 (내부 파일럿으로 확정된 표본 크기) ----------------------------
+# PHASE2_INTERNAL_PILOT.md: 본 표본 = 정본 순서(seed 고정, CAP 적용)의 앞 N건.
+# 파일럿 30건이 이 앞부분에 그대로 들어오므로 파일럿 라벨은 이월되고 폐기되지 않는다.
+_N = __import__("os").environ.get("PHASE2_N")
+if _N:
+    n = int(_N)
+    if n < len(rows):
+        rows = rows[:n]
+        print(f"[N 절단] 정본 순서 앞 {n}건으로 자름 "
+              f"(근거: gate/scripts/phase2_pilot_baserate.json)")
+    else:
+        print(f"[N 절단] N={n} >= 모집단 {len(rows)}건 -> 전량 사용")
+
 print(f"문항 {len(cand['questions'])}건 -> 주장 {len(rows)}건")
 if skipped:
     print(f"제외 {len(skipped)}건: {skipped}")
