@@ -1,0 +1,29 @@
+{
+  "n_units": 55,
+  "n_runs": 3,
+  "n_problem": 11,
+  "n_detected": 9,
+  "recall": 0.8182,
+  "recall_wilson": [
+    0.523,
+    0.9486
+  ],
+  "n_contradicted": 7,
+  "precision_reported_only": 0.6923,
+  "n_split": 0,
+  "threshold": 0.3,
+  "verdict": "PASS",
+  "interpretation": "가설 C 지지 (계기 정상) → 저지 유지, 표본을 바꾼다",
+  "misses": [
+    {
+      "id": "Q068-A-c1",
+      "human": "C",
+      "judge": "SUPPORTED"
+    },
+    {
+      "id": "Q068-A-c2",
+      "human": "C",
+      "judge": "SUPPORTED"
+    }
+  ]
+}
