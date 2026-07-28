@@ -8,3 +8,5 @@ gate/scripts/phase3_judge_*_run*.jsonl
 
 # 옆방 검증 원본 데이터는 재배포하지 않는다 (SciFact CC BY-NC 2.0)
 gate/scripts/sidecheck_units.json
+
+gate/scripts/sidecheck2_units.json

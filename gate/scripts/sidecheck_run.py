@@ -5,7 +5,8 @@
 K-IFRS에서 81.8%를 낸 **바로 그 판정기**이며, 프롬프트 언어도 그대로 둔다.
 (도메인·언어가 바뀌어도 같은 도구가 작동하는지가 질문이므로.)
 
-usage: python sidecheck_run.py <run1|run2|run3>
+usage: python sidecheck_run.py <run1|run2|run3> [--room 1|2]
+       --room 1 = SciFact(영어·생의학), --room 2 = KLUE-NLI(한국어·비회계)
 """
 from __future__ import annotations
 
@@ -23,6 +24,10 @@ from phase3_build_prompts import CLAUDE_MODEL, build  # noqa: E402
 
 CLI_TIMEOUT = 120
 VALID = {"SUPPORTED", "CONTRADICTED", "INSUFFICIENT"}
+ROOMS = {
+    "1": ("sidecheck_units.json", "sidecheck_{run}.jsonl", "scifact"),
+    "2": ("sidecheck2_units.json", "sidecheck2_{run}.jsonl", "klue-nli"),
+}
 
 
 def call(prompt: str) -> tuple[str, str]:
@@ -50,8 +55,15 @@ def call(prompt: str) -> tuple[str, str]:
 
 def main() -> None:
     run = sys.argv[1] if len(sys.argv) > 1 else "run1"
-    units = json.load(open(GATE / "scripts/sidecheck_units.json", encoding="utf-8"))
-    out = GATE / f"scripts/sidecheck_{run}.jsonl"
+    room = "1"
+    if "--room" in sys.argv:
+        room = sys.argv[sys.argv.index("--room") + 1]
+    if room not in ROOMS:
+        raise SystemExit("--room must be 1 or 2")
+    units_file, out_tpl, domain = ROOMS[room]
+
+    units = json.load(open(GATE / "scripts" / units_file, encoding="utf-8"))
+    out = GATE / "scripts" / out_tpl.format(run=run)
 
     done = set()
     if out.exists():
@@ -63,8 +75,9 @@ def main() -> None:
 
     todo = [u for u in units if u["id"] not in done]
     n_prob = sum(1 for u in units if u["human"] in ("C", "I"))
-    print(f"{run}: 대상 {len(units)}건 (사람 판정 문제 {n_prob}건), "
-          f"완료 {len(done)}, 남은 {len(todo)}", flush=True)
+    print(f"[옆방{room}:{domain}] {run}: 대상 {len(units)}건 "
+          f"(사람 판정 문제 {n_prob}건), 완료 {len(done)}, 남은 {len(todo)}",
+          flush=True)
 
     n = 0
     with open(out, "a", encoding="utf-8") as fh:
@@ -75,7 +88,7 @@ def main() -> None:
             fh.write(json.dumps({
                 "id": u["id"], "run": run, "label": label,
                 "rationale": rationale, "human": u["human"],
-                "domain": "scifact", "model": CLAUDE_MODEL,
+                "domain": domain, "model": CLAUDE_MODEL,
                 "elapsed": round(time.time() - t0, 1),
             }, ensure_ascii=False) + "\n")
             fh.flush()
@@ -83,7 +96,7 @@ def main() -> None:
             if n % 10 == 0 or n == len(todo):
                 print(f"[{n}/{len(todo)}] {u['id']} human={u['human']} -> {label}",
                       flush=True)
-    print(f"DONE {run}: {n}건 -> {out.name}")
+    print(f"DONE {domain}/{run}: {n}건 -> {out.name}")
 
 
 if __name__ == "__main__":

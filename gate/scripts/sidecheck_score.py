@@ -1,18 +1,27 @@
-"""옆방 검침 채점 — 사전 선언 SIDECHECK_PREREG.md §4 기준을 그대로 적용.
+"""옆방 검침 채점 — 사전 선언 SIDECHECK_PREREG.md §4·§8.3 기준을 그대로 적용.
 
-🔴 결과를 보기 전에 커밋한다. 임계(30%)는 원래 방과 동일하며 옆방용으로
+🔴 결과를 보기 전에 커밋한다. 임계(30%)는 원래 방과 동일하며 옆방별로
    조정하지 않는다 — 조정하면 검증이 무의미해진다.
+
+usage: python sidecheck_score.py [--room 1|2]
 """
 from __future__ import annotations
 
 import collections
 import glob
 import json
+import sys
 from pathlib import Path
 
 GATE = Path(__file__).resolve().parents[1]
 PROBLEM = {"CONTRADICTED", "INSUFFICIENT"}
-RECALL_THRESHOLD = 0.30          # 사전 선언 §4 — 원래 방과 동일, 변경 금지
+RECALL_THRESHOLD = 0.30          # 사전 선언 §4·§8.3 — 전 옆방 동일, 변경 금지
+ROOMS = {
+    "1": ("sidecheck_run*.jsonl", "sidecheck_result.json",
+          "SciFact (en, 생의학)"),
+    "2": ("sidecheck2_run*.jsonl", "sidecheck2_result.json",
+          "KLUE-NLI (ko, 비회계)"),
+}
 
 
 def wilson(k: int, n: int) -> tuple[float, float]:
@@ -26,11 +35,20 @@ def wilson(k: int, n: int) -> tuple[float, float]:
 
 
 def main() -> None:
+    room = "1"
+    if "--room" in sys.argv:
+        room = sys.argv[sys.argv.index("--room") + 1]
+    if room not in ROOMS:
+        raise SystemExit("--room must be 1 or 2")
+    pattern, out_name, label = ROOMS[room]
+
     per = collections.defaultdict(list)
-    for f in sorted(glob.glob(str(GATE / "scripts/sidecheck_run*.jsonl"))):
+    for f in sorted(glob.glob(str(GATE / "scripts" / pattern))):
         for line in open(f, encoding="utf-8"):
             d = json.loads(line)
             per[d["id"]].append(d)
+    if not per:
+        raise SystemExit(f"🔴 {pattern} 원자료 없음 — 실행 먼저")
 
     maj = {}
     for i, rows in per.items():
@@ -38,7 +56,8 @@ def main() -> None:
         maj[i] = (cnt[0][0] if cnt[0][1] >= 2 else "SPLIT", rows[0]["human"])
 
     n_runs = len({r["run"] for rows in per.values() for r in rows})
-    print(f"옆방(SciFact) 단위 {len(maj)}건 / {n_runs}판 다수결\n")
+    domain = next(iter(per.values()))[0].get("domain", "?")
+    print(f"옆방{room} — {label} / 단위 {len(maj)}건 / {n_runs}판 다수결\n")
 
     cm = collections.Counter((h, j) for j, h in maj.values())
     print("=== 사람 라벨 × 판정기 ===")
@@ -98,8 +117,8 @@ def main() -> None:
         for m in misses[:10]:
             print(f"  {m['id']}  human={m['human']} -> judge={m['judge']}")
 
-    (GATE / "scripts/sidecheck_result.json").write_text(json.dumps({
-        "domain": "scifact", "n_units": len(maj), "n_runs": n_runs,
+    (GATE / "scripts" / out_name).write_text(json.dumps({
+        "room": room, "domain": domain, "n_units": len(maj), "n_runs": n_runs,
         "n_problem": len(prob_ids), "n_detected": len(detected),
         "recall": round(recall, 4), "recall_wilson": [round(lo, 4), round(hi, 4)],
         "n_contradicted": n_contra,
@@ -107,7 +126,7 @@ def main() -> None:
         "n_split": len(splits), "threshold": RECALL_THRESHOLD,
         "verdict": verdict, "action": act, "misses": misses,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("\nsaved: sidecheck_result.json")
+    print(f"\nsaved: {out_name}")
 
 
 if __name__ == "__main__":
