@@ -23,6 +23,9 @@
 
 ![A/B 실측 판정 차트](docs/ab_verdict_chart.png)
 
+> 📖 이 레포가 만들어진 하루의 전 과정(설계 근거·4연속 실패·게이트가 저자의 오진을 잡은
+> 기록)은 [케이스 스터디](docs/CASE_STUDY.md)에 순서대로 남겼습니다.
+
 ## 왜 만들었나 (동기)
 
 출발점은 Anthropic 인터프리터빌리티 팀의 논문이었습니다:
@@ -367,6 +370,10 @@ gate/                   # 채점 게이트 패키지 + 의미 레이어 재채�
   scripts/              #   각 Phase 러너·채점기·원자료 (판정기는 결과 열람 전 커밋)
 docs/
   ab_verdict_chart.png
+  pareto_chart.png      #   파레토 3패널 (열등이동·바깥이동·축 분리)
+  failure_ladder.png    #   4단계가 매번 다른 층에서 실패한 구조
+  gate_flow.png         #   사전등록 게이트 5단계
+  CASE_STUDY.md         #   케이스 스터디 — 개발 하루 전 과정 (한/영/중)
 STATE.md                # 다세션 상태 다이제스트 (결정 누적·막힘·검증 게이트)
 ```
 

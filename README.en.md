@@ -26,6 +26,10 @@ value are on the gate side, not the probe side:
 
 ![A/B measurement verdict chart](docs/ab_verdict_chart.png)
 
+> 📖 The full record of the single day this repo was built — design rationale, four
+> consecutive failures, and the gate catching the author's own misdiagnosis — is kept
+> in order in the [case study](docs/CASE_STUDY.en.md).
+
 ## Why this exists (motivation)
 
 The starting point was a paper from Anthropic's interpretability team:
@@ -432,6 +436,10 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
   ab_verdict_chart.png
+  pareto_chart.png      #   Pareto 3-panel (inferior move, outward move, axis split)
+  failure_ladder.png    #   How the four phases each failed at a different layer
+  gate_flow.png         #   The five stages of the pre-registration gate
+  CASE_STUDY.md         #   Case study — the full day of development (ko/en/zh)
 STATE.md                # Multi-session state digest (accumulated decisions, blockers, verification gates)
 ```
 

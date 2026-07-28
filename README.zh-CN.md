@@ -23,6 +23,9 @@
 
 ![A/B 实测判定图表](docs/ab_verdict_chart.png)
 
+> 📖 本仓库诞生这一天的完整过程（设计依据、连续四次失败、以及门控查出作者本人的误诊）
+> 按顺序记录在[案例研究](docs/CASE_STUDY.zh-CN.md)中。
+
 ## 为什么要做（动机）
 
 出发点是 Anthropic 可解释性团队的一篇论文：
@@ -359,6 +362,10 @@ gate/                   # 评分门禁包 + 语义层重评分 + Phase 1~3 实�
   scripts/              #   各 Phase 的运行器·评分器·原始数据（判定器在查阅结果前提交）
 docs/
   ab_verdict_chart.png
+  pareto_chart.png      #   帕累托三面板（劣化移动·外移·轴分离）
+  failure_ladder.png    #   四个阶段各自在不同层失败的结构
+  gate_flow.png         #   预注册门控的五个阶段
+  CASE_STUDY.md         #   案例研究 — 开发当天的完整过程（韩/英/中）
 STATE.md                # 多会话状态摘要（决策累积·卡点·验证门禁）
 ```
 
