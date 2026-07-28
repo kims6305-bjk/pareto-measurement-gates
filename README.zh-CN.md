@@ -1,0 +1,201 @@
+# probe-graph — Reflection Probe Verification Subgraph for Citation-Grounded QA
+
+[English](README.en.md) | [한국어](README.md) | **中文**
+
+本仓库包含一个可插入引用基础型 QA 流水线（RAG 机器人）的**验证子图 (verification subgraph)** 技能，
+以及用于判定其效果的**完整 A/B 实测测试台 (harness)**。
+
+先亮出核心结论：**本仓库的主探针（P1）在自建的实测门禁中被判定为废弃。**
+本仓库的价值不在于某个"万能验证提示词"，而在于
+①依据文献设计的三种探针，以及②在采纳它们**之前**就将其筛除的判定流程
+（预注册 (pre-registration) → 盲评 (blind judging) → McNemar 检验）的可复现全过程。
+
+![A/B 实测判定图表](docs/ab_verdict_chart.png)
+
+## 为什么要做（动机）
+
+出发点是 Anthropic 可解释性团队的一篇论文：
+
+> **"Verbalizable Representations Form a Global Workspace in Language Models"**
+> (Anthropic, 2026, transformer-circuits.pub/2026/workspace)
+
+该论文指出，LLM 内部存在一个"可以用语言说出来的表征特权集合"；并且表明，若通过**反事实反思 (counterfactual reflection)**
+——即"在中途打断并追问'你现在在想什么？'，训练模型说出其所遵循的原则"——进行训练，
+那么在不被打断的情况下模型的实际行为也会随之改善。论文还报告了模型在内部已经意识到异议、
+却未将其反映到输出中的 **BUT-gap**（88%）。
+
+论文的主体技术（J-lens）需要访问残差流 (residual stream)，API 用户无法使用。
+因此，本技能只把其中的因果发现——"**被问到时会说出来的内容，就是它在静默推理时所想的内容**"——
+翻译到提示词层面：在生成答案之后追问"说出这个答案中你拿不出依据的部分"，
+将这一**反思探针 (reflection probe)** 作为流水线节点插入。
+
+## 天真地实现反而有害（设计过程）
+
+在实现之前，我们审阅了 8 篇自我纠正 (self-correction) 文献，得到的反面证据高度一致：
+**天真的探针反而会削低性能。**
+
+| 论文 | 对本设计的贡献 |
+|---|---|
+| Huang et al., *Large Language Models Cannot Self-Correct Reasoning Yet* (arXiv:2310.01798) | "假定答错"式提示最多带来 −9.5pp（CSQA）。正确→错误的翻转始终多于错误→正确 → 锚点 A1（"预设答案很可能已经正确"）· A5（"不是找错，而是确认一致"） |
+| Dhuliawala et al., *Chain-of-Verification (CoVe)* (arXiv:2309.11495) | 因子化验证（不把初稿散文交给验证者）使 FACTSCORE 从 55.9 提升到 71.4。yes/no 式验证问题会引发附和偏差 → P1 仅输入主张列表 + A6（强制原文摘录） |
+| FBC/EIR 系列（verify-first 消融实验） | 采用"修改前先独立复核 + 只修具体错误"的锚点，使 EIR（正确→错误）从 2% 降至 0%，McNemar p<10⁻⁴。在同等预算下，3 轮迭代 refine（86.6）< Self-Consistency（93.4） → **revise 循环上限 = 1** · A2·A3 |
+| Madaan et al., *Self-Refine* (arXiv:2303.17651) | 失败分析：61% 属于"不当修改" → A4（"没有依据就只做标注，不要改成别的内容"） |
+| Shinn et al., *Reflexion* (arXiv:2303.11366) | 基于外部信号的反思的适用边界条件 |
+| Manakul et al., *SelfCheckGPT* (arXiv:2303.08896) | 基于采样的自检的定位——本设计中未采纳的依据 |
+| Tian et al. (arXiv:2305.14975) · Xiong et al. (arXiv:2306.13063) | 单一数值置信度会集中在过度自信区间（80~100%），top-2 verbalized 的校准更优 → A7（高/中/低 + 2 个备选候选） |
+| Obfuscation Atlas (FAR.AI, ICML 2026) | 若把探针指出的问题数量当作 KPI，模型不会变诚实，而会朝着规避探针的方向优化 → "禁止优化指出条数"规则 |
+| Morris et al., *How Much Do Language Models Memorize?* (ICML 2026) | 每参数约 3.6 比特的记忆上限 → 从记忆中取条文编号必然出错 → 禁止参数化引用，引用必须经由 RAG 原文摘录 |
+
+这些依据以探针提示词的**锚点 A1~A7** 的形式被固化下来
+（`skill/references/probe-prompts.md` — 含各锚点的出处数值表）。
+
+### 三种探针
+
+| 探针 | 修改权限 | 过度校正风险 | 用途 |
+|---|---|---|---|
+| P1 引用对照 | 间接（触发 revise，上限 = 1） | 低（由锚点抑制） | 批量答案验证 |
+| P2 verify-first | 自身 | 实证为 0（FBC） | 实时路径的系统提示词 |
+| P3 风险枚举 | **无** | **结构性为 0** | 夜间审计、人工路由 |
+
+## 实测 ① — 合成压力测试（探针自身的 QA）
+
+首先验证探针是否"能抓住植入的错误，且不对正常答案做牵强的指摘"
+（`harness/`）。正常答案 5 条 + 植入错误的答案 5 条（条文误写、数值篡改、超出依据的主张）。
+
+- run1：9.5/10 — **发现 1 处 needs_revision 逻辑不一致**：模型准确判定 verdict='근거없음'（"无依据"），
+  却输出 needs_revision=false。→ 教训：**判定字段不要信任模型，应在代码中用
+  `any(verdict != "일치")`（"一致"）推导** — 韩文字面量与探针实际输出 schema 一致（已反映到技能中）
+- run2（修正后）：错误定位 5/5、牵强指摘 0、quote 原文实存 0 失败、JSON 10/10 — 通过
+
+## 实测 ② — A/B 门禁：结果 P1 落选
+
+**预注册** (`ab/ab_questions_FROZEN.json`，冻结后禁止修改)：
+基于 12 种 K-IFRS（韩国采用国际财务报告准则）公开准则书的 119 道题 = normal 84 + no_answer 17（诱发幻觉）
++ distractor 18（相似段落陷阱）。评分规则同样在实验前冻结。
+
+**执行**：同一模型、同一天，arm A（无探针）vs arm B（P1+revise）。
+评分采用 ①引用错误的机器对照（评分器本身用 6 种负对照进行验证）+
+②隐藏 arm 标签的**盲评 LLM 裁判**（呈现顺序亦做打乱）。
+
+**结果**（全文：[`ab/AB_VERDICT.md`](ab/AB_VERDICT.md)）：
+
+| 门禁 | arm A | arm B | 判定 |
+|---|---|---|---|
+| 主指标：引用错误率 | 0/119 (0%) | 0/119 (0%) | p=1.0 — 无改进空间 ❌ |
+| 护栏 1：答案准确率 | 99.2% | 99.2% | 未劣化 ✅ |
+| 护栏 2：过度校正率 (over-correction rate) | — | **0.84% > 阈值 0.5%** | ❌ |
+
+**判定：P1 废弃。** 唯一的劣化案例（Q092）正是文献中 EIR 机制的原样复现——
+探针按规则将"超出 evidence 的推断"判为无依据，revise 也按规则只把该条目改成了 hedging，
+但结果却是与首句自相矛盾的答案。
+这正是 Self-Refine 失败分析（不当修改 61%）所指出的
+**即便各组件各自正确，其组合仍可能损害正确答案**的实例。
+
+### 教训
+
+1. **在强生成模型 + 依据随附的结构下，引用错误本来就不会发生。**
+   即便在 distractor 陷阱中也是误引 0 例。若验证层无物可抓，
+   上行空间为 0，只剩下行空间（过度校正）——这不是保险，而是净成本。
+2. 引入 P1 得以正当化的条件：生成模型确实会产生引用错误的环境
+   （更弱的模型、依据未随附、依赖参数化引用）。**请先测量 baseline 错误率，
+   若为 0% 就不要加装 P1。**
+3. P3（无修改权限）与 P2（verify-first 锚点）不受此判定影响——
+   因为其过度校正在结构上为 0 或在实证上为 0。
+4. 如果没有这道判定门禁，我们就会以"加了验证应该更安全吧"为由，
+   把一个净成本层推上生产环境。**本仓库中复用价值最高的部分不是探针，
+   而是门禁。**
+
+## 帕累托视角 — 把测试台拧到最紧并非最优
+
+把这个实验浓缩为一句话，就成了经济学中的帕累托概念：
+**验证强度不是一个免费的旋钮，而是在两个相互冲突的指标（错误检出 ↔ 过度校正）之间的移动。**
+
+- arm A 已经处于（引用错误 0%、准确率 99.2%），不存在可改进的维度，
+  它位于前沿面 (frontier) 的角点上。
+- 在其之上叠加验证层的 arm B 是一次**帕累托劣化移动 (Pareto-inferior move)**：
+  没有任何指标上升（上行为 0），只有一个指标下降（过度校正 −0.84%）。
+- Q092 是过度监管所致**无谓损失 (deadweight loss)** 的实物样本——
+  监管方（探针）与执行方（revise）各自都遵守了规则，组合的结果却是福利净减少。
+- 从这一视角看，McNemar 门禁的本质十分清晰：**一个在采纳帕累托劣化移动之前将其探测出来的装置。**
+  "加更多验证就更安全"的直觉只在前沿面内侧为真，在前沿面上则为假。
+
+我们也明确主张的适用边界：本次实测比较的是验证强度旋钮上的两个点（无验证 vs
+P1+revise），而不是整个前沿面的地图。本数据所支持的主张不是"找到了最优点"，
+而只到"**用实测判别出了一次劣化移动**"为止。
+若要描绘前沿面本身，需要把验证强度设置为多个档位（例如：仅 P2 / 调节 P1 锚点强度 /
+变更 revise 阈值），并用同一道门禁逐点测量。
+
+## 领域可移植性 — 并非 K-IFRS 专用
+
+本仓库中依赖 K-IFRS 的只有**实测数据（题目集）**：
+
+| 层 | 领域依赖 | 备注 |
+|---|---|---|
+| 技能本体（3 种探针 + 锚点 A1~A7 + 图结构） | 无 | "主张 ↔ 依据原文对照"的结构——只要是有依据文档的引用型 QA 皆可（法令、判例、公司内部规程、论文、合同、医疗指南） |
+| 门禁流程（预注册 → 盲评 → McNemar） | 无 | 统计流程本身不含领域属性 |
+| 实测数据（`ab/ab_questions_FROZEN.json` 119 题） | K-IFRS | 只是因为作者们的业务领域恰好是会计 QA。其他领域替换为自己的题目集即可 |
+
+锚点所依据的文献本身来自数学（GSM8K）、常识（CSQA）、传记写作（FACTSCORE）等基准，
+与会计无关。
+
+同理，**"P1 废弃"判定的有效范围也仅限于本次实测条件（K-IFRS + 强模型 + 依据随附）**。
+在其他领域、更弱的模型、依据未随附的环境中，P1 仍可能有效——
+所以移植流程的第一步是"先测量你自己环境的 baseline 错误率"，
+而将这一判定自动化的，正是这道门禁。
+
+## 仓库结构
+
+```
+skill/                  # 技能正文（面向 agent 框架的 SKILL.md 格式）
+  SKILL.md              #   图结构·总原则·实测判定记录
+  references/
+    probe-prompts.md    #   3 种探针提示词全文 + 各锚点的论文出处数值
+    evals.md            #   二元质量门禁（①自身 QA ②A/B 门禁）
+harness/                # 实测 ① 合成压力测试
+  run_stress.py         #   运行器（与评分分离）
+  cases.json            #   正常 5 + 注入错误 5（基于合成依据文档）
+  evidence.md           #   合成依据文档（非真实准则书）
+  stress_results_run{1,2}.json
+ab/                     # 实测 ② A/B 门禁
+  ab_questions_FROZEN.json  # 预注册题目 119（基于 K-IFRS 公开准则书）
+  ab_runner.py          #   两个 arm 的运行器（增量保存·可续跑）
+  grade_ab.py           #   机器评分 + 盲评裁判 + McNemar 报告
+  merge_verify.py       #   题目生成时的独立复核器
+  make_chart.py         #   判定图表生成
+  ab_grades.json        #   评分原始数据
+  AB_VERDICT.md         #   判定全文
+docs/
+  ab_verdict_chart.png
+```
+
+## 复现
+
+```bash
+# 前提：claude CLI（或将 run_llm() 替换为你想用的 LLM 调用）
+cd ab
+python3 ab_runner.py            # 运行两个 arm（按题目增量保存，中断后可续跑）
+python3 grade_ab.py mech        # 机器引用评分
+python3 grade_ab.py judge       # 盲评裁判（约 250 次调用）
+python3 grade_ab.py report      # McNemar 判定表
+python3 make_chart.py           # 图表（需要 matplotlib）
+```
+
+## 参考文献
+
+- Anthropic (2026). *Verbalizable Representations Form a Global Workspace in Language Models.* transformer-circuits.pub/2026/workspace
+- Huang, J. et al. (2023). *Large Language Models Cannot Self-Correct Reasoning Yet.* arXiv:2310.01798
+- Dhuliawala, S. et al. (2023). *Chain-of-Verification Reduces Hallucination in Large Language Models.* arXiv:2309.11495
+- Madaan, A. et al. (2023). *Self-Refine: Iterative Refinement with Self-Feedback.* arXiv:2303.17651
+- Shinn, N. et al. (2023). *Reflexion: Language Agents with Verbal Reinforcement Learning.* arXiv:2303.11366
+- Manakul, P. et al. (2023). *SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection.* arXiv:2303.08896
+- Tian, K. et al. (2023). *Just Ask for Calibration.* arXiv:2305.14975
+- Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
+- FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — 探针博弈 / 策略混淆
+- Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
+
+## 许可证与数据来源
+
+- **代码、技能、文档：MIT** — 可不受领域限制地自由使用、修改与再分发。
+- **随附的题目集**（`ab/ab_questions_FROZEN.json`）仅基于韩国采用国际财务报告准则（K-IFRS）
+  的**公开准则书段落**生成，不包含任何私有/内部数据。这只是数据来源的告知，
+  并不构成对本技能适用范围的限制——参见上文"领域可移植性"一节。

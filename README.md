@@ -1,5 +1,7 @@
 # probe-graph — Reflection Probe Verification Subgraph for Citation-Grounded QA
 
+[English](README.en.md) | **한국어** | [中文](README.zh-CN.md)
+
 인용 기반 QA 파이프라인(RAG 봇)에 꽂는 **검증 서브그래프** 스킬과,
 그 효과를 판정한 **A/B 실측 하네스** 전체를 담은 레포입니다.
 
