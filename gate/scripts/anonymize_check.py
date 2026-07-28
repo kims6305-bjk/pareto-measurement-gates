@@ -16,11 +16,13 @@ BAD = [
     "accountant-", "tax-yuseong", "secretary-", "kalkim", "kbj20514",
 ]
 EXT = {".md", ".py", ".json", ".sh", ".yml", ".yaml", ".txt", ".jsonl", ".toml"}
+# 검사·검수 스크립트는 경로/단어장 자체를 코드에 담으므로 스캔 대상에서 제외한다.
+SELF = {"anonymize_check.py", "readme_parity_check.py"}
 
 files = [f for f in P.rglob("*")
          if f.is_file() and f.suffix in EXT and ".git" not in f.parts
          and ".venv" not in f.parts
-         and f.name != Path(__file__).name]   # 검사기 자신의 단어장은 제외
+         and f.name not in SELF]
 
 hits = {}
 for f in files:
