@@ -1,0 +1,10 @@
+{
+ "judge_model": "claude-sonnet-4-6",
+ "cli": "claude -p --max-turns 1",
+ "timeout_s": 120,
+ "prompt_version": "v3 (v2 + incompleteness-vs-rule-distortion split)",
+ "dev_set_warning": "v3 is tuned against the 55-claim labeled set; final adoption requires fresh prereg-v2 labels",
+ "n_claims": 55,
+ "started": "2026-07-28 17:22:50",
+ "resume_skipped": 0
+}

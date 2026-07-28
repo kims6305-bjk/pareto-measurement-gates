@@ -1,0 +1,341 @@
+{
+  "n_labeled": 55,
+  "n_scored": 54,
+  "unlabeled": [],
+  "defects": [
+    "Q082-B-c3"
+  ],
+  "decomposed": [],
+  "records": [
+    {
+      "id": "Q025-A-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q097-A-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q014-A-c1",
+      "human": "S",
+      "judge": "C",
+      "memo": "완전한 공식이 필요 문장이 일부만 말한 경우: 상충이 아니라 불완전성 문제"
+    },
+    {
+      "id": "Q068-A-c3",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q071-B-c4",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q004-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q015-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q017-A-c3",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q014-A-c2",
+      "human": "S",
+      "judge": "C",
+      "memo": "완전한 공식이 필요 문장이 일부만 말한 경우: 상충이 아니라 불완전성 문제"
+    },
+    {
+      "id": "Q071-B-c3",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q043-A-c3",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q047-B-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q118-A-c1",
+      "human": "S",
+      "judge": "I",
+      "memo": ""
+    },
+    {
+      "id": "Q042-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q043-A-c5",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q069-B-c3",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q005-A-c3",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q017-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q087-A-c2",
+      "human": "I",
+      "judge": "I",
+      "memo": "만약 근거에 “계약을 체결하지 않았다면 발생하지 않았을 원가가 증분원가이며, 판매수수료가 그 예다”라는 정의가 포함됐다면 S"
+    },
+    {
+      "id": "Q042-A-c3",
+      "human": "C",
+      "judge": "C",
+      "memo": "“회계이익과 과세소득에 영향을 미치지 않는 것이 예외 요건 중 하나다”라고 썼다면 S.\n“위 조건은 미인식 예외의 요건 중 하나다”: S\n“단, 동일 금액의 가산·차감 일시적차이가 생기지 않는 조건도 충족하는 경우”: S"
+    },
+    {
+      "id": "Q017-A-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q071-B-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q022-B-c5",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q035-B-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q117-A-c3",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q117-A-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q068-A-c1",
+      "human": "C",
+      "judge": "I",
+      "memo": "애매: 첫 번째 시점만을 필요조건으로 말한 것인지, '중 이른 날' 규칙 전체를 말한 것인지 해석 여지\n“제도의 개정·축소 시점은 비용 인식 시점을 결정하는 두 시점 중 하나다”라고 했다면 S"
+    },
+    {
+      "id": "Q082-B-c4",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q036-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q081-A-c1",
+      "human": "C",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q107-A-c2",
+      "human": "I",
+      "judge": "I",
+      "memo": "“이사회가 의결한 계획에 근거에 열거된 구체적 내용이 모두 포함되어 있다”는 정보가 추가되면 S"
+    },
+    {
+      "id": "Q043-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q069-B-c1",
+      "human": "S",
+      "judge": "I",
+      "memo": "애매: 구성요소 일부를 열거한 것인지, 보험수리적손익만으로 구성된다는 뜻인지 해석 여지"
+    },
+    {
+      "id": "Q105-B-c4",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q033-B-c2",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q042-B-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q097-B-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q068-B-c2",
+      "human": "C",
+      "judge": "C",
+      "memo": "“구조조정원가·해고급여 인식 시점은 두 후보 시점 중 하나다”라고 했다면 S"
+    },
+    {
+      "id": "Q037-B-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q037-B-c3",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q042-B-c3",
+      "human": "C",
+      "judge": "C",
+      "memo": "동일한 금액의 가산·차감 일시적차이가 동시에 생기지 않을 것”**까지 모두 충족해야함"
+    },
+    {
+      "id": "Q068-A-c2",
+      "human": "C",
+      "judge": "C",
+      "memo": "애매: 후보 시점 나열인지 실제 인식 시점 단정인지 해석 여지"
+    },
+    {
+      "id": "Q032-A-c2",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q082-B-c3",
+      "human": "I",
+      "judge": "C",
+      "memo": "명제없음"
+    },
+    {
+      "id": "Q101-A-c1",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q043-A-c1",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q042-A-c5",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q049-B-c1",
+      "human": "C",
+      "judge": "C",
+      "memo": "사업결합이 아닌 거래에서 자산을 최초 인식할 때, 나머지 두 조건까지 모두 충족하면 이연법인세자산을 인식하지 않는다. 라고하면 S"
+    },
+    {
+      "id": "Q042-B-c4",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q081-A-c2",
+      "human": "C",
+      "judge": "C",
+      "memo": "“의도만 고려한다”이므로 역시 C입니다. “능력과 의도를 고려한다”라고 해야 S"
+    },
+    {
+      "id": "Q047-B-c2",
+      "human": "S",
+      "judge": "I",
+      "memo": ""
+    },
+    {
+      "id": "Q049-B-c4",
+      "human": "S",
+      "judge": "S",
+      "memo": ""
+    },
+    {
+      "id": "Q014-B-c2",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q069-B-c2",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    },
+    {
+      "id": "Q033-A-c2",
+      "human": "S",
+      "judge": "C",
+      "memo": ""
+    }
+  ]
+}
