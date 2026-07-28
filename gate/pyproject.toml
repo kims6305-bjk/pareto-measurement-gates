@@ -5,7 +5,9 @@ description = "Fail-closed 4단계 인용 검증 게이트 (Phase 0 골격) — 
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-dependencies = []
+dependencies = [
+    "openpyxl>=3.1.5",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
