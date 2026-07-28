@@ -1,0 +1,82 @@
+{
+  "C1": {
+    "type": "clean",
+    "seeded_error": null,
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"재고자산은 취득원가와 순실현가능가치 중 낮은 금액으로 측정한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"순실현가능가치는 예상 판매가격에서 예상되는 추가 완성원가와 판매비용을 차감한 금액이다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": false\n}\n```",
+    "p3_raw": "```json\n{\"risks\": []}\n```"
+  },
+  "C2": {
+    "type": "clean",
+    "seeded_error": null,
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"재고자산의 단위원가는 선입선출법 또는 가중평균법을 사용하여 결정한다. 후입선출법(LIFO)은 허용하지 아니한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"통상적으로 상호 교환될 수 없는 재고자산의 원가는 개별법을 사용하여 결정한다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": false\n}\n```",
+    "p3_raw": "```json\n{\"risks\": []}\n```"
+  },
+  "C3": {
+    "type": "clean",
+    "seeded_error": null,
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"순실현가능가치의 상승으로 평가손실을 환입하는 경우, 환입액은 당초 인식한 평가손실 금액을 한도로 한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"재고자산 평가손실과 모든 감모손실은 발생한 기간에 비용으로 인식한다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": false\n}\n```",
+    "p3_raw": "```json\n{\"risks\": []}\n```"
+  },
+  "C4": {
+    "type": "clean",
+    "seeded_error": null,
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"중소기업이 사업용 유형자산에 투자하는 경우 투자금액의 100분의 10에 상당하는 금액을 소득세 또는 법인세에서 공제한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"신성장사업화시설에 투자하는 경우 중소기업은 투자금액의 100분의 12에 상당하는 금액을 공제한다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": false\n}\n```",
+    "p3_raw": "```json\n{\"risks\": []}\n```"
+  },
+  "C5": {
+    "type": "clean",
+    "seeded_error": null,
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"해당 과세연도의 투자금액이 직전 3년 평균 투자금액을 초과하는 경우 그 초과분의 100분의 3에 상당하는 금액을 추가로 공제한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"이 조에 따른 공제는 투자가 완료된 날이 속하는 과세연도에 적용한다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": false\n}\n```",
+    "p3_raw": "```json\n{\"risks\": []}\n```"
+  },
+  "E1": {
+    "type": "error",
+    "seeded_error": {
+      "claim_id": 1,
+      "kind": "문단번호 오기",
+      "detail": "저가법은 문단 9인데 문단 25(개별법)로 잘못 인용"
+    },
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"불일치\",\n      \"quote\": \"문단 9. 재고자산은 취득원가와 순실현가능가치 중 낮은 금액으로 측정한다.\",\n      \"specific_error\": \"주장은 문단 25를 인용하였으나, 해당 내용은 문단 9에 규정되어 있음. 문단 25는 개별법에 관한 조항임.\"\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"문단 28. 순실현가능가치는 예상 판매가격에서 예상되는 추가 완성원가와 판매비용을 차감한 금액이다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": true\n}\n```",
+    "p3_raw": "```json\n{\"risks\":[{\"quote\":\"재고자산은 취득원가와 순실현가능가치 중 낮은 금액으로 측정합니다(문단 25)\",\"type\":\"d\",\"confidence\":\"상\",\"alternatives\":[\"해당 내용은 문단 9에 규정되어 있으며, 문단 25는 개별법에 관한 규정임\"]}]}\n```"
+  },
+  "E2": {
+    "type": "error",
+    "seeded_error": {
+      "claim_id": 1,
+      "kind": "수치 변조",
+      "detail": "제1항 공제율은 10%인데 15%로 변조"
+    },
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"불일치\",\n      \"quote\": \"중소기업이 사업용 유형자산에 투자하는 경우 투자금액의 100분의 10에 상당하는 금액을 소득세 또는 법인세에서 공제한다.\",\n      \"specific_error\": \"주장은 공제율을 15%로 기재하였으나, 근거 문서 제1항은 100분의 10(10%)으로 규정한다.\"\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"이 조에 따른 공제는 투자가 완료된 날이 속하는 과세연도에 적용한다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": true\n}\n```",
+    "p3_raw": "```json\n{\"risks\":[{\"quote\":\"투자금액의 15%를 법인세에서 공제받습니다\",\"type\":\"d\",\"confidence\":\"상\",\"alternatives\":[\"투자금액의 10% (제1항 기본공제)\",\"투자금액의 12% (제2항 신성장사업화시설 해당 시)\"]}]}\n```"
+  },
+  "E3": {
+    "type": "error",
+    "seeded_error": {
+      "claim_id": 2,
+      "kind": "근거 밖 주장",
+      "detail": "근거 문서에 없는 지어낸 예규와 이연 규정"
+    },
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"재고자산 평가손실과 모든 감모손실은 발생한 기간에 비용으로 인식한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"근거없음\",\n      \"quote\": \"없음\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": true\n}\n```",
+    "p3_raw": "```json\n{\"risks\":[{\"quote\":\"국세청 예규 서면법인-2024-1234에 따라 천재지변으로 인한 감모손실은 3년간 이연할 수 있습니다\",\"type\":\"a\",\"confidence\":\"상\",\"alternatives\":[\"해당 예규가 실제로 존재하지 않을 수 있음\",\"근거 문서 문단 34는 '모든 감모손실'을 발생 기간 비용으로 명시하며 예외 규정 없음\"]}]}\n```"
+  },
+  "E4": {
+    "type": "error",
+    "seeded_error": {
+      "claim_id": 1,
+      "kind": "적용요건 불일치",
+      "detail": "문단 21은 후입선출법을 명시적으로 금지하는데 허용이라 주장"
+    },
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"불일치\",\n      \"quote\": \"재고자산의 단위원가는 선입선출법 또는 가중평균법을 사용하여 결정한다. 후입선출법(LIFO)은 허용하지 아니한다.\",\n      \"specific_error\": \"주장은 후입선출법을 선택 가능한 방법으로 열거하였으나, 문단 21은 '후입선출법(LIFO)은 허용하지 아니한다'고 명시하여 정반대다.\"\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"일치\",\n      \"quote\": \"통상적으로 상호 교환될 수 없는 재고자산의 원가는 개별법을 사용하여 결정한다.\",\n      \"specific_error\": null\n    }\n  ],\n  \"needs_revision\": true\n}\n```",
+    "p3_raw": "```json\n{\"risks\":[{\"quote\":\"선입선출법, 가중평균법, 후입선출법 중에서 기업이 선택하여 적용할 수 있습니다\",\"type\":\"c\",\"confidence\":\"상\",\"alternatives\":[\"문단 21은 선입선출법과 가중평균법만 허용하며 후입선출법(LIFO)은 명시적으로 금지함\"]}]}\n```"
+  },
+  "E5": {
+    "type": "error",
+    "seeded_error": {
+      "claim_id": 2,
+      "kind": "수치 불일치",
+      "detail": "제3항은 직전 3년 평균인데 5년으로 변조"
+    },
+    "p1_raw": "```json\n{\n  \"items\": [\n    {\n      \"claim_id\": 1,\n      \"verdict\": \"일치\",\n      \"quote\": \"신성장사업화시설에 투자하는 경우 중소기업은 투자금액의 100분의 12에 상당하는 금액을 공제한다.\",\n      \"specific_error\": null\n    },\n    {\n      \"claim_id\": 2,\n      \"verdict\": \"불일치\",\n      \"quote\": \"해당 과세연도의 투자금액이 직전 3년 평균 투자금액을 초과하는 경우 그 초과분의 100분의 3에 상당하는 금액을 추가로 공제한다.\",\n      \"specific_error\": \"근거 문서는 '직전 3년 평균'이나 주장은 '직전 5년 평균'으로 기산 연수가 다르다.\"\n    }\n  ],\n  \"needs_revision\": true\n}\n```",
+    "p3_raw": "```json\n{\"risks\":[{\"quote\":\"직전 5년 평균 투자금액을 초과하는 투자분에는 3% 추가공제가 적용됩니다(제3항)\",\"type\":\"d\",\"confidence\":\"상\",\"alternatives\":[\"직전 3년 평균 투자금액 초과분에 3% 추가공제 적용(제9910조 제3항 원문)\"]}]}\n```"
+  }
+}

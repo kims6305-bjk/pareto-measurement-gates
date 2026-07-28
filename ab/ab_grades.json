@@ -1,0 +1,740 @@
+{
+ "Q001": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q008": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q002": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q003": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q004": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q005": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q006": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q007": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q009": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q010": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q011": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q012": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q013": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q014": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB_draft": true,
+  "accA": true,
+  "accB": true
+ },
+ "Q015": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB_draft": true,
+  "accB": true,
+  "accA": true
+ },
+ "Q016": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q017": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q018": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q019": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q020": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q021": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q022": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q023": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q024": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q025": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q026": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q027": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q028": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q029": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q030": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q031": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q032": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q033": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q034": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q035": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q036": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q037": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q038": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q039": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q040": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB_draft": true,
+  "accB": true,
+  "accA": true
+ },
+ "Q041": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q042": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q043": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accA": true,
+  "accB_draft": true,
+  "accB": true
+ },
+ "Q044": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q045": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q046": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q047": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q048": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q049": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": false
+ },
+ "Q050": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q051": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q052": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q053": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q054": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q055": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q056": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q057": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accA": true,
+  "accB_draft": true,
+  "accB": true
+ },
+ "Q058": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q059": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q061": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q062": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q063": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q064": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q065": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q066": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q067": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q068": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q069": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q070": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q071": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q072": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q073": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q074": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q075": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q076": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q077": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q078": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q079": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q080": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q081": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q082": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB_draft": true,
+  "accA": true,
+  "accB": true
+ },
+ "Q083": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q084": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q085": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accA": true,
+  "accB_draft": true,
+  "accB": true
+ },
+ "Q086": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q087": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q088": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q089": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q090": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q091": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q092": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accA": true,
+  "accB": false,
+  "accB_draft": true
+ },
+ "Q093": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q094": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q095": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q096": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q097": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q098": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q099": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q100": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q101": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q102": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB": true,
+  "accB_draft": true,
+  "accA": true
+ },
+ "Q103": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q104": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q105": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q106": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q107": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB_draft": true,
+  "accA": true,
+  "accB": true
+ },
+ "Q108": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q109": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q110": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q111": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB_draft": true,
+  "accA": true,
+  "accB": true
+ },
+ "Q112": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q114": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q115": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q116": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q117": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q118": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "citeB_draft_err": false,
+  "accB": true,
+  "accA": true,
+  "accB_draft": true
+ },
+ "Q119": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ },
+ "Q120": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accB": true,
+  "accA": true
+ },
+ "Q113": {
+  "citeA_err": false,
+  "citeB_err": false,
+  "accA": true,
+  "accB": true
+ }
+}
