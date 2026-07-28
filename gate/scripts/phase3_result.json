@@ -1,0 +1,73 @@
+{
+  "n_common": 275,
+  "n_excluded": 2,
+  "exclusion_reasons": {
+    "A:unresolved/B:majority": 2
+  },
+  "n_usable": 273,
+  "negative_control": {
+    "n": 11,
+    "mismatch": 0,
+    "wilson": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+    ]
+  },
+  "h1": {
+    "n": 262,
+    "improve": 0,
+    "worsen": 4,
+    "other": 0,
+    "mcnemar_p": 0.125,
+    "flip_rate": 0.015267175572519083,
+    "wilson": [
+      0.005952609025351562,
+      0.03859120954931847
+    ],
+    "criteria": {
+      "p<0.05": false,
+      "direction": false,
+      "above_control": false
+    },
+    "accepted": false
+  },
+  "h2": {
+    "rates": {
+      "CONJUNCTIVE": {
+        "k": 2,
+        "n": 24,
+        "lo": 0.023158327842973503,
+        "hi": 0.258492152014506,
+        "questions": 3,
+        "flip_questions": 1,
+        "q_rate": 0.3333333333333333
+      },
+      "SELECTION": {
+        "k": 0,
+        "n": 35,
+        "lo": 0.0,
+        "hi": 0.09890426758938868,
+        "questions": 6,
+        "flip_questions": 0,
+        "q_rate": 0.0
+      }
+    },
+    "claim_separated": false,
+    "question_direction": true,
+    "verdict": "기각",
+    "accepted": false
+  },
+  "exploratory": {
+    "n": 0,
+    "improve": 0,
+    "worsen": 0,
+    "other": 0
+  },
+  "improve_ids": [],
+  "worsen_ids": [
+    "Q092-armA-c2",
+    "Q092-armB_final-c3",
+    "Q095-armA-c2",
+    "Q111-armB_final-c1"
+  ]
+}

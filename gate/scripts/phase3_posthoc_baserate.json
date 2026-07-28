@@ -1,0 +1,78 @@
+{
+  "note": "POST-HOC. 사전 판정(phase3_result.json)을 설명할 뿐 변경하지 않는다.",
+  "by_set": [
+    {
+      "set": "confirmatory",
+      "n": 271,
+      "A_problem": 0,
+      "A_problem_rate": 0.0,
+      "A_split": 2,
+      "improvement_ceiling": 0
+    },
+    {
+      "set": "exploratory",
+      "n": 4,
+      "A_problem": 0,
+      "A_problem_rate": 0.0,
+      "A_split": 0,
+      "improvement_ceiling": 0
+    }
+  ],
+  "disagreements": [
+    {
+      "id": "Q057-armB_final-c2",
+      "set": "confirmatory",
+      "rule_type": "OTHER",
+      "n_siblings": 2,
+      "A": "SPLIT",
+      "B": "INSUFFICIENT"
+    },
+    {
+      "id": "Q092-armA-c2",
+      "set": "confirmatory",
+      "rule_type": "CONJUNCTIVE",
+      "n_siblings": 4,
+      "A": "SUPPORTED",
+      "B": "INSUFFICIENT"
+    },
+    {
+      "id": "Q092-armB_final-c3",
+      "set": "confirmatory",
+      "rule_type": "CONJUNCTIVE",
+      "n_siblings": 4,
+      "A": "SUPPORTED",
+      "B": "INSUFFICIENT"
+    },
+    {
+      "id": "Q095-armA-c2",
+      "set": "confirmatory",
+      "rule_type": "OTHER",
+      "n_siblings": 2,
+      "A": "SUPPORTED",
+      "B": "INSUFFICIENT"
+    },
+    {
+      "id": "Q102-armB_final-c2",
+      "set": "confirmatory",
+      "rule_type": "OTHER",
+      "n_siblings": 2,
+      "A": "SPLIT",
+      "B": "INSUFFICIENT"
+    },
+    {
+      "id": "Q111-armB_final-c1",
+      "set": "confirmatory",
+      "rule_type": "OTHER",
+      "n_siblings": 3,
+      "A": "SUPPORTED",
+      "B": "INSUFFICIENT"
+    }
+  ],
+  "disagreement_by_question": {
+    "Q057": 1,
+    "Q092": 2,
+    "Q095": 1,
+    "Q102": 1,
+    "Q111": 1
+  }
+}
