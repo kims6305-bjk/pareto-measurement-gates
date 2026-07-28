@@ -29,6 +29,11 @@ reflection** — "중간에 끊고 '지금 무슨 생각해?'라고 물으면 �
 프롬프트 레벨로 번역한 것이 이 스킬입니다: 답변 생성 후 "이 답에서 근거 못 대는
 부분을 말해봐"라고 묻는 **리플렉션 프로브**를 파이프라인 노드로 꽂는 설계.
 
+> **범위 명시**: 이 레포는 위 논문의 **구현이 아닙니다.** 원 논문의 counterfactual
+> reflection은 학습(fine-tuning) 기법이고, 이 레포는 추론 시 프롬프트 검증기입니다.
+> 논문은 설계의 동기일 뿐, 본 레포 P1/P2/P3의 효과를 입증하지 않습니다 —
+> 효과 판정은 전적으로 아래의 자체 A/B 게이트가 담당합니다.
+
 ## 순진하게 만들면 해롭다 (설계 과정)
 
 구현 전에 자기검증(self-correction) 문헌 8편을 검토했고, **순진한 프로브는
@@ -84,6 +89,17 @@ K-IFRS 공개 기준서 12종 기반 119문항 = normal 84 + no_answer 17(환각
 | 주지표: 인용오류율 | 0/119 (0%) | 0/119 (0%) | p=1.0 — 개선 여지 없음 ❌ |
 | 가드레일1: 답변정확도 | 99.2% | 99.2% | 비열화 ✅ |
 | 가드레일2: 과교정율 | — | **0.84% > 임계 0.5%** | ❌ |
+
+주지표 "0%"의 정확한 의미 (외부 리뷰 반영, 과대해석 방지):
+
+- 기계 채점기는 인용 **구조·주소·발췌 실존**을 검사합니다 — 이 층에서 오류 0/238.
+- "주장↔근거 의미 일치"는 별도 재채점으로 검증했습니다: 238건 전수를 claim 단위
+  LLM 저지(`claude-sonnet-4-6`, fail-closed, 저지 원문·사유 전문 공개)로 재채점한 결과
+  **의미상 상충 0건, 근거범위 초과 3/238(1.3%)** — A/B 완전 대칭이라 판정 불변.
+  전문: [`gate/SEMANTIC_REGRADE.md`](gate/SEMANTIC_REGRADE.md)
+- 의미상 상충 0/238의 95% CI 상한은 약 1.3%(rule of three)입니다.
+  "오류율 0%"는 점 추정이며, 이 신뢰구간과 함께 읽어야 합니다.
+- no_answer층 17문항(14.3%)은 양 arm 모두 정상 기권 — 환각 유도 실패 0.
 
 **판정: P1 폐기.** 유일한 열화 사례(Q092)는 문헌의 EIR 메커니즘이 그대로 재현된
 실물입니다 — 프로브는 규칙대로 "evidence 밖 추론"을 근거없음 판정했고, revise는
@@ -160,12 +176,20 @@ harness/                # 실측 ① 합성 스트레스테스트
   stress_results_run{1,2}.json
 ab/                     # 실측 ② A/B 게이트
   ab_questions_FROZEN.json  # 사전 등록 문항 119 (K-IFRS 공개 기준서 기반)
+  ab_results.json       #   두 arm 원시 출력 전문 (감사·재채점용)
   ab_runner.py          #   두 arm 러너 (증분 저장·재개 가능)
   grade_ab.py           #   기계 채점 + 블라인드 저지 + McNemar 리포트
   merge_verify.py       #   문항 생성 시 독립 재검증기
   make_chart.py         #   판정 차트 생성
   ab_grades.json        #   채점 원자료
   AB_VERDICT.md         #   판정 전문
+gate/                   # 채점 게이트 패키지 + 의미 레이어 재채점
+  src/reflection_gate/  #   결정론(구조·주소·발췌)+의미(LLM 저지) 2층 채점기, fail-closed
+  tests/                #   pytest 38종 (네거티브 컨트롤 10종 포함)
+  scripts/semantic_regrade.py            # 238건 전수 재채점 (재개 가능)
+  scripts/semantic_regrade_judgments.jsonl  # 저지 원문·사유 전문
+  scripts/semantic_regrade_manifest.json    # 저지 모델 ID·CLI·타임아웃 고정 기록
+  SEMANTIC_REGRADE.md   #   재채점 판정 전문 (FLAGGED 18건 사람 대조 포함)
 docs/
   ab_verdict_chart.png
 ```

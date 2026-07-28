@@ -1,0 +1,12 @@
+{
+ "tally": {
+  "A:VERIFIED": 93,
+  "B:VERIFIED": 93,
+  "A:ABSTAIN_OK": 17,
+  "B:ABSTAIN_OK": 17,
+  "A:FLAGGED": 9,
+  "B:FLAGGED": 9
+ },
+ "n_pairs": 238,
+ "finished": "2026-07-28 13:54:10"
+}

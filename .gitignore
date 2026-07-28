@@ -1,3 +1,4 @@
 __pycache__/
 .venv*/
-ab_results.json
+gate/regrade_deterministic.json
+gate/regrade_deterministic_v2.json

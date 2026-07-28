@@ -1,0 +1,9 @@
+{
+ "judge_model": "claude-sonnet-4-6",
+ "cli": "claude -p --max-turns 1",
+ "timeout_s": 120,
+ "dataset": "ab/ab_questions_FROZEN.json",
+ "raw_results": "ab/ab_results.json",
+ "started": "2026-07-28 12:50:06",
+ "resume_skipped": 0
+}

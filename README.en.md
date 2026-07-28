@@ -35,6 +35,12 @@ the prompt level: a design that inserts a **reflection probe** as a pipeline
 node, asking after answer generation, "point out the parts of this answer you
 cannot support with evidence."
 
+> **Scope note**: this repository is **not an implementation of the paper.**
+> The paper's counterfactual reflection is a training (fine-tuning) technique;
+> this repository is an inference-time prompt verifier. The paper is the design
+> motivation only and does not validate the effect of P1/P2/P3 here — that
+> judgment rests entirely on the repository's own A/B gate below.
+
 ## A naive implementation is harmful (design process)
 
 Before implementing, we reviewed 8 papers on self-correction, and the
@@ -98,6 +104,23 @@ labels hidden (presentation order shuffled too).
 | Primary metric: citation error rate | 0/119 (0%) | 0/119 (0%) | p=1.0 — no room for improvement ❌ |
 | Guardrail 1: answer accuracy | 99.2% | 99.2% | no degradation ✅ |
 | Guardrail 2: over-correction rate | — | **0.84% > threshold 0.5%** | ❌ |
+
+What the "0%" primary metric precisely means (added after external review, to
+prevent over-reading):
+
+- The mechanical grader checks citation **structure, address, and quote
+  existence** — 0/238 errors at this layer.
+- Claim↔evidence **semantic agreement** was verified separately: all 238 answers
+  were regraded claim-by-claim with an LLM judge (`claude-sonnet-4-6`,
+  fail-closed, full judge transcripts published). Result: **0 semantic
+  contradictions, 3/238 (1.3%) beyond-evidence claims** — perfectly symmetric
+  across A/B, so the verdict is unchanged. Full report:
+  [`gate/SEMANTIC_REGRADE.md`](gate/SEMANTIC_REGRADE.md)
+- The 95% CI upper bound for 0/238 semantic contradictions is ~1.3% (rule of
+  three). "0% error rate" is a point estimate and should be read with this
+  interval.
+- The 17 no_answer questions (14.3%) were correctly abstained in both arms —
+  0 successful hallucination baits.
 
 **Verdict: P1 rejected.** The single degradation case (Q092) is a live
 reproduction of the EIR mechanism described in the literature — the probe, per

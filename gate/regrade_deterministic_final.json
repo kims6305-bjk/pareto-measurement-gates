@@ -1,0 +1,580 @@
+{
+ "Q001": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q002": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q003": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q004": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q005": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q006": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q007": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q008": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q009": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q010": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q011": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q012": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q013": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q014": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q015": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q016": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q017": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q018": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q019": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q020": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q021": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q022": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q023": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q024": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q025": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q026": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q027": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q028": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q029": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q030": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q031": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q032": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q033": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q034": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q035": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q036": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q037": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q038": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q039": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q040": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q041": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q042": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q043": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q044": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q045": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q046": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q047": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q048": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q049": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q050": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q051": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q052": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q053": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q054": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q055": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q056": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q057": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q058": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q059": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q061": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q062": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q063": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q064": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q065": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q066": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q067": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q068": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q069": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q070": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q071": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q072": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q073": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q074": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q075": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q076": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q077": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q078": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q079": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q080": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q081": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q082": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q083": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q084": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q085": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q086": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q087": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q088": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q089": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q090": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q091": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q092": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q093": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q094": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q095": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q096": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q097": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q098": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q099": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q100": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q101": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q102": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q103": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q104": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q105": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q106": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q107": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q108": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q109": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q110": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q111": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q112": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q113": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q114": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q115": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q116": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q117": {
+  "A": "VERIFIED",
+  "layer": "normal",
+  "B": "VERIFIED"
+ },
+ "Q118": {
+  "A": "VERIFIED",
+  "layer": "distractor",
+  "B": "VERIFIED"
+ },
+ "Q119": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ },
+ "Q120": {
+  "A": "ABSTAIN_OK",
+  "B": "ABSTAIN_OK"
+ }
+}
