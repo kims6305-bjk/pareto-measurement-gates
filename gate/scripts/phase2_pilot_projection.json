@@ -1,0 +1,18 @@
+{
+  "base_rate": 0.0333,
+  "wilson95": [
+    0.0059,
+    0.1667
+  ],
+  "pool": 201,
+  "target_problems": 55,
+  "expected_problems_at_pool": 6.7,
+  "expected_problems_at_pool_ci": [
+    1.2,
+    33.5
+  ],
+  "labels_needed_point": 1650,
+  "labels_needed_optimistic": 330,
+  "verdict": "후보 풀 전량으로도 목표 미달 — 원안 완주는 파레토상 열등",
+  "note": "효과 지표(프로브/저지 출력) 미참조. 화이트리스트 §1.1 준수."
+}

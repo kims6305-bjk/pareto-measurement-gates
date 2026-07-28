@@ -1,0 +1,16 @@
+{
+  "source": "phase2_pilot_label_sheet.xlsx",
+  "n_labeled": 30,
+  "n_no_proposition": 0,
+  "denominator": 30,
+  "n_problems": 1,
+  "base_rate": 0.0333,
+  "distinct_answers_with_problem": 1,
+  "target_problems": 55,
+  "n_required_raw": 1650,
+  "n_min": 90,
+  "n_max_pool": 201,
+  "N_final": 201,
+  "shortfall_possible": true,
+  "note": "효과 지표(프로브/저지 출력)는 이 산출에 일절 사용되지 않음."
+}
