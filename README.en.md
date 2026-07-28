@@ -158,7 +158,7 @@ question set)**:
 |---|---|---|
 | Skill body (3 probes + anchors A1–A7 + graph structure) | No | A "claim ↔ verbatim evidence" cross-check structure — applicable to any citation QA with source documents (statutes, case law, internal policies, papers, contracts, medical guidelines) |
 | Gate procedure (pre-registration → blind → McNemar) | No | The statistical procedure itself has no domain |
-| Measurement data (`ab/ab_questions_FROZEN.json`, 119 questions) | K-IFRS | The authors' operating domain simply happened to be accounting QA. Other domains substitute their own question sets |
+| Measurement data (`ab/ab_questions_FROZEN.json`, 119 questions) | K-IFRS | The author's operating domain simply happened to be accounting QA. Other domains substitute their own question sets |
 
 The source literature behind the anchors comes from math (GSM8K), commonsense
 (CSQA), and biography-writing (FACTSCORE) benchmarks, none of which relate to
