@@ -1,20 +1,21 @@
 ---
 name: probe-graph
 description: "'프로브 그래프'·'리플렉션 프로브'·답변 자기검증 요청 시 — QA봇 검증 서브그래프 배선."
-usage_hint: "적용 전 references/probe-prompts.md의 앵커 확인. 실측 통과 전 '효과 있다' 단정 금지."
+usage_hint: "적용 전 references/probe-prompts.md의 앵커 확인. 라이브 봇 이식은 라이브 반영 절차 + 섀도우 배포 절차 절차 준용. 실측 통과 전 '효과 있다' 단정 금지."
 tags: [reflection-probe, verification, rag, citation, graph-engineering, quality-gate]
-related_skills: []
+related_skills: [섀도우 배포 절차, skill-design-standard, pareto-optimization-gate]
 ---
 
 # Probe-Graph — 리플렉션 프로브 검증 서브그래프
 
-인용 기반 QA 파이프라인(회계·법률 등 도메인 RAG 봇)에 꽂는 **검증 서브그래프**.
+인용 기반 QA 파이프라인(근거 문서를 인용하는 RAG 봇)에 꽂는 **검증 서브그래프**.
 답변 생성 후 프로브 노드가 근거 대조를 수행하고, 조건부 엣지로 수정/통과/사람-라우팅을 분기한다.
 
 **혈통**: Anthropic "Verbalizable Representations Form a Global Workspace" (2026)의
 counterfactual reflection을 프롬프트 레벨로 번역 + 검증문헌 8편(CoVe, Huang, FBC/EIR,
 Self-Refine, SelfCheckGPT, 캘리브레이션 2편, Reflexion)의 실측 수치로 앵커 설계.
-근거 전문 = 본 레포 README 참고문헌 절.
+근거 전문 = workspace의 `reflection_probe_문헌정리.md` / `reflection_probe_구현설계.md` /
+`counterfactual_reflection_정리.md`.
 
 ## 0. 대원칙 (어기면 실증적으로 해로움)
 
@@ -22,7 +23,7 @@ Self-Refine, SelfCheckGPT, 캘리브레이션 2편, Reflexion)의 실측 수치�
    정답→오답 전환이 오답→정답보다 많았다 (Huang: 최대 −9.5pp). 프로브는 반드시
    §2 앵커를 경유해 설계한다.
 2. **개념은 그래프, 구현은 기존 파이프라인.** LangGraph 등 프레임워크 신규 도입 금지 —
-   기존 봇 코드에 노드 함수로 얹는다.
+   기존 봇 코드(answer.py 등)에 노드 함수로 얹는다.
 3. **프로브 통과율을 성공 지표로 쓰지 않는다** (Goodhart/프로브 게이밍 방지,
    Obfuscation Atlas ICML 2026). 성공 판정은 항상 외부 ground truth
    (원문 대조 인용오류율)로만. 프로브 지적 건수를 줄이는 방향의 프롬프트 튜닝 금지.
@@ -84,7 +85,8 @@ McNemar p<10⁻⁴, 이미 안전한 모델에선 p=1.0 무변화) → **실시�
                         └─ risks 1건+ → [아침 보고/사람 검토 큐]
 ```
 
-P3는 답을 절대 안 고치므로 과교정 위험이 구조적으로 0. **야간 감사 cron에 바로 꽂아도 안전한 유일한 프로브.** Anthropic 논문의 BUT-갭(내부 이의는 있는데 행동 미반영
+P3는 답을 절대 안 고치므로 과교정 위험이 구조적으로 0. **harness-audit-loop 야간 cron에
+바로 꽂아도 안전한 유일한 프로브.** Anthropic 논문의 BUT-갭(내부 이의는 있는데 행동 미반영
 88%)을 출력으로 꺼내는 노드가 이것.
 
 ## 2. 앵커 7종 (프로브 프롬프트 필수 부품)
@@ -127,13 +129,13 @@ P1(실측 통과 후)**.
   프로브 폐기(P3 제외 — P3는 라우팅 정밀도로 별도 평가)
 - 평가 문항·채점기는 실험 중 수정 금지 (skill-design-standard 실험 불변식)
 
-## 5. 이식 절차 (라이브 QA봇 기준)
+## 5. 이식 절차 (운영 QA 봇 기준)
 
-1. 섀도우 환경 준비 — 라이브 무접촉 사본에서 먼저 실행
+1. 섀도우 환경 준비 — 섀도우 배포 절차 절차 준용 (라이브 무접촉)
 2. P3부터: 기존 답변 로그 표본에 P3 실행 → 위험 열거 품질을 눈으로 검수 (프로브 자체 QA)
-3. A/B 80문항 이상: 공개 기준서/법령 기반 문항만 (내부 데이터 금지)
-4. 게이트 통과 프로브만 사람 승인을 거쳐 라이브 반영
-5. 기존 사후 감사 도구와 역할 분담 명시: 감사=인용 실존(사후), P1=인용 의미 일치(생성시)
+3. A/B 80문항: 공시/공개 기준서 기반 문항만 (회사 내부숫자 금지 — 데이터경계)
+4. 게이트 통과 프로브만 라이브 반영 절차로 라이브 반영 (저자 승인 필수)
+5. 기존 citation_audit과 역할 분담 명시: audit=인용 실존(사후), P1=인용 의미 일치(생성시)
 
 ## 실측 판정 기록 (2026-07-28 — K-IFRS 119문항 A/B 완료)
 
@@ -148,7 +150,26 @@ distractor 18, claude CLI 양 arm 동일 모델·동일 날, 블라인드 저지
 - 교훈: **오류율 0% 시스템에 검증 레이어 = 상방 0, 하방만 존재 (순비용).**
   P1 재도입 검토는 "생성 모델이 인용오류를 실제로 내는" 환경(비-Claude, 근거 미동봉,
   파라메트릭 인용 허용)에서만. P3(무수정)·P2(앵커)는 이 판정과 무관하게 유효.
-- 판정 전문: 본 레포 `ab/AB_VERDICT.md`
+- 판정 전문: workspace `probe_graph_test/AB_VERDICT.md`
+- 공개 레포: 이 저장소 (MIT, README 한/영/중)
+
+## P3 야간 감사 배선 (2026-07-28 — 판정 후속 반영, 라이브)
+
+- **cron**: job_id `af40b95442f2`, "P3 야간 감사 (운영 QA 봇 답변 리플렉션 프로브)",
+  `30 21 * * *`(매일 21:30), no_agent(스크립트 stdout 그대로 배달, risks 0건=무음), deliver=origin.
+- **wrapper**: `<agent-home>/scripts/probe_p3_audit.sh` → 정본
+  `workspace/scripts/probe_p3_audit.py` (harness-audit-loop wrapper 패턴, 복사본 없음).
+- **동작**: 운영 QA 봇의 발송 로그 `data/<bot>/sent/*.json` 최근 26h에서 미검사분
+  최대 6건 → draft_answer+citations(상위 6청크·1200자 캡)를 P3 프롬프트(references/
+  probe-prompts.md 정본, 앵커 불변)에 넣어 claude CLI 실행 → risks만 메신저 보고.
+- **상태**: `data/harness_audit/p3_audit_state.json`(done_files 최대 500). 상세 JSON은
+  무음이어도 `data/harness_audit/p3_reports/p3_날짜.json`에 항상 남김. 실패 파일은
+  done 미기록 → 다음 밤 재시도.
+- 첫 실측(07-28): sent 1건 검사 → risks 3건 검출(부가세법 §8 사업장별 등록 원칙 관련
+  근거없음 지적 — P3가 실제 위험을 잡는 것 확인). cron run 게이트 통과(last_status ok).
+- 🔴 대원칙 3 그대로 적용: 이 리포트의 지적 건수로 봇 프롬프트 튜닝 금지(Goodhart).
+  P3 출력은 관찰·사람 검토 전용, 자동수정 배선 금지.
+- 제2 QA 봇은 sent 저장 구조가 없어(state.json만) 미배선 — 편입하려면 발송 로그 저장부터.
 
 ## 함정/교훈
 

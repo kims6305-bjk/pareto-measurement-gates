@@ -10,7 +10,18 @@ The headline result first: **the main probe of this repository (P1) was
 rejected by its own measurement gate.** The value here is not a "universal
 verification prompt" but (1) three probes designed from the literature and
 (2) the reproducible end-to-end **judgment procedure that filtered them out
-before adoption** (pre-registration → blind grading → McNemar test).
+before adoption** (preregistration → blind grading → McNemar test).
+
+And in the four stages that followed (Phase 1–3 + the instrument check), the
+gate caught **its own failures** as well. The numbers with the highest reuse
+value are on the gate side, not the probe side:
+
+| Gate metric | Measured | Meaning |
+|---|---|---|
+| Instrument check detection recall | **81.8%** (9/11) | Confirms the measuring tool catches signal **before** the main run |
+| Instrument check 3-run reproducibility | **0 SPLIT** / 55 | Verdicts do not wobble |
+| Diagnostic cost | **1,650 calls → 165 calls** | Root-causing a failure at one tenth the cost |
+| Probe 3-vote consensus (Phase 1) | Recall held at 90%, review burden 38.9%→35.2%, **0 automated false positives** | An outward Pareto move obtained by **removing**, not adding |
 
 ![A/B measurement verdict chart](docs/ab_verdict_chart.png)
 
@@ -43,7 +54,7 @@ cannot support with evidence."
 
 ## A naive implementation is harmful (design process)
 
-Before implementing, we reviewed 8 papers on self-correction, and the
+Before implementing, the author reviewed 8 papers on self-correction, and the
 counter-evidence was consistent: **naive probes actually degrade performance.**
 
 | Paper | What it contributed to this design |
@@ -72,7 +83,7 @@ figures).
 
 ## Measurement ① — synthetic stress test (QA of the probe itself)
 
-We first verified that the probe "catches planted errors and does not force
+The first check was that the probe "catches planted errors and does not force
 spurious flags onto correct answers" (`harness/`). 5 correct answers + 5 answers
 with planted errors (misquoted article numbers, altered figures, claims outside
 the evidence).
@@ -80,14 +91,14 @@ the evidence).
 - run1: 9.5/10 — **found 1 needs_revision logic inconsistency**: the model
   correctly assigned verdict='근거없음' ("unsupported") yet emitted needs_revision=false.
   → Lesson: **do not trust the model for verdict fields; derive them in code via
-  `any(verdict != "일치")`** ("match") — the Korean literals match the actual
-  probe output schema (reflected in the skill)
+  `any(verdict != "일치")`** ("match") — the Korean literals are the actual
+  runtime schema and must be kept verbatim (reflected in the skill)
 - run2 (after the fix): 5/5 errors localized, 0 spurious flags, 0 failures on
   verbatim quote existence, JSON 10/10 — pass
 
 ## Measurement ② — the A/B gate: and P1 failed it
 
-**Pre-registration** (`ab/ab_questions_FROZEN.json`, frozen and not to be
+**Preregistration** (`ab/ab_questions_FROZEN.json`, frozen and not to be
 modified): 119 questions built on 12 publicly available K-IFRS standards =
 84 normal + 17 no_answer (hallucination bait) + 18 distractor (similar-paragraph
 traps). The grading rules were fixed before the experiment as well.
@@ -142,8 +153,8 @@ the Self-Refine failure analysis (61% inappropriate edits).
    first; if it is 0%, do not attach P1.**
 3. P3 (no edit authority) and P2 (verify-first anchors) are unaffected by this
    verdict — their over-correction is structurally 0 or empirically 0.
-4. Without a judgment gate, we would have shipped a pure-cost layer to production
-   on the reasoning that "we added verification, so it must be safer." **The most
+4. Without a judgment gate, a pure-cost layer would have shipped to production on
+   the reasoning that "we added verification, so it must be safer." **The most
    reusable part of this repository is not the probe but the gate.**
 
 ## A Pareto reading — clamping down on the harness is not optimal
@@ -164,13 +175,141 @@ metrics (error detection ↔ over-correction).**
   detects a Pareto-inferior move before it is adopted.** The intuition "more
   verification is safer" is true only inside the frontier and false on it.
 
-We state the limits of the claim as well: this measurement compares two points
+The limits of the claim are stated as well: this measurement compares two points
 on the verification-strength dial (no verification vs P1 + revise); it is not a
 map of the whole frontier. The claim the data supports is not "we found the
-optimum" but "**we empirically identified an inferior move**." Drawing the
+optimum" but "**an inferior move was empirically identified**." Drawing the
 frontier itself would require several levels of verification strength (e.g.,
 P2 only / tuning P1 anchor strength / changing the revise threshold) and
 measuring each point with the same gate.
+
+## Measurement ③ — the four stages after: the gate catching its own failures
+
+After the A/B verdict, four more stages were run to answer "then why did the
+probe flag those false positives?" **Three consecutive stages returned
+inconclusive**, and the fourth localized the cause. This section is the most
+reusable part of the repository — because the kind of failure was different
+every time.
+
+| Stage | What it asked | Result | What it did not measure |
+|---|---|---|---|
+| Phase 1 | Does the probe catch problems? | Inconclusive | **Reproducibility** of the probe's verdicts |
+| Phase 2 | Does more sample make it decidable? | Inconclusive | Human-label **base rate** (3.3%) |
+| Phase 3 | Does the grading unit distort the verdict? | Inconclusive | Judge-verdict **base rate** (0%) |
+| Instrument check | **Is the measuring tool itself sound?** | **PASS** | — |
+
+### Phase 1 — discovering there is no reproducibility
+
+Running the judge 3 times with an identical prompt and identical model, 5 of 54
+items came out different every time. In other words, **reporting a single-run
+number as performance is misreporting.** All grading from then on was fixed to a
+3-run majority vote.
+
+An outward Pareto move came out of that discipline. Switching the probe verdict
+from 1 vote to a **3-vote consensus**:
+
+- Recall 90.0% → 90.0% (**0 loss**)
+- Human review burden 38.9% → **35.2%**
+- 0 false positives in the automated band, held
+
+The improvement came not from **adding** metrics but from **removing** the
+unstable portion.
+
+### Phase 2 — base rate beats sample size
+
+The plan was to secure statistical power by adding human labels. An internal
+pilot design labeled 30 items and read **only the base rate**: **3.3% (1/30)**.
+Even labeling the full candidate pool of 201 items would yield an expected 6.7
+problem cases, short of the 55 required.
+
+→ **171 items were left unlabeled and the phase was terminated.** Completing the
+original plan would have been Pareto-inferior. The pilot was not discarded but
+nested inside the main sample, avoiding the optional stopping critique.
+
+### Phase 3 — 1,650 calls burned, hypothesis untestable
+
+The outcome variable was switched from human labels to **flips in the judge's
+verdict**, driving the human cost to 0. A single-variable A/B toggling only the
+presence of sibling-claim context, 3 runs per condition, 1,650 calls total.
+
+Result: **0 of 271 problem verdicts in condition A (control).** With nothing to
+flip, the hypothesis was never tested. The 6 observed disagreements all went the
+opposite direction (becoming stricter) and were not significant at McNemar
+p=0.125.
+
+### Instrument check — localizing the cause in 165 calls
+
+At this point two hypotheses diverged, with opposite prescriptions:
+
+- **Hypothesis I (broken instrument)**: the judge is configured such that it
+  cannot detect problems → fix the judge
+- **Hypothesis C (corpus gap)**: the judge is fine and the sample had no problems
+  → change the sample
+
+Diffing the prompt code made Hypothesis I look likely. The Phase 3 judge was
+**missing** the `[전체 답변]` ("full answer") block and the "distortion of the
+rule" instruction that the validated Phase 1 judge had.
+
+So before fixing anything, it was **measured**. The Phase 3 judge prompt was
+applied to 55 human-labeled items without changing a single character
+(importing the builder as-is). The verdict criteria and the scorer were
+committed **before** looking at the results.
+
+| Item | Value |
+|---|---|
+| Detected out of 11 human-judged problems | **9** |
+| Detection recall | **81.8%** Wilson 95% [52.3%, 94.9%] |
+| CONTRADICTED detections | 7 |
+| 3-run SPLIT | **0** |
+
+**PASS — Hypothesis I was rejected. The author's diagnosis was wrong.**
+Even without the instruction, the judge caught problems well, and its 3-run
+reproducibility was in fact better (0 wobbles) than the complex Phase 1 judge
+(5 wobbles). Without the instrument check, the fix would have followed the
+diagnosis and **a perfectly sound tool would have been "fixed" and that reported
+as an improvement.**
+
+### 🔴 The real cause — two disciplines in conflict
+
+The cause was in the sample, and its source was the preregistration rule itself.
+
+To avoid circular reasoning, Phase 3 adopted the rule "the sample that generated
+the hypothesis is excluded from the confirmatory set." Measurement showed that
+of the 28 questions where problems had been found, **0 were in the confirmatory
+set and all 28 were in the excluded set.**
+
+> **Excluding the hypothesis-generating sample to avoid circularity also
+> excludes the signal.**
+> Not excluding it is circular; excluding it removes what there was to test.
+
+This was not carelessness but **the result of following the preregistration
+discipline faithfully**. It is a case of two disciplines (blocking circularity ↔
+testability) colliding with each other.
+
+The remedy is not to abandon exclusion, but to **confirm before the main run
+that a base rate of the outcome variable survives the exclusion**. That is the
+instrument check, and it costs one tenth of the main run.
+
+### Three rules to take from these four stages
+
+1. **Compute statistical power against the base rate of the outcome variable,
+   not the sample size.** "N=264 secured" is only the denominator. How many of
+   those will be judged problems is the numerator, and if the numerator is 0, no
+   N can test anything.
+2. **Before fixing the measuring tool, measure whether the tool catches signal.**
+   A code diff yields a plausible hypothesis, not a verdict. In this repository
+   that hypothesis turned out to be wrong.
+3. **Do not report a single-run number as performance.** Judge verdicts do not
+   reproduce.
+
+Full text: [`gate/PHASE1_VERDICT.md`](gate/PHASE1_VERDICT.md) ·
+[`gate/PHASE2_VERDICT.md`](gate/PHASE2_VERDICT.md) ·
+[`gate/PHASE3_VERDICT.md`](gate/PHASE3_VERDICT.md) ·
+[`gate/INSTRUMENT_CHECK_RESULT.md`](gate/INSTRUMENT_CHECK_RESULT.md)
+
+The pre-declaration documents for each stage (`*_PREREGISTRATION.md`,
+`INSTRUMENT_CHECK_PREREG.md`) were all **committed before execution**, and the
+commit order is verifiable from the git history.
 
 ## Domain portability — this is not K-IFRS-specific
 
@@ -180,12 +319,28 @@ question set)**:
 | Layer | Domain-dependent | Notes |
 |---|---|---|
 | Skill body (3 probes + anchors A1–A7 + graph structure) | No | A "claim ↔ verbatim evidence" cross-check structure — applicable to any citation QA with source documents (statutes, case law, internal policies, papers, contracts, medical guidelines) |
-| Gate procedure (pre-registration → blind → McNemar) | No | The statistical procedure itself has no domain |
+| Gate procedure (preregistration → blind → McNemar) | No | The statistical procedure itself has no domain |
 | Measurement data (`ab/ab_questions_FROZEN.json`, 119 questions) | K-IFRS | The author's operating domain simply happened to be accounting QA. Other domains substitute their own question sets |
 
 The source literature behind the anchors comes from math (GSM8K), commonsense
 (CSQA), and biography-writing (FACTSCORE) benchmarks, none of which relate to
 accounting.
+
+> ### 🔴 That said, generality has **not been measured yet**
+>
+> The table above is a **design claim** that there is no structural domain
+> dependence — it is not a measurement. Every number in this repository came
+> from a **single domain (K-IFRS), a single judge model, and a single labeler**.
+> The instrument check's 81.8% is no exception.
+>
+> The discipline this repository applied to itself applies here too — **no claim
+> without evidence.** Until the instrument check is verified to catch signal on
+> a label set from another domain (cross-domain validation), generality is marked
+> **unverified**.
+>
+> Verification plan: apply the same procedure to a public QA dataset differing in
+> both domain and language, and record the outcome in this section regardless of
+> whether it passes or fails.
 
 For the same reason, **the "P1 rejected" verdict is valid only within these
 measurement conditions (K-IFRS + strong model + attached evidence)**. In other
@@ -209,14 +364,31 @@ harness/                # Measurement ①: synthetic stress test
   stress_results_run{1,2}.json
 ab/                     # Measurement ②: A/B gate
   ab_questions_FROZEN.json  # 119 pre-registered questions (based on public K-IFRS standards)
+  ab_results.json       #   Full raw output of both arms (for audit and regrading)
   ab_runner.py          #   Two-arm runner (incremental saves, resumable)
   grade_ab.py           #   Mechanical grading + blind judge + McNemar report
   merge_verify.py       #   Independent re-verifier used during question generation
   make_chart.py         #   Verdict chart generation
   ab_grades.json        #   Raw grading data
   AB_VERDICT.md         #   Full verdict text
+gate/                   # Grading gate package + semantic-layer regrade + Phase 1–3 measurements
+  src/reflection_gate/  #   Two-layer grader: deterministic (structure/address/excerpt) + semantic (LLM judge), fail-closed
+  tests/                #   38 pytest cases (including 10 negative controls)
+  SEMANTIC_REGRADE.md   #   Full 238-item regrade verdict (incl. human cross-check of 18 FLAGGED)
+  LABELING_PROTOCOL.md  #   Human labeling protocol (committed before labeling started)
+  PHASE1_VERDICT.md     #   Phase 1 verdict — no reproducibility found, 3-vote consensus adopted
+  PHASE2_INTERNAL_PILOT.md  # Internal pilot design (base rate only, nested sample)
+  PHASE2_PILOT_RESULT.md    # Pilot measurement — base rate 3.3%
+  PHASE2_VERDICT.md     #   Phase 2 verdict — insufficient sample, terminated with 171 items unlabeled
+  PHASE3_PREREGISTRATION.md # Phase 3 pre-declaration (committed before execution, McNemar threshold correction logged)
+  PHASE3_VERDICT.md     #   Phase 3 verdict — untestable + cause (circularity blocking removed the signal)
+  PHASE4_PREREGISTRATION.md # Phase 4 pre-declaration DRAFT (written before viewing Phase 3 results)
+  INSTRUMENT_CHECK_PREREG.md   # Instrument check pre-declaration (committed before execution)
+  INSTRUMENT_CHECK_RESULT.md   # Instrument check result — PASS, records that the author's diagnosis was wrong
+  scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
   ab_verdict_chart.png
+STATE.md                # Multi-session state digest (accumulated decisions, blockers, verification gates)
 ```
 
 ## Reproduction
@@ -230,6 +402,29 @@ python3 grade_ab.py judge       # Blind judge (~250 calls)
 python3 grade_ab.py report      # McNemar verdict table
 python3 make_chart.py           # Chart (requires matplotlib)
 ```
+
+### Reproducing the instrument check (recommended entry point)
+
+The thing **most worth running first** in this repository is the instrument
+check. It confirms in 165 calls whether the verifier in your own environment
+catches signal.
+
+```bash
+cd gate
+for r in run1 run2 run3; do
+  .venv/bin/python scripts/instrument_check_run.py $r
+done
+.venv/bin/python scripts/instrument_check_score.py   # applies the pre-declared criteria automatically
+```
+
+The verdict is computed automatically from the threshold in
+`INSTRUMENT_CHECK_PREREG.md` §4 (recall ≥ 30%).
+**If it FAILs, do not start the main experiment** — a "no effect" obtained while
+the tool cannot catch signal is a failure of measurement, not of the treatment.
+
+To port this to another domain, only the label sheet read by `load_units()` in
+`instrument_check_run.py` needs replacing (id / question / evidence /
+claim_text / human labels S·C·I).
 
 ## References
 
