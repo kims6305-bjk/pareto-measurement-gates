@@ -1,0 +1,37 @@
+name: gate-tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "gate/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "gate/**"
+      - ".github/workflows/ci.yml"
+
+jobs:
+  pytest:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: gate
+    env:
+      # Windows 기본 cp949 콘솔에서 한국어 테스트 데이터 깨짐 방지 (UTF-8 함정)
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Run tests (38 incl. negative controls)
+        run: python -m pytest -v -o addopts=""
