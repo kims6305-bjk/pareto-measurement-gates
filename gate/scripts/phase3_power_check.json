@@ -1,0 +1,31 @@
+{
+  "confirmatory_siblings": 264,
+  "conjunctive": {
+    "claims": 24,
+    "questions": 3,
+    "per_question": {
+      "Q011": 6,
+      "Q063": 8,
+      "Q092": 10
+    }
+  },
+  "selection": {
+    "claims": 35,
+    "questions": 6,
+    "per_question": {
+      "Q001": 4,
+      "Q010": 7,
+      "Q016": 8,
+      "Q067": 4,
+      "Q073": 4,
+      "Q094": 8
+    }
+  },
+  "h2_min_gap": {
+    "conj": 0.7,
+    "sel": 0.3
+  },
+  "negative_control_solo_confirmatory": 7,
+  "negative_control_solo_all": 11,
+  "warning": "H2의 독립 단위는 문항이며 확증 CONJUNCTIVE는 문항 3개뿐 — 군집화 위험"
+}

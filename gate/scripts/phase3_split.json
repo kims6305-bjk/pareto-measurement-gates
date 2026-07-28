@@ -1,0 +1,5892 @@
+{
+  "generating_qids": [
+    "Q004",
+    "Q005",
+    "Q006",
+    "Q007",
+    "Q012",
+    "Q014",
+    "Q015",
+    "Q017",
+    "Q019",
+    "Q020",
+    "Q022",
+    "Q024",
+    "Q025",
+    "Q026",
+    "Q027",
+    "Q030",
+    "Q032",
+    "Q033",
+    "Q035",
+    "Q036",
+    "Q037",
+    "Q041",
+    "Q042",
+    "Q043",
+    "Q044",
+    "Q045",
+    "Q047",
+    "Q049",
+    "Q053",
+    "Q055",
+    "Q058",
+    "Q065",
+    "Q068",
+    "Q069",
+    "Q071",
+    "Q072",
+    "Q077",
+    "Q081",
+    "Q082",
+    "Q084",
+    "Q085",
+    "Q087",
+    "Q088",
+    "Q089",
+    "Q093",
+    "Q097",
+    "Q100",
+    "Q101",
+    "Q103",
+    "Q105",
+    "Q107",
+    "Q108",
+    "Q113",
+    "Q116",
+    "Q117",
+    "Q118"
+  ],
+  "n_units_total": 646,
+  "confirmatory": {
+    "n": 271,
+    "siblings": 264,
+    "solo": 7,
+    "by_rule": {
+      "SELECTION": 35,
+      "OTHER": 205,
+      "CONJUNCTIVE": 24
+    }
+  },
+  "exploratory": {
+    "n": 375,
+    "siblings": 371,
+    "solo": 4
+  },
+  "units": [
+    {
+      "qid": "Q001",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q001",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q001",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q001",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q002",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q002",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q002",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q002",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q002",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q002",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q003",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q003",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q003",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q003",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q003",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q003",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q004",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q005",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q005",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q005",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q005",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q005",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q005",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q006",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q007",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q007",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q010",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q011",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q011",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q011",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q011",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q011",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q011",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q012",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q013",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q013",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q013",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q013",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q013",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q013",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q014",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q014",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q014",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q014",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q015",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q015",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q015",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q015",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q015",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q015",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q016",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q017",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q017",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q017",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q017",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q017",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q017",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q019",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q019",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q019",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q019",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q019",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q020",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q020",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q020",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q020",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q020",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q020",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q021",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q021",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q021",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q021",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q022",
+      "arm": "armB_final",
+      "claim_id": 6,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q023",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q023",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q023",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q023",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q024",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q024",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q024",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q024",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q024",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q025",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q025",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q025",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q025",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q025",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q025",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q026",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q027",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q027",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q030",
+      "arm": "armB_final",
+      "claim_id": 6,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 5,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q031",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q031",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q031",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q031",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q031",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q032",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q032",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q032",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q032",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q033",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q034",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q035",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q036",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q036",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q036",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q036",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q036",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q036",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q037",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q037",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q037",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q037",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q037",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q037",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q039",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q039",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q039",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q039",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q039",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q040",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q041",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q041",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q041",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q041",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q042",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q043",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q044",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q044",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q044",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q044",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q044",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q045",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q045",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q045",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q045",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q045",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q045",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q046",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q046",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q047",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q047",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q047",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q047",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q047",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q047",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q048",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q048",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q048",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q048",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q048",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q048",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q049",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q051",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q051",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q051",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q051",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q051",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q051",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q052",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q052",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q052",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q053",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q054",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q055",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q055",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q055",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q055",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q056",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q056",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q056",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q056",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q057",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q057",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q057",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q057",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q057",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q057",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q058",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q061",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q062",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q062",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q062",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q062",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q063",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q064",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q064",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q064",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q064",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q064",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q064",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q065",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q065",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q065",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q065",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q065",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q065",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q066",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q066",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q066",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q066",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q066",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q066",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q067",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q067",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q067",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q067",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q068",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q068",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q068",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q068",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q068",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q068",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q069",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 6,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armA",
+      "claim_id": 7,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 6,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q071",
+      "arm": "armB_final",
+      "claim_id": 7,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 6,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 6,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 7,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armA",
+      "claim_id": 8,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 7,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q072",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q073",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q073",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q073",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q073",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q074",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q074",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q075",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q075",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q075",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q075",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q075",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q076",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q077",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q078",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q078",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q078",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q078",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q078",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q078",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q081",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q082",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q083",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q084",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q084",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q084",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q084",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q084",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q084",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q085",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q085",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q085",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q085",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q085",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q085",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q086",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q087",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q087",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q087",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q087",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q087",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q088",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q088",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q088",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q088",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q088",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q088",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q089",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q089",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q089",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q089",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q089",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q089",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q091",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q091",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q091",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q091",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q091",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q091",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q092",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q093",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q093",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q093",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q093",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q093",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q093",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q094",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "SELECTION",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q095",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q095",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q095",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q095",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q096",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q096",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q096",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q096",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q096",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q096",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q097",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q097",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q097",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q097",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q100",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q100",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q100",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q100",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q100",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q100",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q101",
+      "arm": "armB_final",
+      "claim_id": 5,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q102",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q102",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q102",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q102",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q102",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q102",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q103",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q103",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q103",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q103",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q103",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q103",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q104",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q104",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q104",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q104",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q104",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q104",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 4,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q105",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q106",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q106",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q106",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q106",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q106",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q106",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q107",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q108",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "CONJUNCTIVE",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armA",
+      "claim_id": 5,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 4,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q109",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q111",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q112",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 0,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q112",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q112",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q112",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q114",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 3,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q115",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q115",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q115",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q115",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q115",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q115",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "confirmatory"
+    },
+    {
+      "qid": "Q116",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q116",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q116",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q116",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q116",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q117",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q117",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q117",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q117",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q117",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q117",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 2,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armA",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armA",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armB_final",
+      "claim_id": 3,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q118",
+      "arm": "armB_final",
+      "claim_id": 4,
+      "rule_type": "OTHER",
+      "layer": "distractor",
+      "n_siblings": 3,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q113",
+      "arm": "armA",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q113",
+      "arm": "armA",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q113",
+      "arm": "armB_final",
+      "claim_id": 1,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    },
+    {
+      "qid": "Q113",
+      "arm": "armB_final",
+      "claim_id": 2,
+      "rule_type": "OTHER",
+      "layer": "normal",
+      "n_siblings": 1,
+      "set": "exploratory"
+    }
+  ]
+}

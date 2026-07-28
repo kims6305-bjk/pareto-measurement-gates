@@ -1,0 +1,18 @@
+{
+  "total_answers": 238,
+  "abstentions": 34,
+  "total_claims": 646,
+  "answers_with_siblings": 193,
+  "claims_with_siblings": 635,
+  "by_rule_claims": {
+    "SELECTION": 62,
+    "OTHER": 439,
+    "CONJUNCTIVE": 134
+  },
+  "by_rule_answers": {
+    "SELECTION": 20,
+    "OTHER": 141,
+    "CONJUNCTIVE": 32
+  },
+  "note": "저지/프로브 출력 미참조. 형제 보유 여부는 claims 개수만으로 결정."
+}
