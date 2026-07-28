@@ -17,6 +17,7 @@
 |---|---|---|
 | 계기 검침 검출 회수율 | **81.8%** (9/11) | 측정 도구가 신호를 잡는지 본 실행 **전에** 확인 |
 | 계기 검침 3판 재현성 | **SPLIT 0건** / 55 | 판정이 흔들리지 않음 |
+| 옆방 검증 (영어·생의학 / 한국어·비회계) | **2/2 PASS**, recall 100% | 도메인·언어·라벨러를 바꿔도 절차가 작동 |
 | 진단 비용 | **1,650콜 → 165콜** | 실패 원인 규명을 10분의 1 비용으로 |
 | 프로브 3표 합의 (Phase 1) | 회수율 90% 유지, 검토부담 38.9%→35.2%, **자동 오탐 0** | 붙이지 않고 **걷어내서** 얻은 파레토 바깥이동 |
 
@@ -272,18 +273,53 @@ Phase 3는 순환 논증을 피하려고 "가설을 생성한 표본은 확증 �
 앵커의 근거 문헌들 자체가 수학(GSM8K)·상식(CSQA)·전기 작성(FACTSCORE) 벤치마크에서
 나온 것으로, 회계와 무관합니다.
 
-> ### 🔴 다만 범용성은 아직 **실측되지 않았습니다**
->
-> 위 표는 "구조상 도메인 종속이 없다"는 **설계 주장**이지 실측이 아닙니다.
-> 이 레포의 모든 수치는 **단일 도메인(K-IFRS) · 단일 저지 모델 · 단일 라벨러**에서
-> 나왔습니다. 계기 검침의 81.8%도 마찬가지입니다.
->
-> 이 레포가 스스로에게 적용한 규율을 여기에도 적용합니다 — **근거 없이 주장하지
-> 않습니다.** 다른 도메인 라벨셋에서 계기 검침이 신호를 잡는지 검증(cross-domain
-> validation)하기 전까지, 범용성은 **미검증(unverified)** 상태로 표기합니다.
->
-> 검증 계획: 도메인과 언어가 모두 다른 공개 QA 데이터셋에 동일 절차를 적용하고,
-> 그 결과를 통과·실패와 무관하게 이 절에 기록합니다.
+### 실측: 옆방 두 곳에서 검증했습니다 (2026-07-28)
+
+이전 판 README는 이 절을 **"미검증(unverified)"** 으로 표기했습니다. 설계 주장만
+있고 실측이 없었기 때문입니다. 그 표기를 아래 실측으로 교체합니다.
+
+**계기 검침 절차를 도메인·언어·라벨러가 다른 두 데이터셋에 그대로 적용**했습니다.
+판정기 프롬프트는 한 글자도 고치지 않았고(빌더를 import), 임계도 원래 방과
+동일하게 유지했습니다. 사전 선언은 실행 전 커밋했습니다.
+
+| 방 | 언어 | 도메인 | 라벨러 | recall | SPLIT | 판정 |
+|---|---|---|---|---|---|---|
+| 원래 방 (K-IFRS) | 한국어 | 회계 기준 | 저자 | 81.8% (9/11) | 0 | **PASS** |
+| 옆방 1 ([SciFact](https://arxiv.org/abs/2004.14500)) | **영어** | **생의학** | **외부** | 100% (22/22) | 0 | **PASS** |
+| 옆방 2 ([KLUE-NLI](https://arxiv.org/abs/2105.09680)) | 한국어 | **비회계** | **외부** | 100% (22/22) | 0 | **PASS** |
+
+**라벨러가 외부인 두 방에서도 PASS**가 나온 것이 중요합니다. 원래 방은 저자가
+라벨하고 저자가 만든 판정기를 검침했으므로 기준이 무의식적으로 정렬됐을 가능성이
+있었는데, 그 설명은 지지되지 않았습니다.
+
+#### 🔴 그리고 축이 갈렸습니다 — 회수율은 언어에 둔감, 정밀도는 민감
+
+옆방 1만으로는 언어·도메인·라벨러가 동시에 바뀌어 원인 귀속이 불가능했습니다.
+옆방 2가 **언어를 한국어로 고정**하면서 분리됐습니다.
+
+| 지표 | SciFact (en) | KLUE-NLI (ko) |
+|---|---|---|
+| 검출 회수율 (게이트 지표) | 100% | 100% |
+| 3라벨 완전일치 | 72.7% | **92.7%** |
+| 오탐 (사람 S → 문제 판정) | **36.4%** | **3.0%** |
+| 정밀도 (게이트 밖 참고) | 64.7% | 95.7% |
+
+문제를 **놓치는** 실패는 두 언어 모두 0이었고, 문제가 **아닌 것을 문제라고 하는**
+실패는 영어에서 12배 늘었습니다. 한국어 프롬프트 + 영문 근거 조건에서 판정기가
+"근거 범위 밖"을 더 자주 선언한 것입니다.
+
+**어느 쪽이 옳은지는 이 실험이 답하지 못합니다** — 판정기가 더 엄격한 것일 수도,
+교차언어 조건에서 근거 이해가 얕아진 것일 수도 있습니다. 구별하려면 프롬프트를
+영어로 번역한 조건이 필요하고, 그것은 변인을 하나 더 바꾸므로 별도 실험으로 남깁니다.
+
+#### 여전히 주장하지 않는 것
+
+- **"모든 도메인에서 된다"가 아닙니다.** 검증된 것은 3개 도메인입니다.
+- **모델 간 이식성은 미검증**입니다. 판정기는 여전히 `claude-sonnet-4-6` 하나입니다.
+- 옆방 2(NLI)는 함의 판정 과제로, 인용 검증과 과제 성격이 다릅니다.
+
+전문: [`gate/SIDECHECK_PREREG.md`](gate/SIDECHECK_PREREG.md) (사전 선언) ·
+[`gate/SIDECHECK_RESULT.md`](gate/SIDECHECK_RESULT.md) (결과)
 
 같은 이유로 **"P1 폐기" 판정의 유효 범위도 이 실측 조건(K-IFRS + 강한 모델 + 근거
 동봉)에 한정**됩니다. 다른 도메인·더 약한 모델·근거 미동봉 환경에서는 P1이 유효할 수
@@ -326,6 +362,8 @@ gate/                   # 채점 게이트 패키지 + 의미 레이어 재채�
   PHASE4_PREREGISTRATION.md # Phase 4 사전 선언 DRAFT (Phase 3 결과 열람 전 작성)
   INSTRUMENT_CHECK_PREREG.md   # 계기 검침 사전 선언 (실행 전 커밋)
   INSTRUMENT_CHECK_RESULT.md   # 계기 검침 결과 — PASS, 저자 진단이 틀렸음을 기록
+  SIDECHECK_PREREG.md   #   옆방 검증 사전 선언 (§8은 옆방1 결과 열람 전 커밋)
+  SIDECHECK_RESULT.md   #   옆방 2곳 결과 — 둘 다 PASS, 회수율↔정밀도 축 분리
   scripts/              #   각 Phase 러너·채점기·원자료 (판정기는 결과 열람 전 커밋)
 docs/
   ab_verdict_chart.png
@@ -364,6 +402,24 @@ done
 다른 도메인에 이식하려면 `instrument_check_run.py`의 `load_units()`가 읽는
 라벨 시트(id / question / evidence / claim_text / 사람 라벨 S·C·I)만 교체하면 됩니다.
 
+### 옆방 검증 재현 (도메인 이식성)
+
+동일 절차를 공개 데이터셋 두 곳에 적용한 실측입니다. 원본 데이터는 재배포하지
+않으며 스크립트가 각 출처에서 직접 받습니다.
+
+```bash
+cd gate
+.venv/bin/python scripts/sidecheck_fetch.py          # SciFact (CC BY-NC 2.0)
+.venv/bin/python scripts/sidecheck_build_units.py    # 층화 55건, seed 고정
+.venv/bin/python scripts/sidecheck2_build_units.py   # KLUE-NLI (CC BY-SA 4.0)
+for r in run1 run2 run3; do
+  .venv/bin/python scripts/sidecheck_run.py $r --room 1
+  .venv/bin/python scripts/sidecheck_run.py $r --room 2
+done
+.venv/bin/python scripts/sidecheck_score.py --room 1
+.venv/bin/python scripts/sidecheck_score.py --room 2
+```
+
 ## 참고문헌
 
 - Anthropic (2026). *Verbalizable Representations Form a Global Workspace in Language Models.* transformer-circuits.pub/2026/workspace
@@ -376,6 +432,8 @@ done
 - Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
 - FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — 프로브 게이밍/정책 난독화
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
+- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — 옆방 검증 1 (SciFact)
+- Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — 옆방 검증 2 (KLUE-NLI)
 
 ## 라이선스와 데이터 출처
 
