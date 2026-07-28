@@ -2,3 +2,6 @@ __pycache__/
 .venv*/
 gate/regrade_deterministic.json
 gate/regrade_deterministic_v2.json
+
+# Phase 3 저지 원자료 — 실행 중 커밋 금지(부분 결과 노출). 완료 후 일괄 커밋한다.
+gate/scripts/phase3_judge_*_run*.jsonl

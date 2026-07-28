@@ -25,10 +25,27 @@ def wilson(k, n, z=1.96):
 
 print("=== H1 (주가설): McNemar 쌍대 검정 ===")
 print(f"확증 집합 형제 보유 주장 {len(conf)}건 (쌍대이므로 각 건이 A/B 쌍)")
+
+
+def mcnemar_exact(b, c):
+    """불일치쌍 (b,c)의 양측 정확검정 p (이항 p=0.5). 단측 꼬리를 2배 한다.
+
+    ⚠️ 2**(-m) 은 틀린 식이다(단측 꼬리만 계산). 실제 양측 p는 그 2배이며,
+    이 때문에 유의 임계가 5건이 아니라 **6건**이다. phase2_power_analysis.py 와
+    같은 식을 쓰도록 교정했다.
+    """
+    n = b + c
+    if n == 0:
+        return 1.0
+    k = min(b, c)
+    tail = sum(math.comb(n, i) for i in range(0, k + 1)) / (2 ** n)
+    return min(1.0, 2 * tail)
+
+
 for m in (5, 6, 8, 10, 15):
-    p = 2 ** (-m)
+    p = mcnemar_exact(m, 0)
     print(f"  불일치쌍 {m:2d}건이 전부 한 방향 -> 양측 p = {p:.4f} "
-          f"{'✅ 유의' if p < 0.05 else ''}")
+          f"{'✅ 유의' if p < 0.05 else '❌ 유의 아님'}")
 print("  Phase 1 실측: 형제 있는 오탐 9건이 문맥 제공 시 9/9 뒤집힘")
 print("  -> 그 정도 효과가 재현되면 불일치쌍은 충분. H1은 검정력 문제 없음.")
 print()
