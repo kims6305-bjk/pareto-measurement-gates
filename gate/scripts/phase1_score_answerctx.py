@@ -141,9 +141,37 @@ for tag, h in (("per-claim", oy), ("answer-ctx", ny)):
     print(f"\n{tag} 프로브 3판YES: {n}건 중 진짜 {t}건 = 정밀도 "
           f"{'n/a' if p is None else f'{p:.1%}'}")
 
+# --- CONFOUND CONTROL (added mid-run, before scoring) --------------------
+# The change bundled TWO things: (i) sibling context, (ii) a softening
+# instruction ("형제 문장이 담당하는 조건을 누락으로 보지 마라").
+# If claims with NO siblings also flipped, the flip cannot be attributed to
+# context — the instruction alone blunted the probe.
+sib_n = {}
+for name in ("phase1_probe_answerctx_run1.jsonl",):
+    p = G / name
+    if p.exists():
+        for line in p.read_text(encoding="utf-8").splitlines():
+            r = json.loads(line)
+            sib_n[r["id"]] = r.get("n_siblings", 0)
+
+solo_fa = [i for i in old_fa if sib_n.get(i, 0) <= 1]
+solo_flip = [i for i in solo_fa if i not in ny and i in new and len(new[i]) == 3]
+multi_fa = [i for i in old_fa if sib_n.get(i, 0) > 1]
+multi_flip = [i for i in multi_fa if i not in ny and i in new and len(new[i]) == 3]
+print("\n=== 교란변수 통제: 형제가 없는 주장도 뒤집혔나 ===")
+print(f"  형제 없음(단독) 오탐 {len(solo_fa)}건 중 뒤집힘 {len(solo_flip)}건 {solo_flip}")
+print(f"  형제 있음 오탐     {len(multi_fa)}건 중 뒤집힘 {len(multi_flip)}건")
+if solo_flip:
+    print("  ⚠ 형제가 없는데도 뒤집힌 건이 있음 -> 문맥이 아니라 '완화 지시' 효과가 섞여 있다.")
+    print("     즉 이 실험은 단일 변인이 아니며, 정밀도 개선을 문맥 덕분이라고 말할 수 없다.")
+else:
+    print("  형제 있는 건만 뒤집힘 -> 문맥 효과로 해석 가능.")
+
 verdict = ("처방 통함 (a,b,c 모두 충족)" if (n_flip >= 8 and b_ok and c_ok)
            else "채택 불가 — 사전 선언 기준 미충족")
 print(f"\n[사전 선언 기준에 따른 판정] {verdict}")
+if solo_flip:
+    print("[추가 경고] 교란변수 미통제 — 위 판정이 충족이어도 원인 귀속은 불가.")
 
 (G / "phase1_answerctx_result.json").write_text(json.dumps({
     "criteria": {"a_flipped": n_flip, "a_required": 8, "a_pass": n_flip >= 8,
