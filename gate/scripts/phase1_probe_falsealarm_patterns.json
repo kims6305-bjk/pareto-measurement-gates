@@ -1,0 +1,72 @@
+{
+  "Q014-A-c1": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "OTHER"
+  },
+  "Q014-A-c2": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "OTHER"
+  },
+  "Q015-A-c2": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "OTHER"
+  },
+  "Q033-A-c2": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "OTHER"
+  },
+  "Q033-B-c2": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "OTHER"
+  },
+  "Q042-B-c4": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "CONJUNCTIVE"
+  },
+  "Q047-B-c1": {
+    "human": "S",
+    "sibling_decomposition": true,
+    "rule_type": "CONJUNCTIVE"
+  },
+  "Q047-B-c2": {
+    "human": "S",
+    "sibling_decomposition": true,
+    "rule_type": "CONJUNCTIVE"
+  },
+  "Q068-A-c1": {
+    "human": "C",
+    "sibling_decomposition": true,
+    "rule_type": "SELECTION"
+  },
+  "Q068-A-c2": {
+    "human": "C",
+    "sibling_decomposition": true,
+    "rule_type": "SELECTION"
+  },
+  "Q069-B-c1": {
+    "human": "S",
+    "sibling_decomposition": true,
+    "rule_type": "CONJUNCTIVE"
+  },
+  "Q069-B-c2": {
+    "human": "S",
+    "sibling_decomposition": true,
+    "rule_type": "CONJUNCTIVE"
+  },
+  "Q069-B-c3": {
+    "human": "S",
+    "sibling_decomposition": true,
+    "rule_type": "CONJUNCTIVE"
+  },
+  "Q071-B-c3": {
+    "human": "S",
+    "sibling_decomposition": false,
+    "rule_type": "CONJUNCTIVE"
+  }
+}
