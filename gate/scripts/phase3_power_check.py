@@ -8,7 +8,7 @@ import math
 from collections import Counter
 from pathlib import Path
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+GATE = Path("<repo>/gate/scripts")
 split = json.load(open(GATE / "phase3_split.json", encoding="utf-8"))
 conf = [u for u in split["units"] if u["set"] == "confirmatory" and u["n_siblings"] >= 1]
 

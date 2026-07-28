@@ -10,7 +10,7 @@ import json
 from collections import Counter
 from pathlib import Path
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path("<repo>")
 GATE = P / "gate/scripts"
 
 results = json.load(open(P / "ab/ab_results.json", encoding="utf-8"))

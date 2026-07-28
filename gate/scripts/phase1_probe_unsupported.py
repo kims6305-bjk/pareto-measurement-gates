@@ -3,7 +3,7 @@
 Rationale (pre-declared before running): after the 3-vote consensus gate,
 auto false positives are 0 but 3 problems still auto-PASS. All three are the
 same axis — the claim asserts a specific fact/condition the evidence never
-states (bjkim's memos: "…라는 정보가 추가되면 S", "…까지 모두 충족해야").
+states (저자's memos: "…라는 정보가 추가되면 S", "…까지 모두 충족해야").
 The generalist judge treats these as reasonable; a narrow yes/no probe should
 be more sensitive.
 

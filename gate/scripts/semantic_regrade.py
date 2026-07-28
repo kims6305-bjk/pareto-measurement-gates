@@ -25,7 +25,7 @@ from reflection_gate.models import (  # noqa: E402
 )
 from reflection_gate.semantic import SemanticJudgement, SemanticLabel  # noqa: E402
 
-WORKSPACE = Path.home() / ".openclaw/workspace"
+WORKSPACE = Path.home() / "<workspace>"
 # 레포 동봉본 우선, 없으면 로컬 원본 (공개 레포에서는 ab/ab_results.json 사용)
 _REPO_RESULTS = GATE_DIR.parent / "ab/ab_results.json"
 _LOCAL_RESULTS = WORKSPACE / "probe_graph_test/ab_results.json"

@@ -1,6 +1,6 @@
 """Phase 1: judge P/R scoring against human labels.
 
-Run AFTER bjkim fills column G in phase1_human_label_sheet.xlsx.
+Run AFTER 저자 fills column G in phase1_human_label_sheet.xlsx.
 Implements gate/LABELING_PROTOCOL.md:
   - human label = ground truth, target P/R >= 90%
   - '분해' memo rows -> dual-definition scoring (context vs isolated)

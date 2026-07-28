@@ -5,7 +5,7 @@ v1 실패 원인(사람 라벨 대조로 실증): claim 고립 채점 — 전체
 
 v2 변경점 (LABELING_PROTOCOL 선언대로):
   - 전체 답변 동봉 + 형제 claim 목록 동봉
-  - "불완전성 ≠ 상충" 명시 (bjkim 라벨 메모에서 실증된 혼동 축)
+  - "불완전성 ≠ 상충" 명시 (저자 라벨 메모에서 실증된 혼동 축)
 동일 모델(claude-sonnet-4-6)·동일 55건 — 프롬프트만 변경. 재개 가능, fail-closed.
 """
 from __future__ import annotations

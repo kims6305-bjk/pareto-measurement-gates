@@ -7,12 +7,12 @@ Pre-declared design (before computing): 3 v3 runs vote.
 Metrics are computed ONLY on auto-decided claims (the gate's actual output),
 and the human-review load is reported as the explicit cost. Also sweeps a
 variant where a unanimous-flag requires the same label, and reports what the
-gate would do on the borderline claims bjkim marked 애매.
+gate would do on the borderline claims 저자 marked 애매.
 """
 import json
 from pathlib import Path
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate")
+GATE = Path("<repo>/gate")
 res = json.load(open(GATE / "scripts/phase1_judge_pr_result.json"))
 M = {"SUPPORTED": "S", "CONTRADICTED": "C", "INSUFFICIENT": "I", "UNRESOLVED": "U"}
 

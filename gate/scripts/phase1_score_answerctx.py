@@ -12,7 +12,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-G = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+G = Path("<repo>/gate/scripts")
 res = json.load(open(G / "phase1_judge_pr_result.json", encoding="utf-8"))
 cons = json.load(open(G / "phase1_consensus_gate.json", encoding="utf-8"))
 scored = {r["id"]: r for r in res["records"] if "명제없음" not in r["memo"]}

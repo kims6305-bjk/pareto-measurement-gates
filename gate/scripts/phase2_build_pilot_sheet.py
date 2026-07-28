@@ -22,7 +22,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.worksheet.datavalidation import DataValidation
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path("<repo>")
 GATE = P / "gate/scripts"
 SEED = 20260728          # phase2_build_label_sheet.py 와 동일 시드
 CAP = 3                  # 문항당 주장 캡 (SELECTION 면제) — 정본 순서의 모집단

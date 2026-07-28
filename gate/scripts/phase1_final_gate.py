@@ -7,7 +7,7 @@ Reports the final gate configuration end-to-end.
 import json
 from pathlib import Path
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate")
+GATE = Path("<repo>/gate")
 res = json.load(open(GATE / "scripts/phase1_judge_pr_result.json"))
 cons = json.load(open(GATE / "scripts/phase1_consensus_gate.json"))
 probe = {}

@@ -14,7 +14,7 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path("<repo>")
 GATE = P / "gate/scripts"
 
 TARGET_PROBLEMS = 55   # phase2_power_analysis.py 실측

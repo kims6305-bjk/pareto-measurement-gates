@@ -7,7 +7,7 @@ import json
 import math
 from pathlib import Path
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+GATE = Path("<repo>/gate/scripts")
 br = json.load(open(GATE / "phase2_pilot_baserate.json", encoding="utf-8"))
 
 k, n = br["n_problems"], br["denominator"]

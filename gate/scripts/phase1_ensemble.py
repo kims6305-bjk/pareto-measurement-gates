@@ -11,7 +11,7 @@ import json
 from collections import Counter
 from pathlib import Path
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate")
+GATE = Path("<repo>/gate")
 res = json.load(open(GATE / "scripts/phase1_judge_pr_result.json"))
 M = {"SUPPORTED": "S", "CONTRADICTED": "C", "INSUFFICIENT": "I", "UNRESOLVED": "U"}
 

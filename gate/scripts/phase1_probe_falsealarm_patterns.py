@@ -19,7 +19,7 @@ import re
 from pathlib import Path
 from collections import defaultdict
 
-G = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+G = Path("<repo>/gate/scripts")
 rows = {r["id"]: r for r in json.load(open(G / "phase1_human_label_sheet.json", encoding="utf-8"))}
 res = json.load(open(G / "phase1_judge_pr_result.json", encoding="utf-8"))
 scored = {r["id"]: r for r in res["records"] if "명제없음" not in r["memo"]}

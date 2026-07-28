@@ -9,7 +9,7 @@ but review cost.
 import json
 from pathlib import Path
 
-G = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+G = Path("<repo>/gate/scripts")
 res = json.load(open(G / "phase1_judge_pr_result.json"))
 cons = json.load(open(G / "phase1_consensus_gate.json"))
 p3 = json.load(open(G / "phase1_final_gate_probe3.json"))

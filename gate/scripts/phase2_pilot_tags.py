@@ -10,7 +10,7 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+GATE = Path("<repo>/gate/scripts")
 ws = load_workbook(GATE / "phase2_pilot_label_sheet.xlsx")["phase2_pilot"]
 
 rows = [{"id": r[0], "label": str(r[8] or "").strip().upper(),

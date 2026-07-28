@@ -7,7 +7,7 @@
 `gate/scripts/phase1_human_label_sheet.xlsx` — 55 claims
 = 저지가 CONTRADICTED/INSUFFICIENT로 판정한 23건 전수 + VERIFIED 표본 32건, 셔플·블라인드(저지 라벨/사유 열 숨김).
 
-라벨러: bjkim (도메인 전문가, 저지 출력 비공개 상태에서 라벨).
+라벨러: 저자 (도메인 전문가, 저지 출력 비공개 상태에서 라벨).
 
 ## 라벨 척도
 

@@ -28,7 +28,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.worksheet.datavalidation import DataValidation
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path("<repo>")
 GATE = P / "gate/scripts"
 SEED = 20260728
 
@@ -74,7 +74,7 @@ random.Random(SEED).shuffle(rows)
 
 # --- claim cap per question (labeling-cost control) ----------------------
 # Sibling claims of the same answer are NOT independent (this is exactly what
-# broke Phase 1). Beyond a few claims per answer the extra labels cost bjkim
+# broke Phase 1). Beyond a few claims per answer the extra labels cost 저자
 # time while adding almost no independent information, so cap them.
 # SELECTION-rule questions are exempt: R4 needs their full branch structure.
 CAP = int(__import__("os").environ.get("PHASE2_CLAIM_CAP", "3"))

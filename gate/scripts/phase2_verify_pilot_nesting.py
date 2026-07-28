@@ -3,7 +3,7 @@ import json
 import subprocess
 from pathlib import Path
 
-GATE = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate/scripts")
+GATE = Path("<repo>/gate/scripts")
 
 canon = json.load(open(GATE / "phase2_canonical_order.json", encoding="utf-8"))
 pilot = json.load(open(GATE / "phase2_pilot_label_sheet.json", encoding="utf-8"))

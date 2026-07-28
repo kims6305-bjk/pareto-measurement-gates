@@ -12,7 +12,7 @@ import json
 from collections import Counter
 from pathlib import Path
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path("<repo>")
 results = json.load(open(P / "ab/ab_results.json", encoding="utf-8"))
 frozen = {q["qid"]: q for q in
           json.load(open(P / "ab/ab_questions_FROZEN.json", encoding="utf-8"))["questions"]}

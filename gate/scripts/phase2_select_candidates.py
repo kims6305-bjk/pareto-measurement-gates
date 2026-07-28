@@ -12,7 +12,7 @@ Selection rules (declared here, applied mechanically below):
       re-introduces the clustering that broke phase 1.
   R2. Prioritize the trap layers (no_answer / distractor): they carry the highest
       prior probability of producing a genuine problem case, so they raise the
-      problem count per unit of bjkim's labeling time.
+      problem count per unit of 저자's labeling time.
   R3. Cover distinct standards (기준서). Phase 1's only true hits all sat on one
       paragraph (1019.103); standard diversity is what makes a filter testable
       instead of memorized.
@@ -25,7 +25,7 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path("<repo>")
 d = json.load(open(P / "ab/ab_questions_FROZEN.json", encoding="utf-8"))
 qs = d["questions"]
 sheet = json.load(open(P / "gate/scripts/phase1_human_label_sheet.json", encoding="utf-8"))
