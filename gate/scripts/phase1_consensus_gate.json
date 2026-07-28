@@ -1,0 +1,66 @@
+{
+  "auto_n": 49,
+  "human_review_n": 5,
+  "auto_accuracy": 0.9387755102040817,
+  "auto_precision": 1.0,
+  "auto_recall": 0.625,
+  "auto_fp": [],
+  "auto_fn": [
+    "Q068-A-c1",
+    "Q107-A-c2",
+    "Q068-A-c2"
+  ],
+  "human_review": [
+    {
+      "id": "Q118-A-c1",
+      "human": "S",
+      "runs": [
+        "S",
+        "S",
+        "I"
+      ],
+      "borderline": false
+    },
+    {
+      "id": "Q068-B-c2",
+      "human": "C",
+      "runs": [
+        "S",
+        "S",
+        "C"
+      ],
+      "borderline": false
+    },
+    {
+      "id": "Q043-A-c1",
+      "human": "S",
+      "runs": [
+        "S",
+        "C",
+        "C"
+      ],
+      "borderline": false
+    },
+    {
+      "id": "Q049-B-c1",
+      "human": "C",
+      "runs": [
+        "S",
+        "C",
+        "S"
+      ],
+      "borderline": false
+    },
+    {
+      "id": "Q014-B-c2",
+      "human": "S",
+      "runs": [
+        "S",
+        "C",
+        "S"
+      ],
+      "borderline": false
+    }
+  ],
+  "final_recall_with_review": 0.7
+}

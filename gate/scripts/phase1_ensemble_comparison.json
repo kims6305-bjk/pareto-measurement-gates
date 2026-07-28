@@ -1,0 +1,117 @@
+{
+  "rules": {
+    "single v3 (run1, 기준선)": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "tp": 5,
+      "fp": 0,
+      "fn": 5,
+      "false_positives": [],
+      "false_negatives": [
+        "Q068-A-c1",
+        "Q107-A-c2",
+        "Q068-B-c2",
+        "Q068-A-c2",
+        "Q049-B-c1"
+      ]
+    },
+    "R1 any-flag (v3 x3)": {
+      "precision": 0.7,
+      "recall": 0.7,
+      "tp": 7,
+      "fp": 3,
+      "fn": 3,
+      "false_positives": [
+        "Q118-A-c1",
+        "Q043-A-c1",
+        "Q014-B-c2"
+      ],
+      "false_negatives": [
+        "Q068-A-c1",
+        "Q107-A-c2",
+        "Q068-A-c2"
+      ]
+    },
+    "R2 any-flag (v3 x3 + v2)": {
+      "precision": 0.7,
+      "recall": 0.7,
+      "tp": 7,
+      "fp": 3,
+      "fn": 3,
+      "false_positives": [
+        "Q118-A-c1",
+        "Q043-A-c1",
+        "Q014-B-c2"
+      ],
+      "false_negatives": [
+        "Q068-A-c1",
+        "Q107-A-c2",
+        "Q068-A-c2"
+      ]
+    },
+    "R3 majority (v3 x3, 2표+)": {
+      "precision": 0.8333333333333334,
+      "recall": 0.5,
+      "tp": 5,
+      "fp": 1,
+      "fn": 5,
+      "false_positives": [
+        "Q043-A-c1"
+      ],
+      "false_negatives": [
+        "Q068-A-c1",
+        "Q107-A-c2",
+        "Q068-B-c2",
+        "Q068-A-c2",
+        "Q049-B-c1"
+      ]
+    }
+  },
+  "unstable_claims": [
+    {
+      "id": "Q118-A-c1",
+      "human": "S",
+      "runs": [
+        "S",
+        "S",
+        "I"
+      ]
+    },
+    {
+      "id": "Q068-B-c2",
+      "human": "C",
+      "runs": [
+        "S",
+        "S",
+        "C"
+      ]
+    },
+    {
+      "id": "Q043-A-c1",
+      "human": "S",
+      "runs": [
+        "S",
+        "C",
+        "C"
+      ]
+    },
+    {
+      "id": "Q049-B-c1",
+      "human": "C",
+      "runs": [
+        "S",
+        "C",
+        "S"
+      ]
+    },
+    {
+      "id": "Q014-B-c2",
+      "human": "S",
+      "runs": [
+        "S",
+        "C",
+        "S"
+      ]
+    }
+  ]
+}
