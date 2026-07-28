@@ -1,0 +1,20 @@
+{
+  "room": "1",
+  "domain": "scifact",
+  "n_units": 55,
+  "n_runs": 3,
+  "n_problem": 22,
+  "n_detected": 22,
+  "recall": 1.0,
+  "recall_wilson": [
+    0.8513,
+    1.0
+  ],
+  "n_contradicted": 10,
+  "precision_reported_only": 0.6471,
+  "n_split": 0,
+  "threshold": 0.3,
+  "verdict": "PASS",
+  "action": "도메인 밖에서도 작동 → '미검증' 표기를 실측 결과로 교체",
+  "misses": []
+}
