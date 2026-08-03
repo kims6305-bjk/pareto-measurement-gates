@@ -10,7 +10,7 @@
   🔴 조건 A 문제판정 0건이라 H1을 검정하지 못함.
 - **계기 검침 PASS** — 저지는 정상이었다(recall 81.8%, SPLIT 0). `gate/INSTRUMENT_CHECK_RESULT.md`
 - **옆방 검증 2/2 PASS** — SciFact·KLUE-NLI recall 100%. `gate/SIDECHECK_RESULT.md`
-- **🆕 파레토 메타하네스 — 러너까지 구현 완료, c000 측정 진행 중.** (2026-08-03)
+- **🆕 파레토 메타하네스 — c000 측정·채점 완료, front={c000}, IC-0 PASS.** (2026-08-03)
   커밋: `7d7d28b` 설계 → `5df830a` 판정기 → `bfef1cd` 사전등록 → `e325770` 문헌 6소스
   → `beacac4` **부속서1**(U3·U4·U8·U12·U13 해소) → `125fdd8` **러너+가드+c000 등록**.
   정본 `gate/PARETO_META_HARNESS_DESIGN.md` · `PREREG.md` · `PREREG_ADDENDUM1.md`
@@ -63,24 +63,23 @@ Phase 1·2 결정(1~10)은 각 정본에 전문 보관. 여기엔 이후에도 �
 
 ## 세션 연속성
 
-**멈춘 지점** (2026-08-03): c000(baseline) 3판 측정이 **백그라운드 진행 중**
-(`proc_e73cb63d8e56`, run1 ~28/55 지점). 죽었으면
-`cd gate && .venv/bin/python scripts/mh_run_candidate.py --candidate-id c000 --condition C2 --all-runs`
-재실행 — resume 구조라 완료분 스킵. 원자료 `mh_c000_run{1,2,3}.jsonl`은 .gitignore
-(실행 중 커밋 차단, Phase 3 규율). 완료 후 `git add -f`.
+**멈춘 지점** (2026-08-03 오후): **c000 측정·채점·front 완료.**
+- 3판×55=165콜 완료 → 원자료 커밋(`a6d84e8`, INV-5 열람 전 커밋) → `mh_objectives.py` 채점
+  → 원장 갱신+front(`dab23c4`).
+- **c000 = recall 0.6364 [ci_qid 0.3844,1.0] / precision 0.5833 [0.25,0.9168]** —
+  🔴 **IC-0 검침 기준(recall ≥ 30%) PASS** (사전등록). sample_gate passed, front={c000}, 누적콜 165.
+- 원장 = `mh_archive_C2.jsonl`(2행: 등록→측정), front 캐시 = `mh_front_C2.json`.
+- ⚠️ 정답지는 `phase1_human_label_sheet.xlsx` 「라벨링」 시트 G열 (phase2 json은 human_label 빈 파일 — 헷갈리지 말 것).
 
-**바로 집어들 액션 1개**: c000 측정 완료 확인 →
-`mh_objectives.py --candidate-id c000 --runs 'scripts/mh_c000_run*.jsonl'` 로 축 점수 산출
-→ 원장(mh_archive_C2.jsonl) 갱신 → `mh_front.py` front 계산 → **c000 = IC-0 재실행이므로
-recall ≥ 30% 검침 기준(사전등록) 통과 확인** → IC-1(음성 대조, 330콜) → 라운드 시작.
-남은 러너 주변부: mh_pair_diagnose.py·mh_filter_candidates.py·mh_propose.md(U11, C2 실행 전 커밋).
+**바로 집어들 액션 1개**: **IC-1 (음성 대조, 330콜)** → 통과 시 라운드 시작.
+러너 주변부 미구현: mh_pair_diagnose.py·mh_filter_candidates.py·mh_propose.md(U11, C2 실행 전 커밋).
 
 **병행 트랙 (이번 세션 완료분)**:
 - 문헌 6소스 체제 — 결정 15 문구 좁힘(§2 표에 MOT-SR·TRACE-Router 행). 추가 배경 소스는
   결정 15 참조. **front 점유 주장의 함정**(무작위 혼합 대조군)을 결과 보고에 이식할 것.
 - 파레토 지식스택 적용 — `pareto-optimization-gate` 스킬에 §적용 지도 병합(재판정 금지).
-  local-kb-retrieval-eval 2축 재판정 적용 완료. 회계사 봇(채택 판정식 명문화)·세무사 봇
-  (골드문항 세트)은 🔵 보류 — 착수 시 정본 `<workspace>/tmp/pareto_knowledge_stack_assessment.md`.
+  local-kb-retrieval-eval 2축 재판정 적용 완료. 회계사 봇(reverse_gen_pilot2 --baseline + pareto_gate.py)·세무사 봇(tax_yuseong_gold_eval.py 골드20 초안, baseline 0.80/0.50)
+  **구현 완료(2026-08-03)** — 상세는 각 봇 스킬. 골드 20문항은 bjkim 검수 대기.
 
 **사례글은 실행 결과 후**로 미룸 — 지금 쓰면 "설계했다"로 끝난다. 3주차 소재 정본은
 직전 gpters 발행본의 「앞으로의 계획」에서 확인할 것(PLAN.md 추측 착수 금지).
