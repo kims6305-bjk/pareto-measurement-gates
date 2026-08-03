@@ -10,15 +10,17 @@
   🔴 조건 A 문제판정 0건이라 H1을 검정하지 못함.
 - **계기 검침 PASS** — 저지는 정상이었다(recall 81.8%, SPLIT 0). `gate/INSTRUMENT_CHECK_RESULT.md`
 - **옆방 검증 2/2 PASS** — SciFact·KLUE-NLI recall 100%. `gate/SIDECHECK_RESULT.md`
-- **🆕 파레토 메타하네스 — 설계·판정기·사전등록 완료, 실행 전.** (2026-07-31)
-  커밋 `7d7d28b` 설계 1,978행 → `5df830a` 판정기+테스트32 → `bfef1cd` 사전등록 340행.
-  정본 `gate/PARETO_META_HARNESS_DESIGN.md` · `gate/PARETO_META_HARNESS_PREREG.md`
-  🔴 **러너(mh_run_candidate.py) 미구현. 이것이 INV-5를 만족시키는 상태다** —
-  판정기와 임계를 결과 열람 전에 커밋했으므로 사후 조정이 불가능하다.
+- **🆕 파레토 메타하네스 — 러너까지 구현 완료, c000 측정 진행 중.** (2026-08-03)
+  커밋: `7d7d28b` 설계 → `5df830a` 판정기 → `bfef1cd` 사전등록 → `e325770` 문헌 6소스
+  → `beacac4` **부속서1**(U3·U4·U8·U12·U13 해소) → `125fdd8` **러너+가드+c000 등록**.
+  정본 `gate/PARETO_META_HARNESS_DESIGN.md` · `PREREG.md` · `PREREG_ADDENDUM1.md`
+  신규 실물: `mh_guard.py`(INV-2/3 매니페스트, PASS 실측) · `mh_run_candidate.py`
+  (sha 대조·resume·fail-closed 실측) · `mh_archive_C2.jsonl`(c000, prompt_sha ce0239b9…)
+  · `mh_front.py`에 REJECTED_C0 추가(테스트 32/32 유지).
 - **Phase 4 = 다목적 채택 게이트.** `gate/PHASE4_PREREGISTRATION.md` DRAFT.
   §3의 3축은 파레토 설계 §3에서 **2축(recall, precision)으로 개정**됨.
-- 마지막 활동 2026-07-31. git clean. 🔴 **push 금지 상태** — 익명화 13건(설계 문서
-  절대경로·식별자). 처리 절차는 설계 §13.4.
+- 마지막 활동 2026-08-03. git clean. 🔴 **push 금지 상태** — 익명화(설계 문서
+  절대경로·식별자, 부속서1·본 항목 포함). 처리 절차는 설계 §13.4.
 
 ## 결정 누적
 
@@ -61,17 +63,26 @@ Phase 1·2 결정(1~10)은 각 정본에 전문 보관. 여기엔 이후에도 �
 
 ## 세션 연속성
 
-**멈춘 지점**: 파레토 메타하네스 = 실행 전 준비 완료. 러너만 남았다.
+**멈춘 지점** (2026-08-03): c000(baseline) 3판 측정이 **백그라운드 진행 중**
+(`proc_e73cb63d8e56`, run1 ~28/55 지점). 죽었으면
+`cd gate && .venv/bin/python scripts/mh_run_candidate.py --candidate-id c000 --condition C2 --all-runs`
+재실행 — resume 구조라 완료분 스킵. 원자료 `mh_c000_run{1,2,3}.jsonl`은 .gitignore
+(실행 중 커밋 차단, Phase 3 규율). 완료 후 `git add -f`.
 
-**바로 집어들 액션 1개**: 사전등록 §10 **미정 14건 중 U8·U9·U10 해소** (실행 차단 3건)
-- **U8** IC-0 재실행이 실제로는 0콜 — `instrument_check_run.py`가 기존 jsonl을 resume하고,
-  원자료 물리 삭제는 설계 §5.3이 금지. 예산표는 165콜로 잡혀 있어 **검침이 헛돈다.**
-- **U9** 집합 dominance(D-dom/D-str) 계산 구현체 미지정 → V1~V7 자동 판정 불가.
-- **U10** 예산 총계 불일치: 495+1650×5=8,745인데 표에 1650 행이 6개(10,395). 컷라인 5,445는 일관.
-- 나머지 11건은 러너 만들며 자연 해소 가능. 그 뒤 `mh_guard.py` → 러너 순서(설계 §9.3).
+**바로 집어들 액션 1개**: c000 측정 완료 확인 →
+`mh_objectives.py --candidate-id c000 --runs 'scripts/mh_c000_run*.jsonl'` 로 축 점수 산출
+→ 원장(mh_archive_C2.jsonl) 갱신 → `mh_front.py` front 계산 → **c000 = IC-0 재실행이므로
+recall ≥ 30% 검침 기준(사전등록) 통과 확인** → IC-1(음성 대조, 330콜) → 라운드 시작.
+남은 러너 주변부: mh_pair_diagnose.py·mh_filter_candidates.py·mh_propose.md(U11, C2 실행 전 커밋).
 
-**사례글은 실행 결과 후**로 미룸 — 지금 쓰면 "설계했다"로 끝난다. 설계 부록A가
-"front를 쓰면 더 좋다는 것은 아직 측정하지 않았다"를 명시. 3주차 소재 정본은
+**병행 트랙 (이번 세션 완료분)**:
+- 문헌 6소스 체제 — 결정 15 문구 좁힘(§2 표에 MOT-SR·TRACE-Router 행). 추가 배경 소스는
+  결정 15 참조. **front 점유 주장의 함정**(무작위 혼합 대조군)을 결과 보고에 이식할 것.
+- 파레토 지식스택 적용 — `pareto-optimization-gate` 스킬에 §적용 지도 병합(재판정 금지).
+  local-kb-retrieval-eval 2축 재판정 적용 완료. 회계사 봇(채택 판정식 명문화)·세무사 봇
+  (골드문항 세트)은 🔵 보류 — 착수 시 정본 `<workspace>/tmp/pareto_knowledge_stack_assessment.md`.
+
+**사례글은 실행 결과 후**로 미룸 — 지금 쓰면 "설계했다"로 끝난다. 3주차 소재 정본은
 직전 gpters 발행본의 「앞으로의 계획」에서 확인할 것(PLAN.md 추측 착수 금지).
 
 ## 막힘/우려
