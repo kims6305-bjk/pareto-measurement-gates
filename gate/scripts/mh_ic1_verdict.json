@@ -1,0 +1,62 @@
+{
+ "gate": "IC-1",
+ "criterion": "c_neg_strict.precision ci_qid 비겹침으로 c000 보다 낮음 (§8.2 사전 고정)",
+ "c000_precision": {
+  "value": 0.5833,
+  "ci_claim": [
+   0.3,
+   0.875
+  ],
+  "ci_qid": [
+   0.25,
+   0.9168
+  ]
+ },
+ "c_neg_strict_precision": {
+  "value": 0.5,
+  "ci_claim": [
+   0.2497,
+   0.7692
+  ],
+  "ci_qid": [
+   0.2143,
+   0.8002
+  ]
+ },
+ "c_neg_loose_precision": {
+  "value": 0.6429,
+  "ci_claim": [
+   0.3846,
+   0.8889
+  ],
+  "ci_qid": [
+   0.3529,
+   0.9167
+  ]
+ },
+ "c_neg_strict_recall": {
+  "value": 0.6364,
+  "ci_claim": [
+   0.3333,
+   0.9167
+  ],
+  "ci_qid": [
+   0.3844,
+   1.0
+  ]
+ },
+ "c_neg_loose_recall": {
+  "value": 0.8182,
+  "ci_claim": [
+   0.5556,
+   1.0
+  ],
+  "ci_qid": [
+   0.5556,
+   1.0
+  ]
+ },
+ "strict_ci_hi": 0.8002,
+ "c000_ci_lo": 0.25,
+ "verdict": "FAIL"
+}
