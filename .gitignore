@@ -14,3 +14,4 @@ gate/scripts/sidecheck2_units.json
 # 옆방2 원자료 — 실행 중 부분상태 커밋 방지 (완료 후 git add -f)
 gate/scripts/sidecheck2_run*.jsonl
 gate/scripts/mh_c*_run*.jsonl
+gate/scripts/mh_ic1_measure.log
