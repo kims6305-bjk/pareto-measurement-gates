@@ -1,0 +1,32 @@
+{
+  "computed_at": "2026-08-03T12:25:22+09:00",
+  "archive_sha256": "e93b0138a46f700a02817e5dac9abd7ac65d87a1fe9a9ec04292174f723c213e",
+  "axes": [
+    "recall",
+    "precision"
+  ],
+  "ci_used": "ci_qid",
+  "front": [
+    "c000"
+  ],
+  "endpoints": {
+    "recall": "c000",
+    "precision": "c000"
+  },
+  "dominated": [],
+  "pruned": [],
+  "unjudged": [],
+  "front_size": 1,
+  "front_changed": true,
+  "stall_rounds": 0,
+  "g1_excluded": [],
+  "invalid": [],
+  "termination": {
+    "triggered": [],
+    "stop": false,
+    "cumulative_calls": 165,
+    "current_generation": 0,
+    "all_axes_tied": [],
+    "prune_halt": null
+  }
+}
