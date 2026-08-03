@@ -403,6 +403,8 @@ skill/                  # Skill body (SKILL.md format for agent frameworks)
   references/
     probe-prompts.md    #   Full text of the 3 probe prompts + per-anchor paper source figures
     evals.md            #   Binary quality gates (① self QA ② A/B gate)
+skill-pareto/           # Pareto adoption-gate skill (the verdict procedure this experiment operationalizes)
+  SKILL.md              #   Inferior-move / outward-move verdict rules + application map
 harness/                # Measurement ①: synthetic stress test
   run_stress.py         #   Runner (separated from grading)
   cases.json            #   5 correct + 5 error-injected (based on synthetic evidence documents)

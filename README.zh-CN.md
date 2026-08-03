@@ -329,6 +329,8 @@ skill/                  # 技能正文（面向 agent 框架的 SKILL.md 格式�
   references/
     probe-prompts.md    #   3 种探针提示词全文 + 各锚点的论文出处数值
     evals.md            #   二元质量门禁（①自身 QA ②A/B 门禁）
+skill-pareto/           # 帕累托采纳门禁技能（本实验所运营化的判定流程）
+  SKILL.md              #   劣势移动/外移判定规则 + 应用地图
 harness/                # 实测 ① 合成压力测试
   run_stress.py         #   运行器（与评分分离）
   cases.json            #   正常 5 + 注入错误 5（基于合成依据文档）

@@ -337,6 +337,8 @@ skill/                  # 스킬 본문 (에이전트 프레임워크용 SKILL.m
   references/
     probe-prompts.md    #   프로브 프롬프트 전문 3종 + 앵커별 논문 출처 수치
     evals.md            #   이진 품질 게이트 (①자체 QA ②A/B 게이트)
+skill-pareto/           # 파레토 채택 게이트 스킬 (이 실험이 운영화한 판정 절차)
+  SKILL.md              #   열등이동/바깥이동 판정 규칙 + 적용 지도
 harness/                # 실측 ① 합성 스트레스테스트
   run_stress.py         #   러너 (채점과 분리)
   cases.json            #   정상 5 + 오류 주입 5 (합성 근거 문서 기반)
