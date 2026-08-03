@@ -10,7 +10,7 @@
   🔴 조건 A 문제판정 0건이라 H1을 검정하지 못함.
 - **계기 검침 PASS** — 저지는 정상이었다(recall 81.8%, SPLIT 0). `gate/INSTRUMENT_CHECK_RESULT.md`
 - **옆방 검증 2/2 PASS** — SciFact·KLUE-NLI recall 100%. `gate/SIDECHECK_RESULT.md`
-- **🆕 파레토 메타하네스 — 🔴 V6 종결 (IC-1 FAIL, bjkim 결정).** 판정 정본
+- **🆕 파레토 메타하네스 — 🔴 V6 종결 (IC-1 FAIL, 운영자 결정).** 판정 정본
   `gate/PARETO_MH_VERDICT.md`. IC-0 PASS(165콜) → IC-1 FAIL(330콜) — precision 축
   방향은 정확(loose 0.643>c000 0.583>strict 0.500)하나 ci_qid 전부 겹침 = n=55 검정력
   부족. 탐색 1,650콜 미사용, 총 495콜 종결. **330콜 검침이 1,650콜 손실을 차단** = 논문 소재.
@@ -85,8 +85,8 @@ V6 실측. push 전 익명화 13건 처리 필수(§13.4). 탐색 재개는 라�
 - 문헌 6소스 체제 — 결정 15 문구 좁힘(§2 표에 MOT-SR·TRACE-Router 행). 추가 배경 소스는
   결정 15 참조. **front 점유 주장의 함정**(무작위 혼합 대조군)을 결과 보고에 이식할 것.
 - 파레토 지식스택 적용 — `pareto-optimization-gate` 스킬에 §적용 지도 병합(재판정 금지).
-  local-kb-retrieval-eval 2축 재판정 적용 완료. 회계사 봇(reverse_gen_pilot2 --baseline + pareto_gate.py)·세무사 봇(tax_yuseong_gold_eval.py 골드20 초안, baseline 0.80/0.50)
-  **구현 완료(2026-08-03)** — 상세는 각 봇 스킬. 골드 20문항은 bjkim 검수 대기.
+  local-kb-retrieval-eval 2축 재판정 적용 완료. 도메인 QA봇 A(회귀 러너 --baseline + pareto_gate.py)·도메인 QA봇 B(골드20 검색평가 초안, baseline 0.80/0.50)
+  **구현 완료(2026-08-03)** — 상세는 각 봇 스킬. 골드 20문항은 운영자 검수 대기.
 
 **사례글은 실행 결과 후**로 미룸 — 지금 쓰면 "설계했다"로 끝난다. 3주차 소재 정본은
 직전 gpters 발행본의 「앞으로의 계획」에서 확인할 것(PLAN.md 추측 착수 금지).

@@ -6,7 +6,7 @@ parity_check는 구조와 코드 리터럴을 본다. 이 스크립트는 이번
 import sys
 from pathlib import Path
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path(__file__).resolve().parents[2]
 FILES = ["README.md", "README.en.md", "README.zh-CN.md"]
 
 # 이번 옆방 검증에서 새로 들어간 수치·식별자

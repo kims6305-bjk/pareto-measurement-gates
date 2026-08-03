@@ -7,7 +7,7 @@ import re
 import sys
 from pathlib import Path
 
-P = Path("/Users/bjkim/.openclaw/workspace/projects/probe-graph-public")
+P = Path(__file__).resolve().parents[2]
 
 BAD = [
     "bjkim", "유성", "회계사", "세무사", "카카오", "openclaw", r"\.hermes",

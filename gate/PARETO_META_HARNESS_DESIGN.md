@@ -9,13 +9,13 @@
 
 | 약칭 | 파일 |
 |---|---|
-| `src1` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src1_arxiv.md` (Self-Harness, arXiv 2606.09498) |
-| `src2` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src2_repo.md` (Awesome-Harness-Self-Improvement, MIT) |
-| `src3` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src3_lilian.md` (Lilian Weng, Harness Engineering, 2026-07-04) |
-| `src4` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src4_metaharness.md` (Meta-Harness, arXiv 2603.28052) |
-| `src5` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src5_motsr.md` (MOT-SR, arXiv 2607.29561 — 2026-08-03 추가) |
-| `src6` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src6_tracerouter.md` (TRACE-Router, arXiv 2607.22465 — 2026-08-03 추가) |
-| `skill` | `/Users/bjkim/.hermes/skills/devops/pareto-optimization-gate/SKILL.md` |
+| `src1` | `(로컬 정독본) meta_src1_arxiv.md` (Self-Harness, arXiv 2606.09498) |
+| `src2` | `(로컬 정독본) meta_src2_repo.md` (Awesome-Harness-Self-Improvement, MIT) |
+| `src3` | `(로컬 정독본) meta_src3_lilian.md` (Lilian Weng, Harness Engineering, 2026-07-04) |
+| `src4` | `(로컬 정독본) meta_src4_metaharness.md` (Meta-Harness, arXiv 2603.28052) |
+| `src5` | `(로컬 정독본) meta_src5_motsr.md` (MOT-SR, arXiv 2607.29561 — 2026-08-03 추가) |
+| `src6` | `(로컬 정독본) meta_src6_tracerouter.md` (TRACE-Router, arXiv 2607.22465 — 2026-08-03 추가) |
+| `skill` | `(로컬 스킬) pareto-optimization-gate/SKILL.md` |
 | `P4` | `gate/PHASE4_PREREGISTRATION.md` |
 | `IC` | `gate/INSTRUMENT_CHECK_PREREG.md` · `gate/INSTRUMENT_CHECK_RESULT.md` |
 
@@ -604,7 +604,7 @@ front 계산에서만 빠진다. **원자료 jsonl 은 절대 삭제하지 않�
 **[설계] 상한 = 8.** 근거 두 가지:
 - `src4` §4.1 이 2축 40후보에서 8개를 냈다 **[사실]** — 같은 축 개수에서의 유일한 실측 참조점.
 - §6.2 의 부모 선택 규칙이 **front 의 서로 다른 끝점 2개**를 참조한다. front 가 8개를
-  넘으면 "끝점" 의 의미가 흐려지고, 사람(bjkim)이 한눈에 검토할 수 없다.
+  넘으면 "끝점" 의 의미가 흐려지고, 사람(운영자)이 한눈에 검토할 수 없다.
 
 **[설계] crowding distance 를 쓸지 — 판정: 쓰지 않는다.**
 
@@ -782,7 +782,7 @@ purely additive 로 갔다 **[사실]**. 우리는 그 판단을 에이전트 �
 없고, 실제로 보고된 대표 시스템은 **정확도 최대 끝점**이었다("the highest-accuracy
 frontier point used in the main text", `src4` 인용 6). 즉 **다목적을 유지한 것은 front
 보고이고, 대표 선정에서는 단일 축 극단으로 되돌아갔다**(`src4` §6). **[설계] 우리는 그
-되돌아감을 하지 않는다 — 최종 선택은 §7 의 루프 밖 주체(bjkim)가 하고, 그 선택은
+되돌아감을 하지 않는다 — 최종 선택은 §7 의 루프 밖 주체(운영자)가 하고, 그 선택은
 설계가 자동화하지 않는다.**
 
 ### 6.5 🔴 붙이기보다 제거·필터가 먼저
@@ -866,7 +866,7 @@ raising the reasoning budget)" (`src3` §5).
 | **결정론 채점기** | `gate/src/reflection_gate/deterministic.py`, `gate.py`(`evaluate`), `policy.py`, `models.py` + `tests/` (pytest, 네거티브 컨트롤 포함) | **밖** | 읽기 전용 |
 | **모델 ID** | `claude-sonnet-4-6` (`phase3_build_prompts.CLAUDE_MODEL`) | **밖** | **읽기 전용 — 모델 교체 금지** |
 | **3판 규약 / fail-closed** | `P4` §5.3 | **밖** | 읽기 전용 |
-| **bjkim 의 최종 판정** | 사람 | **밖** | front 를 보고 운영점 선택 |
+| **운영자의 최종 판정** | 사람 | **밖** | front 를 보고 운영점 선택 |
 | | | | |
 | **proposer** (변이 생성자) | §9 의 `mh_propose.md` 절차 + 사람/에이전트 | **안** | `harness.*` 필드만 |
 | **저지 (판정기)** | `phase3_build_prompts.JUDGE` / `CONTRACT` / `SIBLING_HEADER` 등 지시문 상수 | **안** | proposer 가 수정 가능 |
