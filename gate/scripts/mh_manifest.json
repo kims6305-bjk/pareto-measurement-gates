@@ -1,0 +1,7 @@
+{
+  "label_sheet_xlsx_sha256": "f3349edecf6dac54e89433bd212ca4bbc8d6dba79ba7a5d69868a1eb7c456fa5",
+  "label_sheet_json_sha256": "7463e45db8bf0fefd1a9093e6349a1eb5ece1a4674cd0efc358649e5af56c240",
+  "model": "claude-sonnet-4-6",
+  "python": "3.11.15",
+  "platform": "macOS-26.5.1-arm64-arm-64bit"
+}

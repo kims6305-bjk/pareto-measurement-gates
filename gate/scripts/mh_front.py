@@ -47,6 +47,7 @@ EPS = 1e-9                                # 점 추정 비교용 (스칼라화 �
 
 STATUS_ON_FRONT, STATUS_DOMINATED = "ON_FRONT", "DOMINATED"
 STATUS_PRUNED, STATUS_UNJUDGED, STATUS_INVALID = "PRUNED", "UNJUDGED", "INVALID"
+STATUS_REJECTED_C0 = "REJECTED_C0"           # 정본 §12.1 · 부속서1 U3 (2026-08-03)
 TERMINAL = {STATUS_PRUNED, STATUS_INVALID}   # §5.3 되돌릴 수 없는 전이
 
 KST = timezone(timedelta(hours=9))
@@ -159,7 +160,8 @@ def judgeable(rec: dict) -> bool:
     UNJUDGED 는 "지배도 피지배도 하지 않는다"(§5.2 3단계)이므로 비교에서 완전히 빼고,
     PRUNED 는 되돌릴 수 없으므로(§5.3) 영구 제외한다.
     """
-    if rec.get("status") in (STATUS_INVALID, STATUS_PRUNED, STATUS_UNJUDGED):
+    if rec.get("status") in (STATUS_INVALID, STATUS_PRUNED, STATUS_UNJUDGED,
+                             STATUS_REJECTED_C0):
         return False
     if not rec.get("sample_gate", {}).get("passed"):
         return False
