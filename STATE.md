@@ -10,7 +10,10 @@
   🔴 조건 A 문제판정 0건이라 H1을 검정하지 못함.
 - **계기 검침 PASS** — 저지는 정상이었다(recall 81.8%, SPLIT 0). `gate/INSTRUMENT_CHECK_RESULT.md`
 - **옆방 검증 2/2 PASS** — SciFact·KLUE-NLI recall 100%. `gate/SIDECHECK_RESULT.md`
-- **🆕 파레토 메타하네스 — c000 측정·채점 완료, front={c000}, IC-0 PASS.** (2026-08-03)
+- **🆕 파레토 메타하네스 — 🔴 V6 종결 (IC-1 FAIL, bjkim 결정).** 판정 정본
+  `gate/PARETO_MH_VERDICT.md`. IC-0 PASS(165콜) → IC-1 FAIL(330콜) — precision 축
+  방향은 정확(loose 0.643>c000 0.583>strict 0.500)하나 ci_qid 전부 겹침 = n=55 검정력
+  부족. 탐색 1,650콜 미사용, 총 495콜 종결. **330콜 검침이 1,650콜 손실을 차단** = 논문 소재.
   커밋: `7d7d28b` 설계 → `5df830a` 판정기 → `bfef1cd` 사전등록 → `e325770` 문헌 6소스
   → `beacac4` **부속서1**(U3·U4·U8·U12·U13 해소) → `125fdd8` **러너+가드+c000 등록**.
   정본 `gate/PARETO_META_HARNESS_DESIGN.md` · `PREREG.md` · `PREREG_ADDENDUM1.md`
@@ -70,9 +73,13 @@ Phase 1·2 결정(1~10)은 각 정본에 전문 보관. 여기엔 이후에도 �
   🔴 **IC-0 검침 기준(recall ≥ 30%) PASS** (사전등록). sample_gate passed, front={c000}, 누적콜 165.
 - 원장 = `mh_archive_C2.jsonl`(2행: 등록→측정), front 캐시 = `mh_front_C2.json`.
 - ⚠️ 정답지는 `phase1_human_label_sheet.xlsx` 「라벨링」 시트 G열 (phase2 json은 human_label 빈 파일 — 헷갈리지 말 것).
+- **IC-1 실행·판정 완료 → V6 종결** (러너 `mh_ic1_negative_control.py` 실행 전 커밋
+  `f433eba` → 원자료 `27b0ea2`). 단일 변인 검증(JUDGE만 차이) 통과. 재개 조건
+  (라벨 표본 확대 → IC-1 재실행부터)은 VERDICT §후속 라운드 조건.
 
-**바로 집어들 액션 1개**: **IC-1 (음성 대조, 330콜)** → 통과 시 라운드 시작.
-러너 주변부 미구현: mh_pair_diagnose.py·mh_filter_candidates.py·mh_propose.md(U11, C2 실행 전 커밋).
+**바로 집어들 액션 1개**: **논문/사례글 집필** — 실행 결과가 나왔으므로 해금.
+서사 축 = "검침 3종(IC-0/1/2)이 자격 없는 탐색을 막았다" + 결정 15(문헌 빈자리) +
+V6 실측. push 전 익명화 13건 처리 필수(§13.4). 탐색 재개는 라벨 확대가 선행.
 
 **병행 트랙 (이번 세션 완료분)**:
 - 문헌 6소스 체제 — 결정 15 문구 좁힘(§2 표에 MOT-SR·TRACE-Router 행). 추가 배경 소스는
