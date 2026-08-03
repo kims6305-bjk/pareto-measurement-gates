@@ -1,0 +1,119 @@
+{
+  "candidate_id": "c000",
+  "measurement": {
+    "label_sheet_sha256": "f3349edecf6dac54e89433bd212ca4bbc8d6dba79ba7a5d69868a1eb7c456fa5",
+    "n_units": 55,
+    "n_runs": 3,
+    "n_problem": 11,
+    "n_flagged": 12,
+    "n_detected": 7,
+    "n_split": 1,
+    "n_unresolved": 0,
+    "raw_files": [
+      "mh_c000_run1.jsonl",
+      "mh_c000_run2.jsonl",
+      "mh_c000_run3.jsonl"
+    ]
+  },
+  "objectives": {
+    "recall": {
+      "value": 0.6364,
+      "ci_claim": [
+        0.3333,
+        0.9167
+      ],
+      "ci_qid": [
+        0.3844,
+        1.0
+      ]
+    },
+    "precision": {
+      "value": 0.5833,
+      "ci_claim": [
+        0.3,
+        0.875
+      ],
+      "ci_qid": [
+        0.25,
+        0.9168
+      ]
+    }
+  },
+  "reference_fields": {
+    "elapsed_median": 6.1,
+    "prompt_chars_median": null,
+    "search_cost_calls": 165
+  },
+  "sample_gate": {
+    "passed": true,
+    "violations": []
+  },
+  "bootstrap": {
+    "seed": 20260730,
+    "B": 2000,
+    "ci_method": "percentile_2.5_97.5",
+    "ci_used_for_judgment": "ci_qid",
+    "n_valid_resamples": {
+      "recall": {
+        "claim": 2000,
+        "qid": 2000
+      },
+      "precision": {
+        "claim": 2000,
+        "qid": 2000
+      }
+    },
+    "cluster_unit": "qid(문항) = id.split('-')[0]"
+  },
+  "diagnostics": {
+    "n_contradicted": 5,
+    "n_unresolved_raw": 0,
+    "misses": [
+      {
+        "id": "Q042-B-c3",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q049-B-c1",
+        "human": "C",
+        "judge": "SPLIT"
+      },
+      {
+        "id": "Q068-A-c1",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q068-A-c2",
+        "human": "C",
+        "judge": "SUPPORTED"
+      }
+    ],
+    "false_alarms": [
+      {
+        "id": "Q014-B-c2",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q033-A-c2",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q033-B-c2",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q069-B-c1",
+        "judge": "INSUFFICIENT"
+      },
+      {
+        "id": "Q118-A-c1",
+        "judge": "INSUFFICIENT"
+      }
+    ],
+    "splits": [
+      "Q049-B-c1"
+    ]
+  }
+}
