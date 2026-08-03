@@ -40,15 +40,19 @@ Phase 1·2 결정(1~10)은 각 정본에 전문 보관. 여기엔 이후에도 �
 14. **축 분리: 회수율은 언어에 둔감, 정밀도는 민감** — 오탐률 SciFact 36.4% vs KLUE 3.0%.
    문제를 **놓치는** 실패는 두 언어 0. 어느 쪽이 옳은지는 미해결.
 
-15. **🔴 문헌 대조 결과 — front를 탐색 엔진으로 쓰는 주체가 없다** (2026-07-31, 4소스 정독)
-   정독본 `<workspace>/tmp/meta_src{1,2,3,4}.md` (Self-Harness 2606.09498 /
-   Awesome-Harness-Self-Improvement MIT / Lilian Weng / Meta-Harness 2603.28052)
-   - Self-Harness: Pareto 용어 **0회**지만 비지배 판정을 **진입 게이트에 구현**.
-     스칼라 합산 명시 거부. 그러나 front 미보관 — 활성 harness 항상 1개.
-   - Meta-Harness: Pareto **11회** 언급 + front 반환. 그러나 dominance 판정식이 원문에 없고
-     `"imposes no parent-selection rule"` — 탐색이 front를 쓰지 않는다. 최종 선택도 수동.
-   - 두 논문 다 안 하는 것 = **front를 부모 선택에 쓰는 규칙.** 이것이 우리 기여 지점.
-   - 레포 §5와 Lilian이 독립적으로 같은 처방: evaluator·권한제어는 진화 루프 **밖**에.
+15. **🔴 문헌 대조 — front를 부모 선택에 쓰는 규칙은 harness 자기개선 계층에 없다**
+   (2026-07-31 4소스 → 2026-08-03 **6소스로 갱신·문구 좁힘**, 정독본 `<workspace>/tmp/meta_src{1..6}.md`)
+   - Self-Harness: 판정식 있음, front 없음. Meta-Harness: front 있음, 판정식·부모규칙 없음.
+   - **src5 MOT-SR**(수식발견): front-as-parent **실제 구현** (SyntaxDiv→softmax 부모샘플링).
+     단 그 규칙 자체 ablation 없음, 사전등록·통계검정·시드반복 전무 →
+     타 도메인 독립 지지 증거이자, **우리 C1 vs C2 대조가 문헌에 없는 측정**임을 보존.
+   - **src6 TRACE-Router**(라우팅): front는 사후 문법 전용(스칼라화·α별 정책 격리).
+     이식 2건 — 귀속 처방("결정 입자를 감독 단위까지 굵게"), front 점유 주장에는
+     무작위 혼합 대조군 필요("random mixture also traces the line segment").
+   - 배경 소스(설계문서 미편입): Anthropic harness 블로그, Graph Engineering(Kasana,
+     경험재사용하되 선택규칙 부재), BM25-at-scale 2607.26497(스케일 교차·단순함이 front 점유),
+     quantization 2607.29397(계측 축 오류), Safety-Gated 2607.27849(조건사다리·regime map),
+     SPDP 2607.21985. DP 단계론(프롬프트→하네스→루프→그래프) = 메모이제이션 유추.
 
 16. **🔴 precision을 축으로 올린 것이 이 설계의 핵심 판단** — 단일축(recall)이면
    "전부 CONTRADICTED 찍는 가짜 후보"가 1등을 먹는다. 코드로 실증됨:

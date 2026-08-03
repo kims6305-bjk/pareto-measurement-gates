@@ -13,6 +13,8 @@
 | `src2` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src2_repo.md` (Awesome-Harness-Self-Improvement, MIT) |
 | `src3` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src3_lilian.md` (Lilian Weng, Harness Engineering, 2026-07-04) |
 | `src4` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src4_metaharness.md` (Meta-Harness, arXiv 2603.28052) |
+| `src5` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src5_motsr.md` (MOT-SR, arXiv 2607.29561 — 2026-08-03 추가) |
+| `src6` | `/Users/bjkim/.openclaw/workspace/tmp/meta_src6_tracerouter.md` (TRACE-Router, arXiv 2607.22465 — 2026-08-03 추가) |
 | `skill` | `/Users/bjkim/.hermes/skills/devops/pareto-optimization-gate/SKILL.md` |
 | `P4` | `gate/PHASE4_PREREGISTRATION.md` |
 | `IC` | `gate/INSTRUMENT_CHECK_PREREG.md` · `gate/INSTRUMENT_CHECK_RESULT.md` |
@@ -129,16 +131,22 @@ Phase 1 에서 문제를 발견한 28문항을 확증 집합에서 **전량 제�
 | **Self-Harness** (`src1`) | **0회** (`src1` §6: Pareto/multi-objective/dominance/trade-off 전문 검색 0건) | **있음** — `Δ_in ≥ 0 ∧ Δ_ho ≥ 0 ∧ max(Δ_in,Δ_ho) > 0` (`src1` §3.4). 확률적 평가 시 반복 후 누적 통과 수에 같은 규칙 적용 | **없음** — 활성 harness 단일 계보 `h₀,h₁,...`, 거부 후보는 로그만 (`src1` §3.4) | **해당 없음** (front 가 없음) |
 | **Meta-Harness** (`src4`) | **11회** (`src4` §11-2 관찰) | **없음** — "we evaluate candidates under Pareto dominance" 문장뿐, 부등호·동률·노이즈 규칙 전부 미기재 (`src4` §5-4, **[미확인]**) | **append-only** — `D ← D ∪ {(H,E_H)}` 가 유일한 갱신 연산. 제거·pruning·크기제한 서술 없음 (`src4` §5-3·5-5) | **없음** — `"imposes no parent-selection rule"` (`src4` §7, 인용 2). front CLI 는 "optional, but helpful" (`src4` 인용 8) |
 | **GEPA** (`src2`) | 있음 — "Genetic-**Pareto** reflective optimizer" (`src2` §4(a)) | **[미확인]** — 우리는 GEPA 원문을 읽지 않았다. `src2` 는 목록 항목 1줄이고 `src4` Appendix E 의 GEPA 대조는 피드백 풍부함 축만 다룬다 | **[미확인]** (같은 이유) | **있는 것으로 보고됨** — `src4` §7 이 "GEPA 의 Pareto 기반 부모 샘플링" 을 자기와 대비되는 것으로 지목. 단 `src4` Appendix E 는 그 차이를 **언급조차 하지 않는다**(`src4` §7 관찰) |
+| **MOT-SR** (`src5`, 2607.29561, 수식발견 도메인) | 있음 — "dynamic Pareto front" (abstract) | **있음** — 3축(NMSE_ID/NMSE_OOD/AST 복잡도). 단 OOD 가 훈련셋 내부 백분위 분할이라 진짜 홀드아웃 아님 (`src5`) | **있음** — 단 pruning 규칙 `PopulationManagement` 정의가 논문에 없음 (`src5`) | **있음** — front 위 식들만 `SyntaxDiv` 다양성 점수 → softmax 샘플링으로 부모집합 구성 (§3.3), Meta Strategy Generator 는 front 전체를 입력 (Alg.1). 🔴 단 **front-부모선택 규칙 자체의 ablation 은 없음** — 다목적 vs 단일목적, 구조모듈 유무만. 사전등록·통계검정·시드반복 전무(전 표가 단일 실행값), 탐색예산 비대칭("traditional baselines are allowed more iterations") |
+| **TRACE-Router** (`src6`, 2607.22465, LLM 라우팅 도메인) | 있음 — "non-dominated Pareto frontier points" (abstract) | 스칼라화 — r^(α)=(1−α)·a−α·ℓ̃ 가중합 (Eq.11). 비지배 판정은 학습 신호에 미사용 | **없음** — α별 정책 상태 완전 격리: "observations are never shared across scalarizations" (§3.4) | **없음** — front 는 사후 평가 문법 전용(Fig.3 "rings mark the non-dominated set"). 대신 이식 가치: ① 귀속 처방 = "결정 입자를 감독 단위까지 굵게"("the finest-grained choice such a signal can credit unambiguously"), ② front 점유 주장의 함정 — "a random mixture of two endpoint models also traces the line segment between them in expectation" → latency-matched 대조군 요구 (§4.2) |
 
-**[설계] 빈칸이 우리 자리다.** Self-Harness 는 판정식을 갖고 front 를 안 갖는다.
-Meta-Harness 는 front 를 갖고 판정식을 안 갖는다. GEPA 는 front 를 탐색에 쓴다고
-보고되지만 우리가 원문으로 확인한 바가 없고, 무엇보다 **harness 계층이 아니라 프롬프트
-계층**이다(`src2` Optimization Ladder: GEPA = L0 instruction prompts, Meta-Harness = L4
-optimizer/meta-harness code). 그러므로 "harness 후보 아카이브 위에서, 명시적 노이즈
-처리를 포함한 dominance 판정식으로 front 를 유지하고, 그 front 에서 다음 부모를 고르는
-규칙" 은 세 칸을 동시에 채우는 구성이며 세 연구 어디에도 온전히 없다. 우리가 새로 발명할
-것은 다목적 최적화 이론이 아니라 — 그건 오래된 수학이다 — **이 세 조각의 접합부와,
-그 접합부에 우리 실패 3건에서 나온 노이즈 규율을 박아 넣는 것**이다.
+**[설계] 빈칸이 우리 자리다 — 단, 2026-08-03 갱신으로 문구를 좁힌다.** Self-Harness 는
+판정식을 갖고 front 를 안 갖는다. Meta-Harness 는 front 를 갖고 판정식을 안 갖는다.
+GEPA(프롬프트 계층)와 MOT-SR(수식발견 도메인)은 front-as-parent 를 실제로 쓴다 —
+그러므로 "front 를 탐색 엔진으로 쓰는 주체가 없다" 는 **전 도메인 주장으로는 성립하지
+않으며**, 정직한 주장은 "**harness 자기개선 계층에는 없다**" 다. 이 좁힘은 손해가 아니다:
+타 계층·타 도메인의 front-as-parent 실증(MOT-SR 의 국소수렴 탈출, GEPA 의 부모 샘플링)은
+우리 C2 규칙의 **독립 지지 증거**가 되고, 동시에 MOT-SR 이 front-부모선택 규칙 자체를
+ablation 하지 않았다는 사실은 **우리 C1(무작위 부모) vs C2(front 부모) 대조가 문헌에 없는
+측정**임을 보존한다. TRACE-Router 는 반대편 경계를 세운다 — front 를 사후 문법으로만 쓰는
+스칼라화 계열이 주류이며, front 점유 주장에는 무작위 혼합 대조군이 필요하다는 §4.2 논리는
+우리 결과 보고에 그대로 이식한다. 우리가 새로 발명할 것은 다목적 최적화 이론이 아니라 —
+그건 오래된 수학이다 — **harness 후보 아카이브 위에서 이 조각들의 접합부와, 그 접합부에
+우리 실패 3건에서 나온 노이즈 규율을 박아 넣는 것**이다.
 
 ---
 
