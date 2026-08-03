@@ -2,7 +2,7 @@
 name: pareto-optimization-gate
 description: "상충하는 두 지표(리콜↔프리시전, 커버리지↔정확도, 재현율↔오탐율, 민감도↔특이도)를 동시에 최적화하는 산출물을 '개선'할 때 쓰는 판정 게이트. 트리거 — '파레토', 'pareto', '최적점 찾자', 'R/P 트레이드오프', 'F1 올리자', '리콜 프리시전 같이', '오탐 줄이되 놓치지 말고', 라우팅/리트리벌/evaluator/감사(audit) 임계값 튜닝, AKM 점수 최적화, 분류기 threshold 조정. 한 지표만 보고 '좋아졌다' 하기 전에 두 지표를 파레토 곡선에 놓고 '곡선 위 이동(트레이드오프)인지 곡선 바깥이동(진짜 개선)인지'를 가른다. skill-design-standard 실험 불변식의 이변량(bivariate) 확장."
 version: 1.0.0
-author: 유성
+author: probe-graph maintainer
 metadata:
   hermes:
     tags: [pareto, evaluation, metrics, experiment-discipline, recall-precision, audit, meta]
@@ -182,7 +182,7 @@ MIT라 코드 재사용 자체는 자유. 다만 우리가 붙일 값어치는 �
 |---|---|---|
 | **local-kb-retrieval-eval** | 🟢 적용 완료 | recall 단일축이던 실측표를 (recall@10, 비용) 2축 재판정 → **3방식 전부 front** (rg 저비용 끝점 / 토큰라우터 최속 / LLM라우터 고recall). "LLM 라우팅이 승자" 결론을 "front 위 용도별 선택"으로 교체. 해당 스킬에 반영됨 |
 | 도메인 QA봇 A evaluator | 🟢 적용 완료 (2026-08-03) | 역생성 회귀 러너 `--baseline` — (hit_rate_primary, audit_ok_rate) 2축 + `pareto_gate.py::dominance()` 자동 라벨. 인용실존축은 모서리점이라 개선 축 금지 유지 |
-| 도메인 QA봇 B 회귀 게이트 | 🟢 적용 완료 (2026-08-03) | 골드 20문항 검색평가(초안, 운영자 검수 전 A/B 전용) — (recall@10, precision@10) 0토큰 러너 + 지배 판정. baseline 0.80/0.50. 상세 = tax-yuseong-search-ops §골드 평가 러너 |
+| 도메인 QA봇 B 회귀 게이트 | 🟢 적용 완료 (2026-08-03) | 골드 20문항 검색평가(초안, 운영자 검수 전 A/B 전용) — (recall@10, precision@10) 0토큰 러너 + 지배 판정. baseline 0.80/0.50. 상세 = 도메인 QA봇 B 운영 스킬 �골드 평가 러너 |
 | 옵시디언 vault | 🔵 부분 | "고아 0" 단일축. 상충축(커버리지↔의미충실도)은 허브 폴백에 숨어 있으나 라벨 없음이 병목 — 라벨 만들 계기 전까지 보류 |
 
 ## 문헌 지위 (2026-08-03, 6소스 정독 — probe-graph-public 결정 15)
