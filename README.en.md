@@ -441,6 +441,34 @@ were deliberately not used.
 
 Full text: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
+### When the instrument is wrong, the verdict flips — three failure cases
+
+However well a gate is designed, **if the numbers it reads are wrong** the verdict
+is meaningless. Three measurement failures from a production citation-QA pipeline
+that actually flipped a verdict (or nearly did):
+
+- **Counting-unit error** — `precision`'s denominator was slots, so duplicate
+  correct documents were double-counted. The reported 0.672 was a performance that
+  did not exist, and that inflation made a legitimate improvement read as
+  **DOMINATED**. Recomputed on unique documents, the ratio axis moved −0.004
+  (effectively zero) while the absolute-count axis moved 5.80 → 6.35 —
+  **a ratio axis cannot see deduplication.**
+- **Preprocessing circularity** — the build inserted newlines, and the scorer then
+  counted "line-initial, therefore a paragraph number," letting its own false
+  positives justify themselves. The scorer was **rewritten three times**, finally
+  retreating to "count only unambiguous noise" as a lower-bound estimate to obtain
+  a defensible figure (3.55%).
+- **Adjudication circularity** — candidates were being validated by the same
+  signal that grouped them. A context-blind independent adjudicator re-judged all
+  66 pairs → **0 DIFFERENT** (the automatically extracted "conflicts" did not
+  exist). Confirmed only after resolving all 7 initial UNCLEAR cases on full text.
+
+What the three share: **each was a situation where "it improved" could have been
+reported.** Doubting the instrument cost more than the improvements themselves —
+and was justified all three times.
+
+Full text: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
+
 ## Repository structure
 
 ```
@@ -483,6 +511,7 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   SIDECHECK_RESULT.md   #   Results of both side-rooms — both PASS, recall↔precision axes split
   RELATED_HARNESSES.md  #   Reference-implementation dissection — measured absence of an adoption gate (incl. one absence-proof error of ours)
   THEORY_MAPPING.md     #   Mapping to RLS / autoregression / pruning + where the mapping breaks
+  MEASUREMENT_FAILURES.md #  Three instrument failures — counting unit, preprocessing circularity, adjudication circularity
   scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
   ab_verdict_chart.png

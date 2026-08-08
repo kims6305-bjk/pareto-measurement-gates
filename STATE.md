@@ -14,16 +14,14 @@
   `gate/PARETO_MH_VERDICT.md`. IC-0 PASS(165콜) → IC-1 FAIL(330콜) — precision 축
   방향은 정확(loose 0.643>c000 0.583>strict 0.500)하나 ci_qid 전부 겹침 = n=55 검정력
   부족. 탐색 1,650콜 미사용, 총 495콜 종결. **330콜 검침이 1,650콜 손실을 차단** = 논문 소재.
-  커밋: `7d7d28b` 설계 → `5df830a` 판정기 → `bfef1cd` 사전등록 → `e325770` 문헌 6소스
-  → `beacac4` **부속서1**(U3·U4·U8·U12·U13 해소) → `125fdd8` **러너+가드+c000 등록**.
-  정본 `gate/PARETO_META_HARNESS_DESIGN.md` · `PREREG.md` · `PREREG_ADDENDUM1.md`
-  신규 실물: `mh_guard.py`(INV-2/3 매니페스트, PASS 실측) · `mh_run_candidate.py`
-  (sha 대조·resume·fail-closed 실측) · `mh_archive_C2.jsonl`(c000, prompt_sha ce0239b9…)
-  · `mh_front.py`에 REJECTED_C0 추가(테스트 32/32 유지).
+  설계·사전등록·부속서1 = `gate/PARETO_META_HARNESS_{DESIGN,PREREG,PREREG_ADDENDUM1}.md`.
+  실물: `mh_guard.py`(INV-2/3 매니페스트) · `mh_run_candidate.py`(sha 대조·resume·
+  fail-closed) · `mh_archive_C2.jsonl` · `mh_front.py`(REJECTED_C0, 테스트 32/32).
 - **Phase 4 = 다목적 채택 게이트.** `gate/PHASE4_PREREGISTRATION.md` DRAFT.
   §3의 3축은 파레토 설계 §3에서 **2축(recall, precision)으로 개정**됨.
-- 마지막 활동 2026-08-03. git clean. 🔴 **push 금지 상태** — 익명화(설계 문서
-  절대경로·식별자, 부속서1·본 항목 포함). 처리 절차는 설계 §13.4.
+- 마지막 활동 2026-08-08. **논문 트랙 진입** — 범위 확정(파레토/측정 게이트 1편 먼저,
+  온톨로지는 2편으로 분리) + 논문용 정본 3건 레포 추가. 다음은 목차 초안.
+- 익명화 0건 유지, push 가능 상태. 처리 절차는 설계 §13.4.
 
 ## 결정 누적
 
@@ -38,54 +36,65 @@ Phase 1·2 결정(1~10)은 각 정본에 전문 보관. 여기엔 이후에도 �
 12. **계기 검침이 내 진단을 기각했다** — "저지 고장" 가설은 틀렸고 저지는 정상이었다.
    검침 없이 고쳤다면 멀쩡한 도구를 고치고 개선이라 보고할 뻔했다. 비용 165콜/15분.
 
-13. **🔴 진짜 원인 = 순환 논증 차단이 신호를 전량 제거** — Phase 1 문제 문항 28개가
-   전부 탐색(제외) 집합에 갔다. 설계 부주의가 아니라 **두 규율의 충돌**.
-   → 해법은 제외 포기가 아니라 **제외 후 기저율 확인**.
+13. **🔴 순환 논증 차단이 신호를 전량 제거** — Phase 1 문제 문항 28개가 전부 탐색
+   (제외) 집합으로. 두 규율의 충돌. → 해법은 제외 포기가 아니라 **제외 후 기저율 확인**.
 
-14. **축 분리: 회수율은 언어에 둔감, 정밀도는 민감** — 오탐률 SciFact 36.4% vs KLUE 3.0%.
-   문제를 **놓치는** 실패는 두 언어 0. 어느 쪽이 옳은지는 미해결.
+14. **축 분리: 회수율은 언어에 둔감, 정밀도는 민감** — 오탐률 SciFact 36.4% vs KLUE 3.0%,
+   놓치는 실패는 두 언어 0. 어느 쪽이 옳은지는 미해결.
 
 15. **🔴 문헌 대조 — front를 부모 선택에 쓰는 규칙은 harness 자기개선 계층에 없다**
-   (2026-07-31 4소스 → 2026-08-03 **6소스로 갱신·문구 좁힘**, 정독본 `<workspace>/tmp/meta_src{1..6}.md`)
-   - Self-Harness: 판정식 있음, front 없음. Meta-Harness: front 있음, 판정식·부모규칙 없음.
-   - **src5 MOT-SR**(수식발견): front-as-parent **실제 구현** (SyntaxDiv→softmax 부모샘플링).
-     단 그 규칙 자체 ablation 없음, 사전등록·통계검정·시드반복 전무 →
-     타 도메인 독립 지지 증거이자, **우리 C1 vs C2 대조가 문헌에 없는 측정**임을 보존.
-   - **src6 TRACE-Router**(라우팅): front는 사후 문법 전용(스칼라화·α별 정책 격리).
-     이식 2건 — 귀속 처방("결정 입자를 감독 단위까지 굵게"), front 점유 주장에는
-     무작위 혼합 대조군 필요("random mixture also traces the line segment").
-   - 배경 소스(설계문서 미편입): Anthropic harness 블로그, Graph Engineering(Kasana,
-     경험재사용하되 선택규칙 부재), BM25-at-scale 2607.26497(스케일 교차·단순함이 front 점유),
-     quantization 2607.29397(계측 축 오류), Safety-Gated 2607.27849(조건사다리·regime map),
-     SPDP 2607.21985. DP 단계론(프롬프트→하네스→루프→그래프) = 메모이제이션 유추.
+   (6소스 체제, 정독본 `<workspace>/tmp/meta_src{1..6}.md`, 표는 설계문서 §2)
+   - Self-Harness: 판정식 있음·front 없음 / Meta-Harness: front 있음·부모규칙 없음.
+   - src5 MOT-SR이 front-as-parent를 **실제 구현**했으나 그 규칙 자체의 ablation·
+     사전등록·통계검정 전무 → 타 도메인 독립 지지이자, **우리 C1 vs C2 대조가
+     문헌에 없는 측정**임을 보존.
+   - src6 TRACE-Router에서 이식 2건: 귀속 처방(결정 입자를 감독 단위까지 굵게),
+     🔴 **front 점유 주장에는 무작위 혼합 대조군 필요**("random mixture also traces
+     the line segment") — 결과 보고에 반드시 반영할 것.
+   - 배경 소스 목록(설계문서 미편입)은 설계문서 §2 각주 참조.
 
 16. **🔴 precision을 축으로 올린 것이 이 설계의 핵심 판단** — 단일축(recall)이면
    "전부 CONTRADICTED 찍는 가짜 후보"가 1등을 먹는다. 코드로 실증됨:
    `test_negative_control_all_contradicted_cannot_monopolize_front` (32/32 통과).
    elapsed는 **A/B 모두 4.60s 동률 실측**으로 축에서 기각(P4 §3의 비용축 가정이 틀렸음).
 
+17. **🔴 부재증명은 재실행해 재현한 것만 인용한다** (2026-08-08, 실패 1건에서) —
+   경로 오타로 도구 오류를 "grep 0건"으로 읽었고 재실행하니 9건. 공개 문서·논문의
+   부재증명은 예외 없이 재현 필수. **깨졌을 때 결론이 살아남는지 따로 판정**한다
+   (이번엔 "없다"를 "등록 시점에 없다"로 좁혀 살렸다). 교정 과정은
+   `RELATED_HARNESSES.md`에 그대로 남겼다 — 숨기면 검증 강도가 안 보인다.
+
+18. **논문 범위 = 분리, 파레토/측정 게이트 1편 먼저** (2026-08-08, 운영자 결정) —
+   측정 게이트는 문제→오판→수정→결론이 커밋으로 재현되나, 온톨로지는 실측이
+   클러스터 재사용 42% 하나뿐. 묶으면 약한 쪽이 전체를 끌어내린다. 레포는 동거.
+
 ## 세션 연속성
 
-**멈춘 지점** (2026-08-03 오후): **c000 측정·채점·front 완료.**
-- 3판×55=165콜 완료 → 원자료 커밋(`a6d84e8`, INV-5 열람 전 커밋) → `mh_objectives.py` 채점
-  → 원장 갱신+front(`dab23c4`).
-- **c000 = recall 0.6364 [ci_qid 0.3844,1.0] / precision 0.5833 [0.25,0.9168]** —
-  🔴 **IC-0 검침 기준(recall ≥ 30%) PASS** (사전등록). sample_gate passed, front={c000}, 누적콜 165.
-- 원장 = `mh_archive_C2.jsonl`(2행: 등록→측정), front 캐시 = `mh_front_C2.json`.
-- ⚠️ 정답지는 `phase1_human_label_sheet.xlsx` 「라벨링」 시트 G열 (phase2 json은 human_label 빈 파일 — 헷갈리지 말 것).
-- **IC-1 실행·판정 완료 → V6 종결** (러너 `mh_ic1_negative_control.py` 실행 전 커밋
-  `f433eba` → 원자료 `27b0ea2`). 단일 변인 검증(JUDGE만 차이) 통과. 재개 조건
-  (라벨 표본 확대 → IC-1 재실행부터)은 VERDICT §후속 라운드 조건.
+**멈춘 지점**: 2026-08-08 논문 트랙 착수 — 범위 확정(결정 18) + 논문용 정본 3건 추가.
+커밋 `ac20c3c` 외. 상세는 각 문서에, 여기는 무엇이 어디에 쓰이는지만.
 
-**바로 집어들 액션 1개**: **논문 집필** — 운영자 확정. 사례글은 인계 완료, 논문만 남음.
-서사 축 = "검침 3종(IC-0/1/2)이 자격 없는 탐색을 막았다" + 결정 15(문헌 빈자리) +
-V6 실측 + front 점유 함정(무작위 혼합 대조군) 명시. 익명화·push는 이번 세션에 완료(아래 델타).
+| 신규 정본 | 논문 배치 | 핵심 |
+|---|---|---|
+| `gate/RELATED_HARNESSES.md` | §관련연구 | 참조 구현(prime-agent `a18809e`) 해부 — 채택 게이트 부재를 파일:라인 실측. 최강 근거 = `expectedOutcome` 저장은 되나 소비처가 프롬프트 렌더링 1곳(선언↔소비 괴리). 우리 부재증명 오류 1건도 교정째 수록 |
+| `gate/MEASUREMENT_FAILURES.md` | §도입 문제제기 | 계측 실패 3건(계수단위·전처리순환·판정순환). 사설 커밋 `6335bcd0`/`7edf8ba3`/`94b0cbd3`+`d4259f06` 익명화 요약, 원자료 미동봉 |
+| `gate/THEORY_MAPPING.md` | §배경 | RLS 이득 K↔채택 게이트, AR 노출편향↔스킬 재입력, 사전 가지치기↔계기 검침. 3등급 분리 + 성립 안 하는 전제 별도 절 |
 
-**이번 세션 델타 (2026-08-03 오후 2차)**:
-- ✅ 익명화 28건→0(`anonymize_check` PASS) + **push 완료**(origin/main `4fa3738`). 검사 스크립트 상대경로화.
-- ✅ 스킬 동기화 — `skill-pareto/SKILL.md`(익명화판) 레포 추가.
-- ✅ gpters 사례글 — DP 메모이제이션 사다리×6계층×파레토 게이트 서사, 논문출처 8건, 실측 이미지 4장
-  (`case_study_images/pareto_0{1..4}*.png`). 작가봇 inbox `2026-08-03_pareto-engineering.md` 인계 완료(발행=작가봇).
+스킬 `primary-source-repo-research`에 §8.2.1(부재증명 재실행)·§8.7(대조 판정) 신설.
+
+**바로 집어들 액션 1개**: **논문 목차 초안.** 사설 워크스페이스
+`outputs/ontology_paper_sources.md`의 13소스를 읽고 목차를 잡는다.
+서사 축 = "검침 3종이 자격 없는 탐색을 막았다" + 결정 15(문헌 빈자리) + V6 실측 +
+front 점유 함정(무작위 혼합 대조군). 위 표대로 3건을 배치.
+🔴 새 실험 금지. 레포명 변경(`pareto-measurement-gates`)은 목차 확정 후 — 지금 바꾸면
+기존 링크만 깨진다.
+
+**이전 라운드 요약 (2026-08-03, 상세는 커밋·정본에)**: c000 측정 3판×55=165콜 →
+IC-0 PASS(recall 0.6364 [0.3844,1.0] / precision 0.5833 [0.25,0.9168]),
+front={c000}. IC-1 실행 후 V6 종결(총 495콜, 탐색 1,650콜 미사용).
+원장 `mh_archive_C2.jsonl` · front 캐시 `mh_front_C2.json` · 판정 `PARETO_MH_VERDICT.md`.
+익명화 28건→0 + push 완료, 스킬 `skill-pareto/` 동기화, 사례글 작가봇 인계 완료.
+⚠️ 정답지는 `phase1_human_label_sheet.xlsx` 「라벨링」 시트 G열
+(phase2 json은 human_label 빈 파일 — 헷갈리지 말 것).
 
 **병행 트랙 (이전 세션 완료분)**:
 - 문헌 6소스 체제 — 결정 15 문구 좁힘(§2 표에 MOT-SR·TRACE-Router 행). 추가 배경 소스는
