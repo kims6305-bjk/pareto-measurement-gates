@@ -395,6 +395,52 @@ effective — which is why the first step of the porting procedure is "measure t
 baseline error rate in your own environment first," and this gate is the
 automation of that judgment.
 
+### Do existing harnesses really lack an adoption gate?
+
+The claim "an adoption gate is needed" only holds if existing implementations can
+be shown to lack one. This repo dissects one public reference implementation
+(`PrimeIntellect-ai/prime-agent`, commit `a18809e`) at file:line granularity.
+
+- **Form is enforced by code** — schema violations and concurrent-edit conflicts
+  are reliably rejected.
+- **The improvement judgment is delegated** — it is a single boolean
+  `shouldRefine === true`, and the `expectedOutcome` each proposal stores is read
+  in exactly **one place: the next prompt's rendering**. Self-improvement
+  accumulates, but no code path measures whether it is improvement.
+- Conversely, its **concurrency safeguards exceed anything in this repo**
+  (generation-counter invalidation, baseline comparison right before apply,
+  atomic writes). The two implementations guard different axes.
+
+The same document also preserves **one absence-proof error of this project and
+its correction** — a wrong file path was grepped and the tool's failure was read
+as "0 hits"; a re-run broke it. An absence proof that does not reproduce is not
+evidence.
+
+Full text: [`gate/RELATED_HARNESSES.md`](gate/RELATED_HARNESSES.md)
+
+### This is not a new problem — mapping to recursive estimation and pruning
+
+Placing a **gain** on a repeatedly-updated estimator, and asking about
+significance *before* growing, are both named prescriptions already.
+
+- **The gain `K` in recursive least squares is where the adoption gate sits.**
+  The reference implementation is effectively `K = 1` (apply whatever is
+  proposed); this repo puts a Pareto verdict in that slot.
+- **Autoregressive exposure bias reproduces exactly** — an agent re-reads the
+  skills it wrote itself in the next session, so without ground-truth reinjection
+  (periodic verification) drift is not blocked in principle.
+- **Decision-tree pre-pruning** is structurally the same as instrument checking.
+  In practice a 330-call check blocked a 1,650-call search before it started —
+  along with pre-pruning's known weakness (the horizon effect).
+
+🔴 However, **none of RLS's premises — linearity, convexity, convergence
+guarantees — hold for a harness.** In particular RLS's gain is *computed* from a
+covariance, and no such covariance exists here; it is replaced by a pre-registered
+decision rule. The document records where the mapping breaks and which analogies
+were deliberately not used.
+
+Full text: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
+
 ## Repository structure
 
 ```
@@ -435,6 +481,8 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   INSTRUMENT_CHECK_RESULT.md   # Instrument check result — PASS, records that the author's diagnosis was wrong
   SIDECHECK_PREREG.md   #   Side-room validation pre-declaration (§8 committed before viewing side-room 1 results)
   SIDECHECK_RESULT.md   #   Results of both side-rooms — both PASS, recall↔precision axes split
+  RELATED_HARNESSES.md  #   Reference-implementation dissection — measured absence of an adoption gate (incl. one absence-proof error of ours)
+  THEORY_MAPPING.md     #   Mapping to RLS / autoregression / pruning + where the mapping breaks
   scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
   ab_verdict_chart.png
