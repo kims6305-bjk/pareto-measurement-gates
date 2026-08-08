@@ -1,6 +1,11 @@
-# probe-graph — Reflection Probe Verification Subgraph for Citation-Grounded QA
+# pareto-measurement-gates — 判定是否采纳自我改进的门禁，及其背后的测量规律
 
 [English](README.en.md) | [한국어](README.md) | **中文**
+
+> 📌 **2026-08 更名** —— 原 `reflection-probe-gate` / `probe-graph`。
+> 旧 URL 通过 GitHub 的 301 重定向依然有效。反思探针实验（Phase 1~3）是
+> 本仓库的**起点与其中一章**；当前主题是由该实验催生的
+> **采纳门禁与测量规律**。
 
 本仓库包含一个可插入引用基础型 QA 流水线（RAG 机器人）的**验证子图 (verification subgraph)** 技能，
 以及用于判定其效果的**完整 A/B 实测测试台 (harness)**。

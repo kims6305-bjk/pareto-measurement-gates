@@ -1,4 +1,7 @@
-# STATE — reflection-probe-gate
+# STATE — pareto-measurement-gates
+
+(구 `reflection-probe-gate` — 2026-08-08 개명. 옛 URL은 GitHub 301 리다이렉트로
+살아 있으나, 새 인용은 반드시 새 이름으로.)
 
 세션 시작 시 이 파일을 먼저 읽는다. 상한 100줄, 아카이브 아닌 다이제스트.
 상세는 각 정본 문서 참조(복붙 금지).

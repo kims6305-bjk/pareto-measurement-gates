@@ -1,6 +1,11 @@
-# probe-graph — Reflection Probe Verification Subgraph for Citation-Grounded QA
+# pareto-measurement-gates — 자기개선을 채택할지 판정하는 게이트와 그 계측 규율
 
 [English](README.en.md) | **한국어** | [中文](README.zh-CN.md)
+
+> 📌 **2026-08 개명** — 구 `reflection-probe-gate` / `probe-graph`.
+> 옛 URL은 GitHub 301 리다이렉트로 살아 있습니다. 리플렉션 프로브 실험(Phase 1~3)은
+> 이 레포의 **출발점이자 한 챕터**이며, 현재 주제는 그 실험이 낳은
+> **채택 게이트와 계측 규율**입니다.
 
 인용 기반 QA 파이프라인(RAG 봇)에 꽂는 **검증 서브그래프** 스킬과,
 그 효과를 판정한 **A/B 실측 하네스** 전체를 담은 레포입니다.

@@ -1,6 +1,11 @@
-# probe-graph — Reflection Probe Verification Subgraph for Citation-Grounded QA
+# pareto-measurement-gates — Gates that decide whether to adopt a self-improvement, and the measurement discipline behind them
 
 **English** | [한국어](README.md) | [中文](README.zh-CN.md)
+
+> 📌 **Renamed 2026-08** — formerly `reflection-probe-gate` / `probe-graph`.
+> Old URLs remain alive via GitHub's 301 redirect. The reflection-probe
+> experiment (Phases 1–3) is this repo's **starting point and one chapter**;
+> the current subject is the **adoption gate and measurement discipline** it produced.
 
 This repository contains a **verification subgraph** skill that plugs into a
 citation-grounded QA pipeline (a RAG bot), together with the complete **A/B
