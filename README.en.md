@@ -443,6 +443,8 @@ Full text: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
 ### When the instrument is wrong, the verdict flips — three failure cases
 
+![Three measurement failures](docs/measurement_failures.png)
+
 However well a gate is designed, **if the numbers it reads are wrong** the verdict
 is meaningless. Three measurement failures from a production citation-QA pipeline
 that actually flipped a verdict (or nearly did):
@@ -518,6 +520,7 @@ docs/
   pareto_chart.png      #   Pareto 3-panel (inferior move, outward move, axis split)
   failure_ladder.png    #   How the four phases each failed at a different layer
   gate_flow.png         #   The five stages of the pre-registration gate
+  measurement_failures.png # Three instrument failures (figures parsed from the doc — no hardcoding)
   CASE_STUDY.md         #   Case study — the full day of development (ko/en/zh)
 STATE.md                # Multi-session state digest (accumulated decisions, blockers, verification gates)
 ```
@@ -590,6 +593,41 @@ done
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
 - Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — side-room validation 1 (SciFact)
 - Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — side-room validation 2 (KLUE-NLI)
+
+### Reference implementation (§"Do existing harnesses really lack an adoption gate?")
+
+- PrimeIntellect-ai. *prime-agent.* github.com/PrimeIntellect-ai/prime-agent —
+  the dissected target, pinned at commit `a18809e`. File:line citations and
+  reproduction commands: [`gate/RELATED_HARNESSES.md`](gate/RELATED_HARNESSES.md)
+
+### Theory mapping (§"This is not a new problem")
+
+These are mappings of *structure*, not transplants of theorems. The premises each
+one assumes — and where they fail to hold for a harness — are in
+[`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md) §4.
+
+- Åström, K. J. & Wittenmark, B. (1994). *Adaptive Control* (2nd ed.), Addison-Wesley —
+  the RLS gain `K` and forgetting factor `λ`; the basis for placing the adoption
+  gate at the gain
+- Ljung, L. (1999). *System Identification: Theory for the User* (2nd ed.), Prentice Hall —
+  the covariance `P` from which the gain is computed. **`P` is precisely what is
+  missing here**
+- Bengio, S. et al. (2015). *Scheduled Sampling for Sequence Prediction with
+  Recurrent Neural Networks.* NeurIPS 2015, arXiv:1506.03099 — exposure bias and
+  teacher forcing; maps to re-reading self-written skills
+- Breiman, L. et al. (1984). *Classification and Regression Trees.* Wadsworth —
+  pre-/post-pruning; instrument checking corresponds to pre-pruning
+- Quinlan, J. R. (1987). *Simplifying Decision Trees.* Int. J. Man-Machine Studies 27(3) —
+  the horizon effect of pre-pruning, inherited by the IC-1 FAIL interpretation
+
+### Meta-harness literature survey (decision 15)
+
+A six-source survey looking for front-as-parent-selection. The finding: absent in
+the self-improvement layer, only partially present in other domains (equation
+discovery, routing). Table in
+[`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2.
+🔴 The warning TRACE-Router left behind — **claims of front occupancy require a
+random-mixture control** ("random mixture also traces the line segment").
 
 ## License and data provenance
 

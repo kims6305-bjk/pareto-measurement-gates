@@ -362,6 +362,8 @@ cross-domain validation）。判定器提示词一个字都没改（直接 impor
 
 ### 仪器错了，判定就会翻转 —— 三个失败案例
 
+![三个测量失败](docs/measurement_failures.png)
+
 无论门禁设计得多好，**只要它读到的数字是错的**，判定就没有意义。
 这里收录了在运行中的引用 QA 流水线上，真正翻转过（或差点翻转）判定的三个测量失败。
 
@@ -430,6 +432,7 @@ docs/
   pareto_chart.png      #   帕累托三面板（劣化移动·外移·轴分离）
   failure_ladder.png    #   四个阶段各自在不同层失败的结构
   gate_flow.png         #   预注册门控的五个阶段
+  measurement_failures.png # 三个测量失败的图示（数值从文档解析 —— 无硬编码）
   CASE_STUDY.md         #   案例研究 — 开发当天的完整过程（韩/英/中）
 STATE.md                # 多会话状态摘要（决策累积·卡点·验证门禁）
 ```
@@ -498,6 +501,38 @@ done
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
 - Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — 隔壁房间验证 1（SciFact）
 - Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — 隔壁房间验证 2（KLUE-NLI）
+
+### 参考实现（§"既有的 harness 里真的没有采纳门禁吗"）
+
+- PrimeIntellect-ai. *prime-agent.* github.com/PrimeIntellect-ai/prime-agent —
+  解剖对象，固定于提交 `a18809e`。文件:行引用与复现命令见
+  [`gate/RELATED_HARNESSES.md`](gate/RELATED_HARNESSES.md)
+
+### 理论对应（§"这并不是新问题"）
+
+这些是*结构*的对应，而非定理的移植。各项所预设的条件，
+以及它们在 harness 上不成立的位置，见
+[`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md) §4。
+
+- Åström, K. J. & Wittenmark, B. (1994). *Adaptive Control* (2nd ed.), Addison-Wesley —
+  RLS 的增益 `K` 与遗忘因子 `λ`；把采纳门禁放在增益位置的依据
+- Ljung, L. (1999). *System Identification: Theory for the User* (2nd ed.), Prentice Hall —
+  用于计算增益的协方差 `P`。**我们所缺的正是这个 `P`**
+- Bengio, S. et al. (2015). *Scheduled Sampling for Sequence Prediction with
+  Recurrent Neural Networks.* NeurIPS 2015, arXiv:1506.03099 —
+  曝光偏差与 teacher forcing；对应"重新读取自己写下的技能"
+- Breiman, L. et al. (1984). *Classification and Regression Trees.* Wadsworth —
+  预剪枝／后剪枝；仪器校验对应预剪枝
+- Quinlan, J. R. (1987). *Simplifying Decision Trees.* Int. J. Man-Machine Studies 27(3) —
+  预剪枝的 horizon effect，被 IC-1 FAIL 的解释一并继承
+
+### 元 harness 文献对照（决定 15）
+
+为寻找"以 front 作为父代选择规则"的六源对照。结论是：
+自我改进层中不存在，仅在其他领域（公式发现、路由）部分存在。表见
+[`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2。
+🔴 其中 TRACE-Router 留下的警告 —— **关于 front 占据的主张需要随机混合对照组**
+（"random mixture also traces the line segment"）。
 
 ## 许可证与数据来源
 

@@ -371,6 +371,8 @@ Phase 3는 순환 논증을 피하려고 "가설을 생성한 표본은 확증 �
 
 ### 계측기가 틀리면 판정이 뒤집힌다 — 실패 사례 3건
 
+![계측 실패 3건](docs/measurement_failures.png)
+
 게이트를 아무리 잘 설계해도 **게이트가 읽는 숫자가 틀리면** 판정은 무의미합니다.
 운영 중인 인용 QA 파이프라인에서 실제로 판정을 뒤집었던(또는 뒤집을 뻔했던) 계측 실패
 3건을 수록했습니다.
@@ -440,6 +442,7 @@ docs/
   pareto_chart.png      #   파레토 3패널 (열등이동·바깥이동·축 분리)
   failure_ladder.png    #   4단계가 매번 다른 층에서 실패한 구조
   gate_flow.png         #   사전등록 게이트 5단계
+  measurement_failures.png # 계측 실패 3건 도식 (수치는 문서에서 파싱 — 하드코딩 없음)
   CASE_STUDY.md         #   케이스 스터디 — 개발 하루 전 과정 (한/영/중)
 STATE.md                # 다세션 상태 다이제스트 (결정 누적·막힘·검증 게이트)
 ```
@@ -508,6 +511,37 @@ done
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
 - Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — 옆방 검증 1 (SciFact)
 - Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — 옆방 검증 2 (KLUE-NLI)
+
+### 참조 구현 (§"기존 하네스에는 정말 채택 게이트가 없는가")
+
+- PrimeIntellect-ai. *prime-agent.* github.com/PrimeIntellect-ai/prime-agent —
+  해부 대상, 커밋 `a18809e` 고정. 파일:라인 인용과 재현 명령은
+  [`gate/RELATED_HARNESSES.md`](gate/RELATED_HARNESSES.md)
+
+### 이론 대응 (§"이것은 새 문제가 아니다")
+
+이 절의 대응은 **구조의 대응이지 정리의 이식이 아니다.** 각 항목이 전제하는 조건과
+그것이 하네스에서 성립하지 않는 지점은 [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md) §4.
+
+- Åström, K. J. & Wittenmark, B. (1994). *Adaptive Control* (2nd ed.), Addison-Wesley —
+  RLS 이득 `K`와 망각인자 `λ`. 채택 게이트를 이득 자리에 대응시키는 근거
+- Ljung, L. (1999). *System Identification: Theory for the User* (2nd ed.), Prentice Hall —
+  축차추정의 공분산 `P`와 이득 계산. **우리에게 없는 것이 바로 이 `P`다**
+- Bengio, S. et al. (2015). *Scheduled Sampling for Sequence Prediction with
+  Recurrent Neural Networks.* NeurIPS 2015, arXiv:1506.03099 — 노출 편향과
+  teacher forcing. 하네스에서 "자기가 쓴 스킬의 재입력"에 대응
+- Breiman, L. et al. (1984). *Classification and Regression Trees.* Wadsworth —
+  사전/사후 가지치기. 계기 검침이 사전 가지치기에 해당
+- Quinlan, J. R. (1987). *Simplifying Decision Trees.* Int. J. Man-Machine Studies 27(3) —
+  사전 가지치기의 horizon effect. 우리 IC-1 FAIL 해석의 위험을 그대로 물려받는다
+
+### 메타하네스 문헌 대조 (결정 15)
+
+front를 부모 선택 규칙으로 쓰는 사례를 찾기 위한 6소스 대조. 요지는
+"자기개선 계층에는 없고, 타 도메인(수식 발견·라우팅)에만 부분적으로 있다"이며
+표는 [`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2.
+🔴 그중 TRACE-Router가 남긴 경고 — **front 점유 주장에는 무작위 혼합 대조군이
+필요하다**("random mixture also traces the line segment").
 
 ## 라이선스와 데이터 출처
 
