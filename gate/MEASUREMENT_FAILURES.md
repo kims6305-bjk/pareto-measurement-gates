@@ -6,8 +6,8 @@
 수록 기준은 하나다 — **계측 오류가 판정을 실제로 뒤집었거나, 뒤집을 뻔했던 것만.**
 "고쳤더니 숫자가 예뻐졌다"는 여기 없다.
 
-> 🇰🇷 이 세 사례를 비개발자용 스토리로 푼 판본:
-> [일주일 실전 운영기 — 자(尺)가 세 번 고장났다](https://www.gpters.org/nocode/post/pareto-enjinieoring-eul-seoneonhan-daeum-jue-siljero-beoleojin-il----ja-chi-2nT8LYb8nCv89pV) (GPTers)
+> 🔎 이 세 사례를 발생 맥락·한 주의 전체 흐름과 함께 내러티브로 푼 판본:
+> [`docs/field-report/FIELD_REPORT.md`](../docs/field-report/FIELD_REPORT.md) (도식 8장 포함)
 
 사례는 운영 중인 인용 QA 시스템(공개 회계·세무 기준 문서를 근거로 답하는 검색·답변
 파이프라인)에서 나왔다. 도메인 세부는 이 문서의 논점이 아니며, **어느 파이프라인에서도

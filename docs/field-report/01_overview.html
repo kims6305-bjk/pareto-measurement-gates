@@ -1,0 +1,74 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1560px}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.d{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px 26px;border-top:7px solid var(--c1)}
+.d:nth-child(2){border-top-color:var(--c2)}.d:nth-child(3){border-top-color:var(--c3)}.d:nth-child(4){border-top-color:var(--c4)}
+.d .no{font-size:15px;font-weight:800;color:var(--amber);letter-spacing:.08em}
+.d h3{font-size:24px;font-weight:800;color:var(--navy);margin:6px 0 12px;line-height:1.3}
+.d .q{font-size:16px;color:var(--muted);line-height:1.6;margin-bottom:16px;min-height:76px}
+.d .ev{background:#F6F5F1;border-radius:12px;padding:14px 16px}
+.d .ev .k{font-size:14px;font-weight:800;color:var(--navy2);margin-bottom:6px}
+.d .ev .v{font-size:17px;font-weight:700;color:var(--text);line-height:1.5}
+.d .ev .v b{color:var(--amber)}
+.band{margin-top:22px;background:var(--navy);border-radius:18px;padding:26px 30px;color:#fff;display:grid;grid-template-columns:1.35fr 1fr;gap:34px}
+.band h4{font-size:23px;font-weight:800;margin-bottom:10px}
+.band p{font-size:17.5px;line-height:1.75;color:#C4D0E2}
+.band b{color:#E8B98F}
+.nums{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.n{background:#1D2A48;border-radius:14px;padding:16px 18px}
+.n .lab{font-size:14px;color:#9FB0C8;font-weight:600;margin-bottom:6px}
+.n .num{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.n .num span{font-size:17px;color:#E8B98F;margin-left:3px}
+</style>
+<div class="kicker">2026.08.03 → 08.09 · 이번 주 작업의 뼈대</div>
+<h1>파레토 엔지니어링 — 개념을 "작동하는 판정 장치"로 만드는 네 결정</h1>
+<div class="legend">파레토 전선은 개념으로는 쉽고, <b>실제로 판정을 내리게 만들려면</b> 개념이 정해주지 않는 선택을 네 번 해야 합니다</div>
+<div class="hr"></div>
+
+<div class="four">
+  <div class="d">
+    <div class="no">결정 ①</div>
+    <h3>지배 판정식</h3>
+    <div class="q">부등호를 어디에 두는가. 동률은 어떻게 처리하고, 측정 노이즈 안에서 "이겼다"를 어떻게 선언하는가.</div>
+    <div class="ev"><div class="k">이번 주 실물</div><div class="v">매도 규칙 7종 중 <b>5종이 비지배</b><br>탈락은 두 축 모두 진 2종뿐</div></div>
+  </div>
+  <div class="d">
+    <div class="no">결정 ②</div>
+    <h3>축 설계</h3>
+    <div class="q">무엇을 목적함수로 둘 것인가. 비율축만 볼 것인가, 절대 계수축을 함께 둘 것인가.</div>
+    <div class="ev"><div class="k">이번 주 실물</div><div class="v">같은 개선이 축을 바꾸자<br><b>기각 → 채택</b>으로 뒤집힘</div></div>
+  </div>
+  <div class="d">
+    <div class="no">결정 ③</div>
+    <h3>전선 유지·갱신</h3>
+    <div class="q">전선을 계속 쌓을 것인가 쳐낼 것인가. 무엇이 비어 있어 갱신이 막히는가.</div>
+    <div class="ev"><div class="k">이번 주 실물</div><div class="v">결손을 4개 질문으로 계량<br><b>못 채우는 것은 조달 요청</b>으로 분리</div></div>
+  </div>
+  <div class="d">
+    <div class="no">결정 ④</div>
+    <h3>좌표 신뢰성 (계기 검침)</h3>
+    <div class="q">전선 위 좌표를 믿을 수 있는가. 재기 전에 <b>자(尺)부터</b> 검사했는가.</div>
+    <div class="ev"><div class="k">이번 주 실물</div><div class="v">정답셋에 <b>보이지 않는 오타</b><br>66쌍 자동판정은 <b>순환</b>이었음</div></div>
+  </div>
+</div>
+
+<div class="band">
+  <div>
+    <h4>그리고 그 확장 — 메타하네스</h4>
+    <p>이 네 결정을 갖춘 판정 장치를, <b>AI가 스스로를 개선할 때의 탐색 엔진</b>으로 쓸 수 있는가.
+    네 라운드를 사전등록 하에 돌렸고 <b>네 번 모두 가설을 검정하지 못했습니다.</b><br><br>
+    그런데 그게 게이트가 한 일입니다 — 본 탐색에 쓰려던 <b>1,650콜을 시작 전에 차단</b>했고,
+    총 비용은 검침 495콜로 끝났습니다. 검침이 없었다면 판별력 없는 축 위에서 후보를 채택하고
+    <b>"개선했다"고 보고할 수 있었습니다.</b></p>
+  </div>
+  <div class="nums">
+    <div class="n"><div class="lab">차단한 본 탐색 예산</div><div class="num">1,650<span>콜</span></div></div>
+    <div class="n"><div class="lab">실제 사용 (검침만)</div><div class="num">495<span>콜</span></div></div>
+    <div class="n"><div class="lab">외부 도메인 이식 검증</div><div class="num">3<span>방 PASS</span></div></div>
+    <div class="n"><div class="lab">논문 초고</div><div class="num">§1–§9<span> 완성</span></div></div>
+  </div>
+</div>
+
+<div class="foot">근거: 사전등록 문서·판정기·원자료 모두 결과 열람 이전 시점의 커밋으로 공개 · 주간 커밋 33건</div>

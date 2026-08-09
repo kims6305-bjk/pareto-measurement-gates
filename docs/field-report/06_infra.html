@@ -1,0 +1,74 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1520px}
+.row{display:grid;grid-template-columns:1.15fr 1fr;gap:22px}
+.card2{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 28px}
+.card2 h3{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.card2 .cap{font-size:16px;color:var(--muted);margin-bottom:20px;line-height:1.55}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.k{background:#F6F5F1;border-radius:14px;padding:18px 20px;border-left:5px solid var(--c1)}
+.k:nth-child(2){border-left-color:var(--c2)}.k:nth-child(3){border-left-color:var(--c3)}.k:nth-child(4){border-left-color:var(--c4)}
+.k .lab{font-size:15px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.k .num{font-size:34px;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1}
+.k .num span{font-size:18px;color:var(--navy2);margin-left:3px}
+.k .sub{font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.45}
+.steps .s{display:flex;gap:14px;margin-bottom:15px;align-items:flex-start}
+.steps .n{width:30px;height:30px;border-radius:9px;flex:none;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+.steps .t{font-size:17px;line-height:1.55;color:var(--text)}
+.steps .t b{color:var(--navy)}
+.steps .t span{display:block;font-size:15px;color:var(--muted);margin-top:3px}
+.warn{margin-top:6px;background:#FDF6EE;border:1px solid #EED9C2;border-left:6px solid var(--amber);
+  border-radius:12px;padding:17px 19px;font-size:16.5px;line-height:1.7;color:var(--text)}
+.warn b{color:var(--amber)}
+.bottom{margin-top:20px;background:#F1F4F8;border:1px solid #D6DEE8;border-radius:18px;padding:24px 30px}
+.bottom h4{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.bottom p{font-size:17px;line-height:1.75;color:var(--text)}
+.bottom b{color:var(--amber)}
+</style>
+<div class="kicker">전선을 밀 재료 · 이번 주 인프라</div>
+<h1>축을 밀려면 잴 대상이 있어야 한다 — 지식베이스를 키우고, 밖으로 뺐다</h1>
+<div class="legend">파레토 판정은 <b>재는 절차</b>이고, 이 주에 그 절차가 잴 <b>대상 자체</b>도 크게 늘었습니다</div>
+<div class="hr"></div>
+
+<div class="row">
+  <div class="card2">
+    <h3>① 잴 대상을 늘렸다</h3>
+    <div class="cap">전부 로컬 검색 DB를 직접 집계한 값입니다(추정치 없음).</div>
+    <div class="kpis">
+      <div class="k"><div class="lab">세법 검색 청크</div><div class="num">664,230<span>개</span></div><div class="sub">조세심판례 <b>140,510건</b> 전량 편입이 이번 주 증가분의 대부분</div></div>
+      <div class="k"><div class="lab">판례 → 조문 인용 연결선</div><div class="num">395,634<span>개</span></div><div class="sub">"이 판례가 어느 조문을 인용했나"를 그래프로 보유</div></div>
+      <div class="k"><div class="lab">회계 검색 청크</div><div class="num">44,424<span>개</span></div><div class="sub">기준서·질의회신·실무 Q&amp;A. 세법과 별도 운영</div></div>
+      <div class="k"><div class="lab">외부 공개 문서</div><div class="num">50,512<span>건</span></div><div class="sub">공개해도 되는 것만 추려 서버로 발행</div></div>
+    </div>
+    <div class="warn" style="margin-top:20px">
+      규모가 커지면 <b>계측 오류의 대가도 같이 커집니다.</b> 63만 청크 위에서 잘못된 자로 재면,
+      틀린 판정이 <b>그럴듯한 숫자를 달고</b> 나옵니다 — 이번 주에 자를 두 번 고친 이유입니다.
+    </div>
+  </div>
+
+  <div class="card2">
+    <h3>② 밖으로 뺐다 — 공개 MCP 서버</h3>
+    <div class="cap">집 서버 안에서만 살던 지식을, 다른 PC·다른 AI 도구에서도 조회하게 만들었습니다.</div>
+    <div class="steps">
+      <div class="s"><div class="n">1</div><div class="t"><b>공개용으로 깎기</b><span>개인 노트 전면 제외 · 본문은 600자 스니펫으로 절단(7,688건)</span></div></div>
+      <div class="s"><div class="n">2</div><div class="t"><b>용량 한계 정면충돌</b><span>파일 100MB 상한 → 압축 + 본문 없는 색인 구조로 93MB에 맞춤</span></div></div>
+      <div class="s"><div class="n">3</div><div class="t"><b>표준 라이브러리를 걷어냄</b><span>요청마다 서버가 새로 뜨는 구조에서 접속 세션이 유실 → 규격대로 직접 구현</span></div></div>
+      <div class="s"><div class="n">4</div><div class="t"><b>매일 05시 자동 동기화</b><span>로컬에 자료가 늘면 공개본도 따라 커짐 · 운영비 0원</span></div></div>
+    </div>
+    <div class="warn">
+      라이브러리가 문제를 <b>풀어주는 게 아니라 만드는</b> 경우가 있습니다.
+      규격 문서를 보고 직접 구현하는 게 결국 더 짧았습니다.
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  <h4>왜 이걸 파레토 이야기 안에 넣는가</h4>
+  <p>지식베이스는 <b>파레토 전선을 밀 재료</b>입니다. 자료가 늘면 좌표가 움직이고, 자료가 없으면 전선이 멈춥니다.
+  그래서 결손 계측에서 "내가 못 채우는 것"이 나오면 <b>매일 저녁 9시에 자료를 요청하는 크론</b>이 돌고,
+  자료가 들어오면 다음 측정에서 좌표가 밀립니다. <b>쌓기 · 재기 · 요청하기가 한 루프</b>로 붙어 있어야 전선이 계속 움직입니다.</p>
+</div>
+
+<div class="foot">측정 2026-08-09 · 공개 DB 빌드 10:14 기준 50,512건 / 93MB · 동기화 로그 실측 확인</div>

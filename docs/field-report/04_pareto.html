@@ -1,0 +1,93 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1420px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px 20px 8px}
+text{font-family:'Pretendard',sans-serif}
+.side{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px}
+.mini{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.mini h4{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.mini p{font-size:16px;line-height:1.6;color:var(--muted)}
+.mini b{color:var(--text)}
+.mini.hl{border-left:6px solid var(--amber)}
+</style>
+<div class="kicker">결정 ① 지배 판정식 — 파레토가 실제로 판정을 내리는 순간</div>
+<h1>"가장 좋은 하나"는 없었다 — 남는 건 전선(frontier)</h1>
+<div class="legend">매도 규칙 7종 비교 · 같은 진입 187건에 출구만 바꿔 측정 · 오른쪽 위로 갈수록 수익, 왼쪽으로 갈수록 빠른 회전</div>
+<div class="hr"></div>
+
+<div class="panel">
+<svg width="1360" height="700" viewBox="0 0 1360 700">
+  <!-- grid -->
+  <g stroke="#E4E1D8" stroke-width="1">
+    <line x1="140" y1="640" x2="1300" y2="640"/>
+    <line x1="140" y1="546.7" x2="1300" y2="546.7"/>
+    <line x1="140" y1="453.3" x2="1300" y2="453.3"/>
+    <line x1="140" y1="360" x2="1300" y2="360"/>
+    <line x1="140" y1="266.7" x2="1300" y2="266.7"/>
+    <line x1="140" y1="173.3" x2="1300" y2="173.3"/>
+    <line x1="140" y1="80" x2="1300" y2="80"/>
+  </g>
+  <g stroke="#141F38" stroke-width="2">
+    <line x1="140" y1="80" x2="140" y2="640"/>
+    <line x1="140" y1="640" x2="1300" y2="640"/>
+  </g>
+  <!-- y labels -->
+  <g font-size="16" fill="#5C6675" text-anchor="end">
+    <text x="126" y="646">0</text><text x="126" y="553">0.2</text><text x="126" y="459">0.4</text>
+    <text x="126" y="366">0.6</text><text x="126" y="272">0.8</text><text x="126" y="179">1.0</text><text x="126" y="86">1.2</text>
+  </g>
+  <!-- x labels -->
+  <g font-size="16" fill="#5C6675" text-anchor="middle">
+    <text x="140" y="668">0</text><text x="306" y="668">20</text><text x="472" y="668">40</text>
+    <text x="638" y="668">60</text><text x="805" y="668">80</text><text x="971" y="668">100</text><text x="1137" y="668">120</text>
+  </g>
+  <text x="720" y="694" font-size="18" font-weight="700" fill="#1C2430" text-anchor="middle">평균 보유 시간 (봉) → 오래 들고 있을수록 오른쪽</text>
+  <text x="34" y="360" font-size="18" font-weight="700" fill="#1C2430" text-anchor="middle" transform="rotate(-90 34 360)">1회 평균 수익률 (%)</text>
+
+  <!-- frontier -->
+  <path d="M204.0,547.6 L299.5,492.1 L634.3,431.9 L776.4,302.1 L1138.6,124.3"
+        fill="none" stroke="#B84A10" stroke-width="3.5" stroke-dasharray="10 7" opacity="0.85"/>
+  <text x="330" y="180" font-size="21" font-weight="800" fill="#B84A10">파레토 전선 — 7개 중 5개가 살아남았다</text>
+  <text x="330" y="212" font-size="17" font-weight="600" fill="#8A93A3">점선 위의 후보는 서로 우열을 가릴 수 없다</text>
+
+  <!-- dominated points -->
+  <g>
+    <circle cx="316.1" cy="526.6" r="11" fill="#FFFFFF" stroke="#8A93A3" stroke-width="3"/>
+    <circle cx="306.2" cy="542.9" r="11" fill="#FFFFFF" stroke="#8A93A3" stroke-width="3"/>
+    <text x="372" y="560" font-size="17" font-weight="700" fill="#8A93A3">X4 RCI9 피크 · X6 20봉 고정</text>
+    <text x="372" y="583" font-size="15" fill="#8A93A3">→ 지배당함(둘 다 열등). 탈락</text>
+  </g>
+
+  <!-- frontier points -->
+  <g>
+    <circle cx="1138.6" cy="124.3" r="14" fill="#B84A10"/>
+    <text x="1112" y="98" font-size="18" font-weight="800" fill="#141F38" text-anchor="end">X1 RCI4 최상단</text>
+    <text x="1112" y="120" font-size="15" fill="#5C6675" text-anchor="end">1.105% · 120봉 · 승률 73.3%</text>
+
+    <circle cx="776.4" cy="302.1" r="14" fill="#2C4A73"/>
+    <text x="800" y="288" font-size="18" font-weight="800" fill="#141F38">X2 RCI4 3봉</text>
+    <text x="800" y="310" font-size="15" fill="#5C6675">0.724% · 77봉 · 승률 74.3%</text>
+
+    <circle cx="634.3" cy="431.9" r="14" fill="#2E8B8B"/>
+    <text x="658" y="418" font-size="18" font-weight="800" fill="#141F38">X7 60봉 고정</text>
+    <text x="658" y="440" font-size="15" fill="#5C6675">0.446% · 60봉 · 승률 60.4%</text>
+
+    <circle cx="299.5" cy="492.1" r="14" fill="#D97B29"/>
+    <text x="324" y="478" font-size="18" font-weight="800" fill="#141F38">X3 RCI9 최상단</text>
+    <text x="324" y="500" font-size="15" fill="#5C6675">0.317% · 19봉 · 승률 74.3%</text>
+
+    <circle cx="204.0" cy="547.6" r="14" fill="#C25E6E"/>
+    <text x="190" y="590" font-size="18" font-weight="800" fill="#141F38" text-anchor="middle">X5 RCI9 0선교차</text>
+    <text x="190" y="612" font-size="15" fill="#5C6675" text-anchor="middle">0.198% · 8봉 · 승률 75.4%</text>
+  </g>
+</svg>
+</div>
+
+<div class="side">
+  <div class="mini hl"><h4>승자를 못 정한 게 결과다</h4><p>7개 중 <b>5개가 살아남았습니다.</b> "수익이 큰 것"과 "빨리 끝나는 것"은 서로 다른 축이라, 하나로 줄일 수 없습니다. 탈락한 건 <b>두 축 모두에서 진 2개</b>뿐.</p></div>
+  <div class="mini"><h4>축을 바꾸면 순위가 뒤집힌다</h4><p>봉당 효율로 보면 X5(25.6)가 1등, X1(9.2)이 꼴찌입니다. 총수익으로 보면 정반대. <b>어느 게 좋냐는 질문은 축을 정하기 전엔 성립하지 않습니다.</b></p></div>
+  <div class="mini"><h4>사람이 정할 몫</h4><p>기계는 <b>"이 5개는 서로 우열이 없다"</b>까지만 말할 수 있습니다. 자금 회전을 볼지 한 방을 볼지는 <b>사람이 고르는 문제</b>로 남겨뒀습니다.</p></div>
+</div>
+
+<div class="foot">근거: 출구 규칙 파레토 실험 원자료 · 진입 187건 동일, 출구 규칙만 교체 · 4종목 4시간대 28,320 평가점 기반</div>

@@ -23,7 +23,8 @@ BAD_STRICT = [
     r"\(주\)\s*경방", r"경방\s*\(주\)", r"주식회사\s*경방",
     r"\(주\)\s*전방", r"전방\s*\(주\)", r"주식회사\s*전방",
 ]
-EXT = {".md", ".py", ".json", ".sh", ".yml", ".yaml", ".txt", ".jsonl", ".toml"}
+EXT = {".md", ".py", ".json", ".sh", ".yml", ".yaml", ".txt", ".jsonl", ".toml",
+       ".html", ".css", ".svg"}  # 도식 HTML도 픽셀로 렌더돼 나가므로 스캔 대상
 # 검사·검수 스크립트는 경로/단어장 자체를 코드에 담으므로 스캔 대상에서 제외한다.
 SELF = {"anonymize_check.py", "readme_parity_check.py", "readme_numbers_check.py"}
 

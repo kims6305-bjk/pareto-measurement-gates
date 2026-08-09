@@ -31,10 +31,8 @@
 > 📖 本仓库诞生这一天的完整过程（设计依据、连续四次失败、以及门控查出作者本人的误诊）
 > 按顺序记录在[案例研究](docs/CASE_STUDY.zh-CN.md)中。
 >
-> 🇰🇷 在生产数据上运行此闸门的两篇韩文实战记录（GPTers 社区）：
-> [① 宣告 Pareto 工程 + 仪表检定 FAIL 实验记](https://www.gpters.org/nocode/post/now-youve-built-up-8Oqvvpr4EtdFBfA) ·
-> [② 一周实战运营记 — 尺子坏了三次](https://www.gpters.org/nocode/post/pareto-enjinieoring-eul-seoneonhan-daeum-jue-siljero-beoleojin-il----ja-chi-2nT8LYb8nCv89pV)
-> （② 是 `gate/MEASUREMENT_FAILURES.md` 案例 1~3 的叙事版本）
+> 🧭 在生产数据上运行此闸门一周的**实战报告**（三次仪表故障、缺口计量、
+> 元框架四轮综述，含 8 张图，韩文）：[`docs/field-report/FIELD_REPORT.md`](docs/field-report/FIELD_REPORT.md)
 
 ## 为什么要做（动机）
 

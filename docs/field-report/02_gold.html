@@ -1,0 +1,99 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1560px}
+.wrap{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 28px}
+.panel .no{font-size:15px;font-weight:800;color:var(--amber);letter-spacing:.08em}
+.panel h3{font-size:25px;font-weight:800;color:var(--navy);margin:6px 0 4px}
+.panel .cap{font-size:16px;color:var(--muted);margin-bottom:22px;line-height:1.55}
+.bar{margin-bottom:18px}
+.bar .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.bar .nm{font-size:17.5px;font-weight:700;color:var(--text)}
+.bar .vl{font-size:20px;font-weight:800;color:var(--navy)}
+.track{height:24px;background:#EFEDE6;border-radius:8px;overflow:hidden}
+.fill{height:100%;border-radius:8px}
+.note{font-size:15px;color:var(--muted);margin-top:6px;line-height:1.5}
+.note b{color:var(--text)}
+.verd{display:flex;gap:12px;margin:20px 0 6px}
+.vc{flex:1;border-radius:14px;padding:16px 18px;text-align:center}
+.vc .t{font-size:14px;font-weight:800;letter-spacing:.04em;margin-bottom:6px}
+.vc .m{font-size:22px;font-weight:800}
+.vc.bad{background:#FBE9E7}.vc.bad .t{color:var(--neg)}.vc.bad .m{color:var(--neg)}
+.vc.good{background:#E3F1EA}.vc.good .t{color:var(--pos)}.vc.good .m{color:var(--pos)}
+.arrowc{display:flex;align-items:center;font-size:30px;color:var(--navy2)}
+.callout{margin-top:18px;background:#FDF6EE;border:1px solid #EED9C2;border-left:6px solid var(--amber);border-radius:12px;padding:18px 20px;font-size:16.5px;line-height:1.7;color:var(--text)}
+.callout b{color:var(--amber)}
+.glyph{font-size:25px;color:var(--text);margin-top:8px}
+</style>
+<div class="kicker">결정 ② 축 설계 · 결정 ④ 좌표 신뢰성</div>
+<h1>축을 바꾸니 기각이 채택이 됐고, 자를 고치니 점수가 올랐다</h1>
+<div class="legend">둘 다 시스템은 그대로입니다. 바뀐 건 <b>재는 방법</b>뿐인데 판정이 뒤집혔습니다</div>
+<div class="hr"></div>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="no">결정 ② — 축 설계</div>
+    <h3>비율축만 보면 정당한 개선이 기각된다</h3>
+    <div class="cap">검색 결과에서 같은 문서가 여러 조각으로 중복 노출되는 걸 고쳤습니다. 파레토 게이트에 걸었더니 <b>기각</b>이 나왔습니다.</div>
+
+    <div class="bar">
+      <div class="top"><span class="nm">비율축 — 슬롯 기준 정밀도</span><span class="vl">47.5%</span></div>
+      <div class="track"><div class="fill" style="width:47.5%;background:var(--c5)"></div></div>
+      <div class="note">분모가 <b>슬롯</b>이라, 같은 정답이 세 칸을 먹으면 분자도 3이 됩니다.<br>→ <b>중복이 많을수록 점수가 오르는 자</b>였습니다.</div>
+    </div>
+
+    <div class="bar">
+      <div class="top"><span class="nm">비율축 — 고유문서 기준 정밀도</span><span class="vl">64.2%</span></div>
+      <div class="track"><div class="fill" style="width:64.2%;background:var(--c1)"></div></div>
+      <div class="note">부풀림을 걷어내고 다시 셈. 같은 검색엔진, 같은 20문항입니다.</div>
+    </div>
+
+    <div class="bar">
+      <div class="top"><span class="nm">계수축 — 정답 고유문서 수</span><span class="vl">5.80 → 6.35</span></div>
+      <div class="track"><div class="fill" style="width:79%;background:var(--c2)"></div></div>
+      <div class="note">비율축이 못 보던 개선이 <b>계수축에서만 보였습니다.</b></div>
+    </div>
+
+    <div class="verd">
+      <div class="vc bad"><div class="t">비율축 단독</div><div class="m">기각 (열등)</div></div>
+      <div class="arrowc">→</div>
+      <div class="vc good"><div class="t">계수축 병기</div><div class="m">채택</div></div>
+    </div>
+
+    <div class="callout">
+      축 선택은 판정의 <b>부수적 설정이 아니라 판정 그 자체의 일부</b>였습니다.<br>
+      중복 제거·다양성 확보 같은 개입은 <b>비율축이 원리적으로 못 잡습니다.</b>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="no">결정 ④ — 좌표 신뢰성 (계기 검침)</div>
+    <h3>점수가 안 나오면 도구보다 채점표를 먼저 의심한다</h3>
+    <div class="cap">한 문항이 계속 오답이었습니다. 검색을 튜닝하려던 참에 정답셋을 열어봤습니다.</div>
+
+    <div class="bar">
+      <div class="top"><span class="nm">내가 정답으로 적어둔 글자</span><span style="font-size:14px;font-weight:800;background:#FBE9E7;color:var(--neg);padding:4px 12px;border-radius:999px">영원히 매칭 불가</span></div>
+      <div class="glyph">연구<b style="color:var(--neg)">·</b>인력개발비 <span style="font-size:15px;color:var(--muted)">— 가운뎃점</span></div>
+    </div>
+    <div class="bar">
+      <div class="top"><span class="nm">DB에 실제로 있는 제목</span><span style="font-size:14px;font-weight:800;background:#E3F1EA;color:var(--pos);padding:4px 12px;border-radius:999px">정상 수록</span></div>
+      <div class="glyph">연구<b style="color:var(--pos)">ㆍ</b>인력개발비 <span style="font-size:15px;color:var(--muted)">— 한글 중점</span></div>
+    </div>
+
+    <div class="callout">
+      눈으로는 같아 보이는 두 글자가 <b>서로 다른 문자</b>였습니다.<br>
+      검색이 아무리 좋아져도 이 문항은 <b>맞힐 수 없는 구조</b>였습니다.
+      고장난 건 시스템이 아니라 <b>자(尺)</b>였습니다.
+    </div>
+
+    <div class="callout" style="background:#F1F4F8;border-color:#D6DEE8;border-left-color:var(--c1)">
+      <b>그리고 여기가 진짜 위험한 지점</b><br>
+      자를 고치자 점수가 올랐습니다(47.5 → 64.2). 실력이 는 게 아니라 <b>자가 바뀐 것</b>이라,
+      두 숫자를 나란히 놓으면 그대로 거짓말이 됩니다.<br>
+      그래서 리포트에 계측 버전을 박고, <b>버전이 다르면 비교 자체를 거부</b>하도록 했습니다.
+    </div>
+  </div>
+</div>
+
+<div class="foot">근거: 계측 실패 사례집 사례 1 · 골드셋 v1 검수완료본 20문항 · 커밋 6335bcd0 (metric_version 가드 포함)</div>

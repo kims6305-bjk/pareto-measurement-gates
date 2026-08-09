@@ -1,0 +1,75 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1540px}
+.pipe{display:grid;grid-template-columns:1fr 56px 1fr 56px 1fr;align-items:stretch;margin-bottom:20px}
+.node{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px}
+.node .t{font-size:15px;font-weight:800;color:var(--amber);letter-spacing:.05em;margin-bottom:8px}
+.node h3{font-size:21px;font-weight:800;color:var(--navy);line-height:1.35;margin-bottom:10px}
+.node p{font-size:16px;color:var(--muted);line-height:1.62}
+.node p b{color:var(--text)}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--navy2)}
+.gates{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 26px}
+.g h4{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.g .row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed #DBD7CC}
+.g .row:last-child{border-bottom:0}
+.g .k{font-size:16.5px;color:var(--text);font-weight:600}
+.g .k span{display:block;font-size:14px;color:var(--muted);font-weight:500;margin-top:2px}
+.g .v{font-size:15px;font-weight:800;padding:5px 14px;border-radius:999px;white-space:nowrap}
+.v.ok{background:#E3F1EA;color:var(--pos)}
+.v.caught{background:#FBE9E7;color:var(--neg)}
+.v.n{background:#EAF0F7;color:var(--c1)}
+.punch{margin-top:20px;background:var(--navy);border-radius:16px;padding:24px 30px;color:#fff}
+.punch p{font-size:18px;line-height:1.75;color:#C4D0E2}
+.punch b{color:#E8B98F}
+</style>
+<div class="kicker">마지막 막 · 오늘 — 글에도 같은 자를 댔다</div>
+<h1>논문 초고 §1–§9, "통과가 진짜인지"부터 검증하고 끝냈다</h1>
+<div class="legend">일주일의 실측을 논문으로 조립하면서, 본문 검증에도 <b>파레토 작업과 같은 규율</b>을 걸었습니다</div>
+<div class="hr"></div>
+
+<div class="pipe">
+  <div class="node">
+    <div class="t">소스 비포크</div>
+    <h3>원고는 한 벌만 둔다</h3>
+    <p>투고본(약 25매)과 확장판(약 31매), <b>두 판본이 필요한데 원고를 두 벌 만들면 반드시 어긋납니다.</b><br><br>
+    원본은 draft/ 한 벌만 편집하고, 두 판본은 <b>마커 조건부 빌드로 생성</b>합니다. 손으로 두 번 고칠 일 자체를 없앴습니다.</p>
+  </div>
+  <div class="arrow">→</div>
+  <div class="node">
+    <div class="t">기계 대조</div>
+    <h3>인용 수치 105건 전수 검증</h3>
+    <p>본문에 적힌 수치가 원자료와 일치하는지 <b>스크립트로 전건 대조</b> — §4 40건 · §3 24건 · §5 27건 · 초록 14건.<br><br>
+    절 간 일관성 10항도 함께 검사. 눈으로 재독하는 건 검증이 아니라 <b>기분</b>입니다.</p>
+  </div>
+  <div class="arrow">→</div>
+  <div class="node">
+    <div class="t">게이트 8항 × 2판본</div>
+    <h3>서술 규율도 기계가 지킨다</h3>
+    <p>"명세와 실행을 구분했는가", "미확인 표기가 지워지지 않았는가", "한계 절이 판본에서 빠지지 않았는가" 같은 <b>8개 조항을 두 판본 각각에</b> 걸었습니다.<br><br>
+    압축하다가 정직한 문장부터 사라지는 걸 막는 장치입니다.</p>
+  </div>
+</div>
+
+<div class="gates">
+  <div class="g">
+    <h4>게이트를 믿어도 되는가 — 네거티브 컨트롤</h4>
+    <div class="row"><div class="k">일부러 위반을 주입<span>미확인 표기 삭제, 한계 문장 제거 등</span></div><div class="v n">2회 실시</div></div>
+    <div class="row"><div class="k">게이트가 잡아냈는가<span>주입한 위반 전건 검출</span></div><div class="v ok">전건 검출</div></div>
+    <div class="row"><div class="k">그 다음에야 "통과"를 인정<span>잡는 걸 확인 못 한 통과는 무의미</span></div><div class="v ok">8항 통과</div></div>
+  </div>
+  <div class="g">
+    <h4>검증이 실제로 잡은 것</h4>
+    <div class="row"><div class="k">서지(참고문헌) 오류<span>투고 서식 대조 중 적발</span></div><div class="v caught">2건 적발</div></div>
+    <div class="row"><div class="k">주간 코드 QC 지적<span>봇 코드 정기 감사분 반영</span></div><div class="v caught">9건 반영</div></div>
+    <div class="row"><div class="k">분량 판정<span>"30매"의 1매 기준이 규정에 없음 — 추정 감축 금지</span></div><div class="v n">보류 명시</div></div>
+  </div>
+</div>
+
+<div class="punch">
+  <p>일주일 내내 한 말이 결국 이겁니다 — <b>"통과했다"는 게이트가 위반을 잡는 걸 확인한 뒤에만 의미가 있다.</b><br>
+  검색 계측기든, 매매 신호든, 논문 원고든 같은 규율입니다. 자를 검사하지 않은 측정은 측정이 아닙니다.</p>
+</div>
+
+<div class="foot">근거: 초고 §1–§9 + 투트랙 빌드 스크립트 · 인용 대조 105건 · 게이트 8항 × 2판본 · 네거티브 컨트롤 2회 (2026-08-09 커밋)</div>

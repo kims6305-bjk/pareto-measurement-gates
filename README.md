@@ -31,10 +31,8 @@
 > 📖 이 레포가 만들어진 하루의 전 과정(설계 근거·4연속 실패·게이트가 저자의 오진을 잡은
 > 기록)은 [케이스 스터디](docs/CASE_STUDY.md)에 순서대로 남겼습니다.
 >
-> 🇰🇷 이 게이트를 실전 데이터에 굴린 **한국어 운영기 2편**(GPTers 커뮤니티 발행):
-> ① [파레토 엔지니어링 선언 + 계기 검침 FAIL 실험기](https://www.gpters.org/nocode/post/now-youve-built-up-8Oqvvpr4EtdFBfA)
-> ② [일주일 실전 운영기 — 자(尺)가 세 번 고장났다](https://www.gpters.org/nocode/post/pareto-enjinieoring-eul-seoneonhan-daeum-jue-siljero-beoleojin-il----ja-chi-2nT8LYb8nCv89pV)
-> (②는 `gate/MEASUREMENT_FAILURES.md`의 사례 1~3을 비개발자용 스토리로 푼 판본입니다)
+> 🧭 이 게이트를 실전 데이터에 일주일간 굴린 **필드 리포트**(계측 실패 3건·결손 계측·
+> 메타하네스 4라운드 종합, 도식 8장): [`docs/field-report/FIELD_REPORT.md`](docs/field-report/FIELD_REPORT.md)
 
 ## 왜 만들었나 (동기)
 

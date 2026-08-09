@@ -1,0 +1,83 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1500px}
+.top{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card2{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 28px}
+.card2 h3{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.card2 .cap{font-size:16px;color:var(--muted);margin-bottom:20px;line-height:1.55}
+.stage{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.stage .dot{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:800;color:#fff;background:var(--c5)}
+.stage.f .dot{background:var(--neg)}
+.stage .tx{font-size:17px;line-height:1.5;color:var(--text)}
+.stage .tx b{color:var(--navy)}
+.stage .tx span{color:var(--muted);font-size:15px;display:block;margin-top:2px}
+.ledger{background:#F6F5F1;border-radius:14px;padding:18px 20px;margin-top:6px}
+.ledger .r{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px dashed #DBD7CC}
+.ledger .r:last-child{border-bottom:0}
+.ledger .k{font-size:16px;color:var(--muted);font-weight:600}
+.ledger .v{font-size:19px;font-weight:800;color:var(--navy)}
+.ledger .v.cut{color:var(--neg);text-decoration:none;position:relative}
+.big{margin-top:22px;background:var(--navy);border-radius:18px;padding:28px 32px;color:#fff;
+  display:grid;grid-template-columns:1.3fr 1fr;gap:34px}
+.big h4{font-size:24px;font-weight:800;margin-bottom:12px}
+.big p{font-size:17.5px;line-height:1.78;color:#C4D0E2}
+.big b{color:#E8B98F}
+.rooms{display:grid;gap:12px}
+.room{background:#1D2A48;border-radius:14px;padding:15px 18px;display:flex;justify-content:space-between;align-items:center}
+.room .nm{font-size:16.5px;font-weight:700;color:#fff}
+.room .nm span{display:block;font-size:14px;color:#9FB0C8;font-weight:500;margin-top:2px}
+.room .pass{font-size:15px;font-weight:800;color:#8FD9B4;background:#16351F;padding:6px 14px;border-radius:999px}
+</style>
+<div class="kicker">확장 · 메타하네스 — AI가 스스로를 개선하는 루프</div>
+<h1>네 번 다 검정에 실패했다. 그게 게이트가 한 일이다</h1>
+<div class="legend">파레토 판정 장치를 <b>자기개선 탐색 엔진</b>으로 쓰는 실험 — 결과부터 적고, 그 결과가 무엇이었는지를 이어 적습니다</div>
+<div class="hr"></div>
+
+<div class="top">
+  <div class="card2">
+    <h3>네 라운드 전부 "판정 불가"</h3>
+    <div class="cap">가설을 지지한 라운드도, 반박한 라운드도 없습니다. <b>검정 자체가 성립하지 않았습니다.</b></div>
+    <div class="stage f"><div class="dot">1</div><div class="tx"><b>1라운드 · 판정 불가</b><span>채점 단위의 구조적 결함 + 표본 54건 한계</span></div></div>
+    <div class="stage f"><div class="dot">2</div><div class="tx"><b>2라운드 · 기저율 미달로 종결</b><span>찾으려는 사건이 3.3%밖에 안 나옴</span></div></div>
+    <div class="stage f"><div class="dot">3</div><div class="tx"><b>3라운드 · 검정 못함</b><span>순환 차단 규칙이 신호까지 전량 걷어감</span></div></div>
+    <div class="stage f"><div class="dot">4</div><div class="tx"><b>4라운드 · 검침 단계에서 종결</b><span>표본 55건에선 신뢰구간이 전부 겹침</span></div></div>
+    <div class="cap" style="margin:16px 0 0;color:var(--text)">3라운드의 딜레마가 이 실험의 핵심 관찰입니다 —
+      <b>순환을 피하려고 가설을 만든 표본을 빼면, 검정할 신호도 같이 빠집니다.</b></div>
+  </div>
+
+  <div class="card2">
+    <h3>대신 비용을 이만큼 막았다</h3>
+    <div class="cap">본 탐색을 시작하기 <b>전에</b> "이 축이 좋고 나쁨을 구별할 힘이 있나"부터 쟀습니다.</div>
+    <div class="ledger">
+      <div class="r"><div class="k">예정돼 있던 본 탐색 예산</div><div class="v cut">1,650콜</div></div>
+      <div class="r"><div class="k">→ 시작 전에 차단</div><div class="v" style="color:var(--neg)">사용 0콜</div></div>
+      <div class="r"><div class="k">계기 검침에 실제로 쓴 비용</div><div class="v">495콜</div></div>
+      <div class="r"><div class="k">그중 판별력 테스트(네거티브 컨트롤)</div><div class="v">330콜</div></div>
+    </div>
+    <div class="cap" style="margin:18px 0 0;color:var(--text)">
+      직전 라운드는 이 검침을 <b>생략했다가 1,650콜을 태웠습니다.</b> 이번엔 330콜이 같은 손실을 사전에 막았습니다.<br><br>
+      <b>축의 방향은 맞았습니다</b> — 과검출 후보가 실제로 낮은 점수를 받았습니다.
+      실패한 건 방향이 아니라 <b>검정력</b>이었고, 그래서 처방도 "설계 수정"이 아니라 <b>"표본 확대"</b>로 확정됐습니다.
+    </div>
+  </div>
+</div>
+
+<div class="big">
+  <div>
+    <h4>이 절차가 우리 도메인 밖에서도 통하는가 — 옆방 검증</h4>
+    <p>계기 검침이 <b>우리 데이터에만 맞춘 요령</b>일 수 있습니다. 그래서 언어도 분야도 라벨러도 다른 곳에 같은 절차를 그대로 옮겨 돌렸습니다.
+    임계값은 세 방 모두 동일하게 두고 <b>방마다 조정하지 않았습니다.</b><br><br>
+    세 방 모두 통과. 그리고 갈린 것 하나 — <b>놓치는 실패는 언어에 둔감하고, 잘못 잡는 실패는 언어에 민감했습니다</b>(오탐이 영어에서 12배).
+    주장하지 않는 것도 적어뒀습니다: "모든 도메인에서 된다"가 아니라 <b>"검증된 건 3개 도메인"</b>입니다.</p>
+  </div>
+  <div class="rooms">
+    <div class="room"><div class="nm">원래 방<span>한국어 · 회계기준 · 내부 라벨</span></div><div class="pass">PASS</div></div>
+    <div class="room"><div class="nm">옆방 1<span>영어 · 생의학 · 외부 라벨</span></div><div class="pass">PASS</div></div>
+    <div class="room"><div class="nm">옆방 2<span>한국어 · 비회계 · 외부 라벨</span></div><div class="pass">PASS</div></div>
+    <div class="room" style="background:#243352"><div class="nm">3판 재현성<span>같은 입력 3번 판정 — 갈린 건수</span></div><div class="pass" style="color:#E8B98F;background:#3A2A16">0건</div></div>
+  </div>
+</div>
+
+<div class="foot">근거: 4라운드 판정문서 · 계기 검침 결과(PASS) · 옆방 검증 결과(3방 PASS) · 판정기와 채점기는 결과 열람 전 커밋으로 고정</div>

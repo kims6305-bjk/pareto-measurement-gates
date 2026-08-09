@@ -1,0 +1,19 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+:root{
+  --navy:#141F38; --navy2:#3E5470; --amber:#B84A10; --paper:#FAF9F6;
+  --surface:#FFFFFF; --border:#E4E1D8; --text:#1C2430; --muted:#5C6675;
+  --pos:#1E7A55; --neg:#B3382F;
+  --c1:#2C4A73; --c2:#D97B29; --c3:#2E8B8B; --c4:#C25E6E; --c5:#8A93A3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--text);
+  font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;
+  padding:56px 60px;}
+.kicker{font-size:19px;font-weight:700;color:var(--amber);letter-spacing:.02em}
+h1{font-size:44px;font-weight:800;letter-spacing:-0.03em;color:var(--navy);margin:8px 0 6px}
+.legend{font-size:19px;color:var(--muted);font-weight:500}
+.hr{height:3px;background:var(--navy);opacity:.12;margin:24px 0 30px;border-radius:2px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 28px;
+  box-shadow:0 2px 0 rgba(20,31,56,.04)}
+.foot{margin-top:26px;font-size:16px;color:var(--muted)}
+b{font-weight:800}

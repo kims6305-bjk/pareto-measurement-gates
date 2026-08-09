@@ -1,0 +1,83 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body{width:1520px}
+.chain{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr;align-items:stretch;margin-bottom:20px}
+.st{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px}
+.st .t{font-size:15px;font-weight:800;color:var(--amber);letter-spacing:.04em;margin-bottom:8px}
+.st h3{font-size:21px;font-weight:800;color:var(--navy);line-height:1.35;margin-bottom:10px}
+.st p{font-size:16px;color:var(--muted);line-height:1.6}
+.st p b{color:var(--text)}
+.st .code{margin-top:12px;background:#141F38;border-radius:10px;padding:12px 16px;font-family:ui-monospace,Menlo,monospace;
+  font-size:15.5px;color:#E8B98F;line-height:1.7}
+.st .code span{color:#8FA3C0}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--navy2)}
+.loop{background:#FBE9E7;border:1px solid #F0CFCB;border-left:6px solid var(--neg);border-radius:14px;
+  padding:20px 24px;margin-bottom:20px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.loop .icon{font-size:34px}
+.loop p{font-size:17.5px;line-height:1.7;color:var(--text)}
+.loop b{color:var(--neg)}
+.resolve{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.r{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 26px}
+.r h4{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.r p{font-size:16.5px;line-height:1.68;color:var(--text)}
+.r b{color:var(--amber)}
+.r .num{display:flex;gap:14px;margin-top:14px}
+.r .n{flex:1;background:#F6F5F1;border-radius:12px;padding:13px 16px;text-align:center}
+.r .n .v{font-size:26px;font-weight:800;color:var(--navy)}
+.r .n .l{font-size:13.5px;color:var(--muted);margin-top:4px;font-weight:600}
+</style>
+<div class="kicker">계측 실패 사례 · 전처리 순환</div>
+<h1>계측기를 세 번 다시 쓴 이유 — 자기 오탐을 자기가 정당화했다</h1>
+<div class="legend">문서 참조번호에 섞인 노이즈를 "얼마나 오염됐나" 재려던 것뿐인데, 계측기가 파이프라인과 한통속이었습니다</div>
+<div class="hr"></div>
+
+<div class="chain">
+  <div class="st">
+    <div class="t">발견</div>
+    <h3>전화번호가 문단번호로 저장돼 있었다</h3>
+    <p>추출 규칙이 "숫자 뒤에 글자가 붙으면 문단번호"였고, 표지·판권 페이지의 전화번호와 주소가 그 규칙에 걸렸습니다.</p>
+    <div class="code">'2072466410F' <span>← 전화+팩스 번호</span><br>'39S' <span>← 도로명 주소</span><br>'2025I' <span>← 판권 연도</span></div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="st">
+    <div class="t">문제</div>
+    <h3>존재하지 않는 문단을 근거로 인용하게 된다</h3>
+    <p>답변의 신뢰가 걸린 문제라 <b>"얼마나 오염됐나"</b>부터 재기로 했습니다. 그런데 계측기를 <b>세 번</b> 다시 써야 했습니다.</p>
+  </div>
+  <div class="arrow">→</div>
+  <div class="st">
+    <div class="t">원인</div>
+    <h3>계측기가 파이프라인의 가정을 물려받았다</h3>
+    <p>첫 계측기 규칙은 "줄머리 숫자 = 문단번호". 그런데 <b>빌드 과정이 문단번호 앞에 개행을 삽입</b>하고 있었습니다.</p>
+  </div>
+</div>
+
+<div class="loop">
+  <div class="icon">🔁</div>
+  <p>파이프라인이 개행을 넣는다 → 계측기가 "줄머리니까 문단번호"라고 센다 → <b>자기 오탐을 자기가 정당화한다.</b><br>
+  파이프라인이 가공한 산출물로 그 파이프라인을 채점하면, <b>독립적인 측정이 아닙니다.</b></p>
+</div>
+
+<div class="resolve">
+  <div class="r">
+    <h4>어떻게 끝냈나 — 정밀도를 포기하고 하한으로 후퇴</h4>
+    <p>정확한 오염률 측정을 포기했습니다. 대신 <b>누가 봐도 노이즈인 것만</b> 세는 보수적 조건 둘만 남겼습니다 —
+    정수부가 999를 넘거나, 주변에 Tel/Fax/판권 신호가 있는 것.</p>
+    <div class="num">
+      <div class="n"><div class="v">3.55%</div><div class="l">오염 하한 (1,138건)</div></div>
+      <div class="n"><div class="v">"적어도"</div><div class="l">실제는 더 클 수 있음을 명시</div></div>
+    </div>
+  </div>
+  <div class="r">
+    <h4>수정의 부작용도 같은 강도로 실측</h4>
+    <p>"노이즈 1,138건 제거"만 보고하면 절반입니다. <b>멀쩡한 문단번호를 같이 지웠는지</b>를 따로 쟀습니다 —
+    진짜 문단번호 형태(1~3자리 숫자)가 지워진 건 <b>0건</b>. 참조가 비게 된 청크의 89%는 원래 문단번호가 없는 표지·판권 자리였습니다.</p>
+    <div class="num">
+      <div class="n"><div class="v">0건</div><div class="l">정상 데이터 오삭제</div></div>
+      <div class="n"><div class="v">89%</div><div class="l">빈 청크 = 원래 빈 자리</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">근거: 계측 실패 사례집 사례 2 · 전체 32,050 참조 전수 스캔 · 하한 추정 조건 2개 사전 고정</div>

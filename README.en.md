@@ -35,10 +35,9 @@ value are on the gate side, not the probe side:
 > consecutive failures, and the gate catching the author's own misdiagnosis — is kept
 > in order in the [case study](docs/CASE_STUDY.en.md).
 >
-> 🇰🇷 Two Korean field reports of running this gate on production data (GPTers community):
-> [① declaring Pareto engineering + the instrument-check FAIL](https://www.gpters.org/nocode/post/now-youve-built-up-8Oqvvpr4EtdFBfA) ·
-> [② one week of operation — the ruler broke three times](https://www.gpters.org/nocode/post/pareto-enjinieoring-eul-seoneonhan-daeum-jue-siljero-beoleojin-il----ja-chi-2nT8LYb8nCv89pV)
-> (② is the narrative version of cases 1–3 in `gate/MEASUREMENT_FAILURES.md`)
+> 🧭 A one-week **field report** of running this gate on production data (three
+> instrument failures, gap metrology, four meta-harness rounds, 8 diagrams, Korean):
+> [`docs/field-report/FIELD_REPORT.md`](docs/field-report/FIELD_REPORT.md)
 
 ## Why this exists (motivation)
 
