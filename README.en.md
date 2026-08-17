@@ -450,13 +450,13 @@ were deliberately not used.
 
 Full text: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
-### When the instrument is wrong, the verdict flips — three failure cases
+### When the instrument is wrong, the verdict flips — five failure cases
 
-![Three measurement failures](docs/measurement_failures.png)
+![Measurement failures (cases 1–3)](docs/measurement_failures.png)
 
 However well a gate is designed, **if the numbers it reads are wrong** the verdict
-is meaningless. Three measurement failures from a production citation-QA pipeline
-that actually flipped a verdict (or nearly did):
+is meaningless. Five measurement failures from a production citation-QA pipeline
+and its evaluation harness that actually flipped a verdict (or nearly did):
 
 - **Counting-unit error** — `precision`'s denominator was slots, so duplicate
   correct documents were double-counted. The reported 0.672 was a performance that
@@ -473,9 +473,18 @@ that actually flipped a verdict (or nearly did):
   signal that grouped them. A context-blind independent adjudicator re-judged all
   66 pairs → **0 DIFFERENT** (the automatically extracted "conflicts" did not
   exist). Confirmed only after resolving all 7 initial UNCLEAR cases on full text.
+- **Baseline fabrication** — the A/B baseline arm was not the production entry
+  point but a reproduction borrowing a single helper function. Five experiment
+  runs compared against a system that did not exist; the real entry point measured
+  **3.1×** the reproduction, and the intervention being tested was already wired in.
+- **Scoring-unit error** — gold answers keyed by file paths of one corpus while
+  80% of system evidence came from other corpora, so correct answers scored zero
+  (joining on content identifiers fixes it); the same answers read 0.244 vs
+  **0.750** depending on scoring granularity. Several "improvements" were
+  commissioned on top of this misdiagnosis — all rejected.
 
-What the three share: **each was a situation where "it improved" could have been
-reported.** Doubting the instrument cost more than the improvements themselves —
+What the five share: **each was a situation where a wrong verdict was about to be
+locked in first.** Doubting the instrument cost more than the improvements themselves —
 and was justified all three times.
 
 Full text: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
@@ -522,14 +531,14 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   SIDECHECK_RESULT.md   #   Results of both side-rooms — both PASS, recall↔precision axes split
   RELATED_HARNESSES.md  #   Reference-implementation dissection — measured absence of an adoption gate (incl. one absence-proof error of ours)
   THEORY_MAPPING.md     #   Mapping to RLS / autoregression / pruning + where the mapping breaks
-  MEASUREMENT_FAILURES.md #  Three instrument failures — counting unit, preprocessing circularity, adjudication circularity
+  MEASUREMENT_FAILURES.md #  Five instrument failures — counting unit, preprocessing/adjudication circularity, baseline fabrication, scoring unit
   scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
   ab_verdict_chart.png
   pareto_chart.png      #   Pareto 3-panel (inferior move, outward move, axis split)
   failure_ladder.png    #   How the four phases each failed at a different layer
   gate_flow.png         #   The five stages of the pre-registration gate
-  measurement_failures.png # Three instrument failures (figures parsed from the doc — no hardcoding)
+  measurement_failures.png # Instrument-failure figure, cases 1-3 (figures parsed from the doc — no hardcoding)
   CASE_STUDY.md         #   Case study — the full day of development (ko/en/zh)
 STATE.md                # Multi-session state digest (accumulated decisions, blockers, verification gates)
 ```
