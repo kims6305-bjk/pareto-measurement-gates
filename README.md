@@ -7,8 +7,9 @@
 > 이 레포의 **출발점이자 한 챕터**이며, 현재 주제는 그 실험이 낳은
 > **채택 게이트와 계측 규율**입니다.
 
-인용 기반 QA 파이프라인(RAG 봇)에 꽂는 **검증 서브그래프** 스킬과,
-그 효과를 판정한 **A/B 실측 하네스** 전체를 담은 레포입니다.
+인용 기반 QA 파이프라인의 검증 서브그래프 실험에서 출발했지만, 현재 핵심 산출물은
+**도메인 독립 하네스 다이어트 게이트**입니다. validator·retry·reviewer·safety filter·
+retrieval reranker·audit rule처럼 결과를 바꾸거나 비용을 더하는 모든 레이어에 적용합니다.
 
 핵심이 되는 결과부터 밝힙니다: **본 레포의 메인 프로브(P1)는 자체 실측 게이트에서
 폐기 판정을 받았습니다.** 이 레포의 가치는 "만능 검증 프롬프트"가 아니라,
@@ -33,6 +34,13 @@
 검증·저지·재시도·감사 레이어를 계속 쌓으면 안전해 보이지만, baseline 오류가 이미 낮으면
 상방은 없고 비용·지연·과교정만 생깁니다. 이 게이트는 레이어 OFF/ON을 **품질(높을수록 좋음)**과
 **운영비(낮을수록 좋음)**에 놓고, 측정된 후보 중 파레토 최적 구성을 남깁니다.
+
+이 `SKILL.md`를 로드한 에이전트는 먼저 활성 하네스의 `trigger / failure_domain / action / cost / evidence`를
+inventory합니다. 발동 조건·실패군·행동이 겹치면 “한 레이어를 더 쌓기 전에 조합 OFF/ON 실측을
+권장합니다. 그래도 추가하시겠습니까?”라고 알립니다. `REMOVE`가 나오면 “이 목적함수에는
+부적합하므로 사용자 승인 후 제거·비활성화를 권장합니다”라고 말하며 **자동 삭제하지 않습니다.**
+
+![Domain-independent harness diet flow](assets/harness-diet-flow.png)
 
 | 판정 | 뜻 | 실행 |
 |---|---|---|
@@ -462,7 +470,7 @@ ab/                     # 실측 ② A/B 게이트
   AB_VERDICT.md         #   판정 전문
 gate/                   # 채점 게이트 패키지 + 의미 레이어 재채점 + Phase 1~3 실측
   src/reflection_gate/  #   결정론(구조·주소·발췌)+의미(LLM 저지) 2층 채점기, fail-closed
-  tests/                #   pytest 74종 (uv 격리환경 전수 PASS; 네거티브 컨트롤 포함)
+  tests/                #   pytest 75종 (uv 격리환경 전수 PASS; 네거티브 컨트롤 포함)
   SEMANTIC_REGRADE.md   #   238건 전수 재채점 판정 (FLAGGED 18건 사람 대조 포함)
   LABELING_PROTOCOL.md  #   사람 라벨 프로토콜 (라벨 시작 전 커밋)
   PHASE1_VERDICT.md     #   Phase 1 판정 — 재현성 없음 발견, 3표 합의 채택

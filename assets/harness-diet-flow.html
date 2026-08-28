@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Domain-independent harness diet flow</title>
+<style>
+*{box-sizing:border-box} html,body{margin:0;width:1600px;height:1000px;overflow:hidden}
+body{background:#f6f2e9;color:#10223d;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{width:1600px;height:1000px;padding:64px 72px 44px;position:relative;background:radial-gradient(circle at 92% 8%,#ffd8ca 0 9%,transparent 28%),#f6f2e9}
+.kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d4553f;font-size:18px}
+h1{margin:10px 0 8px;font-size:56px;line-height:1.02;letter-spacing:-.035em;max-width:1120px}
+.sub{font-size:22px;color:#42536b;margin:0 0 38px;max-width:1120px;line-height:1.45}
+.flow{display:grid;grid-template-columns:1fr 38px 1fr 38px 1fr 38px 1fr;align-items:stretch}
+.card{height:260px;border:3px solid #10223d;border-radius:22px;background:#fffdfa;padding:24px;box-shadow:8px 8px 0 #10223d;position:relative}
+.num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#10223d;color:white;font-size:18px;font-weight:800;margin-bottom:18px}
+.card h2{font-size:25px;margin:0 0 12px;letter-spacing:-.02em}.card p{font-size:18px;line-height:1.45;margin:0;color:#42536b}.arrow{display:grid;place-items:center;font-size:34px;font-weight:900;color:#d4553f}
+.measure{background:#10223d;color:white}.measure .num{background:#f3b64c;color:#10223d}.measure p{color:#dce5f0}.measure h2{color:white}
+.branch{margin-top:34px;display:grid;grid-template-columns:1.05fr .95fr;gap:26px}
+.callout{border-radius:22px;padding:26px 30px;min-height:208px}
+.overlap{background:#ffe4da;border:3px solid #d4553f}.overlap b{color:#b43c2d}.remove{background:#10223d;color:white;border:3px solid #10223d}.remove b{color:#f3b64c}
+.label{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;margin-bottom:10px}.quote{font-size:24px;line-height:1.35;font-weight:750;letter-spacing:-.015em}
+.verdicts{position:absolute;right:72px;top:218px;display:flex;gap:10px;align-items:center}.step5{font-weight:900;font-size:16px;color:#10223d;margin-right:4px}.pill{padding:10px 16px;border-radius:999px;font-weight:850;font-size:15px;border:2px solid #10223d;background:white}.keep{background:#ccebd8}.thin{background:#fff0bd}.rm{background:#ffd8ca}.nm{background:#dce5f0}
+footer{position:absolute;bottom:30px;left:72px;right:72px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid #c7bfb2;padding-top:16px;color:#526277;font-size:17px}.safe{font-weight:850;color:#10223d}
+.small{font-size:15px;color:#6b7889}
+</style>
+</head>
+<body><main>
+<div class="kicker">Pareto Measurement Gates · Harness Diet</div>
+<h1>Measure before you stack another harness.</h1>
+<p class="sub">A domain-independent adoption gate for validators, retries, reviewers, safety filters, rerankers, audit rules, and any layer that changes outcomes or adds cost.</p>
+<div class="verdicts"><span class="step5">5 · Decide</span><span class="pill keep">KEEP</span><span class="pill thin">TEST_THIN</span><span class="pill rm">REMOVE</span><span class="pill nm">NOT_MEASURED</span></div>
+<section class="flow">
+  <article class="card"><div class="num">1</div><h2>Inventory active harnesses</h2><p>Record <b>trigger</b>, <b>failure domain</b>, <b>action</b>, <b>cost</b>, and existing evidence.</p></article>
+  <div class="arrow">→</div>
+  <article class="card"><div class="num">2</div><h2>Detect overlap</h2><p>Flag a candidate only when trigger, failure domain, <em>and</em> action overlap—not because names look similar.</p></article>
+  <div class="arrow">→</div>
+  <article class="card"><div class="num">3</div><h2>Check target reach</h2><p>Reach = 0 means <b>NOT_MEASURED</b>. Repair the targeted set; never infer “no effect.”</p></article>
+  <div class="arrow">→</div>
+  <article class="card measure"><div class="num">4</div><h2>Run fixed-set OFF / ON A/B</h2><p>Compare <b>quality ↑</b> with <b>operating cost ↓</b>. Measure the combined stack itself; never add isolated effects.</p></article>
+</section>
+<section class="branch">
+  <div class="callout overlap"><div class="label">Before adding · overlap candidate</div><div class="quote"><b>“These harnesses overlap.</b> Measure the combined OFF/ON configuration before stacking another layer. Add it anyway?”</div></div>
+  <div class="callout remove"><div class="label">After measurement · REMOVE</div><div class="quote"><b>“OFF Pareto-dominates ON.</b> Recommend REMOVE after user approval.”</div></div>
+</section>
+<footer><span class="safe">Recommendation only · No automatic deletion</span><span class="small">Same contract across domains. Evidence decides—not intuition.</span></footer>
+</main></body></html>

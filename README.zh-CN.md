@@ -7,8 +7,9 @@
 > 本仓库的**起点与其中一章**；当前主题是由该实验催生的
 > **采纳门禁与测量规律**。
 
-本仓库包含一个可插入引用基础型 QA 流水线（RAG 机器人）的**验证子图 (verification subgraph)** 技能，
-以及用于判定其效果的**完整 A/B 实测测试台 (harness)**。
+本仓库起源于引用型 QA 流水线中的验证子图实验，但当前可复用的核心产物是
+**领域无关的测试台精简门禁 (domain-independent harness diet gate)**。凡是会改变结果或增加运营成本的层——
+validator、retry、reviewer、safety filter、retrieval reranker、audit rule 等——均可适用。
 
 先亮出核心结论：**本仓库的主探针（P1）在自建的实测门禁中被判定为废弃。**
 本仓库的价值不在于某个"万能验证提示词"，而在于
@@ -33,6 +34,12 @@
 验证、裁判、重试和审计层越叠越多，看起来更安全；但当基线错误率已经很低时，
 上行空间消失，只剩成本、延迟和过度修正。本门控把层的 OFF/ON 放在
 **质量（越高越好）**与**运营成本（越低越好）**两个轴上，保留实测候选中的帕累托最优配置。
+
+加载此 `SKILL.md` 的代理首先盘点每个活动测试台的 `trigger / failure_domain / action / cost / evidence`。
+若触发条件、失败领域与动作重叠，它会提示：“叠加新层之前，建议先实测组合的 OFF/ON。仍要添加吗？”
+若判定为 `REMOVE`，则会基于证据建议在**用户批准后**删除或禁用；技能不会自动删除。
+
+![领域无关的测试台精简流程](assets/harness-diet-flow.png)
 
 | 判定 | 含义 | 执行 |
 |---|---|---|
@@ -453,7 +460,7 @@ ab/                     # 实测 ② A/B 门禁
   AB_VERDICT.md         #   判定全文
 gate/                   # 评分门禁包 + 语义层重评分 + Phase 1~3 实测
   src/reflection_gate/  #   确定性（结构·地址·摘录）+ 语义（LLM 裁判）双层评分器，fail-closed
-  tests/                #   pytest 74 项（uv 隔离环境全部通过；含负对照）
+  tests/                #   pytest 75 项（uv 隔离环境全部通过；含负对照）
   SEMANTIC_REGRADE.md   #   238 条全量重评分判定（含 FLAGGED 18 条的人工对照）
   LABELING_PROTOCOL.md  #   人工标注协议（标注开始前提交）
   PHASE1_VERDICT.md     #   Phase 1 判定 — 发现没有再现性，采纳 3 票共识

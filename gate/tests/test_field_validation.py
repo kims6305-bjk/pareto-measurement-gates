@@ -99,6 +99,16 @@ def test_input_boundaries():
     assert judge(Point(1, 1), Point(1 + 1e-13, 1)).verdict == "KEEP"
 
 
+def test_skill_runtime_recommendation_contract():
+    text = (ROOT / "skill-pareto/SKILL.md").read_text()
+    required = [
+        "도메인 독립 계약", "validator", "retry loop", "safety filter",
+        "실행 전 중첩 점검", "그래도 추가하시겠습니까?",
+        "사용자 승인 후", "자동 삭제하지",
+    ]
+    assert all(token in text for token in required)
+
+
 def test_reach_boundaries():
     with pytest.raises(ValueError):
         ReachReport(1, 2, 0, 0, 0)

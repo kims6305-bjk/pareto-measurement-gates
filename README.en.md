@@ -7,9 +7,10 @@
 > experiment (Phases 1–3) is this repo's **starting point and one chapter**;
 > the current subject is the **adoption gate and measurement discipline** it produced.
 
-This repository contains a **verification subgraph** skill that plugs into a
-citation-grounded QA pipeline (a RAG bot), together with the complete **A/B
-measurement harness** used to judge whether it actually helps.
+This repository began with a verification-subgraph experiment in a citation-grounded QA pipeline,
+but its main reusable artifact is now a **domain-independent harness diet gate**. It applies to any
+layer that changes outcomes or adds operating cost: validators, retries, reviewers, safety filters,
+retrieval rerankers, audit rules, and more.
 
 The headline result first: **the main probe of this repository (P1) was
 rejected by its own measurement gate.** The value here is not a "universal
@@ -37,6 +38,13 @@ Verification, judging, retry, and audit layers look safer as they accumulate. Bu
 already low, upside disappears while cost, latency, and over-correction remain. This gate places layer OFF
 and ON on **quality (higher is better)** and **operating cost (lower is better)**, then keeps the
 Pareto-optimal measured configuration.
+
+An agent that loads this `SKILL.md` first inventories each active harness's `trigger / failure_domain / action / cost / evidence`.
+When trigger, failure domain, and action overlap, it warns: “Measure the combined OFF/ON configuration before
+stacking another layer. Add it anyway?” A `REMOVE` verdict produces an evidence-based recommendation to
+remove or disable the harness **after user approval**; the skill never deletes it automatically.
+
+![Domain-independent harness diet flow](assets/harness-diet-flow.png)
 
 | Verdict | Meaning | Action |
 |---|---|---|
@@ -549,7 +557,7 @@ ab/                     # Measurement ②: A/B gate
   AB_VERDICT.md         #   Full verdict text
 gate/                   # Grading gate package + semantic-layer regrade + Phase 1–3 measurements
   src/reflection_gate/  #   Two-layer grader: deterministic (structure/address/excerpt) + semantic (LLM judge), fail-closed
-  tests/                #   pytest 74 tests (all pass in isolated uv env; negative controls included)
+  tests/                #   pytest 75 tests (all pass in isolated uv env; negative controls included)
   SEMANTIC_REGRADE.md   #   Full 238-item regrade verdict (incl. human cross-check of 18 FLAGGED)
   LABELING_PROTOCOL.md  #   Human labeling protocol (committed before labeling started)
   PHASE1_VERDICT.md     #   Phase 1 verdict — no reproducibility found, 3-vote consensus adopted
