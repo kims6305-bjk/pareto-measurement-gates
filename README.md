@@ -40,7 +40,7 @@ inventory합니다. 발동 조건·실패군·행동이 겹치면 “한 레이�
 권장합니다. 그래도 추가하시겠습니까?”라고 알립니다. `REMOVE`가 나오면 “이 목적함수에는
 부적합하므로 사용자 승인 후 제거·비활성화를 권장합니다”라고 말하며 **자동 삭제하지 않습니다.**
 
-![Domain-independent harness diet flow](assets/harness-diet-flow.png)
+![도메인 독립 하네스 다이어트 흐름](assets/harness-diet-flow.ko.png)
 
 | 판정 | 뜻 | 실행 |
 |---|---|---|

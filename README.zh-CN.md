@@ -39,7 +39,7 @@ validator、retry、reviewer、safety filter、retrieval reranker、audit rule �
 若触发条件、失败领域与动作重叠，它会提示：“叠加新层之前，建议先实测组合的 OFF/ON。仍要添加吗？”
 若判定为 `REMOVE`，则会基于证据建议在**用户批准后**删除或禁用；技能不会自动删除。
 
-![领域无关的测试台精简流程](assets/harness-diet-flow.png)
+![领域无关的测试台精简流程](assets/harness-diet-flow.zh-CN.png)
 
 | 判定 | 含义 | 执行 |
 |---|---|---|

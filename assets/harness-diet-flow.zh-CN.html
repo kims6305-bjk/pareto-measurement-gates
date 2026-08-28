@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>领域无关的测试台精简流程</title>
+<style>
+*{box-sizing:border-box} html,body{margin:0;width:1600px;height:1000px;overflow:hidden}
+body{background:#f6f2e9;color:#10223d;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+main{width:1600px;height:1000px;padding:64px 72px 44px;position:relative;background:radial-gradient(circle at 92% 8%,#ffd8ca 0 9%,transparent 28%),#f6f2e9}
+.kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d4553f;font-size:18px}
+h1{margin:10px 0 8px;font-size:54px;line-height:1.08;letter-spacing:-.03em;max-width:1120px}
+.sub{font-size:22px;color:#42536b;margin:0 0 38px;max-width:1120px;line-height:1.5}
+.flow{display:grid;grid-template-columns:1fr 38px 1fr 38px 1fr 38px 1fr;align-items:stretch}
+.card{height:260px;border:3px solid #10223d;border-radius:22px;background:#fffdfa;padding:24px;box-shadow:8px 8px 0 #10223d;position:relative}
+.num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#10223d;color:white;font-size:18px;font-weight:800;margin-bottom:18px}
+.card h2{font-size:24px;margin:0 0 12px;letter-spacing:-.02em}.card p{font-size:17px;line-height:1.5;margin:0;color:#42536b}.arrow{display:grid;place-items:center;font-size:34px;font-weight:900;color:#d4553f}
+.measure{background:#10223d;color:white}.measure .num{background:#f3b64c;color:#10223d}.measure p{color:#dce5f0}.measure h2{color:white}
+.branch{margin-top:34px;display:grid;grid-template-columns:1.05fr .95fr;gap:26px}
+.callout{border-radius:22px;padding:26px 30px;min-height:208px}
+.overlap{background:#ffe4da;border:3px solid #d4553f}.overlap b{color:#b43c2d}.remove{background:#10223d;color:white;border:3px solid #10223d}.remove b{color:#f3b64c}
+.label{font-size:14px;letter-spacing:.1em;font-weight:900;margin-bottom:10px}.quote{font-size:23px;line-height:1.42;font-weight:750;letter-spacing:-.015em}
+.verdicts{position:absolute;right:72px;top:218px;display:flex;gap:10px;align-items:center}.step5{font-weight:900;font-size:16px;color:#10223d;margin-right:4px}.pill{padding:10px 16px;border-radius:999px;font-weight:850;font-size:15px;border:2px solid #10223d;background:white}.keep{background:#ccebd8}.thin{background:#fff0bd}.rm{background:#ffd8ca}.nm{background:#dce5f0}
+footer{position:absolute;bottom:30px;left:72px;right:72px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid #c7bfb2;padding-top:16px;color:#526277;font-size:17px}.safe{font-weight:850;color:#10223d}
+.small{font-size:15px;color:#6b7889}
+</style>
+</head>
+<body><main>
+<div class="kicker">Pareto Measurement Gates · Harness Diet</div>
+<h1>叠加下一个测试台之前，先测量。</h1>
+<p class="sub">适用于 validator、重试、reviewer、safety filter、重排器、审计规则等一切会改变结果或增加成本的层的领域无关采纳门禁。</p>
+<div class="verdicts"><span class="step5">5 · 判定</span><span class="pill keep">KEEP</span><span class="pill thin">TEST_THIN</span><span class="pill rm">REMOVE</span><span class="pill nm">NOT_MEASURED</span></div>
+<section class="flow">
+  <article class="card"><div class="num">1</div><h2>盘点活动测试台</h2><p>记录<b>触发条件</b>、<b>失败领域</b>、<b>动作</b>、<b>成本</b>与现有证据。</p></article>
+  <div class="arrow">→</div>
+  <article class="card"><div class="num">2</div><h2>检测重叠</h2><p>只有触发条件、失败领域与动作<em>全部</em>重叠时才算候选，而不是名称相似。</p></article>
+  <div class="arrow">→</div>
+  <article class="card"><div class="num">3</div><h2>确认目标触达</h2><p>触达为 0 即 <b>NOT_MEASURED</b>。先修复瞄准集，不得断言“无效果”。</p></article>
+  <div class="arrow">→</div>
+  <article class="card measure"><div class="num">4</div><h2>固定评测集 OFF/ON A/B</h2><p>同时比较<b>质量 ↑</b>与<b>运营成本 ↓</b>。测量组合本身，不要累加单独效果。</p></article>
+</section>
+<section class="branch">
+  <div class="callout overlap"><div class="label">添加前 · 重叠候选</div><div class="quote"><b>“这些测试台重叠。</b>叠加新层之前，建议先实测组合的 OFF/ON。仍要添加吗？”</div></div>
+  <div class="callout remove"><div class="label">测量后 · REMOVE</div><div class="quote"><b>“OFF 帕累托支配 ON。</b>建议在用户批准后删除。”</div></div>
+</section>
+<footer><span class="safe">仅提供建议 · 不会自动删除</span><span class="small">跨领域同一套契约。由证据判定，而非直觉。</span></footer>
+</main></body></html>

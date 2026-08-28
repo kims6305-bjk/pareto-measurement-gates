@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>도메인 독립 하네스 다이어트 흐름</title>
+<style>
+*{box-sizing:border-box} html,body{margin:0;width:1600px;height:1000px;overflow:hidden}
+body{background:#f6f2e9;color:#10223d;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif}
+main{width:1600px;height:1000px;padding:64px 72px 44px;position:relative;background:radial-gradient(circle at 92% 8%,#ffd8ca 0 9%,transparent 28%),#f6f2e9}
+.kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d4553f;font-size:18px}
+h1{margin:10px 0 8px;font-size:54px;line-height:1.08;letter-spacing:-.035em;max-width:1120px}
+.sub{font-size:22px;color:#42536b;margin:0 0 38px;max-width:1120px;line-height:1.5}
+.flow{display:grid;grid-template-columns:1fr 38px 1fr 38px 1fr 38px 1fr;align-items:stretch}
+.card{height:260px;border:3px solid #10223d;border-radius:22px;background:#fffdfa;padding:24px;box-shadow:8px 8px 0 #10223d;position:relative}
+.num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#10223d;color:white;font-size:18px;font-weight:800;margin-bottom:18px}
+.card h2{font-size:24px;margin:0 0 12px;letter-spacing:-.02em}.card p{font-size:17px;line-height:1.5;margin:0;color:#42536b}.arrow{display:grid;place-items:center;font-size:34px;font-weight:900;color:#d4553f}
+.measure{background:#10223d;color:white}.measure .num{background:#f3b64c;color:#10223d}.measure p{color:#dce5f0}.measure h2{color:white}
+.branch{margin-top:34px;display:grid;grid-template-columns:1.05fr .95fr;gap:26px}
+.callout{border-radius:22px;padding:26px 30px;min-height:208px}
+.overlap{background:#ffe4da;border:3px solid #d4553f}.overlap b{color:#b43c2d}.remove{background:#10223d;color:white;border:3px solid #10223d}.remove b{color:#f3b64c}
+.label{font-size:14px;letter-spacing:.1em;font-weight:900;margin-bottom:10px}.quote{font-size:23px;line-height:1.42;font-weight:750;letter-spacing:-.015em}
+.verdicts{position:absolute;right:72px;top:218px;display:flex;gap:10px;align-items:center}.step5{font-weight:900;font-size:16px;color:#10223d;margin-right:4px}.pill{padding:10px 16px;border-radius:999px;font-weight:850;font-size:15px;border:2px solid #10223d;background:white}.keep{background:#ccebd8}.thin{background:#fff0bd}.rm{background:#ffd8ca}.nm{background:#dce5f0}
+footer{position:absolute;bottom:30px;left:72px;right:72px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid #c7bfb2;padding-top:16px;color:#526277;font-size:17px}.safe{font-weight:850;color:#10223d}
+.small{font-size:15px;color:#6b7889}
+</style>
+</head>
+<body><main>
+<div class="kicker">Pareto Measurement Gates · Harness Diet</div>
+<h1>하네스를 하나 더 쌓기 전에, 먼저 재라.</h1>
+<p class="sub">validator·재시도·리뷰어·safety filter·리랭커·감사 규칙 등 결과를 바꾸거나 비용을 더하는 모든 레이어에 쓰는 도메인 독립 채택 게이트.</p>
+<div class="verdicts"><span class="step5">5 · 판정</span><span class="pill keep">KEEP</span><span class="pill thin">TEST_THIN</span><span class="pill rm">REMOVE</span><span class="pill nm">NOT_MEASURED</span></div>
+<section class="flow">
+  <article class="card"><div class="num">1</div><h2>활성 하네스 전수 조사</h2><p><b>발동 조건</b>·<b>실패군</b>·<b>행동</b>·<b>비용</b>과 기존 근거를 기록한다.</p></article>
+  <div class="arrow">→</div>
+  <article class="card"><div class="num">2</div><h2>중첩 탐지</h2><p>이름이 비슷해서가 아니라 발동 조건·실패군·행동이 <em>모두</em> 겹칠 때만 중첩 후보다.</p></article>
+  <div class="arrow">→</div>
+  <article class="card"><div class="num">3</div><h2>대상 도달 확인</h2><p>도달 0이면 <b>NOT_MEASURED</b>. 겨냥셋부터 수리하고 “효과 없음”으로 단정하지 않는다.</p></article>
+  <div class="arrow">→</div>
+  <article class="card measure"><div class="num">4</div><h2>고정 평가셋 OFF/ON A/B</h2><p><b>품질 ↑</b>과 <b>운영비 ↓</b>를 함께 잰다. 개별 효과를 더하지 말고 조합 자체를 측정한다.</p></article>
+</section>
+<section class="branch">
+  <div class="callout overlap"><div class="label">추가 전 · 중첩 후보</div><div class="quote"><b>“이 하네스들은 겹칩니다.</b> 한 레이어를 더 쌓기 전에 조합 OFF/ON 실측을 권장합니다. 그래도 추가하시겠습니까?”</div></div>
+  <div class="callout remove"><div class="label">측정 후 · REMOVE</div><div class="quote"><b>“OFF가 ON을 파레토 지배합니다.</b> 사용자 승인 후 제거를 권장합니다.”</div></div>
+</section>
+<footer><span class="safe">권고만 수행 · 자동 삭제 없음</span><span class="small">도메인이 달라도 같은 계약. 직관이 아니라 근거가 판정한다.</span></footer>
+</main></body></html>
