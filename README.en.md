@@ -31,6 +31,33 @@ value are on the gate side, not the probe side:
 
 ![A/B measurement verdict chart](docs/ab_verdict_chart.png)
 
+## What it is for — subtracting harnesses, not adding them
+
+Verification, judging, retry, and audit layers look safer as they accumulate. But when baseline error is
+already low, upside disappears while cost, latency, and over-correction remain. This gate places layer OFF
+and ON on **quality (higher is better)** and **operating cost (lower is better)**, then keeps the
+Pareto-optimal measured configuration.
+
+| Verdict | Meaning | Action |
+|---|---|---|
+| `KEEP` | ON dominates OFF | Keep it |
+| `REMOVE` | OFF dominates ON | Remove or disable after user approval |
+| `TEST_THIN` | OFF and ON are both on the front | Measure a conditional candidate that is ON only for failure cases |
+| `NOT_MEASURED` | Target reach is zero | Do not claim no effect; repair the targeted set |
+
+```bash
+python3 gate/harness_diet.py --off quality=.95,cost=10 --on quality=.95,cost=14
+python3 gate/reach_check.py --demo
+python3 gate/tests/test_field_validation.py
+```
+
+The last command is not synthetic. It directly re-aggregates the **119-question public A/B raw data**
+to reproduce `REMOVE`. The field aggregate recorded from non-distributed raw data (reach 17/20, target
+exposure 36→21, 13 overall rank changes) is replayed for consistency to confirm `MOVED`; it is not an
+independent query-level recomputation. Formal definitions, an identifiability claim, and limitations are in the
+[research note](docs/TARGETING_REACH_NOTE.md); all six instrument failures are in the
+[failure casebook](gate/MEASUREMENT_FAILURES.md).
+
 > 📖 The full record of the single day this repo was built — design rationale, four
 > consecutive failures, and the gate catching the author's own misdiagnosis — is kept
 > in order in the [case study](docs/CASE_STUDY.en.md).
@@ -450,12 +477,12 @@ were deliberately not used.
 
 Full text: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
-### When the instrument is wrong, the verdict flips — five failure cases
+### When the instrument is wrong, the verdict flips — six failure cases
 
 ![Measurement failures (cases 1–3)](docs/measurement_failures.png)
 
 However well a gate is designed, **if the numbers it reads are wrong** the verdict
-is meaningless. Five measurement failures from a production citation-QA pipeline
+is meaningless. Six measurement failures from a production citation-QA pipeline
 and its evaluation harness that actually flipped a verdict (or nearly did):
 
 - **Counting-unit error** — `precision`'s denominator was slots, so duplicate
@@ -482,10 +509,17 @@ and its evaluation harness that actually flipped a verdict (or nearly did):
   (joining on content identifiers fixes it); the same answers read 0.244 vs
   **0.750** depending on scoring granularity. Several "improvements" were
   commissioned on top of this misdiagnosis — all rejected.
+- **Targeting failure in disguise** — a broken guard was fixed, taking its flagged
+  set from 0 to 137,024, yet the production A/B moved **nothing** (all metrics ±0,
+  zero rank changes). A targeted query set also read 0 → 0 — but its seeds were
+  drawn from the full title pool, so most queries **never reached** the target
+  documents at all. Printing the reach denominator first split it apart:
+  36 → 21 on 17 reached queries. That movement was logged as a mechanical effect
+  of the safety proxy, explicitly **not** as a relevance improvement.
 
-What the five share: **each was a situation where a wrong verdict was about to be
+What the six share: **each was a situation where a wrong verdict was about to be
 locked in first.** Doubting the instrument cost more than the improvements themselves —
-and was justified all three times.
+and was justified all six times.
 
 Full text: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
@@ -515,7 +549,7 @@ ab/                     # Measurement ②: A/B gate
   AB_VERDICT.md         #   Full verdict text
 gate/                   # Grading gate package + semantic-layer regrade + Phase 1–3 measurements
   src/reflection_gate/  #   Two-layer grader: deterministic (structure/address/excerpt) + semantic (LLM judge), fail-closed
-  tests/                #   38 pytest cases (including 10 negative controls)
+  tests/                #   pytest 74 tests (all pass in isolated uv env; negative controls included)
   SEMANTIC_REGRADE.md   #   Full 238-item regrade verdict (incl. human cross-check of 18 FLAGGED)
   LABELING_PROTOCOL.md  #   Human labeling protocol (committed before labeling started)
   PHASE1_VERDICT.md     #   Phase 1 verdict — no reproducibility found, 3-vote consensus adopted
@@ -531,9 +565,13 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   SIDECHECK_RESULT.md   #   Results of both side-rooms — both PASS, recall↔precision axes split
   RELATED_HARNESSES.md  #   Reference-implementation dissection — measured absence of an adoption gate (incl. one absence-proof error of ours)
   THEORY_MAPPING.md     #   Mapping to RLS / autoregression / pruning + where the mapping breaks
-  MEASUREMENT_FAILURES.md #  Five instrument failures — counting unit, preprocessing/adjudication circularity, baseline fabrication, scoring unit
+  MEASUREMENT_FAILURES.md #  Six instrument failures — counting unit, preprocessing/adjudication circularity, baseline fabrication, scoring unit, targeting failure
+  harness_diet.py       #   OFF/ON net-benefit verdict: KEEP, REMOVE, or TEST_THIN
+  reach_check.py        #   Separate targeting failure from true zero effect with a reach denominator
+  fixtures/             #   2026-08-28 field aggregate for regression validation
   scripts/              #   Per-phase runners, scorers, raw data (scorers committed before viewing results)
 docs/
+  TARGETING_REACH_NOTE.md # Reach identifiability claim, field measurement, and harness-diet research note
   ab_verdict_chart.png
   pareto_chart.png      #   Pareto 3-panel (inferior move, outward move, axis split)
   failure_ladder.png    #   How the four phases each failed at a different layer

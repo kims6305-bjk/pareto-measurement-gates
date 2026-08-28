@@ -4,6 +4,7 @@
 실측 교훈: 코드 주석·docstring이 최다 누출 경로다.
 """
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -27,6 +28,21 @@ EXT = {".md", ".py", ".json", ".sh", ".yml", ".yaml", ".txt", ".jsonl", ".toml",
        ".html", ".css", ".svg"}  # 도식 HTML도 픽셀로 렌더돼 나가므로 스캔 대상
 # 검사·검수 스크립트는 경로/단어장 자체를 코드에 담으므로 스캔 대상에서 제외한다.
 SELF = {"anonymize_check.py", "readme_parity_check.py", "readme_numbers_check.py"}
+
+if "--selftest" in sys.argv:
+    # 실제 스캔 경로에 누출 파일을 넣어 exit 1과 위치 검출을 확인한 뒤 반드시 제거한다.
+    probe = P / "_anonymize_negative_control.md"
+    try:
+        probe.write_text("negative control: bjkim\n", encoding="utf-8")
+        r = subprocess.run([sys.executable, str(Path(__file__).resolve())],
+                           capture_output=True, text=True, timeout=30)
+        text = r.stdout + r.stderr
+        if r.returncode != 1 or "_anonymize_negative_control.md" not in text or "bjkim" not in text:
+            print("🔴 anonymize selftest FAIL — injected leak was not blocked")
+            sys.exit(2)
+        print("anonymize selftest PASS — injected leak blocked (exit 1)")
+    finally:
+        probe.unlink(missing_ok=True)
 
 files = [f for f in P.rglob("*")
          if f.is_file() and f.suffix in EXT and ".git" not in f.parts

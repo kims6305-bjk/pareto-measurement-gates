@@ -28,6 +28,31 @@
 
 ![A/B 实测判定图表](docs/ab_verdict_chart.png)
 
+## 用途 —— 不是增加护栏，而是减少护栏
+
+验证、裁判、重试和审计层越叠越多，看起来更安全；但当基线错误率已经很低时，
+上行空间消失，只剩成本、延迟和过度修正。本门控把层的 OFF/ON 放在
+**质量（越高越好）**与**运营成本（越低越好）**两个轴上，保留实测候选中的帕累托最优配置。
+
+| 判定 | 含义 | 执行 |
+|---|---|---|
+| `KEEP` | ON 支配 OFF | 保留 |
+| `REMOVE` | OFF 支配 ON | 用户批准后删除或禁用 |
+| `TEST_THIN` | OFF 与 ON 都在前沿 | 测量只在失败案例开启的条件候选 |
+| `NOT_MEASURED` | 目标触达为 0 | 不得声称无效果；先修复瞄准集 |
+
+```bash
+python3 gate/harness_diet.py --off quality=.95,cost=10 --on quality=.95,cost=14
+python3 gate/reach_check.py --demo
+python3 gate/tests/test_field_validation.py
+```
+
+最后一条命令不是合成示例。它直接重新汇总 **119 题公开 A/B 原始数据**以复现 `REMOVE`。
+来自未公开原始数据的现场汇总（触达 17/20、目标暴露 36→21、整体排序变化 13）仅作一致性
+replay 以确认 `MOVED`，并非查询级独立重算。
+形式定义、可识别性命题与局限见[研究笔记](docs/TARGETING_REACH_NOTE.md)，
+六次仪器失败见[案例集](gate/MEASUREMENT_FAILURES.md)。
+
 > 📖 本仓库诞生这一天的完整过程（设计依据、连续四次失败、以及门控查出作者本人的误诊）
 > 按顺序记录在[案例研究](docs/CASE_STUDY.zh-CN.md)中。
 >
@@ -368,12 +393,12 @@ cross-domain validation）。判定器提示词一个字都没改（直接 impor
 
 全文：[`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
-### 仪器错了，判定就会翻转 —— 五个失败案例
+### 仪器错了，判定就会翻转 —— 六个失败案例
 
 ![测量失败图示（案例 1–3）](docs/measurement_failures.png)
 
 无论门禁设计得多好，**只要它读到的数字是错的**，判定就没有意义。
-这里收录了在运行中的引用 QA 流水线及其评测框架上，真正翻转过（或差点翻转）判定的五个测量失败。
+这里收录了在运行中的引用 QA 流水线及其评测框架上，真正翻转过（或差点翻转）判定的六个测量失败。
 
 - **计数单位错误** —— `precision` 的分母取成了槽位，导致重复的正确文档被重复计数。
   上报的 0.672 是并不存在的性能，而这份虚高把一项正当的改进误判为 **DOMINATED**。
@@ -391,9 +416,14 @@ cross-domain validation）。判定器提示词一个字都没改（直接 impor
 - **计分单位错误** —— gold 答案按某一语料库的文件路径为键，而系统证据的 80% 来自
   其他语料库，答对也得零分（改按内容标识符联接才成立）；同一批回答按计分粒度不同
   读作 0.244 与 **0.750**。在这一误诊之上立项了多种"改进方案"——全部被否决。
+- **瞄准失败的伪装** —— 修好一处失效的守卫后，其标记集从 0 变为 137,024 条，
+  但生产 A/B **纹丝不动**（各项指标 ±0，排序变动 0）。专门的瞄准问题集也读作
+  0 → 0 —— 然而其种子取自全量标题池，多数查询**根本没有触及**目标文档。
+  先输出触达分母后才分辨开来：17 条触达上 36 → 21。该变化被记为安全代理的
+  机械效应，并明确**不是**相关性改进。
 
-五者的共同点是：**每一次都差点先把错误的判定敲定下来。**
-怀疑仪器的成本高于改进本身，但五次都是值得的。
+六者的共同点是：**每一次都差点先把错误的判定敲定下来。**
+怀疑仪器的成本高于改进本身，但六次都是值得的。
 
 全文：[`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
@@ -423,7 +453,7 @@ ab/                     # 实测 ② A/B 门禁
   AB_VERDICT.md         #   判定全文
 gate/                   # 评分门禁包 + 语义层重评分 + Phase 1~3 实测
   src/reflection_gate/  #   确定性（结构·地址·摘录）+ 语义（LLM 裁判）双层评分器，fail-closed
-  tests/                #   pytest 38 项（含 10 种负对照）
+  tests/                #   pytest 74 项（uv 隔离环境全部通过；含负对照）
   SEMANTIC_REGRADE.md   #   238 条全量重评分判定（含 FLAGGED 18 条的人工对照）
   LABELING_PROTOCOL.md  #   人工标注协议（标注开始前提交）
   PHASE1_VERDICT.md     #   Phase 1 判定 — 发现没有再现性，采纳 3 票共识
@@ -439,9 +469,13 @@ gate/                   # 评分门禁包 + 语义层重评分 + Phase 1~3 实�
   SIDECHECK_RESULT.md   #   两个隔壁房间的结果 — 均为 PASS，召回率↔精确率两轴分离
   RELATED_HARNESSES.md  #   参考实现解剖 — 采纳门禁缺失的实测（含我们自己的一处不存在证明错误）
   THEORY_MAPPING.md     #   与 RLS／自回归／剪枝的对应 + 对应断裂的位置
-  MEASUREMENT_FAILURES.md #  五个测量失败 —— 计数单位·预处理/判定循环·基线伪造·计分单位
+  MEASUREMENT_FAILURES.md #  六个测量失败 —— 计数单位·预处理/判定循环·基线伪造·计分单位·瞄准失败
+  harness_diet.py       #   OFF/ON 净收益判定：KEEP、REMOVE 或 TEST_THIN
+  reach_check.py        #   用触达分母区分瞄准失败与真正的零效果
+  fixtures/             #   2026-08-28 现场汇总，用于回归验证
   scripts/              #   各 Phase 的运行器·评分器·原始数据（判定器在查阅结果前提交）
 docs/
+  TARGETING_REACH_NOTE.md # 触达可识别性命题、现场实测与护栏瘦身研究笔记
   ab_verdict_chart.png
   pareto_chart.png      #   帕累托三面板（劣化移动·外移·轴分离）
   failure_ladder.png    #   四个阶段各自在不同层失败的结构

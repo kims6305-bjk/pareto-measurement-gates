@@ -1,0 +1,32 @@
+{
+  "kind": "field_measurement",
+  "date": "2026-08-28",
+  "provenance": "Recorded aggregate from the production-entry-point A/B and targeted follow-up; query-level domain corpus is not distributed.",
+  "verification_level": "recorded_aggregate_replay_not_independent_recomputation",
+  "guard_index_before": 0,
+  "guard_index_after": 137024,
+  "production_ab": {
+    "n_queries": 13,
+    "recall_at_10_before": 0.110,
+    "recall_at_10_after": 0.110,
+    "precision_at_3_before": 0.051,
+    "precision_at_3_after": 0.051,
+    "hit_at_3_before": 0.154,
+    "hit_at_3_after": 0.154,
+    "target_exposure_before": 0,
+    "target_exposure_after": 0,
+    "all_rank_changes": 0
+  },
+  "targeted_ab": {
+    "n_queries": 20,
+    "reach": 17,
+    "target_exposure_before": 36,
+    "target_exposure_after": 21,
+    "all_rank_changes": 13
+  },
+  "adjudication": {
+    "regression": "not_observed",
+    "relevance_improvement": "not_demonstrated",
+    "safety_proxy": "recovered"
+  }
+}

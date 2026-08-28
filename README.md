@@ -28,6 +28,31 @@
 
 ![A/B 실측 판정 차트](docs/ab_verdict_chart.png)
 
+## 무엇에 쓰나 — 하네스를 더하는 게 아니라 덜어내기
+
+검증·저지·재시도·감사 레이어를 계속 쌓으면 안전해 보이지만, baseline 오류가 이미 낮으면
+상방은 없고 비용·지연·과교정만 생깁니다. 이 게이트는 레이어 OFF/ON을 **품질(높을수록 좋음)**과
+**운영비(낮을수록 좋음)**에 놓고, 측정된 후보 중 파레토 최적 구성을 남깁니다.
+
+| 판정 | 뜻 | 실행 |
+|---|---|---|
+| `KEEP` | ON이 OFF를 지배 | 유지 |
+| `REMOVE` | OFF가 ON을 지배 | 사용자 승인 후 제거·비활성화 |
+| `TEST_THIN` | OFF와 ON이 모두 전선 | 실패군에만 ON인 조건부 후보를 측정 |
+| `NOT_MEASURED` | 대상 도달 0 | 효과 없음 단정 금지; 겨냥셋 수리 |
+
+```bash
+python3 gate/harness_diet.py --off quality=.95,cost=10 --on quality=.95,cost=14
+python3 gate/reach_check.py --demo
+python3 gate/tests/test_field_validation.py
+```
+
+마지막 명령은 합성 예제가 아닙니다. **공개 A/B 원자료 119문은 직접 재집계**해 `REMOVE`를
+재현하고, 비공개 원자료에서 기록된 필드 집계(도달 17/20·대상노출 36→21·전체 순서변동 13)는
+정합성 replay로 `MOVED`를 확인합니다(필드 query-level 독립 재계산은 아님).
+도달 분모의 형식화·식별 명제·한계는 [연구 노트](docs/TARGETING_REACH_NOTE.md),
+여섯 번의 계측 실패는 [사례집](gate/MEASUREMENT_FAILURES.md)에 있습니다.
+
 > 📖 이 레포가 만들어진 하루의 전 과정(설계 근거·4연속 실패·게이트가 저자의 오진을 잡은
 > 기록)은 [케이스 스터디](docs/CASE_STUDY.md)에 순서대로 남겼습니다.
 >
@@ -377,13 +402,13 @@ Phase 3는 순환 논증을 피하려고 "가설을 생성한 표본은 확증 �
 
 전문: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
-### 계측기가 틀리면 판정이 뒤집힌다 — 실패 사례 5건
+### 계측기가 틀리면 판정이 뒤집힌다 — 실패 사례 6건
 
 ![계측 실패 도식 (사례 1~3)](docs/measurement_failures.png)
 
 게이트를 아무리 잘 설계해도 **게이트가 읽는 숫자가 틀리면** 판정은 무의미합니다.
 운영 중인 인용 QA 파이프라인과 그 평가 하네스에서 실제로 판정을 뒤집었던(또는
-뒤집을 뻔했던) 계측 실패 5건을 수록했습니다.
+뒤집을 뻔했던) 계측 실패 6건을 수록했습니다.
 
 - **계수 단위 오류** — `precision`의 분모를 슬롯으로 잡아 중복 정답을 이중 계수.
   보고값 0.672는 존재하지 않는 성능이었고, 이 부풀림이 정당한 개선을 **DOMINATED로
@@ -401,9 +426,13 @@ Phase 3는 순환 논증을 피하려고 "가설을 생성한 표본은 확증 �
 - **채점 단위 오류** — gold가 한 코퍼스의 경로 기준이라 정답을 짚어도 0점(내용
   식별자로 조인해야 성립), 같은 답변이 입도에 따라 0.244 ↔ **0.750**으로
   갈렸습니다. 이 오판 위에서 "개선안" 여러 종이 발주·전부 기각됐습니다.
+- **겨냥 실패의 위장** — 가드 고장을 고쳐 대상이 0 → 137,024건이 됐는데 프로덕션
+  A/B는 전 지표 ±0·순서변동 0. 겨냥 질의셋에서도 0 → 0이 나왔지만, seed를 전체
+  풀에서 뽑아 **대상에 닿지도 않은 것**이었습니다. 도달 분모를 출력하자 36 → 21로
+  갈렸고, 그 변화가 안전 프록시의 기계적 효과일 뿐 품질 개선이 아님도 함께 남겼습니다.
 
-다섯 사례의 공통점은 **전부 계측기가 틀린 판정을 먼저 확정할 뻔한 상황**이라는
-점입니다. 계측기를 의심하는 비용이 개선 자체보다 컸지만, 다섯 번 다 정당했습니다.
+여섯 사례의 공통점은 **전부 계측기가 틀린 판정을 먼저 확정할 뻔한 상황**이라는
+점입니다. 계측기를 의심하는 비용이 개선 자체보다 컸지만, 여섯 번 다 정당했습니다.
 
 전문: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
@@ -433,7 +462,7 @@ ab/                     # 실측 ② A/B 게이트
   AB_VERDICT.md         #   판정 전문
 gate/                   # 채점 게이트 패키지 + 의미 레이어 재채점 + Phase 1~3 실측
   src/reflection_gate/  #   결정론(구조·주소·발췌)+의미(LLM 저지) 2층 채점기, fail-closed
-  tests/                #   pytest 38종 (네거티브 컨트롤 10종 포함)
+  tests/                #   pytest 74종 (uv 격리환경 전수 PASS; 네거티브 컨트롤 포함)
   SEMANTIC_REGRADE.md   #   238건 전수 재채점 판정 (FLAGGED 18건 사람 대조 포함)
   LABELING_PROTOCOL.md  #   사람 라벨 프로토콜 (라벨 시작 전 커밋)
   PHASE1_VERDICT.md     #   Phase 1 판정 — 재현성 없음 발견, 3표 합의 채택
@@ -449,9 +478,13 @@ gate/                   # 채점 게이트 패키지 + 의미 레이어 재채�
   SIDECHECK_RESULT.md   #   옆방 2곳 결과 — 둘 다 PASS, 회수율↔정밀도 축 분리
   RELATED_HARNESSES.md  #   참조 구현 해부 — 채택 게이트 부재 실측 (부재증명 오류 1건 포함)
   THEORY_MAPPING.md     #   RLS·자기회귀·가지치기 대응 + 대응이 끊기는 지점
-  MEASUREMENT_FAILURES.md #  계측 실패 5건 — 계수단위·전처리순환·판정순환·기준선위조·채점단위
+  MEASUREMENT_FAILURES.md #  계측 실패 6건 — 계수단위·전처리순환·판정순환·기준선위조·채점단위·겨냥실패
+  harness_diet.py       #   OFF/ON 순편익 → KEEP·REMOVE·TEST_THIN 판정
+  reach_check.py        #   겨냥 실패와 순효과 0을 도달 분모로 분리
+  fixtures/             #   2026-08-28 운영 실측 집계 (필드 회귀검증)
   scripts/              #   각 Phase 러너·채점기·원자료 (판정기는 결과 열람 전 커밋)
 docs/
+  TARGETING_REACH_NOTE.md # 도달 분모 식별 명제·운영 실측·하네스 다이어트 연구 노트
   ab_verdict_chart.png
   pareto_chart.png      #   파레토 3패널 (열등이동·바깥이동·축 분리)
   failure_ladder.png    #   4단계가 매번 다른 층에서 실패한 구조
