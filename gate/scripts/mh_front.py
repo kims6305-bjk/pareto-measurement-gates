@@ -30,7 +30,7 @@ import math
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Optional, Sequence
+from typing import Any, Optional, Sequence
 
 GATE = Path(__file__).resolve().parents[1]
 ARCHIVE = GATE / "scripts/mh_archive.jsonl"
@@ -83,6 +83,39 @@ def validate_axes(rec: dict, ci_key: Optional[str]) -> None:
             raise ValueError(f"{cid}: {axis}.{ci_key} 가 유효한 CI가 아님: {ci!r}")
 
 
+def validate_comparability(pool: dict[str, dict]) -> None:
+    """서로 다른 평가 코호트의 좌표가 한 front에 섞이는 것을 거부한다."""
+    if not pool:
+        return
+    fields = {
+        "measurement.label_sheet_sha256": (
+            lambda r: (r.get("measurement") or {}).get("label_sheet_sha256"),
+            lambda v: isinstance(v, str) and len(v) == 64
+            and all(c in "0123456789abcdefABCDEF" for c in v),
+        ),
+        "measurement.n_units": (
+            lambda r: (r.get("measurement") or {}).get("n_units"),
+            lambda v: type(v) is int and v > 0,
+        ),
+        "measurement.n_runs": (
+            lambda r: (r.get("measurement") or {}).get("n_runs"),
+            lambda v: type(v) is int and v > 0,
+        ),
+        "harness.model": (
+            lambda r: (r.get("harness") or {}).get("model"),
+            lambda v: isinstance(v, str) and bool(v.strip()),
+        ),
+    }
+    for name, (get, valid) in fields.items():
+        values = {cid: get(rec) for cid, rec in sorted(pool.items())}
+        if not all(valid(value) for value in values.values()):
+            raise ValueError(f"비교 기준 {name} 누락 또는 형식 오류: {values}")
+        if name.endswith("sha256"):
+            values = {cid: value.lower() for cid, value in values.items()}
+        if len(set(values.values())) != 1:
+            raise ValueError(f"비교 불가능한 {name} 혼합: {values}")
+
+
 def cmp_axis(x: dict, y: dict, axis: str, ci_key: Optional[str]) -> int:
     """축 비교. 반환 +1(x 우세) / 0(동률) / -1(y 우세).
 
@@ -133,6 +166,28 @@ def relation(x: dict, y: dict, ci_key: Optional[str]) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 # 아카이브 입출력 (§5.1 / §5.3 — append-only, 물리 삭제 금지)
 # ══════════════════════════════════════════════════════════════════════════════
+def validate_record(rec: object, source: str) -> dict:
+    """외부 후보 레코드의 최소 신뢰 경계."""
+    if not isinstance(rec, dict):
+        raise ValueError(f"{source}: JSON object가 아님")
+    cid = rec.get("candidate_id")
+    if not (isinstance(cid, str) and len(cid) == 4 and cid[0] == "c"
+            and all(ch in "0123456789" for ch in cid[1:])):
+        raise ValueError(f"{source}: candidate_id 형식 오류: {cid!r} (c%03d 필요)")
+    return rec
+
+
+def _read_json(path: Path, source: str, *, candidate: bool = False,
+               object_required: bool = True) -> Any:
+    try:
+        rec = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"{source}: JSON 오류: {exc.msg}") from exc
+    if object_required and not isinstance(rec, dict):
+        raise ValueError(f"{source}: JSON object가 아님")
+    return validate_record(rec, source) if candidate else rec
+
+
 def load_archive(path: Path = ARCHIVE) -> tuple[list[dict], dict[str, dict]]:
     """반환: (원시 레코드 순서대로, 후보별 최신 스냅샷)
 
@@ -141,9 +196,13 @@ def load_archive(path: Path = ARCHIVE) -> tuple[list[dict], dict[str, dict]]:
     """
     raw: list[dict] = []
     if path.exists():
-        for line in path.read_text(encoding="utf-8").splitlines():
+        for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             if line.strip():
-                raw.append(json.loads(line))
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    raise ValueError(f"{path}:{lineno}: JSON 오류: {exc.msg}") from exc
+                raw.append(validate_record(rec, f"{path}:{lineno}"))
     latest: dict[str, dict] = {}
     for rec in raw:                      # 파일 순서 = 시간 순서
         latest[rec["candidate_id"]] = rec
@@ -182,9 +241,11 @@ def judgeable(rec: dict) -> bool:
     if rec.get("status") in (STATUS_INVALID, STATUS_PRUNED, STATUS_UNJUDGED,
                              STATUS_REJECTED_C0):
         return False
-    if not rec.get("sample_gate", {}).get("passed"):
-        return False
-    return True
+    gate = rec.get("sample_gate")
+    if (not isinstance(gate, dict) or type(gate.get("passed")) is not bool
+            or not isinstance(gate.get("violations"), list)):
+        raise ValueError("sample_gate.passed/violations 형식 오류")
+    return gate["passed"]
 
 
 def _sort_ids(ids) -> list[str]:
@@ -196,6 +257,7 @@ def compute_front(latest: dict[str, dict], ci_key: Optional[str]) -> dict:
     pool = {i: r for i, r in latest.items() if judgeable(r)}
     for rec in pool.values():
         validate_axes(rec, ci_key)
+    validate_comparability(pool)
     dominated: dict[str, list[str]] = {}
     for i in _sort_ids(pool):
         by = [j for j in _sort_ids(pool)
@@ -299,12 +361,25 @@ def termination(front: list[str], pool: dict[str, dict], latest: dict[str, dict]
     if stall_rounds >= STALL_LIMIT:
         hits.append("T1")
 
-    total_calls = sum(r.get("reference_fields", {}).get("search_cost_calls") or 0
-                      for r in latest.values())
+    considered = [r for r in latest.values()
+                  if r.get("status") != STATUS_INVALID]
+    for r in considered:
+        generation = r.get("generation", 0)
+        if type(generation) is not int or generation < 0:
+            raise ValueError(f"generation 형식 오류: {generation!r}")
+        refs = r.get("reference_fields")
+        if not isinstance(refs, dict):
+            raise ValueError("reference_fields 누락 또는 JSON object가 아님")
+        calls = refs.get("search_cost_calls")
+        if (isinstance(calls, bool) or not isinstance(calls, (int, float))
+                or not math.isfinite(calls) or calls < 0):
+            raise ValueError(f"search_cost_calls 형식 오류: {calls!r}")
+
+    total_calls = sum(r["reference_fields"]["search_cost_calls"] for r in considered)
     if total_calls > CALL_BUDGET:
         hits.append("T2")
 
-    gens = [r.get("generation", 0) for r in latest.values()]
+    gens = [r.get("generation", 0) for r in considered]
     cur = max(gens) if gens else 0
     if cur > 0:
         valid_now = [i for i, r in latest.items()
@@ -341,11 +416,17 @@ def cmd_front(a: argparse.Namespace) -> int:
         return 2
 
     ci_key = CI_KEYS[a.ci]
-    res = compute_front(latest, ci_key)
+    try:
+        res = compute_front(latest, ci_key)
+    except (ValueError, TypeError, AttributeError, KeyError) as exc:
+        print(f"front 재계산 불가 — {exc}", file=sys.stderr)
+        print("원장의 해당 후보를 격리(status 전이)한 뒤 다시 실행하라.",
+              file=sys.stderr)
+        return 3
     pool, front0 = res["pool"], res["front"]
     keep, pruned, halt = prune_front(front0, pool, ci_key, cap=a.cap)
 
-    prev = json.loads(out.read_text(encoding="utf-8")) if out.exists() else {}
+    prev = _read_json(out, "front cache") if out.exists() else {}
     prev_front = prev.get("front") or []
     changed = _sort_ids(keep) != _sort_ids(prev_front)
     stall = 0 if changed else int(prev.get("stall_rounds") or 0) + 1
@@ -387,9 +468,6 @@ def cmd_front(a: argparse.Namespace) -> int:
         print(json.dumps(doc, ensure_ascii=False, indent=2))
         return 0
 
-    out.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n",
-                   encoding="utf-8")
-
     # status 전이 append (§5.3 제거 A — 행을 지우지 않는다)
     if not a.no_status_write:
         target = {i: STATUS_ON_FRONT for i in keep}
@@ -408,6 +486,10 @@ def cmd_front(a: argparse.Namespace) -> int:
             if i in res["g1_excluded"]:
                 by += " | G1: baseline 에게 지배당해 부모 후보 영구 제외"
             append_archive(_transition(rec, target[i], by, at), archive)
+
+    doc["archive_sha256"] = sha256_file(archive)
+    out.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n",
+                   encoding="utf-8")
 
     print(f"front({a.ci}) {len(keep)}/{len(pool)}: {keep}")
     print(f"  endpoints: {doc['endpoints']}")
@@ -442,7 +524,8 @@ def validity_check(harness: dict, latest: dict[str, dict],
         bad.append("prompt_sha256 없음")
     else:
         dup = [i for i, r in sorted(latest.items())
-               if r.get("harness", {}).get("prompt_sha256") == sha]
+               if judgeable(r)
+               and (r.get("harness") or {}).get("prompt_sha256") == sha]
         if dup:
             bad.append(f"prompt_sha256 중복 — 기존 후보 {dup} 재측정 금지")
     if verify_builder:
@@ -457,13 +540,36 @@ def validity_check(harness: dict, latest: dict[str, dict],
     return bad
 
 
+def validate_add_structure(rec: dict) -> None:
+    """등록 스냅샷을 인덱싱하기 전 필요한 최소 구조를 확인한다."""
+    for field in ("harness", "measurement", "objectives", "reference_fields", "sample_gate"):
+        if not isinstance(rec.get(field), dict):
+            raise ValueError(f"{field} 누락 또는 JSON object가 아님")
+    gate = rec["sample_gate"]
+    if type(gate.get("passed")) is not bool or not isinstance(gate.get("violations"), list):
+        raise ValueError("sample_gate.passed/violations 형식 오류")
+    calls = rec["reference_fields"].get("search_cost_calls")
+    if (isinstance(calls, bool) or not isinstance(calls, (int, float))
+            or not math.isfinite(calls) or calls < 0):
+        raise ValueError(f"search_cost_calls 형식 오류: {calls!r}")
+
+
+def _reject_add(rec: dict, archive: Path, at: str, reason: object) -> int:
+    rec["status"] = STATUS_INVALID
+    rec["status_history"] = [{"at": at, "status": STATUS_INVALID, "by": str(reason)}]
+    append_archive(rec, archive)
+    print(f"{rec['candidate_id']} INVALID — {reason}")
+    return 3
+
+
 def cmd_add(a: argparse.Namespace) -> int:
     archive = Path(a.archive)
-    obj = json.loads(Path(a.objectives).read_text(encoding="utf-8"))
-    harness = json.loads(Path(a.harness).read_text(encoding="utf-8"))
+    obj = _read_json(Path(a.objectives), "objectives", candidate=True)
+    harness = _read_json(Path(a.harness), "harness", object_required=False)
     _, latest = load_archive(archive)
 
     cid = a.candidate_id or obj["candidate_id"]
+    validate_record({"candidate_id": cid}, "add")
     if cid in latest:
         print(f"이미 존재하는 candidate_id: {cid} (원장은 덮어쓰지 않는다)",
               file=sys.stderr)
@@ -474,6 +580,21 @@ def cmd_add(a: argparse.Namespace) -> int:
         print("origin_reason 은 비워둘 수 없다 (§5.1)", file=sys.stderr)
         return 2
 
+    payload = {
+        "harness": harness,
+        "measurement": obj.get("measurement"),
+        "objectives": obj.get("objectives"),
+        "reference_fields": obj.get("reference_fields"),
+        "sample_gate": obj.get("sample_gate"),
+        "bootstrap": obj.get("bootstrap"),
+    }
+    try:
+        validate_add_structure(payload)
+    except ValueError as exc:
+        rec = {"candidate_id": cid, "created_at": at, **payload,
+               "status": None, "status_history": []}
+        return _reject_add(rec, archive, at, exc)
+
     rec = {
         "candidate_id": cid,
         "created_at": at,
@@ -481,25 +602,15 @@ def cmd_add(a: argparse.Namespace) -> int:
         "generation": a.generation,
         "origin": a.origin,
         "origin_reason": a.origin_reason,
-        "harness": harness,
-        "measurement": obj["measurement"],
-        "objectives": obj["objectives"],
-        "reference_fields": obj["reference_fields"],
-        "sample_gate": obj["sample_gate"],
+        **payload,
         "status": None,
         "status_history": [],
-        "bootstrap": obj.get("bootstrap"),
     }
 
     # 1단계 유효성
     bad = validity_check(harness, latest, verify_builder=not a.no_verify_builder)
     if bad:
-        rec["status"] = STATUS_INVALID
-        rec["status_history"] = [{"at": at, "status": STATUS_INVALID,
-                                  "by": "; ".join(bad)}]
-        append_archive(rec, archive)
-        print(f"{cid} INVALID — {bad}")
-        return 3
+        return _reject_add(rec, archive, at, "; ".join(bad))
 
     # 3단계 표본 요건 (2단계 측정은 러너 담당)
     if not obj["sample_gate"]["passed"]:
@@ -510,9 +621,18 @@ def cmd_add(a: argparse.Namespace) -> int:
         print(f"{cid} UNJUDGED — 표본 요건 위반 {obj['sample_gate']['violations']}")
         return 3
 
-    # G1 (§5.2): baseline 에게 지배당하면 DOMINATED + 부모 후보 영구 제외
+    # G1 전에 좌표·비교 코호트를 검증한다. 여기서 막지 않으면 `add`가
+    # `front` 재계산보다 먼저 서로 다른 평가셋 후보를 DOMINATED로 확정할 수 있다.
     ci_key = CI_KEYS[a.ci]
-    base = latest.get(BASELINE_ID)
+    try:
+        validate_axes(rec, ci_key)
+        pool = {i: r for i, r in latest.items() if judgeable(r)}
+        validate_comparability({**pool, cid: rec})
+    except (ValueError, TypeError, AttributeError, KeyError) as exc:
+        return _reject_add(rec, archive, at, exc)
+
+    # G1 (§5.2): baseline 에게 지배당하면 DOMINATED + 부모 후보 영구 제외
+    base = pool.get(BASELINE_ID)
     if base is not None and cid != BASELINE_ID and dominates(base, rec, ci_key):
         rec["status"] = STATUS_DOMINATED
         rec["status_history"] = [{"at": at, "status": STATUS_DOMINATED,
@@ -537,16 +657,24 @@ def _load_one(ref: str, latest: dict[str, dict]) -> dict:
         return latest[ref]
     p = Path(ref)
     if p.exists():
-        return json.loads(p.read_text(encoding="utf-8"))
-    print(f"후보를 찾을 수 없다: {ref}", file=sys.stderr)
-    raise SystemExit(2)
+        return _read_json(p, f"후보 {ref}", candidate=True)
+    raise FileNotFoundError(ref)
 
 
 def cmd_dominance(a: argparse.Namespace) -> int:
     _, latest = load_archive(Path(a.archive))
     x, y = _load_one(a.a, latest), _load_one(a.b, latest)
     ci_key = CI_KEYS[a.ci]
-    print(f"A={x['candidate_id']}  B={y['candidate_id']}  (ci={a.ci})")
+    try:
+        for rec in (x, y):
+            validate_axes(rec, ci_key)
+        # 🔴 위치 키. candidate_id 로 키를 잡으면 같은 후보를 새 라벨셋으로
+        # 재측정한 쌍이 dict 에서 한 칸으로 접혀 검사가 통째로 무력화된다.
+        validate_comparability({"A": x, "B": y})
+    except (ValueError, TypeError, AttributeError, KeyError) as exc:
+        print(f"판정 불가 — {exc}", file=sys.stderr)
+        return 3
+    print(f"A={a.a}  B={a.b}  (ci={a.ci})")
     for axis in AXES:
         c = cmp_axis(x, y, axis, ci_key)
         print(f"  {axis:9s} A={_pt(x, axis)} {_ci(x, axis, ci_key or 'ci_qid')} | "
@@ -602,7 +730,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     a = build_parser().parse_args(argv)
-    return a.fn(a)
+    try:
+        return a.fn(a)
+    except FileNotFoundError as exc:
+        print(f"입력 경로를 찾을 수 없다: {exc.filename or exc}", file=sys.stderr)
+        return 2
+    except (ValueError, TypeError, AttributeError, KeyError) as exc:
+        print(f"입력 판정 불가 — {exc}", file=sys.stderr)
+        return 3
 
 
 if __name__ == "__main__":

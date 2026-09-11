@@ -41,7 +41,8 @@ PY = sys.executable
 # ══════════════════════════════════════════════════════════════════════════════
 def cand(cid: str, r: float, p: float, ci_r, ci_p, *, generation: int = 0,
          n_flagged: int = 13, origin: str = "front_endpoint",
-         status: str = "ON_FRONT", passed: bool = True, calls: int = 165) -> dict:
+         status: str = "ON_FRONT", passed: bool = True, calls: int = 165,
+         label_sha: str = "a" * 64) -> dict:
     """§5.1 스키마 최소 부분집합. 판정에 쓰는 필드만 채운다."""
     return {
         "candidate_id": cid,
@@ -49,7 +50,8 @@ def cand(cid: str, r: float, p: float, ci_r, ci_p, *, generation: int = 0,
         "origin": origin,
         "harness": {"model": mf.MODEL_FIXED, "prompt_sha256": f"sha-{cid}",
                     "builder_module": "json", "builder_fn": "dumps"},
-        "measurement": {"n_units": 55, "n_runs": 3, "n_problem": 11,
+        "measurement": {"label_sheet_sha256": label_sha,
+                        "n_units": 55, "n_runs": 3, "n_problem": 11,
                         "n_flagged": n_flagged, "n_detected": 9, "n_split": 0,
                         "n_unresolved": 0},
         "objectives": {
@@ -118,6 +120,296 @@ def test_dominance_ci_overlap_is_tie():
     assert mf.dominates(x, y, None) is True
 
 
+def test_front_rejects_mixed_evaluation_cohorts():
+    """같은 좌표라도 라벨셋이 다르면 하나의 front로 비교할 수 없다."""
+    a = cand("cA", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85], label_sha="a" * 64)
+    b = cand("cB", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85], label_sha="b" * 64)
+    with pytest.raises(ValueError, match="measurement.label_sheet_sha256"):
+        mf.compute_front({"cA": a, "cB": b}, QID)
+
+
+@pytest.mark.parametrize(("section", "field", "bad"), [
+    ("measurement", "label_sheet_sha256", "not-a-sha256"),
+    ("measurement", "n_units", True),
+    ("measurement", "n_runs", 0),
+    ("harness", "model", "   "),
+])
+def test_front_rejects_malformed_evaluation_metadata(section, field, bad):
+    """같은 잘못된 메타데이터끼리도 비교 가능하다고 오인하지 않는다."""
+    a = cand("cA", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85])
+    b = cand("cB", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85])
+    a[section][field] = bad
+    b[section][field] = bad
+    with pytest.raises(ValueError, match=field):
+        mf.compute_front({"cA": a, "cB": b}, QID)
+
+
+def _write_add_inputs(tmp_path, candidate):
+    """add 서브커맨드 입력 2종을 쓰고 (objectives, harness) 경로를 준다."""
+    objectives = tmp_path / "objectives.json"
+    harness = tmp_path / "harness.json"
+    objectives.write_text(json.dumps({
+        k: candidate[k] for k in
+        ("candidate_id", "measurement", "objectives", "reference_fields", "sample_gate")
+    }), encoding="utf-8")
+    harness.write_text(json.dumps(candidate["harness"]), encoding="utf-8")
+    return objectives, harness
+
+
+def _run_add(archive, objectives, harness):
+    return mf.main([
+        "add", "--archive", str(archive), "--objectives", str(objectives),
+        "--harness", str(harness), "--origin-reason", "cohort guard test",
+        "--no-verify-builder",
+    ])
+
+
+def test_add_rejects_mixed_evaluation_cohort_before_dominance(tmp_path):
+    """등록 경로도 G1 지배 판정 전에 비교 불가능 후보를 INVALID로 막는다."""
+    archive = tmp_path / "archive.jsonl"
+    baseline = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95],
+                    label_sha="a" * 64)
+    archive.write_text(json.dumps(baseline) + "\n", encoding="utf-8")
+
+    candidate = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60],
+                     label_sha="b" * 64)
+    assert _run_add(archive, *_write_add_inputs(tmp_path, candidate)) == 3
+    _, latest = mf.load_archive(archive)
+    assert latest["c001"]["status"] == mf.STATUS_INVALID
+    assert "measurement.label_sheet_sha256" in latest["c001"]["status_history"][-1]["by"]
+
+
+@pytest.mark.parametrize("case", ["missing_measurement", "null_harness", "null_sample_gate"])
+def test_add_structural_errors_append_one_invalid_snapshot(tmp_path, case, capsys):
+    archive = tmp_path / "archive.jsonl"
+    baseline = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])
+    archive.write_text(json.dumps(baseline) + "\n", encoding="utf-8")
+    before = archive.read_bytes()
+
+    candidate = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    objectives, harness = _write_add_inputs(tmp_path, candidate)
+    doc = json.loads(objectives.read_text(encoding="utf-8"))
+    if case == "missing_measurement":
+        del doc["measurement"]
+    elif case == "null_harness":
+        harness.write_text("null", encoding="utf-8")
+    else:
+        doc["sample_gate"] = None
+    objectives.write_text(json.dumps(doc), encoding="utf-8")
+
+    assert _run_add(archive, objectives, harness) == 3
+    after = archive.read_bytes()
+    assert after.startswith(before)
+    assert len(after.splitlines()) == len(before.splitlines()) + 1
+    _, latest = mf.load_archive(archive)
+    assert latest["c001"]["status"] == mf.STATUS_INVALID
+    assert "Traceback" not in capsys.readouterr().err
+
+
+def test_archived_invalid_structure_cannot_poison_later_commands(tmp_path):
+    archive = tmp_path / "archive.jsonl"
+    baseline = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])
+    archive.write_text(json.dumps(baseline) + "\n", encoding="utf-8")
+
+    malformed = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    objectives, harness = _write_add_inputs(tmp_path, malformed)
+    harness.write_text("[1]", encoding="utf-8")
+    assert _run_add(archive, objectives, harness) == 3
+
+    valid = cand("c002", 0.70, 0.70, [0.60, 0.80], [0.60, 0.80])
+    objectives, harness = _write_add_inputs(tmp_path, valid)
+    assert _run_add(archive, objectives, harness) == 0
+
+    malformed = cand("c003", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    objectives, harness = _write_add_inputs(tmp_path, malformed)
+    doc = json.loads(objectives.read_text(encoding="utf-8"))
+    doc["reference_fields"] = []
+    objectives.write_text(json.dumps(doc), encoding="utf-8")
+    assert _run_add(archive, objectives, harness) == 3
+
+    assert mf.main([
+        "front", "--archive", str(archive), "--out", str(tmp_path / "front.json")
+    ]) == 0
+
+
+@pytest.mark.parametrize(("field", "bad"), [
+    ("generation", []),
+    ("generation", "poison"),
+    ("search_cost_calls", "poison"),
+    ("search_cost_calls", float("nan")),
+    ("search_cost_calls", -1),
+])
+def test_invalid_termination_metadata_is_excluded(tmp_path, field, bad):
+    baseline = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])
+    rejected = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60],
+                    status=mf.STATUS_INVALID)
+    if field == "generation":
+        rejected[field] = bad
+    else:
+        rejected["reference_fields"][field] = bad
+    archive = write_archive(tmp_path, [baseline, rejected])
+    assert mf.main([
+        "front", "--archive", str(archive), "--out", str(tmp_path / "front.json")
+    ]) == 0
+
+
+@pytest.mark.parametrize(("field", "bad"), [
+    ("generation", []),
+    ("search_cost_calls", "poison"),
+    ("search_cost_calls", float("nan")),
+    ("search_cost_calls", -1),
+])
+def test_active_invalid_termination_metadata_fails_closed(tmp_path, field, bad):
+    active = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])
+    if field == "generation":
+        active[field] = bad
+    else:
+        active["reference_fields"][field] = bad
+    archive = write_archive(tmp_path, [active])
+    assert mf.main([
+        "front", "--archive", str(archive), "--out", str(tmp_path / "front.json")
+    ]) == 3
+
+
+@pytest.mark.parametrize("bad", ["poison", float("nan"), -1, True])
+def test_add_rejects_invalid_search_cost_calls(tmp_path, bad):
+    archive = write_archive(
+        tmp_path, [cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])]
+    )
+    candidate = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    candidate["reference_fields"]["search_cost_calls"] = bad
+    assert _run_add(archive, *_write_add_inputs(tmp_path, candidate)) == 3
+    _, latest = mf.load_archive(archive)
+    assert latest["c001"]["status"] == mf.STATUS_INVALID
+
+
+def test_add_g1_ignores_unjudgeable_baseline(tmp_path):
+    invalid_base = cand("c000", 0.99, 0.99, [0.98, 1.0], [0.98, 1.0],
+                        status=mf.STATUS_INVALID, label_sha="a" * 64)
+    peer = cand("c002", 0.60, 0.60, [0.50, 0.70], [0.50, 0.70], label_sha="b" * 64)
+    archive = write_archive(tmp_path, [invalid_base, peer])
+    candidate = cand("c001", 0.20, 0.20, [0.10, 0.30], [0.10, 0.30],
+                     label_sha="b" * 64)
+
+    assert _run_add(archive, *_write_add_inputs(tmp_path, candidate)) == 0
+    _, latest = mf.load_archive(archive)
+    assert latest["c001"]["status"] == mf.STATUS_ON_FRONT
+
+
+@pytest.mark.parametrize("case", ["missing_candidate", "bad_archive", "bad_file"])
+def test_commands_return_3_for_malformed_external_input(tmp_path, case, capsys):
+    archive = tmp_path / "archive.jsonl"
+    candidate = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    objectives, harness = _write_add_inputs(tmp_path, candidate)
+    if case == "missing_candidate":
+        doc = json.loads(objectives.read_text(encoding="utf-8"))
+        del doc["candidate_id"]
+        objectives.write_text(json.dumps(doc), encoding="utf-8")
+        rc = _run_add(archive, objectives, harness)
+    elif case == "bad_archive":
+        archive.write_text("{bad json\n", encoding="utf-8")
+        rc = mf.main(["front", "--archive", str(archive), "--out", str(tmp_path / "f.json")])
+    else:
+        archive = write_archive(tmp_path, [cand("c000", .9, .9, [.8, 1], [.8, 1])])
+        bad = tmp_path / "bad.json"
+        bad.write_text("{bad json", encoding="utf-8")
+        rc = _run_dominance(archive, "c000", str(bad))
+    assert rc == 3
+    assert "Traceback" not in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("bad_id", [None, "", 7, "c01", "c0000", "x001"])
+def test_front_rejects_malformed_archive_candidate_id(tmp_path, bad_id):
+    archive = write_archive(tmp_path, [cand(bad_id, .9, .9, [.8, 1], [.8, 1])])
+    assert mf.main(["front", "--archive", str(archive), "--out", str(tmp_path / "f.json")]) == 3
+
+
+def test_dominance_rejects_malformed_file_candidate_id(tmp_path):
+    archive = write_archive(tmp_path, [cand("c000", .9, .9, [.8, 1], [.8, 1])])
+    bad = tmp_path / "bad-id.json"
+    bad.write_text(json.dumps(cand("candidate-1", .5, .5, [.4, .6], [.4, .6])), encoding="utf-8")
+    assert _run_dominance(archive, "c000", str(bad)) == 3
+
+
+def test_missing_input_path_remains_exit_2(tmp_path):
+    assert mf.main(["dominance", "--archive", str(tmp_path / "missing-archive"),
+                    "--a", "c000", "--b", "c001"]) == 2
+
+
+def test_dominance_accepts_uppercase_sha256(tmp_path):
+    a = cand("c000", .9, .9, [.8, 1], [.8, 1], label_sha="A" * 64)
+    b = cand("c001", .5, .5, [.4, .6], [.4, .6], label_sha="a" * 64)
+    archive = write_archive(tmp_path, [a, b])
+    assert _run_dominance(archive, "c000", "c001") == 0
+
+
+@pytest.mark.parametrize(("section", "field", "value"), [
+    ("measurement", "n_units", 99),
+    ("measurement", "n_runs", 5),
+    ("harness", "model", "other-model"),
+])
+def test_add_rejects_each_mismatched_cohort_field(tmp_path, section, field, value):
+    """라벨셋 해시 말고 나머지 3개 축도 각각 등록을 막는다."""
+    archive = tmp_path / "archive.jsonl"
+    baseline = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])
+    archive.write_text(json.dumps(baseline) + "\n", encoding="utf-8")
+
+    candidate = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    candidate[section][field] = value
+    assert _run_add(archive, *_write_add_inputs(tmp_path, candidate)) == 3
+    _, latest = mf.load_archive(archive)
+    assert latest["c001"]["status"] == mf.STATUS_INVALID
+    assert field in latest["c001"]["status_history"][-1]["by"]
+
+
+def _run_dominance(archive, ref_a, ref_b):
+    return mf.main(
+        ["dominance", "--archive", str(archive), "--a", ref_a, "--b", ref_b])
+
+
+def test_dominance_rejects_same_id_remeasurement(tmp_path):
+    """🔴 같은 candidate_id 로 라벨셋만 바꾼 재측정이 게이트를 우회하지 못한다.
+
+    풀을 candidate_id 로 키잡으면 두 레코드가 한 칸으로 접혀 검사가 무력화된다.
+    """
+    archive = tmp_path / "archive.jsonl"
+    base = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95], label_sha="a" * 64)
+    archive.write_text(json.dumps(base) + "\n", encoding="utf-8")
+
+    rerun = cand("c000", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60], label_sha="b" * 64)
+    rerun_path = tmp_path / "rerun.json"
+    rerun_path.write_text(json.dumps(rerun), encoding="utf-8")
+
+    assert _run_dominance(archive, "c000", str(rerun_path)) == 3
+
+
+def test_dominance_allows_same_cohort_different_candidates(tmp_path):
+    """과잉차단 방지 — 같은 코호트면 후보ID·프롬프트해시가 달라도 비교된다."""
+    archive = tmp_path / "archive.jsonl"
+    x = cand("c000", 0.90, 0.90, [0.80, 0.95], [0.80, 0.95])
+    y = cand("c001", 0.50, 0.50, [0.40, 0.60], [0.40, 0.60])
+    y["harness"]["prompt_sha256"] = "sha-completely-different"
+    with open(archive, "w", encoding="utf-8") as fh:
+        for rec in (x, y):
+            fh.write(json.dumps(rec) + "\n")
+
+    assert _run_dominance(archive, "c000", "c001") == 0
+
+
+def test_front_returns_exit_code_on_incomparable_archive(tmp_path):
+    """오염된 원장에서 front 는 트레이스백이 아니라 정의된 종료코드를 준다."""
+    archive = tmp_path / "archive.jsonl"
+    with open(archive, "w", encoding="utf-8") as fh:
+        for rec in (cand("c000", 0.9, 0.9, [.8, .95], [.8, .95], label_sha="a" * 64),
+                    cand("c001", 0.5, 0.5, [.4, .6], [.4, .6], label_sha="b" * 64)):
+            fh.write(json.dumps(rec) + "\n")
+
+    args = mf.build_parser().parse_args(
+        ["front", "--archive", str(archive), "--out", str(tmp_path / "front.json"),
+         "--dry-run"])
+    assert args.fn(args) == 3
+
+
 def test_dominance_one_axis_tie_one_axis_better():
     """§4.2-2 한 축 동률 + 한 축 우세 → 지배. PHASE1 3표 합의와 같은 형태."""
     x = cand("cA", 0.90, 0.95, [0.70, 1.00], [0.90, 1.00])
@@ -144,6 +436,17 @@ def test_unjudged_neither_dominates_nor_dominated():
     assert res["front"] == ["cA"]
     assert "cZ" not in res["dominated"]
     assert mf.judgeable(bad) is False
+
+
+@pytest.mark.parametrize("bad", ["false", 1])
+def test_front_rejects_non_boolean_archive_sample_gate(tmp_path, bad):
+    """원장에 직접 들어온 truthy 비-bool passed가 판정에 참여하지 못한다."""
+    rec = cand("c000", 0.90, 0.90, [0.80, 1.00], [0.80, 1.00])
+    rec["sample_gate"]["passed"] = bad
+    archive = write_archive(tmp_path, [rec])
+    assert mf.main([
+        "front", "--archive", str(archive), "--out", str(tmp_path / "front.json")
+    ]) == 3
 
 
 @pytest.mark.parametrize("field,bad", [
@@ -207,10 +510,10 @@ def test_negative_control_all_contradicted_cannot_monopolize_front():
     base_units = _units_from_rows(per)
     neg_units = _units_from_rows(_all_contradicted(per))
 
-    base = mo.build_result("c000", base_units, per, [], "sha-label")
+    base = mo.build_result("c000", base_units, per, [], "a" * 64)
     # 가짜 후보의 원자료 = 전부 CONTRADICTED 로 바꾼 것
     neg_per = _all_contradicted(per)
-    neg = mo.build_result("c_neg_all", neg_units, neg_per, [], "sha-label")
+    neg = mo.build_result("c_neg_all", neg_units, neg_per, [], "a" * 64)
 
     # recall 은 만점, precision 은 무너진다
     assert neg["objectives"]["recall"]["value"] == 1.0
@@ -491,6 +794,7 @@ def test_front_cli_appends_status_without_overwriting(tmp_path):
     assert doc["dominated"] == [{"id": "c001", "dominated_by": ["c000"]}]
     assert doc["g1_excluded"] == ["c001"]          # G1 — baseline 에게 지배당함
     assert doc["ci_used"] == "ci_qid"
+    assert doc["archive_sha256"] == mf.sha256_file(arc)
 
     _, latest = mf.load_archive(arc)
     assert latest["c001"]["status"] == "DOMINATED"
