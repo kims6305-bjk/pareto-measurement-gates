@@ -146,6 +146,20 @@ def test_unjudged_neither_dominates_nor_dominated():
     assert mf.judgeable(bad) is False
 
 
+@pytest.mark.parametrize("field,bad", [
+    ("ci_qid", None),
+    ("ci_qid", [0.9, 0.1]),
+    ("value", None),
+    ("value", float("nan")),
+])
+def test_front_refuses_missing_or_invalid_axis_measurement(field, bad):
+    """미측정 축을 0이나 동률로 치환하면 공개 front가 조용히 오염된다."""
+    x = cand("cA", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85])
+    x["objectives"]["recall"][field] = bad
+    with pytest.raises(ValueError, match=r"cA: recall\."):
+        mf.compute_front({"cA": x}, QID)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # 2. 🔴 네거티브 컨트롤 — "전부 CONTRADICTED" 가짜 후보 (§3.3 · §8.2 IC-1)
 # ══════════════════════════════════════════════════════════════════════════════

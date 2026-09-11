@@ -26,6 +26,7 @@ import copy
 import hashlib
 import importlib
 import json
+import math
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -62,6 +63,24 @@ def _pt(rec: dict, axis: str) -> Optional[float]:
 
 def _ci(rec: dict, axis: str, ci_key: str) -> Optional[Sequence[float]]:
     return rec.get("objectives", {}).get(axis, {}).get(ci_key)
+
+
+def validate_axes(rec: dict, ci_key: Optional[str]) -> None:
+    """미측정·비정상 좌표를 동률로 꾸미지 않고 판정을 거부한다."""
+    cid = rec.get("candidate_id", "<unknown>")
+    for axis in AXES:
+        value = _pt(rec, axis)
+        if (isinstance(value, bool) or not isinstance(value, (int, float))
+                or not math.isfinite(value) or not 0.0 <= value <= 1.0):
+            raise ValueError(f"{cid}: {axis}.value 가 유효한 [0,1] 측정값이 아님: {value!r}")
+        if ci_key is None:
+            continue
+        ci = _ci(rec, axis, ci_key)
+        if (not isinstance(ci, (list, tuple)) or len(ci) != 2
+                or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                       or not math.isfinite(v) for v in ci)
+                or not 0.0 <= ci[0] <= ci[1] <= 1.0):
+            raise ValueError(f"{cid}: {axis}.{ci_key} 가 유효한 CI가 아님: {ci!r}")
 
 
 def cmp_axis(x: dict, y: dict, axis: str, ci_key: Optional[str]) -> int:
@@ -165,7 +184,7 @@ def judgeable(rec: dict) -> bool:
         return False
     if not rec.get("sample_gate", {}).get("passed"):
         return False
-    return all(_pt(rec, a) is not None for a in AXES)
+    return True
 
 
 def _sort_ids(ids) -> list[str]:
@@ -175,6 +194,8 @@ def _sort_ids(ids) -> list[str]:
 def compute_front(latest: dict[str, dict], ci_key: Optional[str]) -> dict:
     """비지배 집합과 지배관계를 계산한다. 상태를 쓰지 않는 순수 함수."""
     pool = {i: r for i, r in latest.items() if judgeable(r)}
+    for rec in pool.values():
+        validate_axes(rec, ci_key)
     dominated: dict[str, list[str]] = {}
     for i in _sort_ids(pool):
         by = [j for j in _sort_ids(pool)
