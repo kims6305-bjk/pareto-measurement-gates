@@ -29,6 +29,7 @@ GATE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(GATE / "scripts"))
 
 from instrument_check_run import call, load_units  # noqa: E402
+from mh_guard import ledger_lock  # noqa: E402
 
 RUNS = ("run1", "run2", "run3")
 CONDITIONS = ("C0", "C1", "C2")
@@ -89,36 +90,37 @@ def run_one(cid: str, condition: str, run: str, fn, kwargs, model,
             f"실측={actual_sha[:12]}… — 원장의 harness 정의와 실물 빌더가 다르다")
 
     out = GATE / f"scripts/mh_{cid}_{run}.jsonl"
-    done = set()
-    if out.exists():
-        for line in out.read_text(encoding="utf-8").splitlines():
-            try:
-                done.add(json.loads(line)["id"])
-            except Exception:  # noqa: BLE001
-                pass
-    todo = [u for u in units if u["id"] not in done]
-    print(f"{cid}/{condition}/{run}: 대상 {len(units)}건, "
-          f"완료 {len(done)}, 남은 {len(todo)}", flush=True)
+    with ledger_lock(out):
+        done = set()
+        if out.exists():
+            for line in out.read_text(encoding="utf-8").splitlines():
+                try:
+                    done.add(json.loads(line)["id"])
+                except Exception:  # noqa: BLE001
+                    pass
+        todo = [u for u in units if u["id"] not in done]
+        print(f"{cid}/{condition}/{run}: 대상 {len(units)}건, "
+              f"완료 {len(done)}, 남은 {len(todo)}", flush=True)
 
-    n = 0
-    with open(out, "a", encoding="utf-8") as fh:
-        for u in todo:
-            prompt = fn(u, **kwargs)
-            t0 = time.time()
-            label, rationale = call(prompt)
-            fh.write(json.dumps({
-                "id": u["id"], "run": run, "label": label,
-                "rationale": rationale, "human": u["human"],
-                "n_siblings": len(u["siblings"]),
-                "candidate_id": cid, "condition": condition,
-                "model": model, "prompt_sha256": actual_sha,
-                "elapsed": round(time.time() - t0, 1),
-            }, ensure_ascii=False) + "\n")
-            fh.flush()
-            n += 1
-            if n % 10 == 0 or n == len(todo):
-                print(f"[{n}/{len(todo)}] {u['id']} human={u['human']} -> {label}",
-                      flush=True)
+        n = 0
+        with open(out, "a", encoding="utf-8") as fh:
+            for u in todo:
+                prompt = fn(u, **kwargs)
+                t0 = time.time()
+                label, rationale = call(prompt)
+                fh.write(json.dumps({
+                    "id": u["id"], "run": run, "label": label,
+                    "rationale": rationale, "human": u["human"],
+                    "n_siblings": len(u["siblings"]),
+                    "candidate_id": cid, "condition": condition,
+                    "model": model, "prompt_sha256": actual_sha,
+                    "elapsed": round(time.time() - t0, 1),
+                }, ensure_ascii=False) + "\n")
+                fh.flush()
+                n += 1
+                if n % 10 == 0 or n == len(todo):
+                    print(f"[{n}/{len(todo)}] {u['id']} human={u['human']} -> {label}",
+                          flush=True)
     print(f"DONE {cid}/{run}: 신규 {n}건 -> {out.name}")
 
 

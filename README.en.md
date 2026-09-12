@@ -474,8 +474,9 @@ significance *before* growing, are both named prescriptions already.
   skills it wrote itself in the next session, so without ground-truth reinjection
   (periodic verification) drift is not blocked in principle.
 - **Decision-tree pre-pruning** is structurally the same as instrument checking.
-  In practice a 330-call check blocked a 1,650-call search before it started —
-  along with pre-pruning's known weakness (the horizon effect).
+  A later [external-review correction](docs/ISSUE_1_ADJUDICATION.md) found duplicate IC-1
+  ledger rows, so the 330-call empirical claim is withdrawn. The 1,650-call search was not
+  started, but axis discriminability remains undetermined pending a clean rerun.
 
 🔴 However, **none of RLS's premises — linearity, convexity, convergence
 guarantees — hold for a harness.** In particular RLS's gain is *computed* from a

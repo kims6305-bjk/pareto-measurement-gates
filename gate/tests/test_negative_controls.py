@@ -30,6 +30,35 @@ def _answer(claims, answer="환입액은 비용 인식액의 차감액으로 인
     return json.dumps({"answer": answer, "claims": claims}, ensure_ascii=False)
 
 
+def test_verification_scope_discloses_skipped_checks(bundle, quote_p34):
+    raw = _answer([
+        {"id": "c1", "text": "환입액은 비용 차감액으로 인식한다.",
+         "citations": [{"standard": "1002", "paragraph": "34"}],
+         "quote": quote_p34}
+    ])
+    res = evaluate(raw, bundle, require_quote=False, require_semantic=False)
+    assert res.verdict is GateVerdict.VERIFIED
+    assert res.checks_run == ["schema", "locator"]
+    assert res.checks_skipped == ["quote", "semantic"]
+    assert res.verification_scope == "submitted_claims_only"
+    assert res.answer_claim_completeness == "not_checked"
+    assert res.fully_verified is False
+
+
+def test_answer_claim_completeness_is_not_overclaimed(bundle, quote_p34):
+    raw = _answer([
+        {"id": "c1", "text": "환입액은 비용 차감액으로 인식한다.",
+         "citations": [{"standard": "1002", "paragraph": "34"}],
+         "quote": quote_p34}
+    ], answer="환입액은 비용 차감액이다. 검증되지 않은 별도 단정도 있다.")
+    res = evaluate(raw, bundle, judge=ALL_SUPPORTED)
+    assert res.verdict is GateVerdict.VERIFIED
+    assert res.checks_skipped == []
+    assert res.verification_scope == "submitted_claims_only"
+    assert res.answer_claim_completeness == "not_checked"
+    assert res.fully_verified is False
+
+
 # --------------------------------------------------------------------------
 # ① 올바른 문단번호 + 틀린 기준서
 # --------------------------------------------------------------------------
@@ -42,6 +71,7 @@ def test_neg01_right_paragraph_wrong_standard(bundle, quote_p34):
     res = evaluate(raw, bundle, judge=ALL_SUPPORTED)
     assert res.verdict is GateVerdict.INDETERMINATE
     assert res.has(Reason.SOURCE_ID_NOT_FOUND)
+    assert res.checks_skipped == ["semantic"]
     # 결정론 레이어 단독으로도 잡혀야 한다
     _, findings = run_deterministic(raw, bundle)
     assert Reason.SOURCE_ID_NOT_FOUND in {f.reason for f in findings}

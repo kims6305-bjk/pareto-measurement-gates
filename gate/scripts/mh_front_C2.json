@@ -1,6 +1,6 @@
 {
   "computed_at": "2026-08-03T12:25:22+09:00",
-  "archive_sha256": "e93b0138a46f700a02817e5dac9abd7ac65d87a1fe9a9ec04292174f723c213e",
+  "archive_sha256": "ccd22af32d707afe08c1c7bafc6b2c595a260429cc66f2ac370151f91f8b5715",
   "axes": [
     "recall",
     "precision"

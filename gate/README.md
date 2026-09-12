@@ -33,6 +33,10 @@ result.findings  # [Finding(reason=..., detail=..., claim_id=...)]
 `judge`를 주입하지 않으면 의미 레이어는 `UNRESOLVED` → 결과는 `INDETERMINATE`다.
 구조 검사만 돌리려면 `require_semantic=False`.
 
+`GateResult.checks_run` / `checks_skipped`가 실제 검사 범위를 기록한다. 현재 게이트는
+`verification_scope="submitted_claims_only"`이며 자유서술 답변의 claim 완전성은
+`answer_claim_completeness="not_checked"`로 명시하므로 `fully_verified`를 주장하지 않는다.
+
 ## 테스트
 
 ```bash

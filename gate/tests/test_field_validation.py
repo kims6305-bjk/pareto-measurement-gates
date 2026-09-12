@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """공개 원자료 + 2026-08-28 필드 집계로 새 측정기 실측 회귀검증."""
+import collections
 import hashlib, json, pathlib, sys
 import pytest
 
@@ -24,11 +25,13 @@ def test_public_ab():
     questions_path = ROOT / "ab/ab_questions_FROZEN.json"
     grades_raw, questions_raw = grades_path.read_bytes(), questions_path.read_bytes()
     assert hashlib.sha256(grades_raw).hexdigest() == "0058053fe6c51b817c81bcc80e778754d07b3f4a92251a29f45f7659422969a5"
-    assert hashlib.sha256(questions_raw).hexdigest() == "29aad055199a99e51ad65d1f6d62d44142c5974cc14e898fb5aeb5bcc09d9d30"
+    assert hashlib.sha256(questions_raw).hexdigest() == "c2da3798ac5122c479bed6f1caa9c12842eee9b236136bb023f081f6be7beee0"
     grades = json.loads(grades_raw, object_pairs_hook=strict_object)
     frozen = json.loads(questions_raw, object_pairs_hook=strict_object)
     qids = [q["qid"] for q in frozen["questions"]]
     assert len(qids) == len(set(qids)) == 119 and all(isinstance(q, str) for q in qids)
+    actual_standards = collections.Counter(q["standard"].split()[0] for q in frozen["questions"])
+    assert frozen["meta"]["standards"] == dict(actual_standards)
     assert set(grades) == set(qids)
     required_fields = {"citeA_err", "citeB_err", "accA", "accB"}
     draft_fields = {"citeB_draft_err", "accB_draft"}
@@ -47,6 +50,12 @@ def test_public_ab():
     v = judge(Point(acc_a / n, 0.0), Point(acc_b / n, over / n), reach=n)
     assert v.verdict == "REMOVE", v
     print(f"public A/B {n}문 직접집계 → REMOVE (정확도 {acc_a}/{n} 동일, ON 과교정 {over}/{n})")
+
+
+def test_committed_front_hash_matches_archive():
+    archive = ROOT / "gate/scripts/mh_archive_C2.jsonl"
+    front = json.loads((ROOT / "gate/scripts/mh_front_C2.json").read_text(encoding="utf-8"))
+    assert front["archive_sha256"] == hashlib.sha256(archive.read_bytes()).hexdigest()
 
 
 def test_field_aggregate_schema_replay():

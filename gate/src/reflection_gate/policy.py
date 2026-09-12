@@ -94,6 +94,10 @@ class GateResult:
     verdict: GateVerdict
     findings: List[Finding] = field(default_factory=list)
     claim_labels: dict = field(default_factory=dict)  # claim_id -> SemanticLabel.value
+    checks_run: List[str] = field(default_factory=list)
+    checks_skipped: List[str] = field(default_factory=list)
+    verification_scope: str = "submitted_claims_only"
+    answer_claim_completeness: str = "not_checked"
 
     @property
     def reasons(self) -> List[Reason]:
@@ -105,6 +109,11 @@ class GateResult:
     @property
     def passed(self) -> bool:
         return self.verdict is GateVerdict.VERIFIED
+
+    @property
+    def fully_verified(self) -> bool:
+        return (self.passed and not self.checks_skipped
+                and self.answer_claim_completeness == "checked")
 
 
 def decide(findings: List[Finding]) -> GateVerdict:

@@ -45,14 +45,21 @@ def evaluate(
     claims, findings = run_deterministic(
         raw_answer, bundle, limits=limits, require_quote=require_quote
     )
+    checks_run = ["schema", "locator"] + (["quote"] if require_quote else [])
+    checks_skipped = [] if require_quote else ["quote"]
 
     # 구조 검사 실패 → 의미 레이어로 내려보내지 않는다.
     if decide(findings) is not GateVerdict.VERIFIED:
-        return GateResult(verdict=decide(findings), findings=findings)
+        checks_skipped.append("semantic")
+        return GateResult(verdict=decide(findings), findings=findings,
+                          checks_run=checks_run, checks_skipped=checks_skipped)
 
     if not require_semantic:
-        return GateResult(verdict=decide(findings), findings=findings)
+        checks_skipped.append("semantic")
+        return GateResult(verdict=decide(findings), findings=findings,
+                          checks_run=checks_run, checks_skipped=checks_skipped)
 
+    checks_run.append("semantic")
     labels = {}
     for j in judge_claims(claims, bundle, judge, question=question):
         labels[j.claim_id] = j.label.value
@@ -60,4 +67,5 @@ def evaluate(
         if reason is not None:
             findings.append(Finding(reason, j.rationale, j.claim_id))
 
-    return GateResult(verdict=decide(findings), findings=findings, claim_labels=labels)
+    return GateResult(verdict=decide(findings), findings=findings, claim_labels=labels,
+                      checks_run=checks_run, checks_skipped=checks_skipped)

@@ -7,8 +7,10 @@ import pytest
 from conftest import FROZEN_PATH
 
 from reflection_gate import (
+    EvidenceRecord,
     GateVerdict,
     Locator,
+    bundle_from_records,
     parse_citation,
     parse_evidence_paragraphs,
     sha256_of,
@@ -43,6 +45,22 @@ def test_parse_citation(raw, expected):
 def test_sha256_is_utf8_stable():
     assert sha256_of("재고자산") == sha256_of("재고자산")
     assert len(sha256_of("x")) == 64
+
+
+def test_evidence_record_rejects_mismatched_identity_and_hash():
+    loc = Locator("1002", "34")
+    with pytest.raises(ValueError, match="source_id"):
+        EvidenceRecord(source_id="1002:33", locator=loc, excerpt="본문")
+    with pytest.raises(ValueError, match="content_sha256"):
+        EvidenceRecord(source_id=loc.source_id, locator=loc, excerpt="본문",
+                       content_sha256="0" * 64)
+
+
+def test_evidence_bundle_rejects_duplicate_source_ids():
+    loc = Locator("1002", "34")
+    record = EvidenceRecord(source_id=loc.source_id, locator=loc, excerpt="본문")
+    with pytest.raises(ValueError, match="duplicate source_id"):
+        bundle_from_records([record, record])
 
 
 def test_decide_priority():
