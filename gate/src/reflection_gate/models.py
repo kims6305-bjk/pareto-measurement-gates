@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import collections
 import hashlib
 import re
 from dataclasses import dataclass, field
@@ -90,8 +91,13 @@ class EvidenceRecord:
     sensitivity: Sensitivity = Sensitivity.PUBLIC
 
     def __post_init__(self) -> None:
-        if not self.content_sha256:
-            object.__setattr__(self, "content_sha256", sha256_of(self.excerpt))
+        if self.source_id != self.locator.source_id:
+            raise ValueError(
+                f"source_id {self.source_id!r} != locator {self.locator.source_id!r}")
+        actual = sha256_of(self.excerpt)
+        if self.content_sha256 and self.content_sha256 != actual:
+            raise ValueError("content_sha256 does not match excerpt")
+        object.__setattr__(self, "content_sha256", actual)
 
     @property
     def normalized_excerpt(self) -> str:
@@ -144,6 +150,12 @@ class EvidenceBundle:
     """한 문항에 제공된 근거 전체."""
 
     records: List[EvidenceRecord] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        ids = [r.source_id for r in self.records]
+        duplicates = sorted(k for k, n in collections.Counter(ids).items() if n > 1)
+        if duplicates:
+            raise ValueError(f"duplicate source_id: {duplicates}")
 
     @property
     def by_source_id(self) -> Dict[str, EvidenceRecord]:

@@ -27,6 +27,7 @@ if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
 
 import mh_front as mf          # noqa: E402
+import mh_guard as mg          # noqa: E402
 import mh_objectives as mo     # noqa: E402
 
 RUN_GLOB = "instrument_check_run*.jsonl"
@@ -34,6 +35,47 @@ REAL_RUNS = sorted(SCRIPTS.glob(RUN_GLOB))
 IC_RESULT = SCRIPTS / "instrument_check_result.json"
 LABEL_XLSX = SCRIPTS / "phase1_human_label_sheet.xlsx"
 PY = sys.executable
+
+
+def _ledger_row(uid, run, label="SUPPORTED", candidate="c001"):
+    return {"id": uid, "run": run, "label": label, "candidate": candidate}
+
+
+def test_run_ledger_rejects_duplicate_and_conflicting_keys():
+    labels = {"q1": "SUPPORTED"}
+    rows = [_ledger_row("q1", run) for run in ("run1", "run2", "run3")]
+    per = {"q1": rows + [_ledger_row("q1", "run3", "CONTRADICTED")]}
+    with pytest.raises(ValueError, match="conflicting labels"):
+        mo.validate_run_ledger(per, labels, "c001")
+
+
+def test_run_ledger_rejects_missing_run_and_wrong_candidate():
+    labels = {"q1": "SUPPORTED"}
+    per = {"q1": [_ledger_row("q1", "run1"), _ledger_row("q1", "run2")]}
+    with pytest.raises(ValueError, match="run set"):
+        mo.validate_run_ledger(per, labels, "c001")
+    per["q1"].append(_ledger_row("q1", "run3", candidate="c002"))
+    with pytest.raises(ValueError, match="candidate"):
+        mo.validate_run_ledger(per, labels, "c001")
+
+
+def test_run_ledger_requires_candidate_except_legacy_c000():
+    labels = {"q1": "SUPPORTED"}
+    per = {"q1": [{"id": "q1", "run": run, "label": "SUPPORTED"}
+                  for run in ("run1", "run2", "run3")]}
+    with pytest.raises(ValueError, match="missing candidate"):
+        mo.validate_run_ledger(per, labels, "c001")
+    mo.validate_run_ledger(per, labels, "c000")
+
+
+def test_ledger_lock_is_exclusive_and_cleans_up(tmp_path):
+    ledger = tmp_path / "run1.jsonl"
+    with mg.ledger_lock(ledger):
+        with pytest.raises(RuntimeError, match="already active"):
+            with mg.ledger_lock(ledger):
+                pass
+    with mg.ledger_lock(ledger):
+        pass
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -756,6 +798,7 @@ def test_cli_exit_code_on_sample_gate_violation(tmp_path):
         for uid, rows in sorted(per.items()):
             labels[uid] = rows[0]["human"]
             for r in rows:
+                r["candidate"] = "cX"
                 fh.write(json.dumps(r, ensure_ascii=False) + "\n")
     lab = tmp_path / "labels.json"
     lab.write_text(json.dumps(labels, ensure_ascii=False), encoding="utf-8")

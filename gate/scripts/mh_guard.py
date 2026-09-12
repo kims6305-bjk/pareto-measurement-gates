@@ -16,8 +16,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 
 GATE = Path(__file__).resolve().parents[1]
@@ -30,6 +32,26 @@ LABEL_XLSX = GATE / "scripts/phase1_human_label_sheet.xlsx"
 LABEL_JSON = GATE / "scripts/phase1_human_label_sheet.json"
 
 EXIT_VIOLATION = 4
+
+
+@contextmanager
+def ledger_lock(path: Path):
+    """한 출력 원장에 측정 프로세스 하나만 진입시킨다."""
+    lock = Path(f"{path}.lock")
+    try:
+        fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError as exc:
+        raise RuntimeError(f"measurement already active: {lock}") from exc
+    try:
+        os.write(fd, f"{os.getpid()}\n".encode("ascii"))
+        os.close(fd)
+        fd = -1
+        yield
+    finally:
+        if fd >= 0:
+            os.close(fd)
+        # ponytail: crash leaves a visible stale lock; use leases if unattended recovery is needed.
+        lock.unlink(missing_ok=True)
 
 
 def sha256(p: Path) -> str:

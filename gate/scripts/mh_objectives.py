@@ -50,6 +50,7 @@ SPLIT = "SPLIT"
 R1_MIN_PROBLEM = 8       # 사람 라벨 문제건 수
 R2_MIN_FLAGGED = 5       # 판정기 문제판정 수 (precision 분모)
 R3_N_RUNS = 3            # 정확히 3판
+EXPECTED_RUNS = ("run1", "run2", "run3")
 R4_MAX_UNRESOLVED = 0.10
 R5_MAX_SPLIT = 0.20
 
@@ -339,6 +340,42 @@ def load_runs(patterns: Sequence[str]) -> tuple[dict[str, list[dict]], list[str]
     return per, [Path(f).name for f in files]
 
 
+def validate_run_ledger(per: dict[str, list[dict]], labels: dict[str, str],
+                        candidate_id: str) -> None:
+    """각 (candidate, run, id)가 정확히 한 행인지 fail-closed로 확인한다."""
+    expected_ids, actual_ids = set(labels), set(per)
+    if actual_ids != expected_ids:
+        raise ValueError(
+            f"id set mismatch: missing={sorted(expected_ids - actual_ids)}, "
+            f"unexpected={sorted(actual_ids - expected_ids)}")
+    for uid in sorted(expected_ids):
+        rows = per[uid]
+        runs: dict[str, list[dict]] = collections.defaultdict(list)
+        for row in rows:
+            run = str(row.get("run", ""))
+            runs[run].append(row)
+            actual_candidates = {
+                str(row[key]) for key in ("candidate_id", "candidate")
+                if row.get(key) is not None
+            }
+            # c000 predates candidate fields; every later runner writes one.
+            if not actual_candidates and candidate_id != "c000":
+                raise ValueError(f"{uid}/{run}: missing candidate")
+            if actual_candidates and actual_candidates != {candidate_id}:
+                raise ValueError(
+                    f"{uid}/{run}: candidates {sorted(actual_candidates)!r} "
+                    f"!= {candidate_id!r}")
+            if row.get("label") not in VALID_JUDGE:
+                raise ValueError(f"{uid}/{run}: invalid label {row.get('label')!r}")
+        if set(runs) != set(EXPECTED_RUNS):
+            raise ValueError(f"{uid}: run set {sorted(runs)} != {list(EXPECTED_RUNS)}")
+        for run, duplicates in sorted(runs.items()):
+            if len(duplicates) > 1:
+                values = {row["label"] for row in duplicates}
+                kind = "conflicting labels" if len(values) > 1 else "duplicate rows"
+                raise ValueError(f"{uid}/{run}: {kind} ({len(duplicates)} rows)")
+
+
 def build_units(per: dict[str, list[dict]], labels: dict[str, str]) -> list[Unit]:
     """라벨이 있는 id 만 단위로 삼는다(instrument_check_run.load_units 와 동일 필터)."""
     units = []
@@ -520,6 +557,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print(f"라벨 0건 — 정답지를 읽지 못했다: {label_path}", file=sys.stderr)
         return EXIT_INPUT
     per, files = load_runs(a.runs)
+    try:
+        validate_run_ledger(per, labels, a.candidate_id)
+    except ValueError as exc:
+        print(f"원자료 무결성 오류: {exc}", file=sys.stderr)
+        return EXIT_INPUT
     units = build_units(per, labels)
     if not units:
         print("라벨과 매칭되는 단위 0건", file=sys.stderr)

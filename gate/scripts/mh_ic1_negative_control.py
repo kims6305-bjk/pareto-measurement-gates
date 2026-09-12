@@ -36,6 +36,7 @@ sys.path.insert(0, str(GATE / "scripts"))
 
 import phase3_build_prompts as p3  # noqa: E402
 from instrument_check_run import call, load_units  # noqa: E402
+from mh_guard import ledger_lock  # noqa: E402
 
 RUNS = ("run1", "run2", "run3")
 LABELS = GATE / "scripts/phase1_human_label_sheet.xlsx"
@@ -77,30 +78,31 @@ def measure(cid: str) -> None:
     print(f"[{cid}] prompt_sha={psha[:12]}… units={len(units)}")
     for run in RUNS:
         out = GATE / f"scripts/mh_ic1_{cid}_{run}.jsonl"
-        done = set()
-        if out.exists():
-            for line in out.read_text(encoding="utf-8").splitlines():
-                try:
-                    done.add(json.loads(line)["id"])
-                except (json.JSONDecodeError, KeyError):
-                    pass
-        todo = [u for u in units if u["id"] not in done]
-        print(f"{cid}/{run}: 대상 {len(units)}, 완료 {len(done)}, 남은 {len(todo)}")
-        n = 0
-        with open(out, "a", encoding="utf-8") as f:
-            for u in todo:
-                label, rationale = call(build_prompt(cid, u))
-                n += 1
-                f.write(json.dumps({
-                    "id": u["id"], "run": run, "label": label,
-                    "rationale": rationale, "human": u["human"],
-                    "candidate": cid, "prompt_sha256": psha,
-                }, ensure_ascii=False) + "\n")
-                f.flush()
-                if n % 10 == 0 or n == len(todo):
-                    print(f"[{n}/{len(todo)}] {u['id']} human={u['human']} -> {label}",
-                          flush=True)
-                time.sleep(0.2)
+        with ledger_lock(out):
+            done = set()
+            if out.exists():
+                for line in out.read_text(encoding="utf-8").splitlines():
+                    try:
+                        done.add(json.loads(line)["id"])
+                    except (json.JSONDecodeError, KeyError):
+                        pass
+            todo = [u for u in units if u["id"] not in done]
+            print(f"{cid}/{run}: 대상 {len(units)}, 완료 {len(done)}, 남은 {len(todo)}")
+            n = 0
+            with open(out, "a", encoding="utf-8") as f:
+                for u in todo:
+                    label, rationale = call(build_prompt(cid, u))
+                    n += 1
+                    f.write(json.dumps({
+                        "id": u["id"], "run": run, "label": label,
+                        "rationale": rationale, "human": u["human"],
+                        "candidate": cid, "prompt_sha256": psha,
+                    }, ensure_ascii=False) + "\n")
+                    f.flush()
+                    if n % 10 == 0 or n == len(todo):
+                        print(f"[{n}/{len(todo)}] {u['id']} human={u['human']} -> {label}",
+                              flush=True)
+                    time.sleep(0.2)
         print(f"DONE {cid}/{run} -> {out.name}")
 
 

@@ -17,10 +17,10 @@
   🔴 조건 A 문제판정 0건이라 H1을 검정하지 못함.
 - **계기 검침 PASS** — 저지는 정상이었다(recall 81.8%, SPLIT 0). `gate/INSTRUMENT_CHECK_RESULT.md`
 - **옆방 검증 2/2 PASS** — SciFact·KLUE-NLI recall 100%. `gate/SIDECHECK_RESULT.md`
-- **🆕 파레토 메타하네스 — 🔴 V6 종결 (IC-1 FAIL, 운영자 결정).** 판정 정본
-  `gate/PARETO_MH_VERDICT.md`. IC-0 PASS(165콜) → IC-1 FAIL(330콜) — precision 축
-  방향은 정확(loose 0.643>c000 0.583>strict 0.500)하나 ci_qid 전부 겹침 = n=55 검정력
-  부족. 탐색 1,650콜 미사용, 총 495콜 종결. **330콜 검침이 1,650콜 손실을 차단** = 논문 소재.
+- **🆕 파레토 메타하네스 — 2026-09-12 IC-1 판정 무효화.** 외부 검토 #1을 재현한 결과
+  strict 원장이 278행/고유 165키(중복 113행, 라벨 충돌 4키)였다. 실제 원자료는
+  608행이므로 종전 V6·precision CI·495콜 결론은 철회했고, clean rerun 전에는 인용하지 않는다.
+  정본: `docs/ISSUE_1_ADJUDICATION.md`, `gate/PARETO_MH_VERDICT.md`.
   설계·사전등록·부속서1 = `gate/PARETO_META_HARNESS_{DESIGN,PREREG,PREREG_ADDENDUM1}.md`.
   실물: `mh_guard.py`(INV-2/3 매니페스트) · `mh_run_candidate.py`(sha 대조·resume·
   fail-closed) · `mh_archive_C2.jsonl` · `mh_front.py`(REJECTED_C0, 테스트 32/32).
@@ -102,9 +102,8 @@ ISR 윤리규정 제4조 5항은 "타 학회지 게재/심사 중"만 금지 →
 그 각도가 정해져야 제목·초록이 나온다.
 🔴 새 실험 금지.
 
-**이전 라운드 요약 (2026-08-03, 상세는 커밋·정본에)**: c000 측정 3판×55=165콜 →
-IC-0 PASS(recall 0.6364 [0.3844,1.0] / precision 0.5833 [0.25,0.9168]),
-front={c000}. IC-1 실행 후 V6 종결(총 495콜, 탐색 1,650콜 미사용).
+**이전 라운드 요약 (2026-08-03; 2026-09-12 외부 검토로 무효화)**: c000 원장은
+165행이지만 IC-1 strict 원장 중복 때문에 V6·precision CI·총 495콜 결론은 사용할 수 없다.
 원장 `mh_archive_C2.jsonl` · front 캐시 `mh_front_C2.json` · 판정 `PARETO_MH_VERDICT.md`.
 익명화 28건→0 + push 완료, 스킬 `skill-pareto/` 동기화, 사례글 작가봇 인계 완료.
 ⚠️ 정답지는 `phase1_human_label_sheet.xlsx` 「라벨링」 시트 G열
