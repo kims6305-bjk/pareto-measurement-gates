@@ -255,6 +255,14 @@ def test_neg09_malformed_json(bundle, raw):
     assert res.has(Reason.SCHEMA_INVALID)
 
 
+@pytest.mark.parametrize("raw", ["not json", "", None])
+def test_parse_failure_reports_only_executed_check(bundle, raw):
+    res = evaluate(raw, bundle, judge=ALL_SUPPORTED)
+    assert res.verdict is GateVerdict.INDETERMINATE
+    assert res.checks_run == ["schema"]
+    assert res.checks_skipped == ["locator", "quote", "semantic"]
+
+
 def test_neg09b_duplicate_claim_id(bundle, quote_p34):
     raw = _answer(
         [
