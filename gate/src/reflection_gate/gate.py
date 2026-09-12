@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from .deterministic import run_deterministic
+from .deterministic import parse_answer_payload, run_deterministic
 from .models import EvidenceBundle, GateVerdict
 from .policy import (
     DEFAULT_LIMITS,
@@ -42,8 +42,17 @@ def evaluate(
     require_semantic=False이면 결정론 레이어만으로 판정한다
     (판정기를 못 붙인 환경에서 구조 검사만 돌릴 때 사용).
     """
+    payload, parse_findings = parse_answer_payload(raw_answer)
+    if payload is None:
+        return GateResult(
+            verdict=decide(parse_findings),
+            findings=parse_findings,
+            checks_run=["schema"],
+            checks_skipped=["locator", "quote", "semantic"],
+        )
+
     claims, findings = run_deterministic(
-        raw_answer, bundle, limits=limits, require_quote=require_quote
+        payload, bundle, limits=limits, require_quote=require_quote
     )
     checks_run = ["schema", "locator"] + (["quote"] if require_quote else [])
     checks_skipped = [] if require_quote else ["quote"]
