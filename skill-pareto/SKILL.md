@@ -1,7 +1,7 @@
 ---
 name: pareto-optimization-gate
 description: "상충하는 두 지표를 함께 재서 개선안이나 기존 하네스를 KEEP·TEST_THIN·REMOVE 판정하는 게이트. 트리거 — '파레토', '하네스 덜자/줄이자/걷어내자', '이 검증 레이어 필요한가', 'R/P 트레이드오프', 'F1 올리자', '오탐 줄이되 놓치지 말고', 라우팅·리트리벌·evaluator·감사 임계값 튜닝. 검증을 더 붙이는 도구가 아니라 baseline 대비 순편익이 없는 레이어를 찾아 안전하게 덜어내는 도구다. 한 지표만 보고 '좋아졌다' 하기 전에 두 지표를 파레토 곡선에 놓고 곡선 위 이동인지 진짜 개선인지 가른다."
-version: 1.1.0
+version: 1.2.0
 author: probe-graph maintainer
 metadata:
   hermes:
@@ -55,6 +55,32 @@ retrieval reranker, audit rule, code-generation checker 등 **결과를 바꾸�
 이름이 비슷하다는 이유로 중첩 판정하지 않는다. **발동 조건과 실패군이 겹치고 행동까지
 같을 때만 중첩 후보**다. 프레임워크마다 활성 레이어를 읽는 방법이 다르므로 자동 삭제·범용
 파일 스캔을 가장하지 말고, 실제 설정·코드·활성 스킬 목록에서 위 필드를 확인한다.
+
+## Custody 선행 게이트 — 판정층 → 증거층 → 결정층
+
+처리 순서는 **판정기가 판단하고, custody가 증명하며, Pareto가 결정한다.** 즉:
+
+1. **판정층**: baseline/candidate의 기존 artifact를 평가하고 각 지표의
+   `measurement_value`와 `reached_units`를 `judgment` event에 기록한다.
+2. **custody 증거층**: artifact 원문은 옮기거나 새 형식으로 바꾸지 않는다. `skill-custody`가
+   기존 원문의 portable locator와 SHA-256 digest, judgment event chain, receipt를 검증한다.
+3. **Pareto 결정층**: `scripts/pareto_custody_gate.py`가 양쪽 ledger와 artifact를 전수검증한
+   뒤에만 `KEEP / TEST_THIN / REMOVE / NOT_MEASURED`를 계산한다.
+
+각 artifact에는 서로 다른 이름의 `judgment` metric event가 정확히 2개 있어야 한다.
+각 event의 `comparison` 계약에는 cohort(`cohort_id`, `cohort_sha256`, `n_units`),
+metric 정의(`name`, `direction`, `unit`), evaluator `code_revision`, `adapter`, `provider`,
+`model`, `runtime`을 명시한다. baseline/candidate 간 한 필드라도 누락·불일치하면
+`INCOMPARABLE`이며, ledger/receipt/digest가 훼손됐거나 artifact가 색인되지 않았으면
+`HALT`다. 어떤 경우에도 값을 0·동률로 보정해 임의 비교하지 않는다.
+
+실행 예:
+
+`python3 skill-pareto/scripts/pareto_custody_gate.py --baseline-ledger BASE/events.jsonl --baseline-receipt BASE/receipt.json --baseline-root BASE --baseline-artifact-id BASE_ID --candidate-ledger CAND/events.jsonl --candidate-receipt CAND/receipt.json --candidate-root CAND --candidate-artifact-id CAND_ID`
+
+종료코드 0은 custody-valid하고 비교 가능한 Pareto 결과를 뜻한다. `INCOMPARABLE`과
+`HALT`는 JSON 이유를 출력하고 종료코드 2로 안전 중단한다. 합성 fixture 통합 회귀는
+`python3 -m unittest discover -s skill-pareto/tests -v`로 실행한다.
 
 ## 실행 전 중첩 점검과 사용자 권고
 

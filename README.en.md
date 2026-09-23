@@ -2,6 +2,8 @@
 
 **English** | [한국어](README.md) | [中文](README.zh-CN.md)
 
+> 🧭 **Multi-skill agent collection:** use the [`SKILLS.md`](SKILLS.md) index to choose a skill by when to use it, when not to use it, its core output, and its actual path.
+
 > 📌 **Renamed 2026-08** — formerly `reflection-probe-gate` / `probe-graph`.
 > Old URLs remain alive via GitHub's 301 redirect. The reflection-probe
 > experiment (Phases 1–3) is this repo's **starting point and one chapter**;
