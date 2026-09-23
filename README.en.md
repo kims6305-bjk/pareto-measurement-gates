@@ -4,6 +4,9 @@
 
 > 🧭 **Multi-skill agent collection:** use the [`SKILLS.md`](SKILLS.md) index to choose a skill by when to use it, when not to use it, its core output, and its actual path.
 
+> 🔒 **Reproducible implementation release:** [`v1.2.0`](https://github.com/kims6305-bjk/pareto-measurement-gates/releases/tag/v1.2.0)
+> is an immutable tag targeting commit `80223c0ac9ead879f603ee5d84b91b2420c30e25`.
+
 > 📌 **Renamed 2026-08** — formerly `reflection-probe-gate` / `probe-graph`.
 > Old URLs remain alive via GitHub's 301 redirect. The reflection-probe
 > experiment (Phases 1–3) is this repo's **starting point and one chapter**;
