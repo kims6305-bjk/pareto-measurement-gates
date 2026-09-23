@@ -2,6 +2,8 @@
 
 [English](README.en.md) | **한국어** | [中文](README.zh-CN.md)
 
+> 🧭 **복수 에이전트 스킬 모음:** 언제 어떤 스킬을 쓸지, 쓰지 않을지, 산출물과 실제 경로를 [`SKILLS.md`](SKILLS.md)에서 한눈에 확인하세요.
+
 > 📌 **2026-08 개명** — 구 `reflection-probe-gate` / `probe-graph`.
 > 옛 URL은 GitHub 301 리다이렉트로 살아 있습니다. 리플렉션 프로브 실험(Phase 1~3)은
 > 이 레포의 **출발점이자 한 챕터**이며, 현재 주제는 그 실험이 낳은

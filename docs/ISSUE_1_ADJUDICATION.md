@@ -1,7 +1,7 @@
 # Issue #1 external-review adjudication
 
 Date: 2026-09-12
-Source: [GitHub issue #1](https://github.com/kims6305-bjk/pareto-measurement-gates/issues/1)
+Source: GitHub issue #1 in this repository
 
 External findings are treated as hypotheses. Each item below was reproduced against the current branch before modification.
 
