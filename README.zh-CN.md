@@ -4,7 +4,7 @@
 
 > 🧭 **多智能体技能集合：** 请通过 [`SKILLS.md`](SKILLS.md) 索引按使用场景、不适用场景、核心产物与实际路径选择技能。
 
-> 🔒 **可复现实现版本：** [`v1.2.0`](https://github.com/kims6305-bjk/pareto-measurement-gates/releases/tag/v1.2.0)
+> 🔒 **可复现实现版本：** [`v1.2.0`](../../releases/tag/v1.2.0)
 > 是不可变标签，目标提交为 `80223c0ac9ead879f603ee5d84b91b2420c30e25`。
 
 > 📌 **2026-08 更名** —— 原 `reflection-probe-gate` / `probe-graph`。

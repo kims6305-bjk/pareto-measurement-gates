@@ -4,7 +4,7 @@
 
 > 🧭 **복수 에이전트 스킬 모음:** 언제 어떤 스킬을 쓸지, 쓰지 않을지, 산출물과 실제 경로를 [`SKILLS.md`](SKILLS.md)에서 한눈에 확인하세요.
 
-> 🔒 **재현 가능한 구현 릴리스:** [`v1.2.0`](https://github.com/kims6305-bjk/pareto-measurement-gates/releases/tag/v1.2.0)은
+> 🔒 **재현 가능한 구현 릴리스:** [`v1.2.0`](../../releases/tag/v1.2.0)은
 > immutable tag이며 대상 commit은 `80223c0ac9ead879f603ee5d84b91b2420c30e25`입니다.
 
 > 📌 **2026-08 개명** — 구 `reflection-probe-gate` / `probe-graph`.
