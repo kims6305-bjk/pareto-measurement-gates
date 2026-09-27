@@ -3,6 +3,7 @@
 P1(인용대조)·P3(위험열거)를 claude CLI로 각 케이스에 실행하고 원시 출력 저장.
 채점은 별도 단계(사람 또는 별도 채점기)에서 — 러너는 실행만."""
 import json, subprocess, sys, time, pathlib, re
+import shutil
 
 BASE = pathlib.Path(__file__).parent
 cases = json.loads((BASE / "cases.json").read_text())["cases"]
@@ -71,7 +72,7 @@ P3_TMPL = """[역할]
 
 def run_llm(prompt: str) -> str:
     r = subprocess.run(
-        ["claude", "-p", "--output-format", "text"],
+        [shutil.which("claude") or "claude", "-p", "--output-format", "text"],
         input=prompt, capture_output=True, text=True, timeout=180,
     )
     return r.stdout.strip()

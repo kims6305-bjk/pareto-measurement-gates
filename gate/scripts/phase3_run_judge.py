@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -35,7 +36,7 @@ def call(prompt: str) -> tuple[str, str]:
     """fail-closed: 어떤 실패도 UNRESOLVED. 정상 라벨로 승격하지 않는다."""
     try:
         p = subprocess.run(
-            ["claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
+            [shutil.which("claude") or "claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
             input=prompt, capture_output=True, text=True, timeout=CLI_TIMEOUT,
         )
         raw = (p.stdout or "").strip()

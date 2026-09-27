@@ -5,6 +5,8 @@
 품질(higher is better)과 운영비(lower is better)의 지배관계를 판정한다.
 사용자가 upstream에서 확정·반올림한 점추정치를 exact 비교하며,
 통계적 유의성·허용오차 판단은 이 도구의 범위가 아니다.
+입력 전 생성측 변동과 표본 잡음을 점검할 것: 119건 중 1건 차이만으로도
+REMOVE와 TEST_THIN이 바뀔 수 있다. 비용 10/14는 데모값이지 실측치가 아니다.
 
 판정:
   KEEP         ON이 OFF를 지배 — 켜는 편이 파레토 최적
@@ -157,7 +159,7 @@ def demo():
         raise AssertionError("negative quality accepted")
     except ValueError:
         pass
-    print("harness_diet demo OK — 6 cases")
+    print("harness_diet demo OK - 6 cases")
 
 
 def strict_object(pairs):

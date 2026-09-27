@@ -12,6 +12,7 @@ arm B (probe):   answer → P1 인용대조(주장 리스트만) → [코드 유
 사용: python3 ab_runner.py [--limit N] [--only QID,QID]
 """
 import json, re, subprocess, sys, time, pathlib
+import shutil
 
 BASE = pathlib.Path(__file__).parent
 FROZEN = BASE / "ab_questions_FROZEN.json"
@@ -87,7 +88,7 @@ def run_llm(prompt: str, retries: int = 2) -> str:
     for attempt in range(retries + 1):
         try:
             r = subprocess.run(
-                ["claude", "-p", "--output-format", "text"],
+                [shutil.which("claude") or "claude", "-p", "--output-format", "text"],
                 input=prompt, capture_output=True, text=True, timeout=240,
             )
             out = r.stdout.strip()

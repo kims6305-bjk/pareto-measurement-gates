@@ -168,7 +168,7 @@ def demo():
     except ValueError:
         pass
 
-    print("reach_check demo OK — 6 cases")
+    print("reach_check demo OK - 6 cases")
 
 
 if __name__ == "__main__":
