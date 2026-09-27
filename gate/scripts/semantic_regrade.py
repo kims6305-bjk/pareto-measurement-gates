@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -74,7 +75,7 @@ def make_judge(log_rows: list):
         t0 = time.time()
         try:
             p = subprocess.run(
-                ["claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
+                [shutil.which("claude") or "claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
                 input=prompt,
                 capture_output=True,
                 text=True,

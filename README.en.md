@@ -30,7 +30,7 @@ value are on the gate side, not the probe side:
 | Gate metric | Measured | Meaning |
 |---|---|---|
 | Instrument check detection recall | **81.8%** (9/11) | Confirms the measuring tool catches signal **before** the main run |
-| Instrument check 3-run reproducibility | **0 SPLIT** / 55 | Verdicts do not wobble |
+| Instrument check 3-run reproducibility | **0 SPLIT**, **6/55 non-unanimous** (2 format failures) | SPLIT counts only three distinct labels |
 | Side-room validation (English·biomedical / Korean·non-accounting) | **2/2 PASS**, recall 100% | The procedure works even when domain, language, and labeler all change |
 | Diagnostic cost | **1,650 calls → 165 calls** | Root-causing a failure at one tenth the cost |
 | Probe 3-vote consensus (Phase 1) | Recall held at 90%, review burden 38.9%→35.2%, **0 automated false positives** | An outward Pareto move obtained by **removing**, not adding |
@@ -55,6 +55,7 @@ remove or disable the harness **after user approval**; the skill never deletes i
 |---|---|---|
 | `KEEP` | ON dominates OFF | Keep it |
 | `REMOVE` | OFF dominates ON | Remove or disable after user approval |
+| `EQUAL` (simple judge) | OFF and ON tie | Suggest simpler OFF; custody gate instead returns `KEEP` (status quo). Neither deletes automatically |
 | `TEST_THIN` | OFF and ON are both on the front | Measure a conditional candidate that is ON only for failure cases |
 | `NOT_MEASURED` | Target reach is zero | Do not claim no effect; repair the targeted set |
 
@@ -317,11 +318,11 @@ committed **before** looking at the results.
 | 3-run SPLIT | **0** |
 
 **PASS — Hypothesis I was rejected. The author's diagnosis was wrong.**
-Even without the instruction, the judge caught problems well, and its 3-run
-reproducibility was in fact better (0 wobbles) than the complex Phase 1 judge
-(5 wobbles). Without the instrument check, the fix would have followed the
-diagnosis and **a perfectly sound tool would have been "fixed" and that reported
-as an improvement.**
+Even without the instruction, the judge caught problems well. On the same
+non-unanimity measure, Phase 1 v3 was **5/55** and the instrument check **6/55**
+(including 2 format failures); both had **0 SPLIT**. There is no evidence here
+for a reproducibility advantage. Without the instrument check, **a sound tool
+would have been "fixed" and reported as an improvement.**
 
 ### 🔴 The real cause — two disciplines in conflict
 
@@ -563,7 +564,7 @@ ab/                     # Measurement ②: A/B gate
   AB_VERDICT.md         #   Full verdict text
 gate/                   # Grading gate package + semantic-layer regrade + Phase 1–3 measurements
   src/reflection_gate/  #   Two-layer grader: deterministic (structure/address/excerpt) + semantic (LLM judge), fail-closed
-  tests/                #   pytest 75 tests (all pass in isolated uv env; negative controls included)
+  tests/                #   pytest 136 tests (all pass in isolated uv env; negative controls included)
   SEMANTIC_REGRADE.md   #   Full 238-item regrade verdict (incl. human cross-check of 18 FLAGGED)
   LABELING_PROTOCOL.md  #   Human labeling protocol (committed before labeling started)
   PHASE1_VERDICT.md     #   Phase 1 verdict — no reproducibility found, 3-vote consensus adopted

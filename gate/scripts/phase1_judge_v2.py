@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -68,7 +69,7 @@ def call_judge(prompt: str) -> tuple[str, str, str]:
     """returns (label, rationale, raw). fail-closed -> UNRESOLVED."""
     try:
         p = subprocess.run(
-            ["claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
+            [shutil.which("claude") or "claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
             input=prompt, capture_output=True, text=True, timeout=CLI_TIMEOUT,
         )
         raw = (p.stdout or "").strip()

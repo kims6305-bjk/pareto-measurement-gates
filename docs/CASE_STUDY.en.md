@@ -377,12 +377,13 @@ criteria and the scorer were **committed before results were seen.**
 |---|---|
 | Detected out of 11 human-adjudicated problems | **9** |
 | Detection recall | **81.8%** (Wilson 95% [52.3%, 94.9%]) |
-| 3-run SPLIT (decision instability) | **0** |
+| 3-run SPLIT (three distinct labels) | **0** (non-unanimous **6/55**, including 2 format failures) |
 
 **PASS — Hypothesis I was rejected. The author's diagnosis was wrong.**
 
-Even without the guidelines, the judge caught them well, and its 3-run reproducibility was in fact
-better (0 items) than Phase 1's complex judge (5 unstable items).
+Even without the guidelines, the judge caught them well. But using the same
+non-unanimity measure, Phase 1 v3 had 5/55 and the instrument check had 6/55
+(including 2 format failures); both had 0 SPLIT. Reproducibility superiority is not supported.
 
 **Had the fix been made per the diagnosis without an instrument check, a perfectly good tool would
 have been "fixed" and that change reported as an "improvement."** The cost was 1/10 of the main

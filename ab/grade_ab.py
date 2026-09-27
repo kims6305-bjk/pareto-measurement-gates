@@ -18,6 +18,7 @@
   python3 grade_ab.py report        # McNemar 포함 최종 판정
 """
 import json, re, random, subprocess, sys, time, pathlib
+import shutil
 from math import comb
 
 BASE = pathlib.Path(__file__).parent
@@ -122,7 +123,7 @@ def cmd_mech():
 def run_llm(prompt, retries=2):
     for att in range(retries + 1):
         try:
-            r = subprocess.run(["claude", "-p", "--output-format", "text"],
+            r = subprocess.run([shutil.which("claude") or "claude", "-p", "--output-format", "text"],
                                input=prompt, capture_output=True, text=True, timeout=180)
             if r.stdout.strip():
                 return r.stdout.strip()

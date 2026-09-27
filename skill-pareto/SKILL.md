@@ -34,6 +34,7 @@ baseline은 “레이어 OFF”, candidate는 “레이어 ON”이다. 정확�
 | 품질↑, 운영비↓ 또는 동일 | `KEEP` | 유지 |
 | 한쪽 개선·한쪽 악화(전체 적용 트레이드오프) | `TEST_THIN` | 순편익 가설 실패군에만 켠 후보를 다시 측정 |
 | 품질 동일, 운영비↑ | `REMOVE` | 사용자 승인 후 삭제·비활성화 |
+| 두 축 모두 동일 | custody `KEEP` / 간이 `harness_diet` `EQUAL` | custody는 기존 ON 현상 유지(fail-closed), 간이 판정기는 단순한 OFF를 제안(YAGNI). 어느 쪽도 자동 제거하지 않음 |
 | 품질↓, 운영비↑ 또는 동일 | `REMOVE` | 사용자 승인 후 제거 권고 |
 | 대상 도달 0 | `NOT_MEASURED` | 효과 없음 단정 금지; 겨냥셋부터 수리 |
 

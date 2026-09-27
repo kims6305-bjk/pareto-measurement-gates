@@ -109,7 +109,8 @@ def check_set(base_name: str, targets: list) -> bool:
                 issues.append(f"수치 소실: {num!r}")
         # 상대링크·이미지 실존 (문서 자신의 디렉토리 기준)
         for ln in prof["links"] + prof["images"]:
-            if ln.startswith(("http", "#", "mailto")):
+            # GitHub UI release route (verified tag) is not a local filesystem path.
+            if ln.startswith(("http", "#", "mailto")) or ln == "../../releases/tag/v1.2.0":
                 continue
             if not (p.parent / ln.split("#")[0]).exists():
                 issues.append(f"깨진 상대링크: {ln}")
