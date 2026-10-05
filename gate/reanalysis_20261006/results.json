@@ -1,0 +1,476 @@
+{
+  "axis_flip_case1": {
+    "axes": {
+      "distinct_correct_docs": {
+        "delta": 0.55,
+        "off": 5.8,
+        "on": 6.35,
+        "rel_change": 0.0948
+      },
+      "precision_slot": {
+        "delta": -0.03,
+        "off": 0.672,
+        "on": 0.642,
+        "rel_change": -0.0446
+      },
+      "precision_unique": {
+        "delta": -0.004,
+        "off": 0.646,
+        "on": 0.642,
+        "rel_change": -0.0062
+      }
+    },
+    "source": "MEASUREMENT_FAILURES.md 사례 1 표 (dedup OFF→ON)"
+  },
+  "c000_archive_sonnet46": {
+    "agreement_3run": {
+      "fleiss_kappa_4cat": 0.8641,
+      "fleiss_kappa_binary": 0.8702,
+      "label_totals": {
+        "CONTRADICTED": 27,
+        "INSUFFICIENT": 14,
+        "SUPPORTED": 124
+      },
+      "n_unanimous": 51,
+      "n_unanimous_binary": 51,
+      "n_units": 55,
+      "pct_unanimous": 0.9273
+    },
+    "binary_2x2": {
+      "FN": 4,
+      "FP": 5,
+      "TN": 39,
+      "TP": 7
+    },
+    "bootstrap_B10000": {
+      "precision": {
+        "ci_iid": [
+          0.2857,
+          0.875
+        ],
+        "ci_qid": [
+          0.25,
+          0.9091
+        ],
+        "design_effect": 1.3549,
+        "n_valid": {
+          "iid": 10000,
+          "qid": 10000
+        },
+        "sd_iid": 0.1472,
+        "sd_qid": 0.1713,
+        "value": 0.5833
+      },
+      "recall": {
+        "ci_iid": [
+          0.3333,
+          0.9091
+        ],
+        "ci_qid": [
+          0.375,
+          1.0
+        ],
+        "design_effect": 0.9626,
+        "n_valid": {
+          "iid": 10000,
+          "qid": 9996
+        },
+        "sd_iid": 0.1514,
+        "sd_qid": 0.1485,
+        "value": 0.6364
+      }
+    },
+    "clusters": {
+      "n_clusters": 28,
+      "n_clusters_with_problem": 7,
+      "n_units": 55,
+      "problems_per_problem_cluster": {
+        "1": 4,
+        "2": 2,
+        "3": 1
+      },
+      "size_distribution": {
+        "1": 13,
+        "2": 8,
+        "3": 4,
+        "4": 2,
+        "6": 1
+      }
+    },
+    "confusion_human_x_judgeMajority": {
+      "C": {
+        "CONTRADICTED": 4,
+        "SPLIT": 1,
+        "SUPPORTED": 3
+      },
+      "I": {
+        "CONTRADICTED": 1,
+        "INSUFFICIENT": 2
+      },
+      "S": {
+        "CONTRADICTED": 3,
+        "INSUFFICIENT": 2,
+        "SUPPORTED": 39
+      }
+    },
+    "counts": {
+      "n_contradicted": 5,
+      "n_detected": 7,
+      "n_flagged": 12,
+      "n_problem": 11,
+      "n_split": 1,
+      "n_units": 55,
+      "n_unresolved": 0
+    },
+    "raw_files": [
+      "mh_c000_run1.jsonl",
+      "mh_c000_run2.jsonl",
+      "mh_c000_run3.jsonl"
+    ],
+    "reproduction_B2000": {
+      "precision": {
+        "archived_ci_claim": [
+          0.3,
+          0.875
+        ],
+        "archived_ci_qid": [
+          0.25,
+          0.9168
+        ],
+        "matches_archived": true,
+        "mo_ci_claim": [
+          0.3,
+          0.875
+        ],
+        "mo_ci_qid": [
+          0.25,
+          0.9168
+        ],
+        "resampler_ci_claim": [
+          0.3,
+          0.875
+        ],
+        "resampler_ci_qid": [
+          0.25,
+          0.9168
+        ],
+        "resampler_matches_mo": true
+      },
+      "recall": {
+        "archived_ci_claim": [
+          0.3333,
+          0.9167
+        ],
+        "archived_ci_qid": [
+          0.3844,
+          1.0
+        ],
+        "matches_archived": true,
+        "mo_ci_claim": [
+          0.3333,
+          0.9167
+        ],
+        "mo_ci_qid": [
+          0.3844,
+          1.0
+        ],
+        "resampler_ci_claim": [
+          0.3333,
+          0.9167
+        ],
+        "resampler_ci_qid": [
+          0.3844,
+          1.0
+        ],
+        "resampler_matches_mo": true
+      }
+    }
+  },
+  "instrument_check_sonnet46": {
+    "agreement_3run": {
+      "fleiss_kappa_4cat": 0.8184,
+      "fleiss_kappa_binary": 0.8657,
+      "label_totals": {
+        "CONTRADICTED": 29,
+        "INSUFFICIENT": 10,
+        "SUPPORTED": 124,
+        "UNRESOLVED": 2
+      },
+      "n_unanimous": 49,
+      "n_unanimous_binary": 51,
+      "n_units": 55,
+      "pct_unanimous": 0.8909
+    },
+    "binary_2x2": {
+      "FN": 2,
+      "FP": 4,
+      "TN": 40,
+      "TP": 9
+    },
+    "bootstrap_B10000": {
+      "precision": {
+        "ci_iid": [
+          0.4167,
+          0.9286
+        ],
+        "ci_qid": [
+          0.3636,
+          1.0
+        ],
+        "design_effect": 1.4551,
+        "n_valid": {
+          "iid": 10000,
+          "qid": 10000
+        },
+        "sd_iid": 0.1328,
+        "sd_qid": 0.1602,
+        "value": 0.6923
+      },
+      "recall": {
+        "ci_iid": [
+          0.5556,
+          1.0
+        ],
+        "ci_qid": [
+          0.5556,
+          1.0
+        ],
+        "design_effect": 1.4053,
+        "n_valid": {
+          "iid": 10000,
+          "qid": 9996
+        },
+        "sd_iid": 0.1219,
+        "sd_qid": 0.1446,
+        "value": 0.8182
+      }
+    },
+    "clusters": {
+      "n_clusters": 28,
+      "n_clusters_with_problem": 7,
+      "n_units": 55,
+      "problems_per_problem_cluster": {
+        "1": 4,
+        "2": 2,
+        "3": 1
+      },
+      "size_distribution": {
+        "1": 13,
+        "2": 8,
+        "3": 4,
+        "4": 2,
+        "6": 1
+      }
+    },
+    "confusion_human_x_judgeMajority": {
+      "C": {
+        "CONTRADICTED": 6,
+        "SUPPORTED": 2
+      },
+      "I": {
+        "CONTRADICTED": 1,
+        "INSUFFICIENT": 2
+      },
+      "S": {
+        "CONTRADICTED": 3,
+        "INSUFFICIENT": 1,
+        "SUPPORTED": 40
+      }
+    },
+    "counts": {
+      "n_contradicted": 7,
+      "n_detected": 9,
+      "n_flagged": 13,
+      "n_problem": 11,
+      "n_split": 0,
+      "n_units": 55,
+      "n_unresolved": 0
+    },
+    "raw_files": [
+      "instrument_check_run1.jsonl",
+      "instrument_check_run2.jsonl",
+      "instrument_check_run3.jsonl"
+    ],
+    "reproduction_B2000": {
+      "precision": {
+        "mo_ci_claim": [
+          0.4286,
+          0.9333
+        ],
+        "mo_ci_qid": [
+          0.3635,
+          1.0
+        ],
+        "resampler_ci_claim": [
+          0.4286,
+          0.9333
+        ],
+        "resampler_ci_qid": [
+          0.3635,
+          1.0
+        ],
+        "resampler_matches_mo": true
+      },
+      "recall": {
+        "mo_ci_claim": [
+          0.5556,
+          1.0
+        ],
+        "mo_ci_qid": [
+          0.5556,
+          1.0
+        ],
+        "resampler_ci_claim": [
+          0.5556,
+          1.0
+        ],
+        "resampler_ci_qid": [
+          0.5556,
+          1.0
+        ],
+        "resampler_matches_mo": true
+      }
+    }
+  },
+  "meta": {
+    "B": 10000,
+    "ci": "percentile 2.5/97.5",
+    "cluster_unit": "qid = id.split('-')[0] (mh_objectives.Unit)",
+    "labels": "phase1_human_label_sheet.xlsx",
+    "labels_sha256": "f3349edecf6dac54e89433bd212ca4bbc8d6dba79ba7a5d69868a1eb7c456fa5",
+    "llm_calls": 0,
+    "seed": 20260730
+  },
+  "other_3run_agreement": {
+    "instrument_check": {
+      "fleiss_kappa_4cat": 0.8184,
+      "fleiss_kappa_binary": 0.8657,
+      "label_totals": {
+        "CONTRADICTED": 29,
+        "INSUFFICIENT": 10,
+        "SUPPORTED": 124,
+        "UNRESOLVED": 2
+      },
+      "n_unanimous": 49,
+      "n_unanimous_binary": 51,
+      "n_units": 55,
+      "pct_unanimous": 0.8909
+    },
+    "sidecheck2_klue": {
+      "fleiss_kappa_4cat": 0.9587,
+      "fleiss_kappa_binary": 1.0,
+      "label_totals": {
+        "CONTRADICTED": 39,
+        "INSUFFICIENT": 30,
+        "SUPPORTED": 94,
+        "UNRESOLVED": 2
+      },
+      "n_unanimous": 53,
+      "n_unanimous_binary": 55,
+      "n_units": 55,
+      "pct_unanimous": 0.9636
+    },
+    "sidecheck_scifact": {
+      "fleiss_kappa_4cat": 0.9814,
+      "fleiss_kappa_binary": 0.9742,
+      "label_totals": {
+        "CONTRADICTED": 39,
+        "INSUFFICIENT": 64,
+        "SUPPORTED": 62
+      },
+      "n_unanimous": 54,
+      "n_unanimous_binary": 54,
+      "n_units": 55,
+      "pct_unanimous": 0.9818
+    }
+  },
+  "phase3": {
+    "A_vs_B_majority": {
+      "cohen_kappa_4cat": 0.0,
+      "cohen_kappa_binary": 0.0,
+      "crosstab": {
+        "SUPPORTED->INSUFFICIENT": 4,
+        "SUPPORTED->SUPPORTED": 269
+      },
+      "n_agree": 269,
+      "n_common_both_majority": 273,
+      "pct_agree": 0.9853
+    },
+    "agreement_3run_A": {
+      "fleiss_kappa_4cat": 0.1967,
+      "fleiss_kappa_binary": -0.0036,
+      "label_totals": {
+        "CONTRADICTED": 2,
+        "INSUFFICIENT": 1,
+        "SUPPORTED": 820,
+        "UNRESOLVED": 2
+      },
+      "n_unanimous": 272,
+      "n_unanimous_binary": 272,
+      "n_units": 275,
+      "pct_unanimous": 0.9891
+    },
+    "agreement_3run_B": {
+      "fleiss_kappa_4cat": 0.7963,
+      "fleiss_kappa_binary": 0.7963,
+      "label_totals": {
+        "INSUFFICIENT": 15,
+        "SUPPORTED": 810
+      },
+      "n_unanimous": 272,
+      "n_unanimous_binary": 272,
+      "n_units": 275,
+      "pct_unanimous": 0.9891
+    },
+    "model": "claude-sonnet-4-6",
+    "problem_rates": {
+      "A": {
+        "majority": {
+          "k": 0,
+          "n": 273,
+          "rate": 0.0,
+          "wilson": [
+            0.0,
+            0.0139
+          ]
+        },
+        "raw_rows": {
+          "k": 3,
+          "n": 825,
+          "rate": 0.0036,
+          "wilson": [
+            0.0012,
+            0.0106
+          ]
+        },
+        "status_counts": {
+          "majority": 273,
+          "unresolved": 2
+        }
+      },
+      "B": {
+        "majority": {
+          "k": 6,
+          "n": 275,
+          "rate": 0.0218,
+          "wilson": [
+            0.01,
+            0.0468
+          ]
+        },
+        "raw_rows": {
+          "k": 15,
+          "n": 825,
+          "rate": 0.0182,
+          "wilson": [
+            0.011,
+            0.0298
+          ]
+        },
+        "status_counts": {
+          "majority": 275
+        }
+      }
+    }
+  }
+}
