@@ -28,7 +28,7 @@ README「도메인 이식성」절은 "스킬 본체와 게이트 절차에는 �
 
 ## 2. 옆방 선정과 근거
 
-**SciFact** (Wadden et al., EMNLP 2020, arXiv:2004.14500, CC BY-NC 2.0)
+**SciFact** (Wadden et al., EMNLP 2020, arXiv:2004.14974, CC BY-NC 2.0) *(정정 2026-10-06: 최초 기재 ID 2004.14500은 다른 논문 오기 — 서지 메타데이터만 정정, 설계 불변)*
 
 | 축 | 원래 방 (K-IFRS) | 옆방 (SciFact) | 다른가 |
 |---|---|---|---|

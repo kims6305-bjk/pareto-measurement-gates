@@ -681,7 +681,7 @@ version ID before execution and never changed to the end.
 
 ## Appendix — Data Sources
 
-- SciFact (CC BY-NC 2.0, arXiv:2004.14500)
+- SciFact (CC BY-NC 2.0, arXiv:2004.14974)
 - KLUE-NLI (CC BY-SA 4.0, arXiv:2105.09680)
 - K-IFRS publicly available standards
 

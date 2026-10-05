@@ -328,7 +328,7 @@ cross-domain validation）。判定器提示词一个字都没改（直接 impor
 | 房间 | 语言 | 领域 | 标注者 | recall（召回率） | SPLIT | 判定 |
 |---|---|---|---|---|---|---|
 | 原来的房间（K-IFRS） | 韩语 | 会计准则 | 作者 | 81.8%（9/11） | 0 | **PASS** |
-| 隔壁房间 1（[SciFact](https://arxiv.org/abs/2004.14500)） | **英语** | **生物医学** | **外部** | 100%（22/22） | 0 | **PASS** |
+| 隔壁房间 1（[SciFact](https://arxiv.org/abs/2004.14974)） | **英语** | **生物医学** | **外部** | 100%（22/22） | 0 | **PASS** |
 | 隔壁房间 2（[KLUE-NLI](https://arxiv.org/abs/2105.09680)） | 韩语 | **非会计** | **外部** | 100%（22/22） | 0 | **PASS** |
 
 重要的是，**在标注者为外部人员的两个房间里同样得到 PASS**。原来的房间是由作者标注、
@@ -562,7 +562,7 @@ done
 - Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
 - FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — 探针博弈 / 策略混淆
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
-- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — 隔壁房间验证 1（SciFact）
+- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14974 — 隔壁房间验证 1（SciFact）
 - Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — 隔壁房间验证 2（KLUE-NLI）
 
 ### 参考实现（§"既有的 harness 里真的没有采纳门禁吗"）

@@ -336,7 +336,7 @@ Phase 3는 순환 논증을 피하려고 "가설을 생성한 표본은 확증 �
 | 방 | 언어 | 도메인 | 라벨러 | recall | SPLIT | 판정 |
 |---|---|---|---|---|---|---|
 | 원래 방 (K-IFRS) | 한국어 | 회계 기준 | 저자 | 81.8% (9/11) | 0 | **PASS** |
-| 옆방 1 ([SciFact](https://arxiv.org/abs/2004.14500)) | **영어** | **생의학** | **외부** | 100% (22/22) | 0 | **PASS** |
+| 옆방 1 ([SciFact](https://arxiv.org/abs/2004.14974)) | **영어** | **생의학** | **외부** | 100% (22/22) | 0 | **PASS** |
 | 옆방 2 ([KLUE-NLI](https://arxiv.org/abs/2105.09680)) | 한국어 | **비회계** | **외부** | 100% (22/22) | 0 | **PASS** |
 
 **라벨러가 외부인 두 방에서도 PASS**가 나온 것이 중요합니다. 원래 방은 저자가
@@ -572,7 +572,7 @@ done
 - Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
 - FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — 프로브 게이밍/정책 난독화
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
-- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — 옆방 검증 1 (SciFact)
+- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14974 — 옆방 검증 1 (SciFact)
 - Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — 옆방 검증 2 (KLUE-NLI)
 
 ### 참조 구현 (§"기존 하네스에는 정말 채택 게이트가 없는가")

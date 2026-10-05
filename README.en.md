@@ -395,7 +395,7 @@ the original room. The pre-declaration was committed before execution.
 | Room | Language | Domain | Labeler | recall | SPLIT | Verdict |
 |---|---|---|---|---|---|---|
 | Original room (K-IFRS) | Korean | Accounting standards | The author | 81.8% (9/11) | 0 | **PASS** |
-| Side-room 1 ([SciFact](https://arxiv.org/abs/2004.14500)) | **English** | **Biomedical** | **External** | 100% (22/22) | 0 | **PASS** |
+| Side-room 1 ([SciFact](https://arxiv.org/abs/2004.14974)) | **English** | **Biomedical** | **External** | 100% (22/22) | 0 | **PASS** |
 | Side-room 2 ([KLUE-NLI](https://arxiv.org/abs/2105.09680)) | Korean | **Non-accounting** | **External** | 100% (22/22) | 0 | **PASS** |
 
 What matters is that **PASS also came out of the two rooms whose labelers are
@@ -662,7 +662,7 @@ done
 - Xiong, M. et al. (2023). *Can LLMs Express Their Uncertainty?* arXiv:2306.13063
 - FAR.AI (2026). *Obfuscation Atlas.* ICML 2026 — probe gaming / policy obfuscation
 - Morris, J. et al. (2026). *How Much Do Language Models Memorize?* ICML 2026
-- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14500 — side-room validation 1 (SciFact)
+- Wadden, D. et al. (2020). *Fact or Fiction: Verifying Scientific Claims.* EMNLP 2020, arXiv:2004.14974 — side-room validation 1 (SciFact)
 - Park, S. et al. (2021). *KLUE: Korean Language Understanding Evaluation.* NeurIPS 2021 D&B, arXiv:2105.09680 — side-room validation 2 (KLUE-NLI)
 
 ### Reference implementation (§"Do existing harnesses really lack an adoption gate?")

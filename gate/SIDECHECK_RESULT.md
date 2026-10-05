@@ -81,7 +81,7 @@ Phase 1 v3의 비만장일치 **5/55**와 SPLIT 0건은 다른 지표이므로 �
 
 ## 6. 데이터 출처와 라이선스
 
-- **SciFact** — Wadden et al., EMNLP 2020 (arXiv:2004.14500), CC BY-NC 2.0.
+- **SciFact** — Wadden et al., EMNLP 2020 (arXiv:2004.14974), CC BY-NC 2.0.
   비상업적 연구 목적. 원본을 이 레포에 재배포하지 않으며 `sidecheck_fetch.py`로 받는다.
 - **KLUE-NLI** — Park et al., NeurIPS 2021 Datasets & Benchmarks (arXiv:2105.09680),
   CC BY-SA 4.0. 원본 재배포 없이 `sidecheck2_build_units.py`가 API로 받는다.

@@ -620,7 +620,7 @@ McNemar 정확검정, Wilson 신뢰구간, matplotlib(차트는 원자료에서 
 
 ## 부록 — 데이터 출처
 
-- SciFact (CC BY-NC 2.0, arXiv:2004.14500)
+- SciFact (CC BY-NC 2.0, arXiv:2004.14974)
 - KLUE-NLI (CC BY-SA 4.0, arXiv:2105.09680)
 - K-IFRS 공개 기준서
 

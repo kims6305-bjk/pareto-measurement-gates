@@ -613,7 +613,7 @@ McNemar 精确检验，Wilson 置信区间，matplotlib（图表由原始数据�
 
 ## 附录 —— 数据来源
 
-- SciFact (CC BY-NC 2.0, arXiv:2004.14500)
+- SciFact (CC BY-NC 2.0, arXiv:2004.14974)
 - KLUE-NLI (CC BY-SA 4.0, arXiv:2105.09680)
 - K-IFRS 公开准则书
 

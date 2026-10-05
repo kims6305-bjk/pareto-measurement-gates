@@ -11,7 +11,7 @@ FILES = ["README.md", "README.en.md", "README.zh-CN.md"]
 
 # 이번 옆방 검증에서 새로 들어간 수치·식별자
 MUST = ["2/2 PASS", "36.4", "3.0", "92.7", "72.7", "95.7", "64.7",
-        "81.8", "100%", "2004.14500", "2105.09680",
+        "81.8", "100%", "2004.14974", "2105.09680",
         "SIDECHECK_PREREG.md", "SIDECHECK_RESULT.md", "--room"]
 
 texts = {f: (P / f).read_text(encoding="utf-8") for f in FILES}

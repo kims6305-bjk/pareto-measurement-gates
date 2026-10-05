@@ -1,6 +1,6 @@
 """SciFact 다운로드 — 옆방 검증용. 원본 데이터는 레포에 재배포하지 않는다.
 
-라이선스: CC BY-NC 2.0 (Wadden et al., EMNLP 2020, arXiv:2004.14500)
+라이선스: CC BY-NC 2.0 (Wadden et al., EMNLP 2020, arXiv:2004.14974)
 비상업적 연구 목적. 데이터는 <repo> 밖 캐시에 받는다.
 """
 import tarfile
