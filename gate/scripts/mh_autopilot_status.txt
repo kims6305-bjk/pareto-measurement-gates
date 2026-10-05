@@ -1,0 +1,4 @@
+2026-10-06 02:59:17 start (waiting IC-1 pid 25417)
+2026-10-06 03:57:25 IC-1 runner exited
+2026-10-06 03:57:25 IC-1 verdict = FAIL
+2026-10-06 03:57:25 STOP: IC-1 FAIL → ADDENDUM2: precision axis dropped, search NOT started
