@@ -15,7 +15,7 @@ lsha_x = hashlib.sha256(
 
 row = {
     "candidate_id": "c000",
-    "created_at": "2026-08-03T12:00:00+09:00",
+    "created_at": "2026-10-06T12:00:00+09:00",
     "parent_ids": [],
     "generation": 0,
     "origin": "baseline",
@@ -35,7 +35,7 @@ row = {
     "reference_fields": {},
     "sample_gate": {"passed": False, "violations": ["미측정"]},
     "status": "UNJUDGED",
-    "status_history": [{"at": "2026-08-03T12:00:00+09:00",
+    "status_history": [{"at": "2026-10-06T12:00:00+09:00",
                         "status": "UNJUDGED", "by": "c000 등록 (미측정)"}],
 }
 p = Path("scripts/mh_archive_C2.jsonl")

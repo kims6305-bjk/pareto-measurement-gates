@@ -96,7 +96,7 @@ def measure(cid: str) -> None:
                     f.write(json.dumps({
                         "id": u["id"], "run": run, "label": label,
                         "rationale": rationale, "human": u["human"],
-                        "candidate": cid, "prompt_sha256": psha,
+                        "candidate": cid, "prompt_sha256": psha, "model": p3.CLAUDE_MODEL,
                     }, ensure_ascii=False) + "\n")
                     f.flush()
                     if n % 10 == 0 or n == len(todo):
