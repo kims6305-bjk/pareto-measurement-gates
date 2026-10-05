@@ -195,10 +195,16 @@ def propose(parents: list[dict], *, context: dict, mode: str, forbidden: set[str
 
 def claude_cli_caller(prompt: str) -> str:   # pragma: no cover — real run only
     """Real proposer call. NEVER used by --dry-run or tests."""
-    p = subprocess.run([shutil.which("claude") or "claude", "-p", "--model", PROPOSER_MODEL,
-                        "--max-turns", "1"], input=prompt, capture_output=True, text=True,
-                       timeout=CLI_TIMEOUT)
-    return p.stdout or ""
+    try:
+        p = subprocess.run([shutil.which("claude") or "claude", "-p", "--model", PROPOSER_MODEL,
+                            "--max-turns", "1"], input=prompt, capture_output=True, text=True,
+                           timeout=CLI_TIMEOUT)
+    except Exception as exc:  # noqa: BLE001
+        raise SystemExit(f"HALT proposer CLI: {type(exc).__name__}") from exc
+    if p.returncode != 0 or not (p.stdout or "").strip():
+        # infra failure must not masquerade as "invalid proposal" (would fake T3)
+        raise SystemExit(f"HALT proposer CLI rc={p.returncode}: {(p.stderr or '')[:300]}")
+    return p.stdout
 
 
 def stub_caller(prompt: str) -> str:

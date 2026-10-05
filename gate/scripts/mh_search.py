@@ -99,9 +99,17 @@ def _quiet(fn, *a):
 def real_measure(cid: str, harness: dict, cond: str, paths: P) -> list[str]:  # pragma: no cover
     import mh_run_candidate as mrc
     fn, kw, model = mrc.resolve_builder(harness)
+    files = []
     for run in mrc.RUNS:
         mrc.run_one(cid, cond, run, fn, kw, model, harness["prompt_sha256"])
-    return [str(GATE / f"scripts/mh_{cid}_{run}.jsonl") for run in mrc.RUNS]
+        f = GATE / f"scripts/mh_{cid}_{run}.jsonl"
+        bad = sum(r.get("label") == "UNRESOLVED" for r in _jsonl(f))
+        if bad > len(icr.load_units()) * mo.R4_MAX_UNRESOLVED:
+            # ponytail: can't tell CLI/quota outage from model format failure here → stop, human decides
+            raise SystemExit(f"HALT {cid}/{run}: {bad} UNRESOLVED rows — possible CLI/quota "
+                             "outage; not scored. Inspect before resuming.")
+        files.append(str(f))
+    return files
 
 
 def stub_measure(cid: str, harness: dict, cond: str, paths: P) -> list[str]:
@@ -208,8 +216,10 @@ def init_baseline(paths: P, measure: Callable, at: str, dry: bool) -> None:
         src = mf.load_archive(c2)[1].get(mf.BASELINE_ID)
         if not (src and src.get("objectives")):
             raise SystemExit("C2 must run first (prereg §5 order) — c000 not measured in C2 archive")
-        mf.append_archive(mf._transition(src, src["status"], "copied from mh_archive_C2.jsonl "
-                                         "(shared baseline, §12.1)", at), paths.archive)
+        # status reset: c000 may be DOMINATED/PRUNED in C2; in a fresh condition it is the front
+        mf.append_archive(mf._transition(src, mf.STATUS_ON_FRONT, "copied from "
+                                         "mh_archive_C2.jsonl (shared baseline, §12.1)", at),
+                          paths.archive)
 
 
 def add_candidate(paths: P, c: dict, objpath: Optional[Path], at: str) -> str:
@@ -447,8 +457,11 @@ def run(cond: str, *, root: Optional[Path], caller: Callable, measure: Callable,
             if rounds and rounds[-1]["stops"]:
                 break
             rnd = len(rounds) + 1
-            plan = next((p for p in _jsonl(paths.plans) if p["round"] == rnd), None) \
-                or plan_round(paths, rnd, caller, at_fn())
+            plan = next((p for p in _jsonl(paths.plans) if p["round"] == rnd), None)
+            if plan is None:
+                plan = plan_round(paths, rnd, caller, at_fn())
+                if not dry:      # prereg §5: origin_reason committed BEFORE measurement
+                    commit_plan(paths, rnd)
             for s in plan["slots"]:
                 if not s.get("cid"):
                     continue
@@ -468,6 +481,14 @@ def run(cond: str, *, root: Optional[Path], caller: Callable, measure: Callable,
     return {"condition": cond, "rounds": len(_jsonl(paths.rounds)), "front": final["front"],
             "stops": _jsonl(paths.rounds)[-1]["stops"], "spent_calls": spent(latest(paths)),
             "archive": str(paths.archive), "front_json": str(paths.front)}
+
+
+def commit_plan(paths: P, rnd: int) -> None:  # pragma: no cover — real run only
+    import subprocess
+    subprocess.run(["git", "add", str(paths.plans)], cwd=GATE, check=True)
+    subprocess.run(["git", "commit", "-q", "-m", f"mh_search {paths.cond} round {rnd}: "
+                    "proposals + origin_reason pre-committed before measurement",
+                    "--", str(paths.plans)], cwd=GATE, check=True)
 
 
 def preflight_real() -> None:  # pragma: no cover — real run only
