@@ -1,6 +1,6 @@
 set -euo pipefail
 # IC-1 깨끗한 재실행 (부속서2) — 재개 가능. c000 → loose/strict → 채점 → front.
-cd /Users/bjkim/.openclaw/workspace/projects/probe-graph-public/gate
+cd "$(dirname "$0")/.."
 PY="uv run python"
 $PY scripts/mh_run_candidate.py --candidate-id c000 --condition C2 --all-runs
 $PY scripts/mh_objectives.py --candidate-id c000 --runs 'scripts/mh_c000_run*.jsonl' \

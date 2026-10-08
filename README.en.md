@@ -69,7 +69,7 @@ The last command is not synthetic. It directly re-aggregates the **119-question 
 to reproduce `REMOVE`. The field aggregate recorded from non-distributed raw data (reach 17/20, target
 exposure 36→21, 13 overall rank changes) is replayed for consistency to confirm `MOVED`; it is not an
 independent query-level recomputation. Formal definitions, an identifiability claim, and limitations are in the
-[research note](docs/TARGETING_REACH_NOTE.md); all six instrument failures are in the
+[research note](docs/TARGETING_REACH_NOTE.md); all nine instrument failures are in the
 [failure casebook](gate/MEASUREMENT_FAILURES.md).
 
 > 📖 The full record of the single day this repo was built — design rationale, four
@@ -492,13 +492,14 @@ were deliberately not used.
 
 Full text: [`gate/THEORY_MAPPING.md`](gate/THEORY_MAPPING.md)
 
-### When the instrument is wrong, the verdict flips — six failure cases
+### When the instrument is wrong, the verdict flips — nine failure cases
 
 ![Measurement failures (cases 1–3)](docs/measurement_failures.png)
 
 However well a gate is designed, **if the numbers it reads are wrong** the verdict
 is meaningless. Six measurement failures from a production citation-QA pipeline
-and its evaluation harness that actually flipped a verdict (or nearly did):
+and its evaluation harness that actually flipped a verdict (or nearly did), one from
+this repo's own instrument-check ledger, and two from a separate knowledge-graph project:
 
 - **Counting-unit error** — `precision`'s denominator was slots, so duplicate
   correct documents were double-counted. The reported 0.672 was a performance that
@@ -531,10 +532,24 @@ and its evaluation harness that actually flipped a verdict (or nearly did):
   documents at all. Printing the reach denominator first split it apart:
   36 → 21 on 17 reached queries. That movement was logged as a mechanical effect
   of the safety proxy, explicitly **not** as a relevance improvement.
+- **Duplicated ledger** — concurrent writers overlapped on the meta-harness
+  instrument-check ledger: 278 rows for 165 keys (113 duplicates, 4 keys with
+  conflicting labels). The document gate missed it; an external review found it.
+  Since which row survives decides the result, duplicates were not removed — the
+  **whole verdict was invalidated** and rerun under an atomic lock.
+- **Ablation tautology** — collapsing predicate labels left 11 of 17 structural
+  queries EMPTY, but the queries looked edges up by a literal `(node, predicate)`
+  key, so EMPTY was guaranteed. A predicate-free fallback path restored **the same
+  417 answers** on one query — the ablation measured a missing key, not a contribution.
+- **Dedup-window mismatch** — injected candidates were deduplicated against 20
+  retrieved documents while only 10 slots were shown, so a correct answer ranked
+  11–20 ended up **nowhere**. A preregistered rerun with matched windows moved
+  R@10 0.338 → **0.482** (7 questions up, 0 down). The rejection measured on top of
+  it stays undetermined until re-adjudicated.
 
-What the six share: **each was a situation where a wrong verdict was about to be
+What the nine share: **each was a situation where a wrong verdict was about to be
 locked in first.** Doubting the instrument cost more than the improvements themselves —
-and was justified all six times.
+and was justified all nine times.
 
 Full text: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
@@ -580,7 +595,7 @@ gate/                   # Grading gate package + semantic-layer regrade + Phase 
   SIDECHECK_RESULT.md   #   Results of both side-rooms — both PASS, recall↔precision axes split
   RELATED_HARNESSES.md  #   Reference-implementation dissection — measured absence of an adoption gate (incl. one absence-proof error of ours)
   THEORY_MAPPING.md     #   Mapping to RLS / autoregression / pruning + where the mapping breaks
-  MEASUREMENT_FAILURES.md #  Six instrument failures — counting unit, preprocessing/adjudication circularity, baseline fabrication, scoring unit, targeting failure
+  MEASUREMENT_FAILURES.md #  Nine instrument failures — counting unit, preprocessing/adjudication circularity, baseline fabrication, scoring unit, targeting failure, duplicated ledger, ablation tautology, dedup window
   harness_diet.py       #   OFF/ON net-benefit verdict: KEEP, REMOVE, or TEST_THIN
   reach_check.py        #   Separate targeting failure from true zero effect with a reach denominator
   fixtures/             #   2026-08-28 field aggregate for regression validation
