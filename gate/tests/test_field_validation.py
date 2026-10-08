@@ -53,9 +53,14 @@ def test_public_ab():
 
 
 def test_committed_front_hash_matches_archive():
-    archive = ROOT / "gate/scripts/mh_archive_C2.jsonl"
-    front = json.loads((ROOT / "gate/scripts/mh_front_C2.json").read_text(encoding="utf-8"))
-    assert front["archive_sha256"] == hashlib.sha256(archive.read_bytes()).hexdigest()
+    # 커밋된 모든 front 캐시는 같은 폴더의 원장과 해시가 맞아야 한다.
+    # 현 원장(sonnet-5)은 IC-1 FAIL로 탐색이 시작되지 않아 front가 없는 것이 정상이다(ADDENDUM2).
+    fronts = sorted((ROOT / "gate/scripts").rglob("mh_front_C2.json"))
+    assert fronts, "커밋된 front 캐시가 하나도 없다"
+    for fp in fronts:
+        front = json.loads(fp.read_text(encoding="utf-8"))
+        archive = fp.with_name("mh_archive_C2.jsonl")
+        assert front["archive_sha256"] == hashlib.sha256(archive.read_bytes()).hexdigest(), fp
 
 
 def test_field_aggregate_schema_replay():
