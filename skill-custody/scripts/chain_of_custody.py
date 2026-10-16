@@ -119,6 +119,21 @@ def redact(value: Any) -> Any:
     return value
 
 
+def _reject_secrets(event: Mapping[str, Any]) -> None:
+    """Metadata is redacted; anywhere else a secret-like value fails closed."""
+    # ponytail: regex scan can false-positive on names like "sk-learn-run"; rename the artifact, not the rule.
+    def walk(value: Any, path: str) -> None:
+        if isinstance(value, Mapping):
+            for key, item in value.items():
+                walk(item, path + "." + str(key))
+        elif isinstance(value, (list, tuple)):
+            for item in value:
+                walk(item, path)
+        elif isinstance(value, str) and SENSITIVE_VALUE.search(value):
+            raise CustodyError("sensitive value outside metadata: %s" % path.lstrip("."))
+    walk({k: v for k, v in event.items() if k != "metadata"}, "")
+
+
 def normalize_actor(actor: Mapping[str, Any]) -> Dict[str, Any]:
     """Normalize all supported producers into one explicit adapter schema."""
     if not isinstance(actor, Mapping):
@@ -206,6 +221,19 @@ def _validate_artifact_reference(reference: Mapping[str, Any]) -> Dict[str, Any]
     }
 
 
+def _check_artifacts(root: Path, artifacts: Any) -> int:
+    if not isinstance(artifacts, list) or not artifacts:
+        raise CustodyError("event must reference at least one artifact")
+    for raw_reference in artifacts:
+        reference = _validate_artifact_reference(raw_reference)
+        target = resolve_locator(root, reference["locator"])
+        if not target.is_file():
+            raise CustodyError("referenced artifact is missing: %s" % reference["locator"]["path"])
+        if sha256_file(target) != reference["digest"]["value"]:
+            raise CustodyError("artifact digest mismatch: %s" % reference["artifact_id"])
+    return len(artifacts)
+
+
 def build_event(
     *,
     index: int,
@@ -235,7 +263,7 @@ def build_event(
         "event_type": event_type,
         "timestamp": timestamp,
         "actor": normalize_actor(actor),
-        "artifacts": [_validate_artifact_reference(item) for item in artifacts],
+        "artifacts": [_validate_artifact_reference(item) for item in artifacts or []],
         "metadata": clean_metadata,
     }
     if comparison is not None:
@@ -244,6 +272,9 @@ def build_event(
         if event_type != "decision":
             raise CustodyError("supersession is only allowed on decision events")
         event["supersession"] = validate_supersession(supersession)
+    if not event["artifacts"]:
+        raise CustodyError("event must reference at least one artifact")
+    _reject_secrets(event)
     event["event_hash"] = event_hash(event)
     return event
 
@@ -292,7 +323,9 @@ def validate_comparison_contract(contract: Mapping[str, Any]) -> Dict[str, Any]:
     required_text = {
         "cohort_id": contract.get("cohort_id"),
         "code_revision": contract.get("code_revision"),
+        "provider": contract.get("provider"),
         "model": contract.get("model"),
+        "runtime": contract.get("runtime"),
     }
     for key, value in required_text.items():
         if not isinstance(value, str) or not value:
@@ -309,7 +342,7 @@ def validate_comparison_contract(contract: Mapping[str, Any]) -> Dict[str, Any]:
     adapter = normalize_actor(
         {
             "adapter": contract.get("adapter"),
-            "provider": contract.get("provider", contract.get("adapter")),
+            "provider": contract.get("provider"),
             "principal_type": "model",
             "model": contract.get("model"),
             "runtime": contract.get("runtime"),
@@ -416,17 +449,8 @@ def verify_ledger(ledger_path: Path, receipt_path: Path, artifact_root: Path) ->
         calculated_hash = event_hash(candidate)
         if stored_hash != calculated_hash:
             raise CustodyError("event hash mismatch at index %d" % expected_index)
-        artifacts = event.get("artifacts")
-        if not isinstance(artifacts, list):
-            raise CustodyError("artifacts must be a list at index %d" % expected_index)
-        for raw_reference in artifacts:
-            reference = _validate_artifact_reference(raw_reference)
-            target = resolve_locator(artifact_root, reference["locator"])
-            if not target.is_file():
-                raise CustodyError("referenced artifact is missing: %s" % reference["locator"]["path"])
-            if sha256_file(target) != reference["digest"]["value"]:
-                raise CustodyError("artifact digest mismatch: %s" % reference["artifact_id"])
-            verified_artifacts += 1
+        _reject_secrets(event)
+        verified_artifacts += _check_artifacts(artifact_root, event.get("artifacts"))
         if "comparison" in event:
             validate_comparison_contract(event["comparison"])
         if "supersession" in event:
@@ -505,6 +529,7 @@ def append_event(
         comparison=payload.get("comparison"),
         supersession=payload.get("supersession"),
     )
+    _check_artifacts(artifact_root, event["artifacts"])
     with ledger_path.open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(canonical_json(event) + "\n")
         handle.flush()

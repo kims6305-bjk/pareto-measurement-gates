@@ -29,7 +29,9 @@ metadata:
 - actor 공통 필드는 `adapter`, `provider`, `principal_type`, `model`, `runtime`이다. `adapter`는 실행기·오케스트레이터이고 `provider`는 실제 모델/판정 제공자라 서로 다를 수 있다.
 - adapter는 `anthropic`, `openai`, `hermes`, `open-claw`, `jev`, `rules-engine`, `human` 입력을 정본 ID로 정규화한다. unknown adapter는 기록과 검증 모두 실패한다.
 - event type은 `source`, `judgment`, `decision`, `application`, `verification`이다.
-- `api_key`, token, password, authorization, cookie, session 및 메시징 식별자는 저장 전에 `[REDACTED]`로 바꾼다.
+- 모든 event는 artifact를 1개 이상 참조해야 한다. 증거 없는 event는 기록도 검증도 실패한다.
+- append는 artifact digest를 실제 파일과 대조한 **뒤에만** 원장에 쓴다. 틀린 digest는 원장을 건드리지 않고 거부된다.
+- `metadata`의 `api_key`, token, password, authorization, cookie, session 및 메시징 식별자는 저장 전에 `[REDACTED]`로 바꾼다. metadata 밖(actor·artifact·비교 계약 등)에 비밀값 형태가 있으면 가리지 않고 **기록을 거부**한다.
 
 ## 실행
 
@@ -60,7 +62,7 @@ baseline과 candidate의 다음 값이 모두 같아야 `COMPARABLE`이다.
 - `cohort_id`, `cohort_sha256`, `n_units`
 - `metric.name`, `metric.direction`, `metric.unit`
 - `code_revision`
-- `adapter`, `provider`, `model`, `runtime`
+- `adapter`, `provider`, `model`, `runtime` — `provider`·`runtime`도 양쪽에 명시해야 한다. 둘 다 빠진 것은 "같은 조건"이 아니라 "모르는 조건"이다.
 
 하나라도 누락·형식오류·불일치이면 `INCOMPARABLE`로 중단한다. 점수가 같다는 이유로 우회하지 않는다.
 

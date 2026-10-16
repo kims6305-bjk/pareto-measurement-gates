@@ -310,6 +310,51 @@ class ChainOfCustodyTests(unittest.TestCase):
         with self.assertRaisesRegex(custody.IncomparableError, "code_revision"):
             custody.verify_ledger(self.ledger, self.receipt, self.root)
 
+    # --- external review (2026-10-16): each must fail closed ---
+
+    def test_event_without_evidence_is_rejected(self) -> None:
+        with self.assertRaisesRegex(custody.CustodyError, "at least one artifact"):
+            custody.append_event(self.ledger, self.receipt, self.root, self.payload("source", 0, artifacts=[]))
+        self.assertFalse(self.ledger.exists())
+        custody.append_event(self.ledger, self.receipt, self.root, self.payload("source", 0))
+        events = self.read_events()
+        events[0]["artifacts"] = []
+        events[0]["event_hash"] = custody.event_hash({k: v for k, v in events[0].items() if k != "event_hash"})
+        self.write_events_and_receipt(events)
+        with self.assertRaisesRegex(custody.CustodyError, "at least one artifact"):
+            custody.verify_ledger(self.ledger, self.receipt, self.root)
+
+    def test_wrong_digest_is_rejected_before_write(self) -> None:
+        custody.append_event(self.ledger, self.receipt, self.root, self.payload("source", 0))
+        before = self.ledger.read_bytes()
+        bad = copy.deepcopy(self.reference)
+        bad["digest"]["value"] = "0" * 64
+        with self.assertRaisesRegex(custody.CustodyError, "artifact digest mismatch"):
+            custody.append_event(self.ledger, self.receipt, self.root, self.payload("judgment", 1, artifacts=[bad]))
+        self.assertEqual(before, self.ledger.read_bytes())
+        custody.append_event(self.ledger, self.receipt, self.root, self.payload("judgment", 1))
+        self.assertEqual(2, custody.verify_ledger(self.ledger, self.receipt, self.root)["event_count"])
+
+    def test_missing_provider_or_runtime_is_not_comparable(self) -> None:
+        for field in ("provider", "runtime"):
+            left = {k: v for k, v in self.contract().items() if k != field}
+            with self.subTest(field=field), self.assertRaisesRegex(custody.CustodyError, field):
+                custody.assert_comparable(left, copy.deepcopy(left))
+
+    def test_secret_outside_metadata_is_rejected(self) -> None:
+        secret = "sk-" + "synthetic" * 3
+        actor = dict(self.actor(), runtime=secret)
+        with self.assertRaisesRegex(custody.CustodyError, "sensitive value"):
+            custody.append_event(self.ledger, self.receipt, self.root, self.payload("source", 0, actor=actor))
+        self.assertFalse(self.ledger.exists())
+        custody.append_event(self.ledger, self.receipt, self.root, self.payload("source", 0))
+        events = self.read_events()
+        events[0]["actor"]["runtime"] = secret
+        events[0]["event_hash"] = custody.event_hash({k: v for k, v in events[0].items() if k != "event_hash"})
+        self.write_events_and_receipt(events)
+        with self.assertRaisesRegex(custody.CustodyError, "sensitive value"):
+            custody.verify_ledger(self.ledger, self.receipt, self.root)
+
 
 if __name__ == "__main__":
     unittest.main()

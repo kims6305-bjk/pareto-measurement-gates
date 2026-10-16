@@ -11,7 +11,10 @@
 - [ ] event 순서 변경이 index/previous hash 불일치로 실패하는가?
 - [ ] `previous_event_hash` 변조가 실패하는가?
 - [ ] unknown provider를 넣고 event hash와 receipt까지 다시 계산해도 provider 검증이 실패하는가?
-- [ ] credential 및 메시징 식별자가 원장에 평문으로 남지 않는가?
+- [ ] credential 및 메시징 식별자가 원장에 평문으로 남지 않는가? metadata 밖 비밀값은 append·verify 모두 실패하는가?
+- [ ] artifact 0개 event는 append·verify 모두 실패하는가?
+- [ ] 틀린 digest의 append는 원장 바이트를 바꾸지 않고 실패하며, 이후 정상 append가 가능한가?
+- [ ] 비교 계약에서 `provider`·`runtime`을 양쪽 모두 빼면 실패하는가?
 - [ ] key 삽입 순서가 다른 동치 객체의 canonical JSON과 hash가 동일한가?
 - [ ] repo-relative POSIX path는 통과하고 절대경로·상위이동·역슬래시는 실패하는가?
 - [ ] Pareto cohort/metric/code/model/provider 중 하나라도 불일치하면 `INCOMPARABLE`인가?
