@@ -110,7 +110,7 @@ def check_set(base_name: str, targets: list) -> bool:
         # 상대링크·이미지 실존 (문서 자신의 디렉토리 기준)
         for ln in prof["links"] + prof["images"]:
             # GitHub UI release route (verified tag) is not a local filesystem path.
-            if ln.startswith(("http", "#", "mailto")) or ln == "../../releases/tag/v1.2.0":
+            if ln.startswith(("http", "#", "mailto")) or ln == "../../releases/tag/v1.2.1":
                 continue
             if not (p.parent / ln.split("#")[0]).exists():
                 issues.append(f"깨진 상대링크: {ln}")

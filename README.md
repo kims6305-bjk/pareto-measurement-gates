@@ -4,8 +4,8 @@
 
 > 🧭 **복수 에이전트 스킬 모음:** 언제 어떤 스킬을 쓸지, 쓰지 않을지, 산출물과 실제 경로를 [`SKILLS.md`](SKILLS.md)에서 한눈에 확인하세요.
 
-> 🔒 **재현 가능한 구현 릴리스:** [`v1.2.0`](../../releases/tag/v1.2.0)은
-> immutable tag이며 대상 commit은 `80223c0ac9ead879f603ee5d84b91b2420c30e25`입니다.
+> 🔒 **재현 가능한 구현 릴리스:** [`v1.2.1`](../../releases/tag/v1.2.1)의
+> 대상 commit은 `8524d9ceda7da1d527ba37de0f05ada82937cdf9`입니다. (GitHub immutable release 설정은 꺼져 있어 tag 고정은 commit 해시로 대조하세요.)
 
 > 📌 **2026-08 개명** — 구 `reflection-probe-gate` / `probe-graph`.
 > 옛 URL은 GitHub 301 리다이렉트로 살아 있습니다. 리플렉션 프로브 실험(Phase 1~3)은
