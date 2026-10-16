@@ -1,0 +1,35 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><style>
+body{margin:0;width:1400px;background:#FAF9F6;font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;color:#141F38;word-break:keep-all}
+.w{padding:56px 64px} .k{font-size:22px;color:#B84A10;font-weight:700;letter-spacing:.04em}
+h1{font-size:46px;margin:8px 0 28px} h2{font-size:28px;margin:0 0 14px}
+.box{background:#fff;border:2px solid #E5E2DA;border-radius:18px;padding:26px 30px;margin-bottom:18px}
+.flow{display:grid;grid-template-columns:1fr 60px 1fr;align-items:end} .ar{font-size:44px;text-align:center;color:#B84A10}
+.big{font-size:52px;font-weight:800} .big small{font-size:24px;color:#777;font-weight:600} .lab{font-size:20px;color:#666;white-space:nowrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.arms{display:flex;gap:12px} .arm{flex:0 0 190px;background:#F4F2EC;border-radius:12px;padding:12px 14px}
+.arm i{font-style:normal;color:#fff;font-weight:700;border-radius:6px;padding:2px 8px;font-size:18px}
+.arm b{display:block;font-size:40px;font-weight:800;color:#C0392B;margin-top:8px} .arm b.g{color:#1E7B4F} .arm small{font-size:20px;color:#777}
+.arm span{font-size:17px;color:#666} .rule{font-size:23px;line-height:1.55} code{background:#F4F2EC;border-radius:6px;padding:1px 6px;font-size:20px}
+.foot{font-size:18px;color:#666;line-height:1.5;margin-top:6px}
+</style><div class="w">
+<div class="k">CHAIN OF CUSTODY × MEMORY PUSH-OUT · 한 장 요약</div>
+<h1>메모리를 줄였더니 — 낡은 값 오용 사라짐, 대가는 '찾아보기'</h1>
+<div class="two">
+<div class="box"><h2>① 메모리 (매 턴 주입)</h2><div class="flow">
+<div><div class="big">2,971<small>자</small></div><div class="lab">정리 전 · 21건</div></div><div class="ar">→</div>
+<div><div class="big">1,981<small>자</small></div><div class="lab">지금 · 17건 (−33%)</div></div></div></div>
+<div class="box"><h2>② 사용자 프로필</h2><div class="flow">
+<div><div class="big">1,328<small>자</small></div><div class="lab">정리 전 · 19건</div></div><div class="ar">→</div>
+<div><div class="big">1,245<small>자</small></div><div class="lab">지금 · 16건 (−6%)</div></div></div></div>
+</div>
+<div class="box"><h2>③ 효과 — 두 모델에서 재현 (같은 질문, 메모리 블록만 교체)</h2><div class="two">
+<div><div class="lab" style="margin-bottom:8px">claude sonnet · 함정 12회</div><div class="arms">
+<div class="arm"><i style="background:#8A8F99">A 정리 전</i><b>9<small>/12</small></b><span>낡은 값 오용</span><b class="g">3<small>/12</small></b><span>최신값 정답</span></div><div class="arm"><i style="background:#1E7B4F">B 정리 후</i><b>0<small>/12</small></b><span>낡은 값 오용</span><b class="g">10<small>/12</small></b><span>최신값 정답</span></div></div></div>
+<div><div class="lab" style="margin-bottom:8px">codex gpt-6.1-sol · 함정 9회 · 오염 0/0/0</div><div class="arms">
+<div class="arm"><i style="background:#8A8F99">A 정리 전</i><b>6<small>/9</small></b><span>낡은 값 오용</span><b class="g">3<small>/9</small></b><span>최신값 정답</span></div><div class="arm"><i style="background:#1E7B4F">B 정리 후</i><b>0<small>/9</small></b><span>낡은 값 오용</span><b class="g">7<small>/9</small></b><span>최신값 정답</span></div><div class="arm"><i style="background:#2B5FA8">C +키워드</i><b>0<small>/9</small></b><span>낡은 값 오용</span><b class="g">6<small>/9</small></b><span>최신값 정답</span></div></div></div>
+</div><div class="foot">대가: 문서 찾아보기 증가 (sonnet 평균 도구 턴 1.26 → 2.02). 회상은 유지.</div></div>
+<div class="box"><h2>④ 새로 배운 규칙 — 포인터엔 '물어볼 단어'를 남긴다</h2><div class="rule">
+<code>REA … =reverse-engineering-toolchain</code> → "Cutter 플러그인 돼?"에 문서를 안 찾고 <b style="color:#C0392B">지어냄</b><br>
+<code>… (키워드: Ghidra·rizin·Cutter)</code> → 문서 검색 후 <b style="color:#1E7B4F">정답</b> (사람 검토 B 2/3 · C 3/3)</div></div>
+<div class="foot">등급 게이트 33/33 통과 · 모든 변경 원장 기록·검증 PASS. 함정은 합성 갱신 = 메커니즘 검증, 실사용 오용률 아님. 반복 3 — 유의성 주장 없음. codex v3는 오염 초과로 무효.</div>
+</div></html>
