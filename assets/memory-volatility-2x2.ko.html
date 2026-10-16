@@ -1,0 +1,33 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><style>
+body{margin:0;width:1400px;background:#FAF9F6;font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;color:#141F38;word-break:keep-all}
+.w{padding:56px 64px} .k{font-size:22px;color:#B84A10;font-weight:700;letter-spacing:.04em}
+h1{font-size:46px;margin:8px 0 6px} .s{font-size:22px;color:#555;margin-bottom:34px}
+.g{display:grid;grid-template-columns:120px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:18px}
+.ax{font-size:20px;font-weight:700;color:#666;display:flex;align-items:center;justify-content:center;text-align:center}
+.q{background:#fff;border:4px solid;border-radius:18px;padding:26px 28px;min-height:190px}
+.t{font-size:30px;font-weight:800} .a{font-size:19px;color:#777;margin:4px 0 10px}
+.n{font-size:54px;font-weight:800} .n span{font-size:22px;color:#444;font-weight:600;margin-left:6px}
+.d{font-size:21px;line-height:1.45;margin-top:6px}
+.f{margin-top:34px;display:flex;gap:12px;align-items:center;font-size:21px;font-weight:700}
+.f div{background:#141F38;color:#fff;border-radius:12px;padding:14px 18px} .f b{color:#B84A10;font-size:28px}
+.foot{margin-top:22px;font-size:18px;color:#777}
+</style><div class="w">
+<div class="k">CHAIN OF CUSTODY × MEMORY VOLATILITY</div>
+<h1>메모리 밀어내기 순서 — 휘발성 × 재수집 비용</h1>
+<div class="s">한도가 있는 에이전트 메모리 21건을 2×2로 등급화한 안. 각 등급은 항목 SHA-256에 묶여 내용이 바뀌면 재등급 대상이 된다.</div>
+<div class="g">
+<div></div><div class="ax">다시 구하기 쉬움</div><div class="ax">다시 구하기 어려움</div>
+<div class="ax">빨리<br>낡음</div><div class="q" style="border-color:#C0392B">
+<div class="t" style="color:#C0392B">① 먼저 밀어내기</div><div class="a">빨리 낡음 · 다시 구하기 쉬움</div>
+<div class="n" style="color:#C0392B">2<span>건 · 257자</span></div><div class="d">상태값·진행 중 표시 — 확인 1번이면 복구</div></div><div class="q" style="border-color:#B84A10">
+<div class="t" style="color:#B84A10">② 건져서 내려보내기</div><div class="a">빨리 낡음 · 다시 구하기 어려움</div>
+<div class="n" style="color:#B84A10">3<span>건 · 882자</span></div><div class="d">사라지기 전에 수집 → 파일·스킬로 옮기고 원장에 기록</div></div>
+<div class="ax">오래<br>유지됨</div><div class="q" style="border-color:#2E6F9E">
+<div class="t" style="color:#2E6F9E">③ 포인터로 압축</div><div class="a">오래감 · 다시 구하기 쉬움</div>
+<div class="n" style="color:#2E6F9E">5<span>건 · 696자</span></div><div class="d">정본이 스킬·문서에 이미 있음 → 한 줄 경로만</div></div><div class="q" style="border-color:#1E7B4F">
+<div class="t" style="color:#1E7B4F">④ 끝까지 유지</div><div class="a">오래감 · 다시 구하기 어려움</div>
+<div class="n" style="color:#1E7B4F">11<span>건 · 1,076자</span></div><div class="d">선호·결정·재발 교훈 — 잃으면 복구 불가</div></div>
+</div>
+<div class="f"><div>판정: 등급 부여</div><b>→</b><div>원장: 해시·이동처 기록</div><b>→</b><div>만료대기</div><b>→</b><div>삭제(복원 가능)</div></div>
+<div class="foot">휘발성 순서(RFC 3227)는 '버리는 순서'가 아니라 '사라지기 전에 건지는 순서'다. 등급안이며 효과(낡은 정보 오용률·회상 정확도)는 미실측.</div>
+</div></html>
