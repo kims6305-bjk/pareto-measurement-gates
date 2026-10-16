@@ -7,13 +7,12 @@ h1{font-size:44px;margin:8px 0 6px} .s{font-size:21px;color:#555;margin-bottom:2
 .lab b{font-size:26px;display:block} .lab i{font-style:normal;font-size:18px;color:#777}
 .arms{display:flex;flex-direction:column;gap:10px;justify-content:center}
 .bar{position:relative;height:34px;background:#EEECE6;border-radius:8px;overflow:hidden} .fill{height:100%}
-.t{position:absolute;left:12px;top:4px;font-size:20px;color:#141F38} .bar span{position:absolute;right:12px;top:4px;font-size:21px;font-weight:800}
+.t{position:absolute;left:12px;top:4px;font-size:20px;color:#141F38} .bar span{position:absolute;right:8px;top:3px;font-size:21px;font-weight:800;background:#fff;border-radius:6px;padding:0 8px} .t{background:#fff;border-radius:6px;padding:0 6px}
 .foot{margin-top:20px;font-size:18px;color:#666;line-height:1.5}
 </style><div class="w">
 <div class="k">CHAIN OF CUSTODY × MEMORY PUSH-OUT · STAGE 4 REPLAY</div>
 <h1>메모리를 줄이면 낡은 정보 오용이 줄어드나?</h1>
-<div class="s">같은 모델·같은 질문·같은 샌드박스에서 메모리 블록만 바꿔 비교. 질문 19개 × 반복 3.
-A 정리 전 2,971자 · B 정리 후 1,742자. <span style="white-space:nowrap">평균 도구 턴 A 1.26 · B 2.02</span>.</div>
+<div class="s">같은 질문·샌드박스, 메모리 블록만 바꿔 비교. claude sonnet, 19문항 × 반복 3, 권한 거부 0.</div>
 <div class="leg"><div><span style="background:#8A8F99"></span>A 정리 전</div><div><span style="background:#1E7B4F"></span>B 정리 후</div></div>
 <div class="row"><div class="lab"><b>낡은 정보 오용</b><i>심어 둔 낡은 값 그대로 답함 ↓ 낮을수록 좋음</i></div>
 <div class="arms"><div class="bar"><div class="fill" style="width:75.0%;background:#8A8F99"></div><b class="t">A</b><span>9/12</span></div><div class="bar"><div class="fill" style="width:0.0%;background:#1E7B4F"></div><b class="t">B</b><span>0/12</span></div></div></div><div class="row"><div class="lab"><b>최신값 정답</b><i>문서의 최신값을 찾아 답함</i></div>
@@ -21,5 +20,5 @@ A 정리 전 2,971자 · B 정리 후 1,742자. <span style="white-space:nowrap"
 <div class="arms"><div class="bar"><div class="fill" style="width:100.0%;background:#8A8F99"></div><b class="t">A</b><span>21/21</span></div><div class="bar"><div class="fill" style="width:100.0%;background:#1E7B4F"></div><b class="t">B</b><span>21/21</span></div></div></div><div class="row"><div class="lab"><b>다른 문서가 덮는 사실</b><i>SOUL·AGENTS 사본에서 찾기</i></div>
 <div class="arms"><div class="bar"><div class="fill" style="width:100.0%;background:#8A8F99"></div><b class="t">A</b><span>9/9</span></div><div class="bar"><div class="fill" style="width:100.0%;background:#1E7B4F"></div><b class="t">B</b><span>9/9</span></div></div></div><div class="row"><div class="lab"><b>유지한 사실(대조군)</b><i>두 팔 동일해야 정상</i></div>
 <div class="arms"><div class="bar"><div class="fill" style="width:100.0%;background:#8A8F99"></div><b class="t">A</b><span>15/15</span></div><div class="bar"><div class="fill" style="width:100.0%;background:#1E7B4F"></div><b class="t">B</b><span>15/15</span></div></div></div>
-<div class="foot">사전등록·원장 기록 후 실행, 정규식 기계 판정. B의 함정 2건은 오용도 정답도 아닌 "확인 못 함" 답. 낡음 함정 4개는 합성 갱신이라 실사용 오용률 추정이 아니라 메커니즘 검증이다. 모델 1개·반복 3 — 유의성 주장 없음.</div>
+<div class="foot">사전등록·원장 기록 후 실행, 정규식 기계 판정. B의 함정 2건은 오용도 정답도 아닌 '확인 못 함' 답. 낡음 함정은 합성 갱신 — 메커니즘 검증. 모델 1개·반복 3 — 유의성 주장 없음.</div>
 </div></html>
