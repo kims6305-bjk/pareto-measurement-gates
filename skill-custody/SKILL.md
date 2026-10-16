@@ -1,7 +1,7 @@
 ---
 name: chain-of-custody
 description: "계보·위변조 검증이 필요한 artifact 원장을 만들 때 사용한다."
-version: 0.1.0
+version: 0.2.0
 author: project maintainers, Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
