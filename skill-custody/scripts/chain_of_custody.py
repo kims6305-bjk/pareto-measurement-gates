@@ -216,6 +216,7 @@ def build_event(
     artifacts: Sequence[Mapping[str, Any]],
     metadata: Optional[Mapping[str, Any]] = None,
     comparison: Optional[Mapping[str, Any]] = None,
+    supersession: Optional[Mapping[str, Any]] = None,
 ) -> Dict[str, Any]:
     """Build a canonical event after redaction and strict schema validation."""
     if event_type not in EVENT_TYPES:
@@ -239,8 +240,43 @@ def build_event(
     }
     if comparison is not None:
         event["comparison"] = validate_comparison_contract(comparison)
+    if supersession is not None:
+        if event_type != "decision":
+            raise CustodyError("supersession is only allowed on decision events")
+        event["supersession"] = validate_supersession(supersession)
     event["event_hash"] = event_hash(event)
     return event
+
+
+def validate_supersession(value: Mapping[str, Any]) -> Dict[str, Any]:
+    """A winner may push out a loser only under one identical measurement contract.
+
+    The loser's retained strengths are mandatory so that push-out is not
+    winner-takes-all: an empty list is an explicit "none found", not an omission.
+    """
+    if not isinstance(value, Mapping):
+        raise CustodyError("supersession must be an object")
+    names = {}
+    for key in ("winner", "loser"):
+        name = value.get(key)
+        if not isinstance(name, str) or not name.strip():
+            raise CustodyError("supersession %s is required" % key)
+        names[key] = name.strip()
+    if names["winner"] == names["loser"]:
+        raise CustodyError("supersession winner and loser must differ")
+    strengths = value.get("retained_strengths")
+    if not isinstance(strengths, list) or not all(isinstance(s, str) and s.strip() for s in strengths):
+        raise CustodyError("supersession retained_strengths must be a list of non-empty strings")
+    baseline = validate_comparison_contract(value.get("baseline"))
+    candidate = validate_comparison_contract(value.get("candidate"))
+    assert_comparable(baseline, candidate)
+    return {
+        "winner": names["winner"],
+        "loser": names["loser"],
+        "retained_strengths": [s.strip() for s in strengths],
+        "baseline": baseline,
+        "candidate": candidate,
+    }
 
 
 def validate_comparison_contract(contract: Mapping[str, Any]) -> Dict[str, Any]:
@@ -393,6 +429,11 @@ def verify_ledger(ledger_path: Path, receipt_path: Path, artifact_root: Path) ->
             verified_artifacts += 1
         if "comparison" in event:
             validate_comparison_contract(event["comparison"])
+        if "supersession" in event:
+            if event.get("event_type") != "decision":
+                raise CustodyError("supersession outside decision at index %d" % expected_index)
+            if event["supersession"] != validate_supersession(event["supersession"]):
+                raise CustodyError("supersession is not canonical at index %d" % expected_index)
         previous = stored_hash
 
     if receipt.get("head_event_hash") != previous:
@@ -462,6 +503,7 @@ def append_event(
         artifacts=payload.get("artifacts", []),
         metadata=payload.get("metadata", {}),
         comparison=payload.get("comparison"),
+        supersession=payload.get("supersession"),
     )
     with ledger_path.open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(canonical_json(event) + "\n")

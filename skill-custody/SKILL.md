@@ -64,6 +64,21 @@ baseline과 candidate의 다음 값이 모두 같아야 `COMPARABLE`이다.
 
 하나라도 누락·형식오류·불일치이면 `INCOMPARABLE`로 중단한다. 점수가 같다는 이유로 우회하지 않는다.
 
+## 밀어내기(supersession) 결정
+
+비슷한 스킬·하네스가 경쟁해 한쪽이 다른 쪽을 밀어낼 때는 `decision` event에 `supersession`을 넣는다.
+
+```json
+{"winner": "skill-b", "loser": "skill-a", "retained_strengths": ["task-7"],
+ "baseline": {"...": "비교 계약"}, "candidate": {"...": "비교 계약"}}
+```
+
+- `decision` 이외 event에 넣으면 실패한다.
+- `baseline`·`candidate`가 위 비교 계약에서 `COMPARABLE`이 아니면 기록 자체가 실패한다. 공정하지 않은 경쟁의 승패는 원장에 남지 않는다.
+- `retained_strengths`(밀려난 쪽이 더 잘한 과제)는 필수다. 빈 목록은 "확인했고 없음"이라는 명시이며 생략과 다르다. 승자독식 방지 장치다.
+- 밀려난 스킬은 삭제하지 않는다. 비활성화하고 이 event를 근거로 되돌릴 수 있게 둔다.
+- custody는 승패 판정이 옳은지를 보증하지 않는다. 같은 계약 아래에서 내려진 결정이라는 계보만 증명한다.
+
 ## 검증 기준
 
 - receipt의 event count, head hash, ledger SHA-256가 실제 파일과 일치한다.

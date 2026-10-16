@@ -246,6 +246,70 @@ class ChainOfCustodyTests(unittest.TestCase):
         self.assertEqual("PASS", records[-1]["status"])
         self.assertEqual(1, records[-1]["event_count"])
 
+    def contract(self, **changes: object) -> dict:
+        value = {
+            "cohort_id": "synthetic-v1",
+            "cohort_sha256": "a" * 64,
+            "n_units": 10,
+            "metric": {"name": "accuracy", "direction": "maximize", "unit": "ratio"},
+            "code_revision": "revision-a",
+            "adapter": "openai",
+            "provider": "openai",
+            "model": "synthetic-model",
+            "runtime": "batch",
+        }
+        value.update(changes)
+        return value
+
+    def supersession(self, **changes: object) -> dict:
+        value = {
+            "winner": "skill-b",
+            "loser": "skill-a",
+            "retained_strengths": ["synthetic-task-7"],
+            "baseline": self.contract(),
+            "candidate": self.contract(),
+        }
+        value.update(changes)
+        return value
+
+    def test_supersession_decision_is_recorded_and_verified(self) -> None:
+        custody.append_event(self.ledger, self.receipt, self.root, self.payload("judgment", 0))
+        custody.append_event(
+            self.ledger, self.receipt, self.root,
+            self.payload("decision", 1, supersession=self.supersession()),
+        )
+        self.assertEqual("PASS", custody.verify_ledger(self.ledger, self.receipt, self.root)["status"])
+        stored = self.read_events()[1]["supersession"]
+        self.assertEqual(("skill-b", "skill-a"), (stored["winner"], stored["loser"]))
+        self.assertEqual(["synthetic-task-7"], stored["retained_strengths"])
+
+    def test_supersession_rejects_invalid_push_out(self) -> None:
+        cases = {
+            "INCOMPARABLE": ("decision", self.supersession(candidate=self.contract(cohort_sha256="b" * 64))),
+            "only allowed on decision": ("judgment", self.supersession()),
+            "must differ": ("decision", self.supersession(loser="skill-b")),
+            "retained_strengths": ("decision", {k: v for k, v in self.supersession().items() if k != "retained_strengths"}),
+        }
+        for reason, (event_type, value) in cases.items():
+            with self.subTest(reason=reason), self.assertRaisesRegex(custody.CustodyError, reason):
+                custody.append_event(
+                    self.ledger, self.receipt, self.root,
+                    self.payload(event_type, 0, supersession=value),
+                )
+            self.assertFalse(self.ledger.exists())
+
+    def test_rehashed_incomparable_supersession_fails_verify(self) -> None:
+        custody.append_event(
+            self.ledger, self.receipt, self.root,
+            self.payload("decision", 0, supersession=self.supersession()),
+        )
+        events = self.read_events()
+        events[0]["supersession"]["candidate"]["code_revision"] = "revision-b"
+        events[0]["event_hash"] = custody.event_hash({k: v for k, v in events[0].items() if k != "event_hash"})
+        self.write_events_and_receipt(events)
+        with self.assertRaisesRegex(custody.IncomparableError, "code_revision"):
+            custody.verify_ledger(self.ledger, self.receipt, self.root)
+
 
 if __name__ == "__main__":
     unittest.main()

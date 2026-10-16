@@ -4,7 +4,7 @@
 
 ## 실행 게이트
 
-- [ ] `python3 -m unittest discover -s skill-custody/tests -p 'test_*.py' -v`가 테스트 1건 이상을 실행하고 전부 PASS했는가?
+- [ ] 스킬 디렉터리(`skill-custody/`)에서 `python3 -m unittest discover -s tests -p 'test_*.py' -v`가 테스트 1건 이상을 실행하고 전부 PASS했는가?
 - [ ] 정상 ledger가 `status=PASS`, event count > 0, artifact reference count > 0을 반환하는가?
 - [ ] artifact 한 바이트 변조가 `artifact digest mismatch`로 실패하는가?
 - [ ] event 삭제가 receipt count/digest 또는 chain 불일치로 실패하는가?
@@ -15,6 +15,8 @@
 - [ ] key 삽입 순서가 다른 동치 객체의 canonical JSON과 hash가 동일한가?
 - [ ] repo-relative POSIX path는 통과하고 절대경로·상위이동·역슬래시는 실패하는가?
 - [ ] Pareto cohort/metric/code/model/provider 중 하나라도 불일치하면 `INCOMPARABLE`인가?
+- [ ] 비교 계약이 `INCOMPARABLE`인 supersession은 append가 실패하고, 원장을 재해시해 끼워 넣어도 verify가 실패하는가?
+- [ ] supersession이 `decision` 외 event·winner=loser·`retained_strengths` 누락이면 실패하는가?
 
 ## 보안 게이트
 
