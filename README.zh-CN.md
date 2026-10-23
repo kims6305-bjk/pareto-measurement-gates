@@ -610,6 +610,12 @@ done
 > Meta-Harness++、MOEvo，以及提示层的 CRAFT、MO-CAPO。各要素均有先行工作；剩下的只是
 > **在指标轴前沿的支配判定内部加入噪声规则与拒绝判定、并在搜索前检验轴区分力的组合**，
 > 且我们只给出了规范，效果未经检验（IC-1 FAIL，搜索 0 次调用）。
+
+> **术语提示 ——"元 harness"的两种用法。** 业界也用它指在多个智能体/harness 之上**执行与管控的运行层**
+> （Databricks Omnigent、Anthropic Managed Agents）。本仓库指**修改 harness 并裁定是否采纳的优化循环**
+> （Lee et al., arXiv 2603.28052），采纳门的主张只适用于后者。两层可能互补——运行层提供同条件执行、计量与权限
+> 边界，优化层提供采纳裁定；但耦合后形成递归自我改进回路，错误标尺的误差可能放大，因此保留影子运行 → 门控 →
+> 人工批准的顺序。该耦合的效果为 **[构想·未验证]**。
 🔴 其中 TRACE-Router 留下的警告 —— **关于 front 占据的主张需要随机混合对照组**
 （"random mixture also traces the line segment"）。
 

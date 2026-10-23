@@ -721,6 +721,17 @@ A six-source survey looking for front-as-parent-selection (2026-08). Table in
 > prior work. What remains is only the **combination** — noise rules and refusal
 > inside metric-axis dominance plus a pre-search axis-discrimination check — and
 > we only specified it; its benefit is untested (IC-1 FAIL, zero search calls).
+
+> **Terminology — two meanings of "meta-harness".** Industry also uses the word
+> for an **operational layer that runs and governs** many agents/harnesses
+> (Databricks Omnigent, Anthropic Managed Agents). Here it means the
+> **optimization loop that changes harnesses and adjudicates adoption** (Lee et
+> al., arXiv 2603.28052); our adoption-gate claims apply only to that sense. The
+> two layers may be complementary — the operational layer supplies same-condition
+> runs, metering and permission fences; the optimizing layer supplies adoption
+> verdicts. Coupling them forms a recursive self-improvement loop in which a bad
+> ruler's errors can compound, so we keep shadow run → gate → human approval.
+> The benefit of this coupling is **[idea, untested]**.
 🔴 The warning TRACE-Router left behind — **claims of front occupancy require a
 random-mixture control** ("random mixture also traces the line segment").
 
