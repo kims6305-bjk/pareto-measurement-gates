@@ -601,9 +601,15 @@ done
 
 ### 元 harness 文献对照（决定 15）
 
-为寻找"以 front 作为父代选择规则"的六源对照。结论是：
-自我改进层中不存在，仅在其他领域（公式发现、路由）部分存在。表见
+为寻找"以 front 作为父代选择规则"的六源对照（2026-08）。表见
 [`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2。
+
+> ⚠️ **更正（2026-10-23）：** 当时的结论（"自我改进层中不存在"）已过时。2026 年 5–10 月
+> 出现了多目标 harness 优化：HarnessPro（arXiv 2610.26770，性能↔成本支配过滤）、
+> RRSI（2609.24972，噪声带接受规则）、Harmony Harness（2610.15150）、MoMHa（2609.30967）、
+> Meta-Harness++、MOEvo，以及提示层的 CRAFT、MO-CAPO。各要素均有先行工作；剩下的只是
+> **在指标轴前沿的支配判定内部加入噪声规则与拒绝判定、并在搜索前检验轴区分力的组合**，
+> 且我们只给出了规范，效果未经检验（IC-1 FAIL，搜索 0 次调用）。
 🔴 其中 TRACE-Router 留下的警告 —— **关于 front 占据的主张需要随机混合对照组**
 （"random mixture also traces the line segment"）。
 

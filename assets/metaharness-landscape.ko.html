@@ -1,0 +1,45 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><style>
+body{margin:0;width:1500px;background:#FAF9F6;font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;color:#141F38;word-break:keep-all}
+.w{padding:56px 64px} .k{font-size:22px;color:#B84A10;font-weight:700;letter-spacing:.04em}
+h1{font-size:44px;margin:8px 0 10px} .sub{font-size:22px;color:#5C6675;margin-bottom:26px}
+h2{font-size:27px;margin:0 0 14px}
+.box{background:#fff;border:2px solid #E5E2DA;border-radius:18px;padding:24px 28px;margin-bottom:18px}
+table{border-collapse:collapse;width:100%;font-size:20px}
+th{font-size:19px;color:#5C6675;text-align:left;padding:8px 10px;border-bottom:2px solid #E5E2DA}
+td{padding:9px 10px;border-bottom:1px solid #EEECE6;vertical-align:top}
+td.n{font-weight:700;white-space:nowrap} td.n small{display:block;font-weight:500;color:#888;font-size:15px}
+.y{color:#1E7B4F;font-weight:800} .p{color:#B8860B;font-weight:800} .x{color:#B3382F;font-weight:800}
+tr.us td{background:#FFF6EC} .note{font-size:15px;color:#777;display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rule{font-size:21px;line-height:1.6} .big{font-size:40px;font-weight:800}
+.foot{font-size:17px;color:#666;line-height:1.5;margin-top:4px}
+</style><div class="w">
+<div class="k">META-HARNESS × PARETO · 2026-10-23 문헌 재대조</div>
+<h1>요소마다 선행이 있다 — 남는 건 '한 판정식 안의 결합'뿐</h1>
+<div class="sub">자기개선 하네스 최적화 구현을 C1의 네 요소로 나눠 대조했다 (읽은 범위 15건 중 주요 10건)</div>
+<div class="box"><table>
+<tr><th style="width:24%">구현</th><th>E1 지표 축 전선 + 지배</th><th>E2 판정 안의 노이즈 규칙</th><th>E3 판정 거부 출력</th><th>E4 탐색 전 축 판별력 검침</th></tr>
+<tr><td class="n">Meta-Harness<small>2603.28052 · 원본</small></td><td class="x">✗ <span class="note">"Pareto dominance" 문장만</span></td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+<tr><td class="n">GEPA<small>2507.19457 + 레포</small></td><td class="p">△ <span class="note">목적별 최고점만 전선</span></td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+<tr><td class="n">HarnessPro<small>2610.26770 · 10/20</small></td><td class="y">✅ <span class="note">성능↔비용 지배 필터</span></td><td class="x">✗ <span class="note">과제당 1회 점추정</span></td><td class="x">✗</td><td class="p">△ <span class="note">생성 테스트 재현율 점검</span></td></tr>
+<tr><td class="n">RRSI<small>2609.24972 · 10/4</small></td><td class="x">✗ <span class="note">단일 incumbent</span></td><td class="y">✅ <span class="note">노이즈 대역 δ (전역)</span></td><td class="p">△ <span class="note">대역 안이면 유지</span></td><td class="x">✗</td></tr>
+<tr><td class="n">Harmony Harness<small>2610.15150 · 10/10</small></td><td class="p">△ <span class="note">분해형, 수락은 스칼라</span></td><td class="x">✗</td><td class="x">✗</td><td class="p">△ <span class="note">판정기 보정·채점 잠금</span></td></tr>
+<tr><td class="n">MoMHa<small>2609.30967 · 9/25</small></td><td class="x">✗ <span class="note">가중합, 전선은 사후</span></td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+<tr><td class="n">Meta-Harness++<small>GitHub 134747a</small></td><td class="y">✅ <span class="note">정확도·토큰·지연</span></td><td class="p">△ <span class="note">전선 밖 승격 단계만 CI</span></td><td class="p">△ <span class="note">승격 보류</span></td><td class="x">✗</td></tr>
+<tr><td class="n">MOEvo · CRAFT · MO-CAPO</td><td class="y">✅</td><td class="p">△ <span class="note">CRAFT 코드 옵션 · MO-CAPO 평가 추가</span></td><td class="x">✗</td><td class="x">✗</td></tr>
+<tr class="us"><td class="n">우리 (명세)<small>pareto-measurement-gates</small></td><td class="y">✅</td><td class="y">✅ <span class="note">후보별 CI 비겹침</span></td><td class="y">✅ <span class="note">INCOMPARABLE</span></td><td class="x">✅ 명세 · <b>실행 FAIL</b> <span class="note">IC-1, 탐색 0콜</span></td></tr>
+</table></div>
+<div class="two">
+<div class="box"><h2>그래서 주장은 이만큼만</h2><div class="rule">
+✅ 네 요소를 <b>한 판정식 안에</b> 명세한 구현은 읽은 범위에 없다<br>
+✗ 요소별 새로움 — 전부 선행 있음<br>
+✗ "결합이 더 나은 탐색을 만든다" — 미검증(C13)<br>
+가장 가까운 선행: GEPA → <b>HarnessPro + RRSI</b></div></div>
+<div class="box"><h2>우리 메타하네스의 현재 위치</h2><div class="rule">
+부품 7종(제안자·실행기·채점·전선·기록·선택·예산) <b class="y">보유</b><br>
+기록 = 기준선 <b>1행</b> · 본 탐색 <b>0콜</b><br>
+막힌 곳 = 계기 검침 IC-1 (라벨 11건, CI 폭 0.82)<br>
+다음 = 라벨 약 150건 + 대조군 사전점검 + 새 사전등록</div></div>
+</div>
+<div class="foot">✅ 갖춤 · △ 부분 · ✗ 없음(읽은 범위). 정본: LIT_CHECK_20261023.md · 정독 노트 3건(인용·절 번호). 판정은 원문 본문·핵심 부록·공개 코드 기준이며, 일부 부록·미공개 코드는 미확인.</div>
+</div></html>

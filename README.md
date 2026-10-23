@@ -611,9 +611,17 @@ done
 
 ### 메타하네스 문헌 대조 (결정 15)
 
-front를 부모 선택 규칙으로 쓰는 사례를 찾기 위한 6소스 대조. 요지는
-"자기개선 계층에는 없고, 타 도메인(수식 발견·라우팅)에만 부분적으로 있다"이며
-표는 [`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2.
+front를 부모 선택 규칙으로 쓰는 사례를 찾기 위한 6소스 대조(2026-08). 표는
+[`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2.
+
+> ⚠️ **2026-10-23 정정:** 당시 요지("자기개선 계층에는 없다")는 낡았다. 2026년 5~10월에
+> 다목적 하네스 최적화가 연달아 나왔다 — 성능↔비용 지배 필터와 전선 기반 다음 세대
+> 선택(HarnessPro, arXiv 2610.26770), 노이즈 대역 수락(RRSI, 2609.24972), 분해형 다목적
+> 진화(Harmony Harness, 2610.15150), 가중합 3축(MoMHa, 2609.30967), Meta-Harness++, MOEvo,
+> 프롬프트 층의 CRAFT·MO-CAPO. 요소별로는 전부 선행이 있다. 남는 것은 **지표 축 전선의 지배
+> 판정 안에 노이즈 규칙·판정 거부를 두고 탐색 전에 축 판별력을 검침하는 결합**뿐이며,
+> 우리는 그 결합을 명세했을 뿐 효과는 보이지 못했다(IC-1 FAIL, 탐색 0콜).
+> ![메타하네스 지형도](assets/metaharness-landscape.ko.png)
 🔴 그중 TRACE-Router가 남긴 경고 — **front 점유 주장에는 무작위 혼합 대조군이
 필요하다**("random mixture also traces the line segment").
 

@@ -29,6 +29,8 @@ body{width:1500px}
 .room .nm{font-size:16.5px;font-weight:700;color:#fff}
 .room .nm span{display:block;font-size:14px;color:#9FB0C8;font-weight:500;margin-top:2px}
 .room .pass{font-size:15px;font-weight:800;color:#8FD9B4;background:#16351F;padding:6px 14px;border-radius:999px}
+body{word-break:keep-all}
+.room .pass{white-space:nowrap}
 </style>
 <div class="kicker">확장 · 메타하네스 — AI가 스스로를 개선하는 루프</div>
 <h1>네 번 다 검정에 실패했다. 그게 게이트가 한 일이다</h1>
@@ -42,24 +44,25 @@ body{width:1500px}
     <div class="stage f"><div class="dot">1</div><div class="tx"><b>1라운드 · 판정 불가</b><span>채점 단위의 구조적 결함 + 표본 54건 한계</span></div></div>
     <div class="stage f"><div class="dot">2</div><div class="tx"><b>2라운드 · 기저율 미달로 종결</b><span>찾으려는 사건이 3.3%밖에 안 나옴</span></div></div>
     <div class="stage f"><div class="dot">3</div><div class="tx"><b>3라운드 · 검정 못함</b><span>순환 차단 규칙이 신호까지 전량 걷어감</span></div></div>
-    <div class="stage f"><div class="dot">4</div><div class="tx"><b>4라운드 · 검침 단계에서 종결</b><span>표본 55건에선 신뢰구간이 전부 겹침</span></div></div>
+    <div class="stage f"><div class="dot">4</div><div class="tx"><b>4라운드 · 검침 IC-1 FAIL (재실행)</b><span>첫 실행은 원장 중복으로 무효 → 10/6 깨끗한 재실행도 FAIL</span></div></div>
     <div class="cap" style="margin:16px 0 0;color:var(--text)">3라운드의 딜레마가 이 실험의 핵심 관찰입니다 —
       <b>순환을 피하려고 가설을 만든 표본을 빼면, 검정할 신호도 같이 빠집니다.</b></div>
   </div>
 
   <div class="card2">
-    <h3>대신 비용을 이만큼 막았다</h3>
-    <div class="cap">본 탐색을 시작하기 <b>전에</b> "이 축이 좋고 나쁨을 구별할 힘이 있나"부터 쟀습니다.</div>
+    <h3>4라운드 정정 — 무엇이 실패했나</h3>
+    <div class="cap">⚠️ 이 카드의 옛 판본("330콜이 1,650콜을 막았다", "축의 방향은 맞았다")은 <b>원장 중복으로 무효</b>가 되어 철회했습니다.</div>
     <div class="ledger">
-      <div class="r"><div class="k">예정돼 있던 본 탐색 예산</div><div class="v cut">1,650콜</div></div>
-      <div class="r"><div class="k">→ 시작 전에 차단</div><div class="v" style="color:var(--neg)">사용 0콜</div></div>
-      <div class="r"><div class="k">계기 검침에 실제로 쓴 비용</div><div class="v">495콜</div></div>
-      <div class="r"><div class="k">그중 판별력 테스트(네거티브 컨트롤)</div><div class="v">330콜</div></div>
+      <div class="r"><div class="k">첫 실행 원장 (계획 495행)</div><div class="v cut">608행 · 무효</div></div>
+      <div class="r"><div class="k">재실행 정밀도 — 기준선 c000</div><div class="v">0.600</div></div>
+      <div class="r"><div class="k">재실행 정밀도 — 과검출 유도 대조군</div><div class="v" style="color:var(--neg)">0.778 (오히려 높음)</div></div>
+      <div class="r"><div class="k">본 탐색에 쓴 콜</div><div class="v">0콜 (시작 안 함)</div></div>
     </div>
     <div class="cap" style="margin:18px 0 0;color:var(--text)">
-      직전 라운드는 이 검침을 <b>생략했다가 1,650콜을 태웠습니다.</b> 이번엔 330콜이 같은 손실을 사전에 막았습니다.<br><br>
-      <b>축의 방향은 맞았습니다</b> — 과검출 후보가 실제로 낮은 점수를 받았습니다.
-      실패한 건 방향이 아니라 <b>검정력</b>이었고, 그래서 처방도 "설계 수정"이 아니라 <b>"표본 확대"</b>로 확정됐습니다.
+      실패는 두 겹입니다. ① <b>대조군 조작이 듣지 않았고</b>(문제 판정 10→9건으로 오히려 감소),
+      ② 사람 라벨 문제 11건에선 기준선 신뢰구간 폭이 <b>0.82</b>라 어떤 축도 구별하기 어렵습니다.<br><br>
+      그래서 검침이 탐색 비용을 아꼈다는 효과는 <b>주장하지 않습니다.</b>
+      다음은 <b>라벨 표본 확대(약 150건) + 조작 강도를 미리 점검한 대조군 + 데이터 열람 전 새 사전등록</b> — 같은 표본으로 축만 바꾸는 재시도는 금지입니다.
     </div>
   </div>
 </div>
@@ -80,4 +83,4 @@ body{width:1500px}
   </div>
 </div>
 
-<div class="foot">근거: 4라운드 판정문서 · 계기 검침 결과(PASS) · 옆방 검증 결과(3방 PASS) · 판정기와 채점기는 결과 열람 전 커밋으로 고정</div>
+<div class="foot">근거: 4라운드 판정문서(gate/PARETO_MH_VERDICT.md, 2026-10-06 재실행) · 계기 검침 결과(PASS) · 옆방 검증 결과(3방 PASS) · 판정기와 채점기는 결과 열람 전 커밋으로 고정</div>

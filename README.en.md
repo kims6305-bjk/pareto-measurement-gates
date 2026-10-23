@@ -708,10 +708,19 @@ one assumes — and where they fail to hold for a harness — are in
 
 ### Meta-harness literature survey (decision 15)
 
-A six-source survey looking for front-as-parent-selection. The finding: absent in
-the self-improvement layer, only partially present in other domains (equation
-discovery, routing). Table in
+A six-source survey looking for front-as-parent-selection (2026-08). Table in
 [`gate/PARETO_META_HARNESS_DESIGN.md`](gate/PARETO_META_HARNESS_DESIGN.md) §2.
+
+> ⚠️ **Correction (2026-10-23):** the original finding ("absent in the
+> self-improvement layer") is outdated. Multi-objective harness optimizers
+> appeared through May–Oct 2026: a performance-cost dominance filter whose
+> selected harnesses seed the next round (HarnessPro, arXiv 2610.26770), a
+> noise-band acceptance rule (RRSI, 2609.24972), decomposition-based evolution
+> (Harmony Harness, 2610.15150), a weighted three-axis reward (MoMHa, 2609.30967),
+> Meta-Harness++, MOEvo, and prompt-layer CRAFT and MO-CAPO. Every element has
+> prior work. What remains is only the **combination** — noise rules and refusal
+> inside metric-axis dominance plus a pre-search axis-discrimination check — and
+> we only specified it; its benefit is untested (IC-1 FAIL, zero search calls).
 🔴 The warning TRACE-Router left behind — **claims of front occupancy require a
 random-mixture control** ("random mixture also traces the line segment").
 
