@@ -50,3 +50,7 @@ def test_sfk_v2_filters():
         for u in json.loads((S / f"sfk_{split}.json").read_text(encoding="utf-8")):
             assert not re.match(r"^(따라서|그러나|이러한|또한|이 경우)", u["claim_text"]), u["id"]
             assert not (u["kind"] == "C" and re.search(r"(때문|것)이 아니다\.$", u["claim_text"])), u["id"]
+            assert not re.match(r"^(예를 들어|예컨대|이 개정)", u["claim_text"]), u["id"]          # 추기 2
+            assert not re.search(r"때문이(다|\s*아니다)\.$", u["claim_text"]), u["id"]
+            if u["kind"] == "C":
+                assert not re.search(r"(하고|하며|거나|도록),? ", u["source"]["sentence"]), u["id"]

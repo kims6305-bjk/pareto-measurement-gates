@@ -1,11 +1,11 @@
 {
  "cap": 0.1,
  "main_n": 400,
- "n_clusters_eligible": 1634,
- "n_clusters_faultable": 1634,
+ "n_clusters_eligible": 1625,
+ "n_clusters_faultable": 1625,
  "pilot_n": 100,
- "questions_file_sha256": "0ca6769f1adb5683e69e14157f6dfd78a55efe5e4e7001de8c177cd1147b32ab",
- "seed": 20261125,
+ "questions_file_sha256": "3e3f4b96f111f6d850dbb88268cf234b01b747fef356a4bcaf8ff9a0cc4f88c4",
+ "seed": 20261126,
  "source_manifest": {
   "1000 재무보고를 위한 개념체계.md": "4b89a08b1b407a379102094b01d1870083f3aeb36b7a9ab7041c2f7c36de5a34",
   "1001 재무제표 표시.md": "c98c3da58ba49abe0d9115e20872dcc2589152e4deebf5f111ed1d9ac1c53934",

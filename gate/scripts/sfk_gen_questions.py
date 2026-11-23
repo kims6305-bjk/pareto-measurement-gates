@@ -3,7 +3,7 @@
 근거 두 문단만 보여준다(주장·라벨 비노출). 결과는 sfk_questions_raw.jsonl 에 이어쓰기(resume),
 끝나면 sfk_questions_FROZEN.json 으로 동결한다. 동결 파일이 있으면 아무것도 하지 않는다(재생성 금지).
 
-usage:  python sfk_gen_questions.py [--workers 3]
+usage:  python sfk_gen_questions.py [--workers 3] [--reuse]   (--reuse: 추기 2, v2 와 근거 동일 군집 질문 재사용)
 """
 from __future__ import annotations
 
@@ -63,6 +63,13 @@ def main() -> None:
         raise SystemExit("동결 파일이 이미 있다 — 재생성 금지(부속서8 §2-4)")
     ev = {u["pair"]: u["evidence"] for split in ("pilot", "main")
           for u in json.loads((S / f"sfk_{split}.json").read_text(encoding="utf-8")) if u["kind"] == "S"}
+    if "--reuse" in sys.argv and not RAW.exists():   # 추기 2: 근거(S 단위 evidence)가 바이트 동일한 군집만 이전 판 질문 재사용
+        old = {u["pair"]: (u["evidence"], u["question"]) for split in ("pilot", "main")
+               for u in json.loads((S / f"sfk_v2_{split}.json").read_text(encoding="utf-8")) if u["kind"] == "S"}
+        with RAW.open("w", encoding="utf-8") as f:
+            for c in sorted(ev):
+                if c in old and old[c][0] == ev[c] and old[c][1]:
+                    f.write(json.dumps({"cid": c, "question": old[c][1], "model": MODEL, "reused_from": "v2"}, ensure_ascii=False) + "\n")
     done = {json.loads(l)["cid"] for l in RAW.open(encoding="utf-8")} if RAW.exists() else set()
     todo = sorted(c for c in ev if c not in done)
     print(f"군집 {len(ev)}, 완료 {len(done)}, 남음 {len(todo)}", flush=True)

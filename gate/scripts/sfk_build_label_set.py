@@ -25,13 +25,15 @@ SRC = Path.home() / "Documents/Obsidian Vault/20.회계사가 된 유성이/10.K
 AB = GATE.parent / "ab/ab_questions_FROZEN.json"
 QFILE = GATE / "scripts/sfk_questions_FROZEN.json"
 OUT = {k: GATE / f"scripts/sfk_{k}.json" for k in ("meta", "pilot", "main")}
-SEED = 20261125                              # 추기 1: 검수 결함으로 새 seed 재생성 (v1 = 20261124)
+SEED = 20261126                              # 추기 2: 검수 v2 결함으로 새 seed 재생성 (v1 = 20261124, v2 = 20261125)
 PILOT_N = 100
 CAP = 0.10                                   # 한 기준서 상한 = 정원의 10%
 FAULT_CYCLE = ("C", "Iswap", "C", "Idrop")
 LIST_ITEM = re.compile(r"^\s*[-*]\s|^\s*(?:\(\d+\)|\d+\.|[가-하]\.|\([가-하]\))\s")
-CONNECTIVE = re.compile(r"^(?:따라서|그러나|그러므로|그런데|또한|하지만|즉|이러한|이와 같은|이 경우|이때|그러한|위의|앞의)")
-NEG_AWKWARD = re.compile(r"(?:때문|것)이다\.$")   # 추기 1: '~때문이 아니다'·'~것이 아니다' 는 비문 → C-neg 부적격
+CONNECTIVE = re.compile(r"^(?:따라서|그러나|그러므로|그런데|또한|하지만|즉|이러한|이와 같은|이 경우|이때|그러한|위의|앞의|예를 들어|예컨대|마찬가지로|이에 따라|이 개정|동 개정)")
+NEG_AWKWARD = re.compile(r"(?:때문|것)이다\.$"   # 추기 1: '~때문이 아니다'·'~것이 아니다' 는 비문 → C-neg 부적격
+                         r"|(?:하고|하며|하되|이고|이며|되고|되며),? |거나,? |도록,? |도 [^.]*수 있다\.$")   # 추기 2: 복문은 끝 술어만 부정돼 비문
+DEPENDENT = re.compile(r"때문이다\.$")        # 추기 2: 앞 문장에 기대는 이유문 → 주장 후보 제외
 PARA = re.compile(r"^### 문단 (\S+)\s*$", re.M)
 
 
@@ -55,7 +57,7 @@ def sents(t: str) -> list[str]:
             continue                         # 추기 1: 목록 조각(주어 탈락)·앞 문맥 의존 문장 제외
         s = re.sub(r"^\s*[-*]?\s*(?:\(\d+\)|\d+\.|[가-하]\.|\([가-하]\))?\s*", "", raw.strip())
         if (s.endswith("다.") and 20 <= len(s) <= 160 and "\n" not in s and not s.startswith("#")
-                and not re.search(r"다음[^.]*다\.$", s) and s not in out):
+                and not re.search(r"다음[^.]*다\.$", s) and not DEPENDENT.search(s) and s not in out):
             out.append(s)
     return out
 
