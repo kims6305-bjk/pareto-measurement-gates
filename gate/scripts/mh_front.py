@@ -2,8 +2,8 @@
 
 정본: `gate/PARETO_META_HARNESS_DESIGN.md`
   §4.1  강한 지배 정의 (2축, 둘 다 최대화)
-  §4.2  동률 3경우 — 완전동률 병존 / 한축동률+한축우세는 지배 / 트레이드오프 병존. **스칼라화 금지**
-  §4.3  N2 — **CI 가 겹치면 그 축은 동률.** 판정용 CI = ci_qid (F3)
+  §4.2  동률 3경우 — 완전동률 병존 / 한축동률+한축우세는 (점 추정에서만) 지배 / 트레이드오프 병존. **스칼라화 금지**
+  §4.3  N2 — **CI 가 걸쳐 겹치면 그 축은 미결**(부속서4; 원안 '동률'은 비추이적이라 정정). 판정용 CI = ci_qid (F3)
   §4.4  R1~R5 위반 → UNJUDGED (지배도 피지배도 하지 않는다)
   §5.1  파일 2개 스키마 — mh_archive.jsonl(append-only 원장) / mh_front.json(파생 캐시)
   §5.2  진입 3단계 (INVALID → 측정 → 표본요건) + G1 열등이동 차단
@@ -277,8 +277,8 @@ def compute_front(latest: dict[str, dict], ci_key: Optional[str]) -> dict:
         if by:
             dominated[i] = by
     front = [i for i in _sort_ids(pool) if i not in dominated]
-    # CI 겹침=동률 지배는 비추이적 → 전선 밖 후보만이 지배하는 후보가 생긴다.
-    # 판정은 바꾸지 않고 진단만 남긴다 (front 커버리지 결손).
+    # 부속서4 전 규칙(CI 겹침=동률)은 비추이적이라 전선 밖 후보만이 지배하는 후보가 생겼다.
+    # 건전 구간 지배에선 항상 빈 목록이어야 한다 — 회귀 감시용 진단 (front 커버리지 결손).
     uncovered = [i for i in _sort_ids(dominated) if not set(dominated[i]) & set(front)]
 
     # G1 (§5.2): baseline 에게 지배당한 후보는 부모 후보에서 영구 제외
