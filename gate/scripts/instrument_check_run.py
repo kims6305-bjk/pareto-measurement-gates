@@ -91,7 +91,12 @@ def call(prompt: str) -> tuple[str, str]:
         raw = (p.stdout or "").strip()
     except Exception as exc:  # noqa: BLE001
         return "UNRESOLVED", f"judge error: {type(exc).__name__}"
+    # 호출 실패는 판정이 아니다 — 원장에 쓰지 않고 멈춘다(부속서5 추기 4). 러너는 resume 구조라 재실행하면 이어 간다.
     m = re.search(r"\{.*\}", raw, re.S)
+    if not m and re.search(r"hit your .{0,30}limit|rate.?limit|usage limit", raw + (p.stderr or ""), re.I):
+        raise SystemExit(f"judge CLI rate_limit: {(raw + (p.stderr or ''))[:200]}")
+    if p.returncode != 0:
+        raise SystemExit(f"judge CLI 실패 exit={p.returncode}: {((p.stderr or '') + raw)[:200]}")
     if not m:
         return "UNRESOLVED", "출력에 JSON 없음"
     try:

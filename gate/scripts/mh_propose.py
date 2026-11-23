@@ -33,7 +33,7 @@ import phase3_build_prompts as p3  # noqa: E402
 
 from mh_exp import E2  # noqa: E402
 
-PROPOSER_MODEL = "claude-opus-5-5" if E2 else "claude-sonnet-5"   # 부속서5 §9 추기1 / mh_propose.md §3 — same for every condition
+PROPOSER_MODEL = "claude-fable-5-2" if E2 else "claude-sonnet-5"   # 부속서5 §9 추기4(추기1 철회) / mh_propose.md §3 — same for every condition
 CLI_TIMEOUT = 300
 
 # ── U11 surface list. Order = order of concatenation inside p3.JUDGE. ───────────
