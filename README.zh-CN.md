@@ -52,6 +52,8 @@ validator、retry、reviewer、safety filter、retrieval reranker、audit rule �
 | `REMOVE` | OFF 支配 ON | 用户批准后删除或禁用 |
 | `EQUAL`（简易判定器） | OFF 与 ON 相同 | 建议更简单的 OFF；custody 门禁则返回 `KEEP`（维持现状），均不自动删除 |
 | `TEST_THIN` | OFF 与 ON 都在前沿 | 测量只在失败案例开启的条件候选 |
+| `UNRESOLVED` | 区间（`quality_ci`/`cost_ci`）重叠，支配与权衡均未确立 | 增加样本重测；在此之前保持 OFF，不得作为支配证据 |
+| `INCOMPARABLE` | OFF/ON `cohort`（评测集）不一致 | 在同一评测集上重测 |
 | `NOT_MEASURED` | 目标触达为 0 | 不得声称无效果；先修复瞄准集 |
 
 ```bash
@@ -60,7 +62,7 @@ python3 gate/reach_check.py --demo
 python3 gate/tests/test_field_validation.py
 ```
 
-最后一条命令不是合成示例。它直接重新汇总 **119 题公开 A/B 原始数据**以复现 `REMOVE`。
+最后一条命令不是合成示例。它直接重新汇总 **119 题公开 A/B 原始数据**，以点估计精确比较复现 `REMOVE`（对同一原始数据给出 Wilson 95% 区间时，过度纠正 0/119 与 1/119 重叠，结果为 `UNRESOLVED`——两者建议都是 OFF，但按区间“支配”不成立）。
 来自未公开原始数据的现场汇总（触达 17/20、目标暴露 36→21、整体排序变化 13）仅作一致性
 replay 以确认 `MOVED`，并非查询级独立重算。
 形式定义、可识别性命题与局限见[研究笔记](docs/TARGETING_REACH_NOTE.md)，

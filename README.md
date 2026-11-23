@@ -53,6 +53,8 @@ inventory합니다. 발동 조건·실패군·행동이 겹치면 “한 레이�
 | `REMOVE` | OFF가 ON을 지배 | 사용자 승인 후 제거·비활성화 |
 | `EQUAL` (간이 판정기) | 두 점이 동일 | 더 단순한 OFF *제안*; custody의 동점 `KEEP`(현상 유지)과 다르며 자동 제거하지 않음 |
 | `TEST_THIN` | OFF와 ON이 모두 전선 | 실패군에만 ON인 조건부 후보를 측정 |
+| `UNRESOLVED` | 구간(`quality_ci`/`cost_ci`)이 겹쳐 지배·상충 미확정 | 표본 늘려 재측정; 그 전엔 OFF 유지, 지배 근거로 쓰지 않음 |
+| `INCOMPARABLE` | OFF/ON `cohort`(평가셋) 불일치 | 같은 평가셋에서 재측정 |
 | `NOT_MEASURED` | 대상 도달 0 | 효과 없음 단정 금지; 겨냥셋 수리 |
 
 ```bash
@@ -61,8 +63,8 @@ python3 gate/reach_check.py --demo
 python3 gate/tests/test_field_validation.py
 ```
 
-마지막 명령은 합성 예제가 아닙니다. **공개 A/B 원자료 119문은 직접 재집계**해 `REMOVE`를
-재현하고, 비공개 원자료에서 기록된 필드 집계(도달 17/20·대상노출 36→21·전체 순서변동 13)는
+마지막 명령은 합성 예제가 아닙니다. **공개 A/B 원자료 119문은 직접 재집계**해 점추정 exact 비교로 `REMOVE`를
+재현하고(같은 원자료에 Wilson 95% 구간을 주면 과교정 0/119 vs 1/119가 겹쳐 `UNRESOLVED` — 권고는 둘 다 OFF지만 "지배"는 구간 기준으로 성립하지 않음), 비공개 원자료에서 기록된 필드 집계(도달 17/20·대상노출 36→21·전체 순서변동 13)는
 정합성 replay로 `MOVED`를 확인합니다(필드 query-level 독립 재계산은 아님).
 도달 분모의 형식화·식별 명제·한계는 [연구 노트](docs/TARGETING_REACH_NOTE.md),
 아홉 번의 계측 실패는 [사례집](gate/MEASUREMENT_FAILURES.md)에 있습니다.

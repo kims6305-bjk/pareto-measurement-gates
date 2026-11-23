@@ -51,6 +51,45 @@ def test_public_ab():
     assert v.verdict == "REMOVE", v
     print(f"public A/B {n}문 직접집계 → REMOVE (정확도 {acc_a}/{n} 동일, ON 과교정 {over}/{n})")
 
+    # 같은 원자료에 Wilson 95% 구간을 주면 과교정 0/119 vs 1/119가 겹쳐 미결
+    def wilson(k, z=1.96):
+        p = k / n
+        c = (p + z * z / (2 * n)) / (1 + z * z / n)
+        h = z * (p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5 / (1 + z * z / n)
+        return (round(max(0.0, c - h), 12), round(min(1.0, c + h), 12))
+    off = Point(acc_a / n, 0.0, wilson(acc_a), wilson(0), "ab119")
+    on = Point(acc_b / n, over / n, wilson(acc_b), wilson(over), "ab119")
+    assert judge(off, on, reach=n).verdict == "UNRESOLVED"
+    assert judge(off, Point(on.quality, on.cost, on.quality_ci, on.cost_ci, "other")).verdict == "INCOMPARABLE"
+    with pytest.raises(ValueError):
+        judge(off, Point(on.quality, on.cost, None, on.cost_ci, "ab119"))   # 한쪽만 구간
+    with pytest.raises(ValueError):
+        judge(off, Point(on.quality, on.cost, on.quality_ci, on.cost_ci))   # 한쪽만 cohort
+
+
+def test_interval_dominance_is_sound_and_transitive():
+    """구간 지배는 ①구간 내 모든 참값 조합에서 지배(건전) ②추이적 ③구간 없으면 기존 점 비교와 동일."""
+    import random
+    from harness_diet import dominates
+    rnd = random.Random(0)
+
+    def rp():
+        q, c = sorted(rnd.random() for _ in range(2)), sorted(rnd.random() * 10 for _ in range(2))
+        return Point(sum(q) / 2, sum(c) / 2, tuple(q), tuple(c))
+
+    for _ in range(20000):
+        a, b, c = rp(), rp(), rp()
+        if dominates(a, b):
+            for _ in range(5):
+                qa, qb = rnd.uniform(*a.quality_ci), rnd.uniform(*b.quality_ci)
+                ca, cb = rnd.uniform(*a.cost_ci), rnd.uniform(*b.cost_ci)
+                assert qa >= qb and ca <= cb
+            if dominates(b, c):
+                assert dominates(a, c)
+        x, y = Point(round(rnd.random(), 1), round(rnd.random(), 1)), Point(round(rnd.random(), 1), round(rnd.random(), 1))
+        old = x.quality >= y.quality and x.cost <= y.cost and (x.quality > y.quality or x.cost < y.cost)
+        assert dominates(x, y) == old
+
 
 def test_committed_front_hash_matches_archive():
     # 커밋된 모든 front 캐시는 같은 폴더의 원장과 해시가 맞아야 한다.
