@@ -141,27 +141,31 @@ def test_dominance_clear_dominated():
 
 
 def test_dominance_exact_tie_both_survive():
-    """§4.2-1 완전 동률 — 서로 지배하지 않고 둘 다 front 에 남는다."""
+    """§4.2-1 같은 점·같은 CI — 서로 지배하지 않고 둘 다 front 에 남는다(부속서4: 라벨은 미결)."""
     x = cand("cA", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85])
     y = cand("cB", 0.80, 0.70, [0.60, 0.95], [0.50, 0.85], generation=1)
     assert mf.dominates(x, y, QID) is False
     assert mf.dominates(y, x, QID) is False
-    assert mf.relation(x, y, QID) == "동률(병존)"
+    assert mf.relation(x, y, QID) == "미결(CI 겹침)"
+    assert mf.relation(x, y, None) == "동률(병존)"
     res = mf.compute_front({"cA": x, "cB": y}, QID)
     assert res["front"] == ["cA", "cB"]
     assert res["uncovered"] == []
 
 
-def test_front_coverage_gap_is_reported_not_rewritten():
-    """CI 겹침=동률은 비추이적: B≻A, A≻C, B~C → 전선 {B}, C 는 전선 밖 A 에게만 지배.
-    판정(front)은 그대로 두고 uncovered 로만 드러낸다 (clpi frontier_complete 대조)."""
+def test_front_coverage_gap_closed_by_sound_interval_dominance():
+    """부속서4 전: 겹침=동률이라 B≻A, A≻C, B~C → front {B}, C 는 front 밖 A 에게만 지배(uncovered).
+    부속서4 후: 걸친 겹침 축이 있으면 지배 아님 → 셋 다 비지배, 커버 결손 0 (clpi frontier_complete 대조)."""
     a = cand("cA", 0.1085, 0.7615, [0.098, 0.119], [0.649, 0.874])
     b = cand("cB", 0.6295, 0.477, [0.28, 0.979], [0.1, 0.854])
     c = cand("cC", 0.239, 0.364, [0.081, 0.397], [0.275, 0.453])
     res = mf.compute_front({"cA": a, "cB": b, "cC": c}, QID)
-    assert res["front"] == ["cB"]
-    assert res["dominated"] == {"cA": ["cB"], "cC": ["cA"]}
-    assert res["uncovered"] == ["cC"]
+    assert res["front"] == ["cA", "cB", "cC"]
+    assert res["dominated"] == {} and res["uncovered"] == []
+    # 접촉(하한 = 상한)은 '이상'으로 인정 — 한 방향으로만
+    x = cand("cX", 0.70, 0.90, [0.674, 0.797], [0.85, 0.95])
+    y = cand("cY", 0.40, 0.30, [0.063, 0.674], [0.20, 0.40])
+    assert mf.dominates(x, y, QID) is True and mf.dominates(y, x, QID) is False
 
 
 def test_dominance_ci_overlap_is_tie():
@@ -466,12 +470,14 @@ def test_front_returns_exit_code_on_incomparable_archive(tmp_path):
 
 
 def test_dominance_one_axis_tie_one_axis_better():
-    """§4.2-2 한 축 동률 + 한 축 우세 → 지배. PHASE1 3표 합의와 같은 형태."""
+    """§4.2-2 한 축 CI 겹침 + 한 축 우세 → 부속서4 이후 지배 아님(미결). 점 추정 모드에선 지배."""
     x = cand("cA", 0.90, 0.95, [0.70, 1.00], [0.90, 1.00])
     y = cand("cB", 0.90, 0.40, [0.70, 1.00], [0.20, 0.60])
     assert mf.cmp_axis(x, y, "recall", QID) == 0
     assert mf.cmp_axis(x, y, "precision", QID) == +1
-    assert mf.dominates(x, y, QID) is True
+    assert mf.dominates(x, y, QID) is False
+    assert mf.relation(x, y, QID) == "미결(CI 겹침)"
+    assert mf.dominates(x, y, None) is True
 
 
 def test_dominance_tradeoff_non_dominated():

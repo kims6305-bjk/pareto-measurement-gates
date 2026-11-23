@@ -117,11 +117,10 @@ def validate_comparability(pool: dict[str, dict]) -> None:
 
 
 def cmp_axis(x: dict, y: dict, axis: str, ci_key: Optional[str]) -> int:
-    """축 비교. 반환 +1(x 우세) / 0(동률) / -1(y 우세).
+    """축 비교. 반환 +1(x 우세 확정) / 0(우열 미확정) / -1(y 우세 확정).
 
-    §4.3 N2: 95% CI 가 겹치면 그 축은 **동률로 간주**한다. 겹침 판정은
-    "한쪽 하한이 다른쪽 상한보다 크다" 즉 구간 비겹침이며, 이는 우리 레포가 이미 쓰는
-    기준(PHASE1/PHASE3/P4 의 Wilson 비겹침)을 dominance 연산자 안으로 옮긴 것이다.
+    §4.3 N2: 95% CI 가 겹치면 그 축은 우세로 세지 않는다. 부속서4(2026-11-23, 후보 간 지배
+    비교 0건 시점)부터 겹침은 '동률'이 아니라 '미확정'이며, 지배 여부는 `_no_worse` 가 정한다.
 
     ci_key=None 이면 점 추정만 비교한다 (§12.2 ablation A-CI, `--ci none`).
     """
@@ -137,30 +136,43 @@ def cmp_axis(x: dict, y: dict, axis: str, ci_key: Optional[str]) -> int:
 
     cx, cy = _ci(x, axis, ci_key), _ci(y, axis, ci_key)
     if not cx or not cy:
-        return 0                       # CI 미정의 → 동률로 둔다 (fail-closed)
+        return 0                       # CI 미정의 → 우열 없음. dominates 는 _straddles 로 차단
     if cx[0] > cy[1] + EPS:
         return 1
     if cy[0] > cx[1] + EPS:
         return -1
-    return 0                           # 겹침 → 동률
+    return 0                           # 겹침 → 우열 미확정
+
+
+def _no_worse(x: dict, y: dict, axis: str, ci_key: Optional[str]) -> bool:
+    """부속서4: x 가 그 축에서 y 이상임이 확정인가 — CI 면 x 하한 ≥ y 상한(접촉 허용).
+    걸쳐 겹치면 양방향 모두 False(미결). 근거 없으면 False (fail-closed)."""
+    if ci_key is None:
+        vx, vy = _pt(x, axis), _pt(y, axis)
+        return vx is not None and vy is not None and vx >= vy - EPS
+    cx, cy = _ci(x, axis, ci_key), _ci(y, axis, ci_key)
+    return bool(cx and cy) and cx[0] >= cy[1] - EPS
 
 
 def dominates(x: dict, y: dict, ci_key: Optional[str]) -> bool:
-    """§4.1 강한 지배: 모든 축에서 열세가 없고 최소 한 축이 우세."""
-    c = [cmp_axis(x, y, a, ci_key) for a in AXES]
-    return all(v >= 0 for v in c) and any(v > 0 for v in c)
+    """§4.1 + 부속서4 건전 구간 지배: 모든 축에서 x 의 하한 ≥ y 의 상한, 한 축은 초과.
+    걸쳐 겹치는 축이 하나라도 있으면 지배 아님 → 추이적이라 front 가 탈락 후보를 커버한다."""
+    return (all(_no_worse(x, y, a, ci_key) for a in AXES)
+            and any(cmp_axis(x, y, a, ci_key) > 0 for a in AXES))
 
 
 def relation(x: dict, y: dict, ci_key: Optional[str]) -> str:
-    """설명용 라벨. §4.2 의 3경우를 문자열로 돌려준다."""
-    c = [cmp_axis(x, y, a, ci_key) for a in AXES]
-    if all(v == 0 for v in c):
-        return "동률(병존)"
-    if all(v >= 0 for v in c):
+    """설명용 라벨. §4.2 의 3경우 + 부속서4 미결."""
+    if dominates(x, y, ci_key):
         return "x 지배"
-    if all(v <= 0 for v in c):
+    if dominates(y, x, ci_key):
         return "y 지배"
-    return "트레이드오프(비지배)"
+    c = [cmp_axis(x, y, a, ci_key) for a in AXES]
+    if any(v > 0 for v in c) and any(v < 0 for v in c):
+        return "트레이드오프(비지배)"
+    if any(not _no_worse(x, y, a, ci_key) and not _no_worse(y, x, a, ci_key) for a in AXES):
+        return "미결(CI 겹침)"
+    return "동률(병존)"
 
 
 # ══════════════════════════════════════════════════════════════════════════════

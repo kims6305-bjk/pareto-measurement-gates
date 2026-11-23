@@ -21,7 +21,8 @@
   strict 원장이 278행/고유 165키(중복 113행, 라벨 충돌 4키)였다. 실제 원자료는
   608행이므로 종전 V6·precision CI·495콜 결론은 철회했고, clean rerun 전에는 인용하지 않는다.
   정본: `docs/ISSUE_1_ADJUDICATION.md`, `gate/PARETO_MH_VERDICT.md`.
-  설계·사전등록·부속서1 = `gate/PARETO_META_HARNESS_{DESIGN,PREREG,PREREG_ADDENDUM1}.md`.
+  설계·사전등록·부속서1·4 = `gate/PARETO_META_HARNESS_{DESIGN,PREREG,PREREG_ADDENDUM1,PREREG_ADDENDUM4}.md`.
+  부속서4(2026-11-23, 후보 간 지배 비교 0건 시점): 쌍별 지배식에서 CI 겹침 = 동률 → 미결(건전 구간 지배).
   실물: `mh_guard.py`(INV-2/3 매니페스트) · `mh_run_candidate.py`(sha 대조·resume·
   fail-closed) · `mh_archive_C2.jsonl` · `mh_front.py`(REJECTED_C0, 테스트 32/32).
 - **Phase 4 = 다목적 채택 게이트.** `gate/PHASE4_PREREGISTRATION.md` DRAFT.
