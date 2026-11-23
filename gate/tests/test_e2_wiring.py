@@ -72,7 +72,7 @@ import sys
 sys.path.insert(0, 'scripts')
 import mh_exp, mh_front as mf, phase3_build_prompts as p3, mh_propose as mp, mh_objectives as mo, mh_guard as g
 assert mh_exp.E2 and mh_exp.TAG == 'e3_'
-assert p3.CLAUDE_MODEL == mf.MODEL_FIXED == 'claude-sonnet-5-5' and mp.PROPOSER_MODEL == 'claude-fable-5-2'
+assert p3.CLAUDE_MODEL == mf.MODEL_FIXED == 'claude-haiku-5-5' and mp.PROPOSER_MODEL == 'claude-fable-5-2'
 assert mo.AXES == ('recall', 'specificity') and g.MANIFEST.name == 'mh_e3_manifest.json'
 assert g.LABEL_JSON.name == 'sf300_label_set.json'
 """], cwd=GATE, env=env, capture_output=True, text=True)

@@ -11,4 +11,4 @@ if EXP not in ("E1", "E2", "E3"):
 E2 = EXP in ("E2", "E3")     # E3(부속서6) = E2 설계 그대로, 판정기만 다름
 TAG = {"E2": "e2_", "E3": "e3_"}.get(EXP, "")          # 원자료·원장·매니페스트 파일 접두어
 # 판정기: E2 = 부속서5 §1, E3 = 부속서6 §2(후보 순서 sonnet-5-5 → haiku-5-5(추기 1), 교체는 부속서6 추기 커밋 뒤에만)
-JUDGE = {"E2": "claude-opus-5-5", "E3": "claude-sonnet-5-5"}.get(EXP)
+JUDGE = {"E2": "claude-opus-5-5", "E3": "claude-haiku-5-5"}.get(EXP)
