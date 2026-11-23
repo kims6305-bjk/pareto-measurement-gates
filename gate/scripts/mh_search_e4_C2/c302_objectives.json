@@ -1,0 +1,265 @@
+{
+ "candidate_id": "c302",
+ "measurement": {
+  "label_sheet_sha256": "90282de0f713bc5f9b04c56d4b884525853531952517fac63d540f9c67aec183",
+  "n_units": 300,
+  "n_runs": 3,
+  "n_problem": 154,
+  "n_flagged": 148,
+  "n_detected": 131,
+  "n_split": 2,
+  "n_unresolved": 0,
+  "raw_files": [
+   "mh_e4_c302_run1.jsonl",
+   "mh_e4_c302_run2.jsonl",
+   "mh_e4_c302_run3.jsonl"
+  ]
+ },
+ "objectives": {
+  "recall": {
+   "value": 0.8506,
+   "ci_claim": [
+    0.7931,
+    0.9063
+   ],
+   "ci_qid": [
+    0.7929,
+    0.907
+   ]
+  },
+  "specificity": {
+   "value": 0.8836,
+   "ci_claim": [
+    0.8252,
+    0.9315
+   ],
+   "ci_qid": [
+    0.8155,
+    0.9392
+   ]
+  }
+ },
+ "reference_fields": {
+  "elapsed_median": 4.9,
+  "prompt_chars_median": null,
+  "search_cost_calls": 900,
+  "precision": 0.8851,
+  "n_ok": 146
+ },
+ "sample_gate": {
+  "passed": true,
+  "violations": []
+ },
+ "bootstrap": {
+  "seed": 20260730,
+  "B": 2000,
+  "ci_method": "percentile_2.5_97.5",
+  "ci_used_for_judgment": "ci_qid",
+  "n_valid_resamples": {
+   "recall": {
+    "claim": 2000,
+    "qid": 2000
+   },
+   "specificity": {
+    "claim": 2000,
+    "qid": 2000
+   }
+  },
+  "cluster_unit": "qid(문항) = id.split('-')[0]"
+ },
+ "diagnostics": {
+  "n_contradicted": 68,
+  "n_unresolved_raw": 2,
+  "misses": [
+   {
+    "id": "Q006-sf-C038",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q013-sf-C031",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q020-sf-C041",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q030-sf-C067",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q030-sf-Idrop033",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q035-sf-C003",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q035-sf-Idrop015",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q037-sf-Idrop029",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q042-sf-S052",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q042-sf-S123",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q045-sf-C048",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q058-sf-Idrop035",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q061-sf-C025",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q061-sf-Iswap003",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q070-sf-S096",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q072-sf-C069",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q085-sf-Idrop005",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q085-sf-S028",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q086-sf-Idrop022",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q101-sf-C054",
+    "human": "C",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q109-sf-Idrop025",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q111-sf-Idrop028",
+    "human": "I",
+    "judge": "SUPPORTED"
+   },
+   {
+    "id": "Q113-sf-C046",
+    "human": "C",
+    "judge": "SUPPORTED"
+   }
+  ],
+  "false_alarms": [
+   {
+    "id": "Q021-sf-S036",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q025-sf-S045",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q029-sf-S143",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q035-sf-S004",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q058-sf-S094",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q059-sf-S009",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q062-sf-S043",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q062-sf-S092",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q075-sf-S034",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q075-sf-S121",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q078-sf-S091",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q078-sf-S119",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q079-sf-S139",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q095-sf-S128",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q109-sf-S001",
+    "judge": "INSUFFICIENT"
+   },
+   {
+    "id": "Q118-sf-S012",
+    "judge": "CONTRADICTED"
+   },
+   {
+    "id": "Q118-sf-S022",
+    "judge": "CONTRADICTED"
+   }
+  ],
+  "splits": [
+   "Q030-sf-S019",
+   "Q117-sf-S017"
+  ]
+ }
+}
