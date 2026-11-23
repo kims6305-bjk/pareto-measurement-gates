@@ -4,8 +4,8 @@
   n_over  : 고른 id 의 3판 판정 → INSUFFICIENT  (과검출)
   n_under : 고른 id 의 3판 판정 → SUPPORTED     (과소검출)
   n_both  : 고른 id 중 int(h[:8],16) 짝수 → INSUFFICIENT, 홀수 → SUPPORTED
-  PASS ⇔ ① cmp_axis(c000, n_over, specificity)=+1 ② cmp_axis(c000, n_under, recall)=+1
-         ③ dominates(c000, n_both)   (ci_qid, 부속서4 건전 구간 지배)
+  PASS ⇔ ① cmp_axis(c000, n_over, specificity)=+1 ② cmp_axis(c000, n_under, recall)=+1  (ci_qid)
+  ③ dominates(c000, n_both) 는 참고값만 (부속서5 §9 추기3: 라벨 무관 혼합 열화는 구조적으로 지배 불가)
 
 usage:
     MH_EXP=E2 python sf_ic1.py --power            # 측정 전 r 검정력 모의 (0콜)
@@ -35,7 +35,8 @@ import mh_objectives as mo  # noqa: E402
 
 IC1_SEED = 20261124
 LABELS = GATE / "scripts/sf300_label_set.json"
-R_GRID = (0.15, 0.20, 0.25, 0.30)
+R_GRID = (0.15, 0.20, 0.25, 0.30, 0.35)   # 0.35 = 부속서5 §9 추기3
+R_ADOPTED = 0.35
 CELLS = [(rc, sp) for rc in (0.6, 0.75, 0.9) for sp in (0.75, 0.85, 0.95)]
 N_SIM = 40
 MIN_RATE = 0.90
@@ -78,7 +79,7 @@ def verdict(labels: dict[str, str], maj: dict[str, str], r: float) -> dict:
     c2 = mf.cmp_axis(base, under, "recall", "ci_qid") == 1
     c3 = mf.dominates(base, both, "ci_qid")
     return {"r": r, "c1_over_specificity": c1, "c2_under_recall": c2, "c3_both_dominated": c3,
-            "verdict": "PASS" if (c1 and c2 and c3) else "FAIL",
+            "verdict": "PASS" if (c1 and c2) else "FAIL",   # ③ 참고값(추기3)
             "records": {x["candidate_id"]: x["objectives"] for x in (base, over, under, both)}}
 
 
@@ -101,7 +102,7 @@ def _cell(args) -> dict:
             v = verdict(labels, maj, r)
             hits[r]["c12"] += v["c1_over_specificity"] and v["c2_under_recall"]
             hits[r]["c3"] += v["c3_both_dominated"]
-            hits[r]["all"] += v["verdict"] == "PASS"
+            hits[r]["all"] += v["c1_over_specificity"] and v["c2_under_recall"] and v["c3_both_dominated"]
     return {"recall": rc, "specificity": sp,
             "rate": {str(r): {k: n / N_SIM for k, n in d.items()} for r, d in hits.items()}}
 
@@ -133,7 +134,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--power", action="store_true")
     ap.add_argument("--selftest", action="store_true")
-    ap.add_argument("--r", type=float)
+    ap.add_argument("--r", type=float, default=R_ADOPTED)
     a = ap.parse_args()
     if a.selftest:
         return 0 if selftest() else 1
@@ -145,8 +146,8 @@ def main() -> int:
         print(json.dumps({"worst": res["worst"], "smallest_r_c12": res["smallest_r_c12"],
                           "smallest_r_all": res["smallest_r_all"]}, indent=1))
         return 0
-    if a.r is None:
-        ap.error("--r (부속서5 §9 에 커밋된 값) 필요")
+    if a.r != R_ADOPTED:
+        raise SystemExit(f"r={a.r} — 부속서5 §9 추기3 커밋값 {R_ADOPTED} 만 허용")
     per, files = mo.load_runs([str(GATE / "scripts/mh_e2_c000_run*.jsonl")])
     mo.validate_run_ledger(per, labels, "c000")
     maj = {u.id: u.maj for u in mo.build_units(per, labels)}
