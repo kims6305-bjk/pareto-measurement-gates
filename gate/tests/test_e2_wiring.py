@@ -53,6 +53,14 @@ for rc, stdout, stderr, expected in (
             raise AssertionError('execution failure was recorded as a model verdict')
 with patch.object(icr.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, '{"label":"SUPPORTED"}', '')):
     assert icr.call('synthetic prompt') == ('SUPPORTED', '')
+# 부속서6 추기 3: 자기 정정(JSON 두 번)은 마지막 답, 깨진 JSON 하나는 그대로 UNRESOLVED
+for out, expected in (
+    ('{"label":"SUPPORTED","rationale":"a {x}"}\n\nWait — corrected:\n\n{"label":"CONTRADICTED","rationale":"b"}', ('CONTRADICTED', 'b')),
+    ('{"label":"SUPPORTED","rationale":"a"}{"label":"INSUFFICIENT","rationale":"c"}', ('INSUFFICIENT', 'c')),
+    ('{"label":"SUPPORTED","rationale":"bad \\\'esc"}', ('UNRESOLVED', 'JSON 파싱 실패')),
+):
+    with patch.object(icr.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, out, '')):
+        assert icr.call('synthetic prompt') == expected, (out, icr.call('synthetic prompt'))
 """)
     assert r.returncode == 0, r.stderr
 

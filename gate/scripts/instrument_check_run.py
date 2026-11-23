@@ -81,6 +81,21 @@ def load_units() -> list[dict]:
     return units
 
 
+def _last_verdict(raw: str):
+    """출력 안의 `label` 가진 유효 JSON 객체 중 마지막 것. 없으면 None."""
+    dec, found, i = json.JSONDecoder(), None, raw.find("{")
+    while i != -1:
+        try:
+            obj, end = dec.raw_decode(raw, i)
+        except json.JSONDecodeError:
+            end = i + 1
+        else:
+            if isinstance(obj, dict) and "label" in obj:
+                found = obj
+        i = raw.find("{", end)
+    return found
+
+
 def call(prompt: str) -> tuple[str, str]:
     """fail-closed — Phase 3와 동일 규약."""
     try:
@@ -102,7 +117,9 @@ def call(prompt: str) -> tuple[str, str]:
     try:
         obj = json.loads(m.group(0))
     except json.JSONDecodeError:
-        return "UNRESOLVED", "JSON 파싱 실패"
+        obj = _last_verdict(raw) if E2 else None   # 부속서6 추기 3: 자기 정정 출력은 마지막 답을 쓴다
+        if obj is None:
+            return "UNRESOLVED", "JSON 파싱 실패"
     label = str(obj.get("label", "")).upper()
     if label not in VALID:
         return "UNRESOLVED", f"미정의 라벨: {label}"
