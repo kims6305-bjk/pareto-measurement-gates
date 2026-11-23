@@ -3,17 +3,23 @@
 
 레이어 OFF(baseline)와 ON(candidate)을 같은 고정 평가셋에서 재고,
 품질(higher is better)과 운영비(lower is better)의 지배관계를 판정한다.
-사용자가 upstream에서 확정·반올림한 점추정치를 exact 비교하며,
-통계적 유의성·허용오차 판단은 이 도구의 범위가 아니다.
-입력 전 생성측 변동과 표본 잡음을 점검할 것: 119건 중 1건 차이만으로도
-REMOVE와 TEST_THIN이 바뀔 수 있다. 비용 10/14는 데모값이지 실측치가 아니다.
+사용자가 upstream에서 확정·반올림한 점추정치를 exact 비교한다.
+구간(`quality_ci`/`cost_ci`, upstream이 계산한 [lo,hi])을 양쪽에 주면 건전한 구간
+지배를 쓴다: 모든 축에서 한쪽 최악값이 상대 최선값 이상일 때만 지배, 한 축이라도
+걸쳐 겹치면 UNRESOLVED(미결). 겹침을 동률로 치지 않는다(동률로 치면 지배가 비추이적).
+mh_front §4.3 N2(겹침=동률)는 사전등록 규칙이라 그대로 두며, 이 도구와 다르다.
+구간 계산은 이 도구 밖이다. 구간 없이 exact 비교하면 119건 중 1건 차이로도 판정이 바뀐다.
+양쪽에 `cohort`(평가셋 해시 등)를 주면 다를 때 INCOMPARABLE로 판정을 거부한다.
+비용 10/14는 데모값이지 실측치가 아니다.
 
 판정:
   KEEP         ON이 OFF를 지배 — 켜는 편이 파레토 최적
   REMOVE       OFF가 ON을 지배 — 끄는 편이 파레토 최적
-  TEST_THIN    둘 다 비지배 — 실패군에만 켠 조건부 후보를 새로 측정
-  EQUAL        두 점이 동일 — 더 단순한 OFF 권고(YAGNI)
+  TEST_THIN    둘 다 비지배(상충 확정) — 실패군에만 켠 조건부 후보를 새로 측정
+  EQUAL        두 점추정이 동일 — 더 단순한 OFF 권고(YAGNI)
+  UNRESOLVED   구간이 겹쳐 지배도 상충도 확정 불가 — 재측정, 그 전엔 OFF 유지
   NOT_MEASURED 대상 도달 0 — 효과 없음 단정 금지
+  INCOMPARABLE 평가셋(cohort)이 달라 같은 실험으로 비교할 수 없음
 
 실제 파일/설정 삭제는 하지 않는다. 사용자가 결과를 보고 제거한다.
 
@@ -35,10 +41,24 @@ from dataclasses import dataclass, asdict
 class Point:
     quality: float  # 높을수록 좋음
     cost: float     # 낮을수록 좋음
+    quality_ci: tuple | None = None
+    cost_ci: tuple | None = None
+    cohort: str | None = None
 
     def __post_init__(self) -> None:
-        object.__setattr__(self, "quality", _finite_nonnegative("quality", self.quality))
-        object.__setattr__(self, "cost", _finite_nonnegative("cost", self.cost))
+        for axis in ("quality", "cost"):
+            x = _finite_nonnegative(axis, getattr(self, axis))
+            object.__setattr__(self, axis, x)
+            ci = getattr(self, axis + "_ci")
+            if ci is not None:
+                if not isinstance(ci, (list, tuple)) or len(ci) != 2:
+                    raise ValueError(f"{axis}_ci must be [lo, hi]")
+                lo, hi = (_finite_nonnegative(f"{axis}_ci", v) for v in ci)
+                if not lo <= x <= hi:
+                    raise ValueError(f"{axis}_ci must contain the point: {lo} <= {x} <= {hi}")
+                object.__setattr__(self, axis + "_ci", (lo, hi))
+        if self.cohort is not None:
+            object.__setattr__(self, "cohort", safe_label(self.cohort, "cohort"))
 
 
 @dataclass
@@ -73,20 +93,49 @@ def point(obj: object, label: str) -> Point:
     if not isinstance(obj, dict):
         raise ValueError(f"{label} must be an object")
     keys = set(obj)
-    if keys != {"quality", "cost"}:
-        raise ValueError(f"{label} requires exactly quality,cost")
+    optional = {"quality_ci", "cost_ci", "cohort"}
+    if not {"quality", "cost"} <= keys or keys - {"quality", "cost"} - optional:
+        raise ValueError(f"{label} requires quality,cost (optional: quality_ci,cost_ci,cohort)")
     return Point(_finite_nonnegative(f"{label}.quality", obj["quality"]),
-                 _finite_nonnegative(f"{label}.cost", obj["cost"]))
+                 _finite_nonnegative(f"{label}.cost", obj["cost"]),
+                 obj.get("quality_ci"), obj.get("cost_ci"), obj.get("cohort"))
+
+
+def _intervals(a: Point, b: Point) -> list[tuple[tuple, tuple]]:
+    """축별 (a구간, b구간)을 '높을수록 좋음' 방향으로 정규화. 구간 없으면 [x,x]."""
+    out = []
+    for axis, sign in (("quality", 1), ("cost", -1)):
+        ca, cb = getattr(a, axis + "_ci"), getattr(b, axis + "_ci")
+        if (ca is None) != (cb is None):
+            raise ValueError(f"{axis}_ci must be given for both OFF and ON or neither")
+        ia = ca or (getattr(a, axis),) * 2
+        ib = cb or (getattr(b, axis),) * 2
+        if sign < 0:
+            ia, ib = (-ia[1], -ia[0]), (-ib[1], -ib[0])
+        out.append((ia, ib))
+    return out
 
 
 def dominates(a: Point, b: Point) -> bool:
-    """a가 b보다 품질은 이상, 비용은 이하이며 하나는 엄격히 우월."""
-    no_worse = a.quality >= b.quality and a.cost <= b.cost
-    strict = a.quality > b.quality or a.cost < b.cost
-    return no_worse and strict
+    """건전한(sound) 구간 지배: 모든 축에서 a의 최악값이 b의 최선값 이상이고,
+    한 축은 엄격히 초과. 이때 구간 안 어떤 참값 조합에서도 a가 b를 지배한다.
+    구간이 없으면 [x,x]라 기존 점 비교와 같다. (clpi separatedN의 클린룸 재구성)"""
+    iv = _intervals(a, b)
+    return all(ia[0] >= ib[1] for ia, ib in iv) and any(ia[0] > ib[1] for ia, ib in iv)
+
+
+def _undecided(a: Point, b: Point) -> bool:
+    """어느 쪽도 상대 이상이라 말할 수 없는 축(구간이 걸쳐 겹침)이 있는가."""
+    return any(ia[0] < ib[1] and ib[0] < ia[1] for ia, ib in _intervals(a, b))
 
 
 def judge(off: Point, on: Point, reach: int | None = None) -> Verdict:
+    dq, dc = on.quality - off.quality, on.cost - off.cost
+    if (off.cohort is None) != (on.cohort is None):
+        raise ValueError("cohort must be given for both OFF and ON or neither")
+    if off.cohort != on.cohort:
+        return Verdict("INCOMPARABLE", f"평가셋 불일치: OFF={off.cohort} ON={on.cohort}",
+                       "같은 평가셋에서 OFF/ON을 다시 측정", dq, dc, False, False, [], reach)
     if reach is not None:
         if isinstance(reach, bool) or not isinstance(reach, int) or reach < 0:
             raise ValueError("reach must be an integer >= 0 (bool is not accepted)")
@@ -99,7 +148,6 @@ def judge(off: Point, on: Point, reach: int | None = None) -> Verdict:
 
     od = dominates(off, on)
     nd = dominates(on, off)
-    dq, dc = on.quality - off.quality, on.cost - off.cost
     if nd:
         return Verdict("KEEP", "ON이 OFF를 지배(품질 이상·비용 이하, 최소 한 축 엄격 개선)",
                        "ON 유지", dq, dc, od, nd, ["ON"], reach)
@@ -107,8 +155,13 @@ def judge(off: Point, on: Point, reach: int | None = None) -> Verdict:
         return Verdict("REMOVE", "OFF가 ON을 지배(ON은 순편익 없는 열등 이동)",
                        "사용자 승인 후 하네스 제거/비활성화", dq, dc, od, nd, ["OFF"], reach)
     if dq == 0 and dc == 0:
-        return Verdict("EQUAL", "OFF와 ON이 측정상 동일", "더 단순한 OFF 권고(YAGNI)",
+        return Verdict("EQUAL", "OFF와 ON의 점추정이 동일", "더 단순한 OFF 권고(YAGNI)",
                        dq, dc, od, nd, ["OFF", "ON"], reach)
+    if _undecided(on, off):
+        return Verdict(
+            "UNRESOLVED", "구간이 겹치는 축이 있어 지배·상충 어느 쪽도 확정 불가(미결)",
+            "표본을 늘려 재측정. 그 전까지 더 단순한 OFF 유지(지배 근거로 쓰지 말 것)",
+            dq, dc, od, nd, ["OFF", "ON"], reach)
     return Verdict(
         "TEST_THIN", "OFF와 ON이 모두 파레토 전선 — 목적함수 없이는 우열 확정 불가",
         "실패군에만 ON인 THIN 후보를 같은 품질·비용 축으로 측정한 뒤 3점 재판정",
@@ -154,12 +207,17 @@ def demo():
     assert judge(Point(.9, 10), Point(.91, 12)).verdict == "TEST_THIN"
     assert judge(Point(.9, 10), Point(.9, 10)).verdict == "EQUAL"
     assert judge(Point(.9, 10), Point(.95, 8), reach=0).verdict == "NOT_MEASURED"
+    # 품질은 구간 분리로 ON 우세, 비용은 겹침 → 겹침=동률이면 KEEP이지만 건전 규칙은 미결
+    assert judge(Point(.80, 10, (.78, .82), (9, 11)),
+                 Point(.90, 10.5, (.88, .92), (9.5, 11.5))).verdict == "UNRESOLVED"
+    assert judge(Point(.80, 9.5, (.78, .82), (9, 9.9)),
+                 Point(.90, 9, (.88, .92), (8, 9))).verdict == "KEEP"   # 접촉(9.9 vs 9)은 분리
     try:
         point({"quality": -1, "cost": 2}, "off")
         raise AssertionError("negative quality accepted")
     except ValueError:
         pass
-    print("harness_diet demo OK - 6 cases")
+    print("harness_diet demo OK - 8 cases")
 
 
 def strict_object(pairs):
@@ -176,13 +234,14 @@ def main(argv=None) -> int:
     ap.add_argument("--off", help="quality=N,cost=N")
     ap.add_argument("--on", help="quality=N,cost=N")
     ap.add_argument("--json", type=pathlib.Path)
+    ap.add_argument("--reach", type=int, help="대상 도달 건수 (0이면 NOT_MEASURED)")
     ap.add_argument("--demo", action="store_true")
     ap.add_argument("--json-output", action="store_true")
     ns = ap.parse_args(argv)
     if ns.demo:
         demo(); return 0
-    if ns.json and (ns.off or ns.on):
-        ap.error("--json cannot be combined with --off/--on")
+    if ns.json and (ns.off or ns.on or ns.reach is not None):
+        ap.error("--json cannot be combined with --off/--on/--reach")
     if bool(ns.off) != bool(ns.on):
         ap.error("--off and --on must be provided together")
     if ns.json:
@@ -198,7 +257,7 @@ def main(argv=None) -> int:
         qname = safe_label(d.get("quality_name", "quality"), "quality")
         cname = safe_label(d.get("cost_name", "cost"), "cost")
     elif ns.off and ns.on:
-        off, on, reach = parse_pair(ns.off), parse_pair(ns.on), None
+        off, on, reach = parse_pair(ns.off), parse_pair(ns.on), ns.reach
         qname, cname = "quality", "cost"
     else:
         ap.error("provide --json or both --off and --on")

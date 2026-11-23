@@ -57,6 +57,8 @@ remove or disable the harness **after user approval**; the skill never deletes i
 | `REMOVE` | OFF dominates ON | Remove or disable after user approval |
 | `EQUAL` (simple judge) | OFF and ON tie | Suggest simpler OFF; custody gate instead returns `KEEP` (status quo). Neither deletes automatically |
 | `TEST_THIN` | OFF and ON are both on the front | Measure a conditional candidate that is ON only for failure cases |
+| `UNRESOLVED` | Intervals (`quality_ci`/`cost_ci`) overlap; neither dominance nor trade-off is established | Re-measure with more samples; keep OFF meanwhile, do not cite as dominance |
+| `INCOMPARABLE` | OFF/ON `cohort` (eval set) differs | Re-measure on the same eval set |
 | `NOT_MEASURED` | Target reach is zero | Do not claim no effect; repair the targeted set |
 
 ```bash
@@ -66,7 +68,9 @@ python3 gate/tests/test_field_validation.py
 ```
 
 The last command is not synthetic. It directly re-aggregates the **119-question public A/B raw data**
-to reproduce `REMOVE`. The field aggregate recorded from non-distributed raw data (reach 17/20, target
+to reproduce `REMOVE` under exact point comparison (with Wilson 95% intervals on the same raw data,
+over-correction 0/119 vs 1/119 overlaps and the verdict is `UNRESOLVED` — both recommend OFF, but
+"dominance" does not hold on intervals). The field aggregate recorded from non-distributed raw data (reach 17/20, target
 exposure 36→21, 13 overall rank changes) is replayed for consistency to confirm `MOVED`; it is not an
 independent query-level recomputation. Formal definitions, an identifiability claim, and limitations are in the
 [research note](docs/TARGETING_REACH_NOTE.md); all nine instrument failures are in the

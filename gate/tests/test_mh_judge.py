@@ -149,6 +149,19 @@ def test_dominance_exact_tie_both_survive():
     assert mf.relation(x, y, QID) == "동률(병존)"
     res = mf.compute_front({"cA": x, "cB": y}, QID)
     assert res["front"] == ["cA", "cB"]
+    assert res["uncovered"] == []
+
+
+def test_front_coverage_gap_is_reported_not_rewritten():
+    """CI 겹침=동률은 비추이적: B≻A, A≻C, B~C → 전선 {B}, C 는 전선 밖 A 에게만 지배.
+    판정(front)은 그대로 두고 uncovered 로만 드러낸다 (clpi frontier_complete 대조)."""
+    a = cand("cA", 0.1085, 0.7615, [0.098, 0.119], [0.649, 0.874])
+    b = cand("cB", 0.6295, 0.477, [0.28, 0.979], [0.1, 0.854])
+    c = cand("cC", 0.239, 0.364, [0.081, 0.397], [0.275, 0.453])
+    res = mf.compute_front({"cA": a, "cB": b, "cC": c}, QID)
+    assert res["front"] == ["cB"]
+    assert res["dominated"] == {"cA": ["cB"], "cC": ["cA"]}
+    assert res["uncovered"] == ["cC"]
 
 
 def test_dominance_ci_overlap_is_tie():

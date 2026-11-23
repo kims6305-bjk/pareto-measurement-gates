@@ -265,6 +265,9 @@ def compute_front(latest: dict[str, dict], ci_key: Optional[str]) -> dict:
         if by:
             dominated[i] = by
     front = [i for i in _sort_ids(pool) if i not in dominated]
+    # CI 겹침=동률 지배는 비추이적 → 전선 밖 후보만이 지배하는 후보가 생긴다.
+    # 판정은 바꾸지 않고 진단만 남긴다 (front 커버리지 결손).
+    uncovered = [i for i in _sort_ids(dominated) if not set(dominated[i]) & set(front)]
 
     # G1 (§5.2): baseline 에게 지배당한 후보는 부모 후보에서 영구 제외
     g1 = []
@@ -272,7 +275,8 @@ def compute_front(latest: dict[str, dict], ci_key: Optional[str]) -> dict:
     if base is not None:
         g1 = [i for i in _sort_ids(pool)
               if i != BASELINE_ID and dominates(base, pool[i], ci_key)]
-    return {"pool": pool, "front": front, "dominated": dominated, "g1_excluded": g1}
+    return {"pool": pool, "front": front, "dominated": dominated, "g1_excluded": g1,
+            "uncovered": uncovered}
 
 
 def endpoints(front: Sequence[str], pool: dict[str, dict],
@@ -459,6 +463,7 @@ def cmd_front(a: argparse.Namespace) -> int:
         "stall_rounds": stall,
         # ── §5.1 예시 스키마에 없는 추가 필드 (판정 근거를 파일에 남기려고 신설) ──
         "g1_excluded": res["g1_excluded"],
+        "uncovered": res["uncovered"],
         "invalid": [i for i in _sort_ids(latest)
                     if latest[i].get("status") == STATUS_INVALID],
         "termination": term,

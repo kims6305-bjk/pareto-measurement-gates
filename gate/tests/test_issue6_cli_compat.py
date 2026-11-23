@@ -36,4 +36,4 @@ def test_cli_resolution_and_cp949_demos(monkeypatch):
         result = subprocess.run([sys.executable, str(path), "--demo"],
                                 env=env, capture_output=True, timeout=30)
         assert result.returncode == 0, (str(path), result.stderr.decode("cp949", errors="replace"))
-        assert b"OK - 6 cases" in result.stdout
+        assert b"demo OK - " in result.stdout and b" cases" in result.stdout
