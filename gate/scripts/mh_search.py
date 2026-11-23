@@ -46,6 +46,7 @@ import mh_objectives as mo  # noqa: E402
 import mh_pair_diagnose as mpd  # noqa: E402
 import mh_propose as mp  # noqa: E402
 import phase3_build_prompts as p3  # noqa: E402
+from mh_exp import TAG  # noqa: E402
 from mh_guard import ledger_lock  # noqa: E402
 
 PARENT_SEED = 20260731          # F5 — C1 only (design §12.1)
@@ -53,7 +54,8 @@ CALLS_PER_CANDIDATE = 900 if mf.E2 else 165   # 300×3 (부속서5 §6) / 55×3 
 BUDGET = mf.CALL_BUDGET         # 1,650 per condition, c000 excluded (D2)
 SLOTS_C0_C1 = 3                 # D5 — same count as C2's S1/S2/S3
 ID_BASE = {"C0": 100, "C1": 200, "C2": 300}   # D1 — raw files mh_c<NNN>_run*.jsonl are global
-LABELS = mpd.LABELS
+LABELS = icr.SF300 if mf.E2 else mpd.LABELS
+AX1, AX2 = mf.AXES      # (recall, precision) | E2 계열 (recall, specificity)
 CI_KEY = mf.CI_KEYS[mf.DEFAULT_CI]
 DRY_AT = "dry-run"              # fixed timestamp → byte-identical dry-run archives (D-3)
 
@@ -63,9 +65,9 @@ class P:
     def __init__(self, cond: str, root: Optional[Path]):
         self.cond = cond
         if root is None:                          # real run
-            self.archive = GATE / f"scripts/mh_archive_{cond}.jsonl"
-            self.front = GATE / f"scripts/mh_front_{cond}.json"
-            self.state = GATE / f"scripts/mh_search_{cond}"
+            self.archive = GATE / f"scripts/mh_archive_{TAG}{cond}.jsonl"
+            self.front = GATE / f"scripts/mh_front_{TAG}{cond}.json"
+            self.state = GATE / f"scripts/mh_search_{TAG}{cond}"
             self.raw = GATE / "scripts"
         else:
             self.archive = root / f"mh_archive_{cond}.jsonl"
@@ -99,10 +101,13 @@ def _quiet(fn, *a):
 def real_measure(cid: str, harness: dict, cond: str, paths: P) -> list[str]:  # pragma: no cover
     import mh_run_candidate as mrc
     fn, kw, model = mrc.resolve_builder(harness)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(len(mrc.RUNS)) as ex:   # 3판 병렬(판마다 파일·잠금 분리) — 중단은 .result() 로 전파
+        list(ex.map(lambda run: mrc.run_one(cid, cond, run, fn, kw, model, harness["prompt_sha256"]),
+                    mrc.RUNS))
     files = []
     for run in mrc.RUNS:
-        mrc.run_one(cid, cond, run, fn, kw, model, harness["prompt_sha256"])
-        f = GATE / f"scripts/mh_{cid}_{run}.jsonl"
+        f = GATE / f"scripts/mh_{TAG}{cid}_{run}.jsonl"
         bad = sum(r.get("label") == "UNRESOLVED" for r in _jsonl(f))
         if bad > len(icr.load_units()) * mo.R4_MAX_UNRESOLVED:
             # ponytail: can't tell CLI/quota outage from model format failure here → stop, human decides
@@ -118,6 +123,7 @@ def stub_measure(cid: str, harness: dict, cond: str, paths: P) -> list[str]:
     sha = harness["prompt_sha256"]
     sp, ss = int(sha[:2], 16) % 61 - 30, int(sha[2:4], 16) % 31 - 15
     files = []
+    lab = mo.load_labels(LABELS)        # E2 계열 load_units 는 정답을 싣지 않는다(human=None)
     for run in ("run1", "run2", "run3"):
         out = paths.raw / f"mh_{cid}_{run}.jsonl"
         done = {r["id"] for r in _jsonl(out)}
@@ -126,7 +132,7 @@ def stub_measure(cid: str, harness: dict, cond: str, paths: P) -> list[str]:
                 if u["id"] in done:
                     continue
                 h = int(hashlib.sha256(f"{sha}:{u['id']}".encode()).hexdigest(), 16)
-                flag = (h % 100) < (70 + sp if u["human"] in mo.HUMAN_PROBLEM else 18 + ss)
+                flag = (h % 100) < (70 + sp if lab.get(u["id"]) in mo.HUMAN_PROBLEM else 18 + ss)
                 if run == "run3" and h % 41 == 0:
                     flag = not flag                     # rare run disagreement
                 fh.write(json.dumps({
@@ -208,10 +214,11 @@ def init_baseline(paths: P, measure: Callable, at: str, dry: bool) -> None:
         attach_baseline(paths, obj, at, "dry-run stub")
         return
     # real: c000 measured once (IC-0 rerun, ADDENDUM2) in mh_archive_C2.jsonl; shared (§12.1)
-    c2 = GATE / "scripts/mh_archive_C2.jsonl"
+    c2 = GATE / f"scripts/mh_archive_{TAG}C2.jsonl"
     if paths.cond == "C2":
-        obj = json.loads((GATE / "scripts/mh_c000_objectives.json").read_text(encoding="utf-8"))
-        attach_baseline(paths, obj, at, "mh_c000_objectives.json (IC-0 재실행, 부속서1 U8)")
+        src = GATE / f"scripts/mh_{TAG}c000_objectives.json"
+        obj = json.loads(src.read_text(encoding="utf-8"))
+        attach_baseline(paths, obj, at, f"{src.name} (IC-0 측정)")
     else:
         src = mf.load_archive(c2)[1].get(mf.BASELINE_ID)
         if not (src and src.get("objectives")):
@@ -287,7 +294,7 @@ def c2_slots(front_doc: dict, lat: dict, paths: P, labels: dict,
     """Design §6.1/§6.2/§6.5. Priority order filter_strip > S1 > S2 > S3 (§6.5-3).
     s3/fs flags = ablations A-S3 / A-FS (driver CLI runs C0/C1/C2 only)."""
     front, ep = front_doc["front"], front_doc["endpoints"]
-    a, b = ep["recall"], ep["precision"]
+    a, b = ep[AX1], ep[AX2]
     slots: list[dict] = []
     if fs:
         tables = {c: mpd.unit_table(lat[c], paths.raw, labels) for c in front}
@@ -297,14 +304,14 @@ def c2_slots(front_doc: dict, lat: dict, paths: P, labels: dict,
                      {"slot": "FS", "empty": "§6.5-4 nothing to strip (recorded here; "
                                              "mh_front.json is written only by mh_front)"})
     slots.append({"slot": "S1", "origin": "front_endpoint", "mode": "edit", "parents": [a],
-                  "context": {"slot": "S1", "goal": "keep recall, gain precision",
+                  "context": {"slot": "S1", "goal": f"keep {AX1}, gain {AX2}",
                               **diag(lat[a], paths, labels)}, "forbidden": []})
     if a == b:
         slots.append({"slot": "S2", "empty": "§6.1 A == B (front size 1): S2 → filter_strip, "
                                              "already run this round"})
     else:
         slots.append({"slot": "S2", "origin": "front_endpoint", "mode": "edit", "parents": [b],
-                      "context": {"slot": "S2", "goal": "keep precision, gain recall",
+                      "context": {"slot": "S2", "goal": f"keep {AX2}, gain {AX1}",
                                   **diag(lat[b], paths, labels)}, "forbidden": []})
     if not s3:
         slots.append({"slot": "S3", "empty": "ablation A-S3"})
@@ -383,13 +390,13 @@ def c0_finalize(paths: P, rnd: int, at: str) -> None:
     ok = []
     for r in sorted(kids, key=lambda r: r["candidate_id"]):
         dr = r["measurement"]["n_detected"] - act["measurement"]["n_detected"]
-        dp = r["objectives"]["precision"]["value"] - act["objectives"]["precision"]["value"]
+        dp = r["objectives"][AX2]["value"] - act["objectives"][AX2]["value"]
         acc = dr >= 0 and dp >= -mf.EPS and (dr > 0 or dp > mf.EPS)
         (ok if acc else []).append((dr, dp, r))
         if not acc:
             mf.append_archive(mf._transition(r, mf.STATUS_REJECTED_C0,
                                              f"C0 reject vs {act['candidate_id']}: "
-                                             f"Δrecall_n={dr} Δprecision={dp:+.4f}", at),
+                                             f"Δrecall_n={dr} Δ{AX2}={dp:+.4f}", at),
                               paths.archive)
     if ok:   # D6 — no merge; several accepted → largest (Δn_detected, Δprecision), then id
         win = sorted(ok, key=lambda t: (-t[0], -t[1], t[2]["candidate_id"]))[0][2]
@@ -397,7 +404,7 @@ def c0_finalize(paths: P, rnd: int, at: str) -> None:
             st = mf.STATUS_ON_FRONT if r is win else mf.STATUS_DOMINATED
             mf.append_archive(mf._transition(
                 r, st, f"C0 accept vs {act['candidate_id']}: Δrecall_n={dr} "
-                       f"Δprecision={dp:+.4f}" + ("" if r is win else
+                       f"Δ{AX2}={dp:+.4f}" + ("" if r is win else
                                                   f" — not activated ({win['candidate_id']})"),
                 at), paths.archive)
         mf.append_archive(mf._transition(act, mf.STATUS_DOMINATED,
@@ -492,10 +499,9 @@ def commit_plan(paths: P, rnd: int) -> None:  # pragma: no cover — real run on
 
 
 def preflight_real() -> None:  # pragma: no cover — real run only
-    if mf.E2:
-        # ponytail: 슬롯 목표·원장 경로가 precision/E1 고정. IC-1′ PASS 뒤 E2 탐색 연결 때 푼다.
-        raise SystemExit("E2 탐색 미연결 — IC-1′ PASS 후 슬롯(S1/S2)·원장 경로를 E2 축으로 연결한다")
-    v = GATE / "scripts/mh_ic1_verdict.json"
+    if mf.E2 and TAG != "e4_":
+        raise SystemExit("E2·E3 는 예비 실험 — 탐색은 본실험 E4(부속서7)만")
+    v = GATE / f"scripts/mh_{TAG}ic1_verdict.json"
     if not v.exists() or json.loads(v.read_text(encoding="utf-8")).get("verdict") != "PASS":
         raise SystemExit("ADDENDUM3: search runs only after IC-1 PASS (mh_ic1_verdict.json)")
     if mf.MODEL_FIXED != p3.CLAUDE_MODEL:

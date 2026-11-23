@@ -34,7 +34,7 @@ import mh_front as mf  # noqa: E402
 import mh_objectives as mo  # noqa: E402
 
 IC1_SEED = 20261124
-LABELS = GATE / "scripts/sf300_label_set.json"
+LABELS = GATE / mh_exp.SF300
 R_GRID = (0.15, 0.20, 0.25, 0.30, 0.35)   # 0.35 = 부속서5 §9 추기3
 R_ADOPTED = 0.35
 CELLS = [(rc, sp) for rc in (0.6, 0.75, 0.9) for sp in (0.75, 0.85, 0.95)]

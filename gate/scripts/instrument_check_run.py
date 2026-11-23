@@ -25,9 +25,9 @@ GATE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(GATE / "scripts"))
 
 from phase3_build_prompts import CLAUDE_MODEL, build  # noqa: E402
-from mh_exp import E2  # noqa: E402
+from mh_exp import E2, SF300 as _SF300  # noqa: E402
 
-SF300 = GATE / "scripts/sf300_label_set.json"
+SF300 = GATE / _SF300
 
 SHEET_XLSX = GATE / "scripts/phase1_human_label_sheet.xlsx"
 SHEET_JSON = GATE / "scripts/phase1_human_label_sheet.json"

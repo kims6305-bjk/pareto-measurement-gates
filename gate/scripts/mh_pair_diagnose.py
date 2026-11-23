@@ -83,11 +83,11 @@ def main() -> int:
     a = ap.parse_args()
     _, latest = mf.load_archive(Path(a.archive))
     ep = json.loads(Path(a.front).read_text(encoding="utf-8"))["endpoints"]
-    if ep["recall"] == ep["precision"]:
+    if ep[mf.AXES[0]] == ep[mf.AXES[1]]:
         print(json.dumps({"S3": "empty — A == B (front size 1)"}))
         return 0
     labels = mo.load_labels(Path(a.labels))
-    ra, rb = latest[ep["recall"]], latest[ep["precision"]]
+    ra, rb = latest[ep[mf.AXES[0]]], latest[ep[mf.AXES[1]]]
     d = diagnose(ra, rb, unit_table(ra, Path(a.raw_dir), labels),
                  unit_table(rb, Path(a.raw_dir), labels))
     print(json.dumps(d, ensure_ascii=False, indent=1))
