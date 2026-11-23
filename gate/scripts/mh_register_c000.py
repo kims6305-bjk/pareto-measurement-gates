@@ -6,16 +6,17 @@ from pathlib import Path
 
 sys.path.insert(0, "scripts")
 from phase3_build_prompts import CLAUDE_MODEL, build  # noqa: E402
-from instrument_check_run import load_units  # noqa: E402
+from instrument_check_run import load_units, SHEET_XLSX  # noqa: E402
+from mh_exp import E2, TAG  # noqa: E402
+from mh_guard import LABEL_JSON  # noqa: E402
 
 units = load_units()
 psha = hashlib.sha256(build(units[0], with_siblings=True).encode()).hexdigest()
-lsha_x = hashlib.sha256(
-    Path("scripts/phase1_human_label_sheet.xlsx").read_bytes()).hexdigest()
+lsha_x = hashlib.sha256((LABEL_JSON if E2 else SHEET_XLSX).read_bytes()).hexdigest()
 
 row = {
     "candidate_id": "c000",
-    "created_at": "2026-10-06T12:00:00+09:00",
+    "created_at": "2026-11-23T20:00:00+09:00" if E2 else "2026-10-06T12:00:00+09:00",
     "parent_ids": [],
     "generation": 0,
     "origin": "baseline",
@@ -35,9 +36,11 @@ row = {
     "reference_fields": {},
     "sample_gate": {"passed": False, "violations": ["미측정"]},
     "status": "UNJUDGED",
-    "status_history": [{"at": "2026-10-06T12:00:00+09:00",
+    "status_history": [{"at": "2026-11-23T20:00:00+09:00" if E2 else "2026-10-06T12:00:00+09:00",
                         "status": "UNJUDGED", "by": "c000 등록 (미측정)"}],
 }
-p = Path("scripts/mh_archive_C2.jsonl")
+p = Path(f"scripts/mh_archive_{TAG}C2.jsonl")
+if p.exists():
+    raise SystemExit(f"{p} 이미 있음 — 원장은 append-only, 덮어쓰지 않는다")
 p.write_text(json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
 print("wrote", p, "| units:", len(units), "| prompt_sha:", psha[:12])

@@ -25,6 +25,9 @@ GATE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(GATE / "scripts"))
 
 from phase3_build_prompts import CLAUDE_MODEL, build  # noqa: E402
+from mh_exp import E2  # noqa: E402
+
+SF300 = GATE / "scripts/sf300_label_set.json"
 
 SHEET_XLSX = GATE / "scripts/phase1_human_label_sheet.xlsx"
 SHEET_JSON = GATE / "scripts/phase1_human_label_sheet.json"
@@ -33,7 +36,17 @@ VALID = {"SUPPORTED", "CONTRADICTED", "INSUFFICIENT"}
 
 
 def load_units() -> list[dict]:
-    """사람 라벨(xlsx G열) + 본문(json)을 합쳐 Phase 3 unit 형식으로 만든다."""
+    """사람 라벨(xlsx G열) + 본문(json)을 합쳐 Phase 3 unit 형식으로 만든다.
+
+    E2: SF-300 을 읽되 **정답을 싣지 않는다**(human=None) — 판정 원자료에 정답이 남지
+    않게 해 채점 전 원자료 열람 금지(부속서5 §2)를 구조로 지킨다. 형제 주장 없음.
+    """
+    if E2:
+        return sorted(({"id": u["id"], "question": u["question"], "evidence": u["evidence"],
+                        "claim_text": u["claim_text"], "claim_citation": u["claim_citation"],
+                        "siblings": [], "human": None}
+                       for u in json.load(open(SF300, encoding="utf-8"))),
+                      key=lambda u: u["id"])
     rows = {r["id"]: r for r in json.load(open(SHEET_JSON, encoding="utf-8"))}
 
     ws = openpyxl.load_workbook(SHEET_XLSX)["라벨링"]

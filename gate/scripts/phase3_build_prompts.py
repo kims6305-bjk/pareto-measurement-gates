@@ -26,7 +26,9 @@ from reflection_gate.semantic import (  # noqa: E402
 )
 
 P = GATE_DIR.parent
-CLAUDE_MODEL = "claude-sonnet-5"   # alias 금지 (사전 선언 §5). 부속서2(2026-10-06)로 sonnet-4-6에서 교체
+from mh_exp import E2  # noqa: E402
+
+CLAUDE_MODEL = "claude-opus-5-5" if E2 else "claude-sonnet-5"   # 부속서5 §1(E2). alias 금지 (사전 선언 §5). 부속서2(2026-10-06)로 sonnet-4-6에서 교체
 
 # --- 지시문: 조건 A/B 공통. 절대 분기하지 않는다. --------------------------
 # Phase 1 저지 v3 계열과 같은 4라벨 계약을 쓴다. 완화 지시("문맥을 고려해 관대하게"
@@ -62,7 +64,9 @@ def build(unit: dict, *, with_siblings: bool) -> str:
         SYSTEM_GUARD,
         JUDGE,
         f"[질문]\n{unit['question']}",
-        f"[검증할 주장]\n{unit['claim_text']}\n(인용: {unit['claim_citation']})",
+        # 부속서5 §9 추기2-11: E2 는 인용 번호를 싣지 않는다(I-swap 번호 불일치 단서 차단)
+        (f"[검증할 주장]\n{unit['claim_text']}" if E2 else
+         f"[검증할 주장]\n{unit['claim_text']}\n(인용: {unit['claim_citation']})"),
     ]
     if with_siblings and unit["siblings"]:
         parts.append(_sibling_block(unit["siblings"]))

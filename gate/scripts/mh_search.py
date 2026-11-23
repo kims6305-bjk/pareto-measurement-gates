@@ -49,7 +49,7 @@ import phase3_build_prompts as p3  # noqa: E402
 from mh_guard import ledger_lock  # noqa: E402
 
 PARENT_SEED = 20260731          # F5 — C1 only (design §12.1)
-CALLS_PER_CANDIDATE = 165       # 55 units × 3 runs (§6.4)
+CALLS_PER_CANDIDATE = 900 if mf.E2 else 165   # 300×3 (부속서5 §6) / 55×3 (§6.4)
 BUDGET = mf.CALL_BUDGET         # 1,650 per condition, c000 excluded (D2)
 SLOTS_C0_C1 = 3                 # D5 — same count as C2's S1/S2/S3
 ID_BASE = {"C0": 100, "C1": 200, "C2": 300}   # D1 — raw files mh_c<NNN>_run*.jsonl are global
@@ -492,6 +492,9 @@ def commit_plan(paths: P, rnd: int) -> None:  # pragma: no cover — real run on
 
 
 def preflight_real() -> None:  # pragma: no cover — real run only
+    if mf.E2:
+        # ponytail: 슬롯 목표·원장 경로가 precision/E1 고정. IC-1′ PASS 뒤 E2 탐색 연결 때 푼다.
+        raise SystemExit("E2 탐색 미연결 — IC-1′ PASS 후 슬롯(S1/S2)·원장 경로를 E2 축으로 연결한다")
     v = GATE / "scripts/mh_ic1_verdict.json"
     if not v.exists() or json.loads(v.read_text(encoding="utf-8")).get("verdict") != "PASS":
         raise SystemExit("ADDENDUM3: search runs only after IC-1 PASS (mh_ic1_verdict.json)")
