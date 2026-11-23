@@ -57,6 +57,20 @@ with patch.object(icr.subprocess, 'run', return_value=subprocess.CompletedProces
     assert r.returncode == 0, r.stderr
 
 
+def test_e3_only_changes_judge_and_file_tag():
+    env = {**os.environ, "MH_EXP": "E3"}
+    r = subprocess.run([sys.executable, "-c", """
+import sys
+sys.path.insert(0, 'scripts')
+import mh_exp, mh_front as mf, phase3_build_prompts as p3, mh_propose as mp, mh_objectives as mo, mh_guard as g
+assert mh_exp.E2 and mh_exp.TAG == 'e3_'
+assert p3.CLAUDE_MODEL == mf.MODEL_FIXED == 'claude-sonnet-5' and mp.PROPOSER_MODEL == 'claude-fable-5-2'
+assert mo.AXES == ('recall', 'specificity') and g.MANIFEST.name == 'mh_e3_manifest.json'
+assert g.LABEL_JSON.name == 'sf300_label_set.json'
+"""], cwd=GATE, env=env, capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+
+
 def test_e2_selftests():
     for script in ("scripts/mh_objectives.py", "scripts/sf_ic1.py"):
         r = _run(script, "--selftest")

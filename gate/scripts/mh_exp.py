@@ -6,7 +6,9 @@ E2 값이 E1 상수를 덮어쓰면 끝난 E1 의 재현 검사가 깨지므로,
 import os
 
 EXP = os.environ.get("MH_EXP", "E1")
-if EXP not in ("E1", "E2"):
-    raise SystemExit(f"MH_EXP={EXP!r} — E1 또는 E2 만 허용")
-E2 = EXP == "E2"
-TAG = "e2_" if E2 else ""          # 원자료·원장·매니페스트 파일 접두어
+if EXP not in ("E1", "E2", "E3"):
+    raise SystemExit(f"MH_EXP={EXP!r} — E1·E2·E3 만 허용")
+E2 = EXP in ("E2", "E3")     # E3(부속서6) = E2 설계 그대로, 판정기만 다름
+TAG = {"E2": "e2_", "E3": "e3_"}.get(EXP, "")          # 원자료·원장·매니페스트 파일 접두어
+# 판정기: E2 = 부속서5 §1, E3 = 부속서6 §2(후보 순서 sonnet-5 → haiku-4-5, 교체는 부속서6 추기 커밋 뒤에만)
+JUDGE = {"E2": "claude-opus-5-5", "E3": "claude-sonnet-5"}.get(EXP)

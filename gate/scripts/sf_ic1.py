@@ -148,11 +148,11 @@ def main() -> int:
         return 0
     if a.r != R_ADOPTED:
         raise SystemExit(f"r={a.r} — 부속서5 §9 추기3 커밋값 {R_ADOPTED} 만 허용")
-    per, files = mo.load_runs([str(GATE / "scripts/mh_e2_c000_run*.jsonl")])
+    per, files = mo.load_runs([str(GATE / f"scripts/mh_{mh_exp.TAG}c000_run*.jsonl")])
     mo.validate_run_ledger(per, labels, "c000")
     maj = {u.id: u.maj for u in mo.build_units(per, labels)}
     v = verdict(labels, maj, a.r) | {"raw_files": files, "ic1_seed": IC1_SEED}
-    Path(GATE / "scripts/mh_e2_ic1_verdict.json").write_text(
+    Path(GATE / f"scripts/mh_{mh_exp.TAG}ic1_verdict.json").write_text(
         json.dumps(v, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(v["verdict"], {k: v[k] for k in ("c1_over_specificity", "c2_under_recall", "c3_both_dominated")})
     return 0

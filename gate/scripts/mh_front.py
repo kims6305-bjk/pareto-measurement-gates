@@ -37,7 +37,7 @@ ARCHIVE = GATE / "scripts/mh_archive.jsonl"
 FRONT_JSON = GATE / "scripts/mh_front.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from mh_exp import E2  # noqa: E402
+from mh_exp import E2, JUDGE  # noqa: E402
 
 # 부속서5 §3·§6(E2): 축 (recall, specificity), 후보 900콜×10, 판정 모델 opus-5-5
 AXES = ("recall", "specificity") if E2 else ("recall", "precision")   # §3.6: 3개 이하
@@ -45,7 +45,7 @@ BASELINE_ID = "c000"                      # §5.2 G1 기준
 FRONT_CAP = 8                             # §5.4 상한 (F10, INV-4)
 STALL_LIMIT = 3                           # §6.4 T1
 CALL_BUDGET = 9000 if E2 else 1650        # §6.4 T2
-MODEL_FIXED = "claude-opus-5-5" if E2 else "claude-sonnet-4-6"   # §13.1 F6, INV-3 (alias 금지)
+MODEL_FIXED = JUDGE or "claude-sonnet-4-6"   # §13.1 F6, INV-3 (alias 금지)
 CI_KEYS = {"qid": "ci_qid", "claim": "ci_claim", "none": None}
 DEFAULT_CI = "qid"                        # F3 — 판정은 보수적인 qid 클러스터 CI
 EPS = 1e-9                                # 점 추정 비교용 (스칼라화 아님)

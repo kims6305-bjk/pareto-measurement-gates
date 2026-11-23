@@ -26,9 +26,9 @@ from reflection_gate.semantic import (  # noqa: E402
 )
 
 P = GATE_DIR.parent
-from mh_exp import E2  # noqa: E402
+from mh_exp import E2, JUDGE  # noqa: E402
 
-CLAUDE_MODEL = "claude-opus-5-5" if E2 else "claude-sonnet-5"   # 부속서5 §1(E2). alias 금지 (사전 선언 §5). 부속서2(2026-10-06)로 sonnet-4-6에서 교체
+CLAUDE_MODEL = JUDGE or "claude-sonnet-5"   # 부속서5 §1(E2). alias 금지 (사전 선언 §5). 부속서2(2026-10-06)로 sonnet-4-6에서 교체
 
 # --- 지시문: 조건 A/B 공통. 절대 분기하지 않는다. --------------------------
 # Phase 1 저지 v3 계열과 같은 4라벨 계약을 쓴다. 완화 지시("문맥을 고려해 관대하게"
