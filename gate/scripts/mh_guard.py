@@ -31,7 +31,7 @@ from mh_exp import E2, TAG  # noqa: E402
 
 MANIFEST = GATE / f"scripts/mh_{TAG}manifest.json"
 # E2 INV-2 대상: 정답지 + 운영자 검수 기록(부속서5 §2)
-LABEL_XLSX = GATE / ("scripts/sf300_review_sheet_completed.xlsx" if E2
+LABEL_XLSX = GATE / (mh_exp.REVIEW_XLSX if E2
                      else "scripts/phase1_human_label_sheet.xlsx")
 LABEL_JSON = GATE / (mh_exp.SF300 if E2
                      else "scripts/phase1_human_label_sheet.json")

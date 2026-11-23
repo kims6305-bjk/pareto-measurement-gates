@@ -24,11 +24,14 @@ GATE = Path(__file__).resolve().parents[1]
 SRC = Path.home() / "Documents/Obsidian Vault/20.회계사가 된 유성이/10.K-IFRS_기준서/전문"
 AB = GATE.parent / "ab/ab_questions_FROZEN.json"
 QFILE = GATE / "scripts/sfk_questions_FROZEN.json"
-OUT = GATE / "scripts/sfk_label_set.json"
-SEED = 20261124
+OUT = {k: GATE / f"scripts/sfk_{k}.json" for k in ("meta", "pilot", "main")}
+SEED = 20261125                              # 추기 1: 검수 결함으로 새 seed 재생성 (v1 = 20261124)
 PILOT_N = 100
 CAP = 0.10                                   # 한 기준서 상한 = 정원의 10%
 FAULT_CYCLE = ("C", "Iswap", "C", "Idrop")
+LIST_ITEM = re.compile(r"^\s*[-*]\s|^\s*(?:\(\d+\)|\d+\.|[가-하]\.|\([가-하]\))\s")
+CONNECTIVE = re.compile(r"^(?:따라서|그러나|그러므로|그런데|또한|하지만|즉|이러한|이와 같은|이 경우|이때|그러한|위의|앞의)")
+NEG_AWKWARD = re.compile(r"(?:때문|것)이다\.$")   # 추기 1: '~때문이 아니다'·'~것이 아니다' 는 비문 → C-neg 부적격
 PARA = re.compile(r"^### 문단 (\S+)\s*$", re.M)
 
 
@@ -48,6 +51,8 @@ def paras(text: str) -> list[tuple[str, str]]:
 def sents(t: str) -> list[str]:
     out = []
     for raw in re.split(r"(?<=다\.)\s+", t):
+        if LIST_ITEM.match(raw) or CONNECTIVE.match(raw.strip()):
+            continue                         # 추기 1: 목록 조각(주어 탈락)·앞 문맥 의존 문장 제외
         s = re.sub(r"^\s*[-*]?\s*(?:\(\d+\)|\d+\.|[가-하]\.|\([가-하]\))?\s*", "", raw.strip())
         if (s.endswith("다.") and 20 <= len(s) <= 160 and "\n" not in s and not s.startswith("#")
                 and not re.search(r"다음[^.]*다\.$", s) and s not in out):
@@ -69,7 +74,9 @@ def clusters() -> list[dict]:
                     or not ss or len(norm(b)) < 40):
                 k += 1
                 continue
-            out.append({"cid": f"K{std}-{la}", "std": std, "a": (la, a), "b": (lb, b), "sents": ss})
+            # id 첫 '-' 앞 = Unit.qid(군집) 이 되도록 문단 번호 속 '-' 는 '_' 로
+            out.append({"cid": f"K{std}p{la.replace('-', '_')}", "hkey": f"K{std}-{la}",   # hkey = 추출 해시 키(4952f6d 표본 유지)
+                        "std": std, "a": (la, a), "b": (lb, b), "sents": ss})
             k += 2
     return out
 
@@ -80,7 +87,7 @@ def ev(std: str, *blocks: tuple[str, str]) -> str:
 
 def fault(kind: str, c: dict, claim: str, pool: list[dict]):
     if kind == "C":
-        neg = negate(claim)
+        neg = None if NEG_AWKWARD.search(claim) else negate(claim)
         full = ev(c["std"], c["a"], c["b"])
         return (neg, full, c["cid"]) if neg and norm(neg) not in norm(full) else None
     if kind == "Idrop":                      # 주장이 든 k 문단을 통째로 뺀다
@@ -90,13 +97,13 @@ def fault(kind: str, c: dict, claim: str, pool: list[dict]):
         return (claim, ev(c["std"], c["b"]), c["cid"]) if ok else None
     others = sorted((o for o in pool if o["std"] != c["std"]
                      and norm(claim) not in norm(o["a"][1] + o["b"][1])),
-                    key=lambda o: h(SEED, "swap", c["cid"], claim, o["cid"]))
+                    key=lambda o: h(SEED, "swap", c["hkey"], claim, o["hkey"]))
     o = others[0]
     return (claim, ev(o["std"], o["a"], o["b"]), o["cid"])
 
 
 def make_units(c: dict, idx: int, pool: list[dict]) -> list[dict] | None:
-    claim = sorted(c["sents"], key=lambda s: h(SEED, "claim", c["cid"], s))[0]
+    claim = sorted(c["sents"], key=lambda s: h(SEED, "claim", c["hkey"], s))[0]
     first = FAULT_CYCLE[idx % len(FAULT_CYCLE)]
     for kind in (first,) + tuple(k for k in ("C", "Iswap", "Idrop") if k != first):
         if made := fault(kind, c, claim, pool):
@@ -117,7 +124,7 @@ def make_units(c: dict, idx: int, pool: list[dict]) -> list[dict] | None:
 def stratified(cands: list[dict], n: int) -> list[dict]:
     """기준서별 비례 배분(최대 잔여법) + 상한. 기준서 안에서는 seed 해시 순서."""
     by: dict[str, list[dict]] = {}
-    for c in sorted(cands, key=lambda c: h(SEED, "draw", c["cid"])):
+    for c in sorted(cands, key=lambda c: h(SEED, "draw", c["hkey"])):
         by.setdefault(c["std"], []).append(c)
     cap, total = int(n * CAP), len(cands)
     quota = {s: min(cap, len(v), n * len(v) // total) for s, v in by.items()}
@@ -137,7 +144,7 @@ def build(n_main: int) -> dict:
     pool = clusters()
     questions = json.loads(QFILE.read_text(encoding="utf-8")) if QFILE.exists() else {}
     made = []                                # 오류를 만들 수 있는 군집만 (짝째 버림)
-    for idx, c in enumerate(sorted(pool, key=lambda c: h(SEED, "cycle", c["cid"]))):
+    for idx, c in enumerate(sorted(pool, key=lambda c: h(SEED, "cycle", c["hkey"]))):
         if (us := make_units(c, idx, pool)):
             made.append((c, us))
     by_cid = {c["cid"]: us for c, us in made}
@@ -182,12 +189,14 @@ def main() -> None:
     n = int(args[args.index("--n") + 1]) if "--n" in args else 400
     d = build(n)
     check_construction(d)
-    blob = json.dumps(d, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
+    # 러너·채점기(load_units·load_labels)는 단위 리스트 json 을 읽으므로 분할별 파일로 쓴다.
+    blobs = {OUT[k]: json.dumps(d[k], ensure_ascii=False, indent=1, sort_keys=True) + "\n" for k in OUT}
     if "--check" in args:
-        same = OUT.exists() and OUT.read_text(encoding="utf-8") == blob
+        same = all(p.exists() and p.read_text(encoding="utf-8") == b for p, b in blobs.items())
         print("check:", "OK (바이트 동일 + 구성 검사 통과)" if same else "FAIL (커밋본과 다름)")
         raise SystemExit(0 if same else 1)
-    OUT.write_text(blob, encoding="utf-8")
+    for p, b in blobs.items():
+        p.write_text(b, encoding="utf-8")
     kinds: dict[str, int] = {}
     for u in d["main"]:
         kinds[u["kind"]] = kinds.get(u["kind"], 0) + 1
