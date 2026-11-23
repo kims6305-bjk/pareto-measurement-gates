@@ -1,0 +1,79 @@
+{
+ "r": 0.35,
+ "c1_over_specificity": true,
+ "c2_under_recall": true,
+ "c3_both_dominated": true,
+ "verdict": "PASS",
+ "records": {
+  "c000": {
+   "recall": {
+    "value": 0.9933333333333333,
+    "ci_qid": [
+     0.9786,
+     1.0
+    ]
+   },
+   "specificity": {
+    "value": 0.98,
+    "ci_qid": [
+     0.9449,
+     1.0
+    ]
+   }
+  },
+  "n_over": {
+   "recall": {
+    "value": 0.9933333333333333,
+    "ci_qid": [
+     0.9786,
+     1.0
+    ]
+   },
+   "specificity": {
+    "value": 0.6866666666666666,
+    "ci_qid": [
+     0.6143,
+     0.7619
+    ]
+   }
+  },
+  "n_under": {
+   "recall": {
+    "value": 0.62,
+    "ci_qid": [
+     0.5443,
+     0.705
+    ]
+   },
+   "specificity": {
+    "value": 0.98,
+    "ci_qid": [
+     0.9449,
+     1.0
+    ]
+   }
+  },
+  "n_both": {
+   "recall": {
+    "value": 0.8133333333333334,
+    "ci_qid": [
+     0.7569,
+     0.8662
+    ]
+   },
+   "specificity": {
+    "value": 0.8266666666666667,
+    "ci_qid": [
+     0.7698,
+     0.8851
+    ]
+   }
+  }
+ },
+ "raw_files": [
+  "mh_e2_c000_run1.jsonl",
+  "mh_e2_c000_run2.jsonl",
+  "mh_e2_c000_run3.jsonl"
+ ],
+ "ic1_seed": 20261124
+}
