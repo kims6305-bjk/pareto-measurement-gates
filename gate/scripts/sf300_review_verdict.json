@@ -1,0 +1,1 @@
+{"date":"2026-11-23","reviewer":"operator (blind, id hidden)","n":30,"agree":30,"generator_errors":0,"rule":"addendum5 §2: generator errors <= 2/30 -> adopt","verdict":"ADOPT","confusion":{"S->S":10,"C->C":10,"I->I":10},"label_set":"sf300_label_set.json"}
