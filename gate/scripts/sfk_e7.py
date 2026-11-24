@@ -77,7 +77,7 @@ def verdict() -> None:
         res[m] = r
         print(f"{m}: c000 {M.recall_of(b.values()):.3f}/{M.specificity_of(b.values()):.3f} → "
               f"c401 {M.recall_of(o.values()):.3f}/{M.specificity_of(o.values()):.3f} (군집 {n}, "
-              f"UNRESOLVED {sum(u.maj not in ('SUPPORTED', 'CONTRADICTED', 'INSUFFICIENT') for u in o.values())})")
+              f"UNRESOLVED c000 {sum(u.maj == 'UNRESOLVED' for u in b.values())} · c401 {sum(u.maj == 'UNRESOLVED' for u in o.values())})")
         print("   " + "; ".join(f"{ax} Δ {d*100:+.1f}%p 95%[{lo*100:+.1f}, {hi*100:+.1f}] 97.5%[{l2*100:+.1f}, {h2*100:+.1f}]"
                                  for ax, (d, lo, hi, l2, h2) in r.items()))
     for m in set(MODELS) - set(STRONG):          # 부속서12 §4: haiku = 재현 확인, 95% 단독
