@@ -161,8 +161,23 @@ def verdict() -> None:
             for ax, (d, lo, hi, l2, h2) in r.items()) + f" → {v}")
 
 
+def precheck() -> None:
+    """§5 기준선 사전 점검(부속서6 IC-0′: recall ≥ 0.30 and CONTRADICTED ≥ 1) + 천장(두 축 > 0.95)."""
+    import mh_objectives as M
+    if EXP != "E5":
+        raise SystemExit("precheck 는 E5 전용")
+    for c in CANDS:
+        us = list(_units(c).values())
+        k, r, s = M.counts(us), M.recall_of(us), M.specificity_of(us)
+        ic0 = "PASS" if (c != "c000" or (r >= 0.30 and k["n_contradicted"] >= 1)) else "FAIL"
+        ceil = r > 0.95 and s > 0.95
+        print(f"{c}: recall {r:.3f} specificity {s:.3f} CONTRADICTED {k['n_contradicted']} "
+              f"UNRESOLVED {k['n_unresolved']} SPLIT {k['n_split']} 단위 {k['n_units']}"
+              + (f" IC-0′ {ic0}" if c == "c000" else "") + (" ⚠ 천장" if ceil else ""))
+
+
 if __name__ == "__main__":
     if EXP not in ("E5P", "E5"):
         raise SystemExit("MH_EXP=E5P 또는 E5 로 실행")
     {"register": register, "review-sheet": review_sheet, "pilot-width": pilot_width,
-     "verdict": verdict}[sys.argv[1]]()
+     "precheck": precheck, "verdict": verdict}[sys.argv[1]]()
