@@ -11,9 +11,10 @@ from instrument_check_run import load_units  # noqa: E402
 from mh_exp import EXP  # noqa: E402
 from mh_run_candidate import archive_path, prompt_sha256, resolve_builder  # noqa: E402
 
-assert EXP in ("E6P", "E6"), "MH_EXP=E6P·E6 로 실행"
+assert EXP in ("E6P", "E6", "E8P", "E8"), "MH_EXP=E6P·E6·E8P·E8 로 실행"
 CANDS = sys.argv[1:] or ["c000"]   # 부속서9 §4 폭 파일럿: c301 c302 추가 등록(append)
-rows = {json.loads(l)["candidate_id"]: json.loads(l) for l in (S / "mh_archive_e5_C2.jsonl").open(encoding="utf-8")}
+SRC = "mh_archive_e6_C2.jsonl" if EXP in ("E8P", "E8") else "mh_archive_e5_C2.jsonl"   # 부속서12: c401 은 E6 원장에만 있다
+rows = {json.loads(l)["candidate_id"]: json.loads(l) for l in (S / SRC).open(encoding="utf-8")}
 units = load_units()
 assert all(u["question"] for u in units), "질문 미기입 단위가 있다"
 out = archive_path("C2")
@@ -25,6 +26,6 @@ with out.open("a", encoding="utf-8") as f:
         h = dict(rows[cid]["harness"])
         fn, kw, _ = resolve_builder(h)
         h["prompt_sha256"] = prompt_sha256(fn, kw, units)
-        f.write(json.dumps({"candidate_id": cid, "origin": "E5 원장 복사(부속서9 §2·§4)", "harness": h,
+        f.write(json.dumps({"candidate_id": cid, "origin": f"{SRC} 복사(부속서9 §2·§4, 부속서12 §2)", "harness": h,
                             "status": "registered"}, ensure_ascii=False) + "\n")
         print(out.name, cid, "등록, 단위", len(units), h["prompt_sha256"][:12])
