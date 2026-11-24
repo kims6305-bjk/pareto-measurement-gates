@@ -122,8 +122,8 @@ def paired(cand: str, base: dict, other: dict):
 
 
 def pilot_width() -> None:
-    if EXP != "E5P":
-        raise SystemExit("pilot-width 는 E5P 전용")
+    if EXP not in ("E5P", "E6P"):
+        raise SystemExit("pilot-width 는 E5P·E6P 전용")   # E6P = 부속서9 §4 같은 공식
     r, n = paired("c301", _units("c000"), _units("c301"))
     ws = {ax: (v[2] - v[1]) * 100 for ax, v in r.items()}   # 점 Δ·부호는 출력하지 않는다(§4)
     need = math.ceil(n * (max(ws.values()) / W_STAR) ** 2)
@@ -177,7 +177,7 @@ def precheck() -> None:
 
 
 if __name__ == "__main__":
-    if EXP not in ("E5P", "E5"):
-        raise SystemExit("MH_EXP=E5P 또는 E5 로 실행")
+    if EXP not in ("E5P", "E5", "E6P"):
+        raise SystemExit("MH_EXP=E5P·E5·E6P 로 실행")
     {"register": register, "review-sheet": review_sheet, "pilot-width": pilot_width,
      "precheck": precheck, "verdict": verdict}[sys.argv[1]]()

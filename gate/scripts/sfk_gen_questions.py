@@ -17,8 +17,12 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 S = Path(__file__).resolve().parent
-RAW = S / "sfk_questions_raw.jsonl"
-FROZEN = S / "sfk_questions_FROZEN.json"
+# 부속서9: --prefix sfk4 --split pilot → sfk4_questions_pilot_{raw.jsonl,FROZEN.json}, 해당 분할만. 기본값 = E5 경로 그대로.
+PREFIX = sys.argv[sys.argv.index("--prefix") + 1] if "--prefix" in sys.argv else "sfk"
+SPLITS = (sys.argv[sys.argv.index("--split") + 1],) if "--split" in sys.argv else ("pilot", "main")
+_q = f"{PREFIX}_questions" + (f"_{SPLITS[0]}" if PREFIX != "sfk" else "")
+RAW = S / f"{_q}_raw.jsonl"
+FROZEN = S / f"{_q}_FROZEN.json"
 MODEL = "claude-sonnet-5-5"
 PROMPT = """다음은 K-IFRS 기업회계기준서 제{std}호 「{title}」의 문단 발췌다.
 
@@ -61,8 +65,12 @@ def ask(cid: str, evidence: str) -> None:
 def main() -> None:
     if FROZEN.exists():
         raise SystemExit("동결 파일이 이미 있다 — 재생성 금지(부속서8 §2-4)")
-    ev = {u["pair"]: u["evidence"] for split in ("pilot", "main")
-          for u in json.loads((S / f"sfk_{split}.json").read_text(encoding="utf-8")) if u["kind"] == "S"}
+    ev = {u["pair"]: u["evidence"] for split in SPLITS
+          for u in json.loads((S / f"{PREFIX}_{split}.json").read_text(encoding="utf-8")) if u["kind"] in ("S", "Scf")}
+    if PREFIX != "sfk":   # v4: S 류 단위가 Scf(부정본)일 수 있으므로 원문 근거는 오류 단위가 아닌 원천 창에서 다시 만든다
+        import sfk4_build_label_set as K4
+        win = {c["cid"]: K4.ev(c["std"], *c["win"]) for c in K4.clusters()}
+        ev = {cid: win[cid] for cid in ev}
     if "--reuse" in sys.argv and not RAW.exists():   # 추기 2: 근거(S 단위 evidence)가 바이트 동일한 군집만 이전 판 질문 재사용
         old = {u["pair"]: (u["evidence"], u["question"]) for split in ("pilot", "main")
                for u in json.loads((S / f"sfk_v2_{split}.json").read_text(encoding="utf-8")) if u["kind"] == "S"}

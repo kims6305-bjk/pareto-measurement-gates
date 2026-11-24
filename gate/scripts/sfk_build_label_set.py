@@ -123,10 +123,10 @@ def make_units(c: dict, idx: int, pool: list[dict]) -> list[dict] | None:
     return [s_unit, f_unit]
 
 
-def stratified(cands: list[dict], n: int) -> list[dict]:
-    """기준서별 비례 배분(최대 잔여법) + 상한. 기준서 안에서는 seed 해시 순서."""
+def stratified(cands: list[dict], n: int, seed: int = SEED) -> list[dict]:
+    """기준서별 비례 배분(최대 잔여법) + 상한. 기준서 안에서는 seed 해시 순서. seed 인자 = 부속서9(v4) 재사용."""
     by: dict[str, list[dict]] = {}
-    for c in sorted(cands, key=lambda c: h(SEED, "draw", c["hkey"])):
+    for c in sorted(cands, key=lambda c: h(seed, "draw", c["hkey"])):
         by.setdefault(c["std"], []).append(c)
     cap, total = int(n * CAP), len(cands)
     quota = {s: min(cap, len(v), n * len(v) // total) for s, v in by.items()}

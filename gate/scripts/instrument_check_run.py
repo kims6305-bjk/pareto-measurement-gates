@@ -96,11 +96,11 @@ def _last_verdict(raw: str):
     return found
 
 
-def call(prompt: str) -> tuple[str, str]:
-    """fail-closed — Phase 3와 동일 규약."""
+def call(prompt: str, model: str = CLAUDE_MODEL) -> tuple[str, str]:
+    """fail-closed — Phase 3와 동일 규약. model 인자 = 부속서9 E6P 강한 모델 팔(기본값은 판정기 그대로)."""
     try:
         p = subprocess.run(
-            [shutil.which("claude") or "claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
+            [shutil.which("claude") or "claude", "-p", "--model", model, "--max-turns", "1"],
             input=prompt, capture_output=True, text=True, timeout=CLI_TIMEOUT,
         )
         raw = (p.stdout or "").strip()
@@ -112,6 +112,12 @@ def call(prompt: str) -> tuple[str, str]:
         raise SystemExit(f"judge CLI rate_limit: {(raw + (p.stderr or ''))[:200]}")
     if p.returncode != 0:
         raise SystemExit(f"judge CLI 실패 exit={p.returncode}: {((p.stderr or '') + raw)[:200]}")
+    return parse(raw)
+
+
+def parse(raw: str) -> tuple[str, str]:
+    """판정 출력 → (라벨, 사유). call() 과 E6P codex 팔이 같은 규약을 쓴다."""
+    m = re.search(r"\{.*\}", raw, re.S)
     if not m:
         return "UNRESOLVED", "출력에 JSON 없음"
     try:

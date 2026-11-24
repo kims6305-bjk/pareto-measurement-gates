@@ -1,0 +1,58 @@
+{"no": 1, "label": "I", "note": "문단 41 공시형식 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 2, "label": "S", "note": "주장과 동일한 문장 명시", "reviewer": "gpt-6-astra"}
+{"no": 3, "label": "S", "note": "추가 및 개정 문단 명시", "reviewer": "gpt-6-astra"}
+{"no": 4, "label": "I", "note": "자산구조와 현금흐름 설명 없음", "reviewer": "gpt-6-astra"}
+{"no": 5, "label": "I", "note": "문단 53 조건 판단 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 6, "label": "S", "note": "제1037호에 따른 처리 명시", "reviewer": "gpt-6-astra"}
+{"no": 7, "label": "S", "note": "모든 항목의 측정단위 명시", "reviewer": "gpt-6-astra"}
+{"no": 8, "label": "S", "note": "인식의 적절성 조건 명시", "reviewer": "gpt-6-astra"}
+{"no": 9, "label": "I", "note": "실질 관계 고려 원칙 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 10, "label": "I", "note": "영업 범주 분류 규정 없음", "reviewer": "gpt-6-astra"}
+{"no": 11, "label": "S", "note": "공정가치 측정 예외 명시", "reviewer": "gpt-6-astra"}
+{"no": 12, "label": "I", "note": "시장가격 결정 정보 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 13, "label": "S", "note": "일관성 및 비교가능성 부정 명시", "reviewer": "gpt-6-astra"}
+{"no": 14, "label": "I", "note": "해당 금융상품 공시 규정 없음", "reviewer": "gpt-6-astra"}
+{"no": 15, "label": "S", "note": "조기 적용 사실 공시 명시", "reviewer": "gpt-6-astra"}
+{"no": 16, "label": "I", "note": "개정 이력 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 17, "label": "I", "note": "법인세 정의만 제시", "reviewer": "gpt-6-astra"}
+{"no": 18, "label": "S", "note": "별도 공시 명시", "reviewer": "gpt-6-astra"}
+{"no": 19, "label": "S", "note": "용역 회계처리와 자본증가 명시", "reviewer": "gpt-6-astra"}
+{"no": 20, "label": "I", "note": "우발부채 인식 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 21, "label": "I", "note": "상계권리와 결제의도 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 22, "label": "S", "note": "기타포괄손익 처리 예외 명시", "reviewer": "gpt-6-astra"}
+{"no": 23, "label": "I", "note": "사용권자산 재평가 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 24, "label": "S", "note": "문단 B3의 설명 대상 명시", "reviewer": "gpt-6-astra"}
+{"no": 25, "label": "I", "note": "측정기법과 관점 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 26, "label": "I", "note": "대가 형태에 따른 변동 미언급", "reviewer": "gpt-6-astra"}
+{"no": 27, "label": "C", "note": "당기손익 이외로 인식 명시", "reviewer": "gpt-6-astra"}
+{"no": 28, "label": "C", "note": "해당 급여를 규정하지 않음", "reviewer": "gpt-6-astra"}
+{"no": 29, "label": "I", "note": "손실충당금 손익인식 미언급", "reviewer": "gpt-6-astra"}
+{"no": 30, "label": "I", "note": "임금기준과 공시 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 31, "label": "I", "note": "별도재무제표 비교 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 32, "label": "S", "note": "일관된 적용을 명시", "reviewer": "gpt-6-astra"}
+{"no": 33, "label": "S", "note": "미인식 항목 주석 제공 명시", "reviewer": "gpt-6-astra"}
+{"no": 34, "label": "C", "note": "설명정보가 필요할 수 있음", "reviewer": "gpt-6-astra"}
+{"no": 35, "label": "S", "note": "각각 독립적 선택 명시", "reviewer": "gpt-6-astra"}
+{"no": 36, "label": "I", "note": "재무상태 이해 관련 근거 없음", "reviewer": "gpt-6-astra"}
+{"no": 37, "label": "S", "note": "해당 추가 공시를 명시", "reviewer": "gpt-6-astra"}
+{"no": 38, "label": "S", "note": "성격별 분류와 일관 적용 명시", "reviewer": "gpt-6-astra"}
+{"no": 39, "label": "S", "note": "의무적용대상 적용 명시", "reviewer": "gpt-6-astra"}
+{"no": 40, "label": "S", "note": "기초 및 발행일 전환 명시", "reviewer": "gpt-6-astra"}
+{"no": 41, "label": "I", "note": "유의적 영향력 상실 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 42, "label": "S", "note": "내용연수 한정 가능성 명시", "reviewer": "gpt-6-astra"}
+{"no": 43, "label": "I", "note": "포트폴리오 장부금액 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 44, "label": "S", "note": "의무 불이행 관련 요소 고려", "reviewer": "gpt-6-astra"}
+{"no": 45, "label": "S", "note": "해당 공정가치 변동 인식 명시", "reviewer": "gpt-6-astra"}
+{"no": 46, "label": "I", "note": "정의만 있고 적용범위 없음", "reviewer": "gpt-6-astra"}
+{"no": 47, "label": "S", "note": "다양한 방법 사용을 명시", "reviewer": "gpt-6-astra"}
+{"no": 48, "label": "I", "note": "재고자산 분류 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 49, "label": "I", "note": "다른 기준 적용 필요 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 50, "label": "I", "note": "일부 점유 가능과 양립 가능", "reviewer": "gpt-6-astra"}
+{"no": 51, "label": "I", "note": "수익 인식 시점·금액 규정 없음", "reviewer": "gpt-6-astra"}
+{"no": 52, "label": "S", "note": "적용대상과 동일한 진술", "reviewer": "gpt-6-astra"}
+{"no": 53, "label": "I", "note": "정의 충족 미인식 항목 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 54, "label": "S", "note": "특정 기간 상계 가능을 명시", "reviewer": "gpt-6-astra"}
+{"no": 55, "label": "C", "note": "분류 요구사항을 정한다고 명시", "reviewer": "gpt-6-astra"}
+{"no": 56, "label": "I", "note": "종업원급여 결제기한 언급 없음", "reviewer": "gpt-6-astra"}
+{"no": 57, "label": "S", "note": "적용 회계연도와 동일한 진술", "reviewer": "gpt-6-astra"}
+{"no": 58, "label": "I", "note": "제거 목표와 계속인식 언급 없음", "reviewer": "gpt-6-astra"}
