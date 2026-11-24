@@ -50,7 +50,8 @@ def register() -> None:
 def review_sheet() -> None:
     import openpyxl
     from openpyxl.styles import Alignment, Font
-    units = json.loads((S / "sfk_main.json").read_text(encoding="utf-8"))
+    pre = "sfk4" if EXP.startswith("E6") else "sfk"          # 부속서9: v4 본측정 문제집
+    units = json.loads((S / f"{pre}_main.json").read_text(encoding="utf-8"))
     rng = random.Random(SEED)
     pick = []
     for lab, k in REVIEW_QUOTA.items():
@@ -60,7 +61,9 @@ def review_sheet() -> None:
     wb = openpyxl.Workbook()
     info = wb.active
     info.title = "설명"
-    for row in (["SF-K 표본 검수 (30건) — 부속서8 §2-7"], [""],
+    title = "SF-K v4 표본 검수 (30건) — 부속서9 §4" if pre == "sfk4" else "SF-K 표본 검수 (30건) — 부속서8 §2-7"
+    v4 = [["⚠ 근거 속 문장 일부가 일부러 원 기준서와 반대로 바뀌어 있을 수 있다. 기준서 지식이 아니라 주어진 근거로만 판정한다."]] if pre == "sfk4" else []
+    for row in ([title], [""], *v4,
                 ["E열: 근거만 보고 S / C / I 중 하나. F열: 질문이 근거와 자연스럽게 맞으면 O, 아니면 X."],
                 ["S = 주장이 근거에 그대로 있거나 바로 도출된다"],
                 ["C = 근거가 주장과 반대되는 내용을 말한다"],
@@ -81,11 +84,11 @@ def review_sheet() -> None:
     for row in ws.iter_rows(min_row=2):
         for c in row:
             c.alignment = Alignment(wrap_text=True, vertical="top")
-    wb.save(S / "sfk_review_sheet.xlsx")
-    (S / "sfk_review_key.json").write_text(json.dumps(
+    wb.save(S / f"{pre}_review_sheet.xlsx")
+    (S / f"{pre}_review_key.json").write_text(json.dumps(
         [{"no": i, "id": u["id"], "kind": u["kind"], "label": u["human_label"]} for i, u in enumerate(pick, 1)],
         ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print("sfk_review_sheet.xlsx + sfk_review_key.json (30건)")
+    print(f"{pre}_review_sheet.xlsx + {pre}_review_key.json (30건)")
 
 
 def _units(cid: str):
@@ -146,8 +149,8 @@ def classify(r: dict, lo_i: int, hi_i: int) -> str:
 
 def verdict() -> None:
     """§3. Holm(후보 2개): 97.5% 구간으로 먼저 확정되는 후보가 있으면 그 후보는 97.5%, 나머지는 95% 로 판정."""
-    if EXP != "E5":
-        raise SystemExit("verdict 는 E5 전용")
+    if EXP not in ("E5", "E6"):
+        raise SystemExit("verdict 는 E5·E6 전용")
     base = _units("c000")
     res = {c: paired(c, base, _units(c)) for c in CANDS[1:]}
     strict = {c: classify(r, 3, 4) for c, (r, _) in res.items()}
@@ -164,8 +167,8 @@ def verdict() -> None:
 def precheck() -> None:
     """§5 기준선 사전 점검(부속서6 IC-0′: recall ≥ 0.30 and CONTRADICTED ≥ 1) + 천장(두 축 > 0.95)."""
     import mh_objectives as M
-    if EXP != "E5":
-        raise SystemExit("precheck 는 E5 전용")
+    if EXP not in ("E5", "E6"):
+        raise SystemExit("precheck 는 E5·E6 전용")
     for c in CANDS:
         us = list(_units(c).values())
         k, r, s = M.counts(us), M.recall_of(us), M.specificity_of(us)
@@ -177,7 +180,7 @@ def precheck() -> None:
 
 
 if __name__ == "__main__":
-    if EXP not in ("E5P", "E5", "E6P"):
-        raise SystemExit("MH_EXP=E5P·E5·E6P 로 실행")
+    if EXP not in ("E5P", "E5", "E6P", "E6"):
+        raise SystemExit("MH_EXP=E5P·E5·E6P·E6 로 실행")
     {"register": register, "review-sheet": review_sheet, "pilot-width": pilot_width,
      "precheck": precheck, "verdict": verdict}[sys.argv[1]]()

@@ -4,6 +4,7 @@
  "n_clusters_faultable": 985,
  "pilot_n": 100,
  "questions_sha256": {
+  "sfk4_questions_main_FROZEN.json": "baedc4959298bdcd1f0808b4f9b3a8adebc40f734c391381e2283fd2c812a338",
   "sfk4_questions_pilot_FROZEN.json": "b1b28c297d92d7d4bd8f94839b07ba4a86a8ff0578626f833fea07817b95bbe4"
  },
  "seed": 20261128,
