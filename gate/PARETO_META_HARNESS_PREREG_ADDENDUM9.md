@@ -27,3 +27,14 @@
 
 ## §4 이후 (파일럿 뒤)
 - 운영자 블라인드 검수 30건 → 폭 파일럿(`sfk_e5.py pilot-width`, E6P) → 본측정 N 확정 → 부속서9 추기.
+
+## 추기1 — E6P 파일럿 결과 (2026-11-24)
+- 원자료 1,400콜 완료: haiku c000 3판×200, 강한 팔 4×200. id 중복 0, UNRESOLVED 1(haiku run2).
+- 실행 변경: gpt-6-astra(86건 뒤)·gpt-6.2-sol(22건 뒤) 는 codex CLI(gpt2) 크레딧 소진으로 멈춤 → 나머지 114·178건을
+  gpt1 레인(Hermes openai-codex pool, --safe-mode, reasoning medium)으로 이어받음. 행에 `lane: hermes` 표시,
+  호출마다 state.db 세션 실제 모델 대조(불일치 0). 같은 모델·프롬프트이나 경로가 섞였으므로 GPT 팔 값은 참고 수준.
+- §3 게이트 (`sfk_e6.py level`):
+  - 판정기 haiku 3판: recall 0.890 · specificity 0.920 → **PASS** (E5 0.958/0.970 대비 천장 해소).
+  - 강한 팔(1판): opus 0.970/0.950 · sonnet 0.960/0.890 · astra 0.970/0.970 · sol 0.990/0.970.
+    min 축 ≤ 0.95 = 2/4(opus·sonnet) → **2요인 본측정 자격**. 최종 결정은 운영자.
+- 유형별(탐색): Ccf·C·Iswap 은 전 모델 만점 → 난이도 기여 없음. 난이도는 Idrop(haiku 37/48)·S(68/74)·Scf(sonnet 19/26)에서 나옴.

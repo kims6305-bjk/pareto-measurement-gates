@@ -46,6 +46,29 @@ def call_codex(prompt: str, model: str) -> tuple[str, str]:
     return parse(raw)
 
 
+def call_hermes(prompt: str, model: str) -> tuple[str, str]:
+    """gpt1 레인(Hermes openai-codex pool, --safe-mode). codex CLI(gpt2) 크레딧 소진 뒤 이어받기 — 부속서9 추기1.
+    🔴 이 레인은 429 면 조용히 다른 모델로 폴백하고 rc0 을 낸다 → 세션 실제 모델을 state.db 에서 대조, 다르면 멈춘다."""
+    import os
+    import sqlite3
+    from instrument_check_run import parse
+    p = subprocess.run([os.path.expanduser("~/.local/bin/hermes"), "--safe-mode", "chat", "--provider", "openai-codex",
+                        "-m", model, "-t", "todo", "--reasoning", "medium", "--query-file", "-", "--oneshot", "-Q"],
+                       input=prompt, capture_output=True, text=True, timeout=400)
+    sid = re.findall(r"session_id:\s*(\S+)", p.stderr or "")
+    if p.returncode != 0 or not p.stdout.strip() or not sid:
+        raise SystemExit(f"hermes 실패 rc={p.returncode}: {(p.stderr or '')[-200:]}")
+    db = sqlite3.connect(f"file:{os.path.expanduser('~/.hermes/state.db')}?mode=ro", uri=True)
+    got = db.execute("select model from session_model_usage where session_id=? and task='' and api_call_count>0",
+                     (sid[-1],)).fetchall()
+    if [r[0] for r in got] != [model]:
+        raise SystemExit(f"모델 불일치(폴백 의심) {sid[-1]}: {got}")
+    return parse(p.stdout)
+
+
+LANE = __import__("os").environ.get("E6_GPT_LANE", "codex")   # codex = gpt2(CLI), hermes = gpt1(pool)
+
+
 def arm(model: str, workers: int) -> None:
     from instrument_check_run import call, load_units
     from mh_guard import ledger_lock
@@ -64,11 +87,14 @@ def arm(model: str, workers: int) -> None:
         def one(u):
             t0 = time.time()
             prompt = fn(u, **kw)
-            label, why = call_codex(prompt, model) if model.startswith("gpt") else call(prompt, model)
+            gpt = model.startswith("gpt")
+            label, why = ((call_hermes if LANE == "hermes" else call_codex)(prompt, model) if gpt
+                          else call(prompt, model))
             with lock, out.open("a", encoding="utf-8") as f:
                 f.write(json.dumps({"id": u["id"], "run": "run1", "label": label, "rationale": why, "human": None,
                                     "candidate_id": "c000", "condition": "C2", "model": model,
-                                    "prompt_sha256": sha, "elapsed": round(time.time() - t0, 1)},
+                                    "prompt_sha256": sha, "elapsed": round(time.time() - t0, 1),
+                                    **({"lane": LANE} if gpt else {})},
                                    ensure_ascii=False) + "\n")
         with ThreadPoolExecutor(workers) as ex:
             for i, f in enumerate([ex.submit(one, u) for u in todo], 1):
