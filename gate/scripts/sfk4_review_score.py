@@ -9,8 +9,9 @@ from pathlib import Path
 import openpyxl
 
 S = Path(__file__).resolve().parent
-key = json.loads((S / "sfk4_review_key.json").read_text(encoding="utf-8"))
-orig = list(openpyxl.load_workbook(S / "sfk4_review_sheet.xlsx")["검수"].iter_rows(min_row=2, values_only=True))
+PRE = sys.argv[2] if len(sys.argv) > 2 else "sfk4"   # 부속서12: sfk5
+key = json.loads((S / f"{PRE}_review_key.json").read_text(encoding="utf-8"))
+orig = list(openpyxl.load_workbook(S / f"{PRE}_review_sheet.xlsx")["검수"].iter_rows(min_row=2, values_only=True))
 done = list(openpyxl.load_workbook(sys.argv[1])["검수"].iter_rows(min_row=2, values_only=True))
 done = [r for r in done if r and r[0] is not None]
 assert len(done) == len(key) == 30, f"행 수 {len(done)}"
@@ -26,6 +27,6 @@ for k, d in zip(key, done):
         qx.append((k["no"], k["kind"], d[6]))
 out = {"n": 30, "agree": 30 - len(mis) - len(blank), "blank": blank, "tamper": tamper, "mismatch": mis,
        "question_X": [{"no": n, "kind": kd, "memo": m} for n, kd, m in qx]}
-(S / "sfk4_review_verdict.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+(S / f"{PRE}_review_verdict.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 print(json.dumps(out, ensure_ascii=False, indent=1))
 print("PASS" if not tamper and not blank and len(mis) < 3 else "FAIL/검토 필요")

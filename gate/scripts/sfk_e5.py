@@ -50,19 +50,25 @@ def register() -> None:
 def review_sheet() -> None:
     import openpyxl
     from openpyxl.styles import Alignment, Font
-    pre = "sfk4" if EXP.startswith("E6") else "sfk"          # 부속서9: v4 본측정 문제집
+    pre = "sfk5" if EXP.startswith("E8") else "sfk4" if EXP.startswith("E6") else "sfk"   # 부속서9 v4 · 부속서12 v5
     units = json.loads((S / f"{pre}_main.json").read_text(encoding="utf-8"))
     rng = random.Random(SEED)
     pick = []
-    for lab, k in REVIEW_QUOTA.items():
-        pool = sorted((u for u in units if u["human_label"] == lab), key=lambda u: u["id"])
+    if pre == "sfk5":   # 부속서12 §3: 최소 편집형 16 과표집 + 나머지 14, v4 검수분 제외
+        seen = {k["id"] for k in json.loads((S / "sfk4_review_key.json").read_text(encoding="utf-8"))}
+        quota = {("Cmin",): 8, ("Ccfmin",): 8, ("S", "Scf"): 10, ("Idrop",): 4}
+    else:
+        seen, quota = set(), {(lab,): k for lab, k in REVIEW_QUOTA.items()}
+    for ks, k in quota.items():
+        pool = sorted((u for u in units if (u["kind"] if pre == "sfk5" else u["human_label"]) in ks and u["id"] not in seen),
+                      key=lambda u: u["id"])
         pick += rng.sample(pool, k)
     rng.shuffle(pick)
     wb = openpyxl.Workbook()
     info = wb.active
     info.title = "설명"
-    title = "SF-K v4 표본 검수 (30건) — 부속서9 §4" if pre == "sfk4" else "SF-K 표본 검수 (30건) — 부속서8 §2-7"
-    v4 = [["⚠ 근거 속 문장 일부가 일부러 원 기준서와 반대로 바뀌어 있을 수 있다. 기준서 지식이 아니라 주어진 근거로만 판정한다."]] if pre == "sfk4" else []
+    title = "SF-K v5 표본 검수 (30건) — 부속서12 §3" if pre == "sfk5" else "SF-K v4 표본 검수 (30건) — 부속서9 §4" if pre == "sfk4" else "SF-K 표본 검수 (30건) — 부속서8 §2-7"
+    v4 = [["⚠ 근거 속 문장 일부가 일부러 원 기준서와 반대로 바뀌어 있을 수 있다. 기준서 지식이 아니라 주어진 근거로만 판정한다."]] if pre in ("sfk4", "sfk5") else []
     for row in ([title], [""], *v4,
                 ["E열: 근거만 보고 S / C / I 중 하나. F열: 질문이 근거와 자연스럽게 맞으면 O, 아니면 X."],
                 ["S = 주장이 근거에 그대로 있거나 바로 도출된다"],
@@ -180,7 +186,7 @@ def precheck() -> None:
 
 
 if __name__ == "__main__":
-    if EXP not in ("E5P", "E5", "E6P", "E6"):
-        raise SystemExit("MH_EXP=E5P·E5·E6P·E6 로 실행")
+    if EXP not in ("E5P", "E5", "E6P", "E6", "E8P"):
+        raise SystemExit("MH_EXP=E5P·E5·E6P·E6·E8P(review-sheet) 로 실행")
     {"register": register, "review-sheet": review_sheet, "pilot-width": pilot_width,
      "precheck": precheck, "verdict": verdict}[sys.argv[1]]()
