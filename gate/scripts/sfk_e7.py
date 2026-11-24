@@ -15,7 +15,7 @@ S = Path(__file__).resolve().parent
 sys.path.insert(0, str(S))
 from mh_exp import EXP, TAG  # noqa: E402
 
-STRONG = ("claude-sonnet-5-5", "claude-opus-5-5")   # Holm 확증 가족
+STRONG = ("claude-opus-5-5",) if EXP == "E8" else ("claude-sonnet-5-5", "claude-opus-5-5")   # Holm 확증 가족 (E8 = 부속서12 추기1 게이트 통과분)
 MODELS = STRONG + (("claude-haiku-5-5",) if EXP in ("E8P", "E8") else ())
 CIDS = ("c000", "c401")
 lock = threading.Lock()
@@ -82,13 +82,14 @@ def verdict() -> None:
                                  for ax, (d, lo, hi, l2, h2) in r.items()))
     for m in set(MODELS) - set(STRONG):          # 부속서12 §4: haiku = 재현 확인, 95% 단독
         print(f"재현 {m}: {classify(res.pop(m), 1, 2)}  (확증 가족 밖, 95%)")
-    strict = {m: classify(r, 3, 4) for m, r in res.items()}
+    hi = (3, 4) if len(res) > 1 else (1, 2)      # 가족 1 이면 Holm = 95%
+    strict = {m: classify(r, *hi) for m, r in res.items()}
     first = [m for m, v in strict.items() if v != "판정 불가"]
     for m, r in res.items():
-        v = strict[m] if first else classify(r, 3, 4)
+        v = strict[m] if first else classify(r, *hi)
         if first and m not in first:
             v = classify(r, 1, 2)
-        print(f"판정 {m}: {v}  (Holm: {'97.5%' if (m in first or not first) else '95%'})")
+        print(f"판정 {m}: {v}  (Holm: {('97.5%' if hi == (3, 4) else '95%') if (m in first or not first) else '95%'})")
 
 
 def level() -> None:
