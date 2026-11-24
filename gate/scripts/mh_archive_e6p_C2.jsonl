@@ -1,0 +1,1 @@
+{"candidate_id": "c000", "origin": "E5 원장 복사(부속서9 §2)", "harness": {"builder_module": "phase3_build_prompts", "builder_fn": "build", "builder_kwargs": {"with_siblings": true}, "prompt_sha256": "c6f715fa7ffab7e274aed2023da901e05eba7bebc6c8dcbd09f7999a77b83682", "model": "claude-haiku-5-5", "diff_from_parent": "없음 (baseline)", "edited_surface": []}, "status": "registered"}
