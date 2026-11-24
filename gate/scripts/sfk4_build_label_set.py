@@ -10,7 +10,7 @@ v3(sfk_build_label_set.py) 대비 바뀌는 것(난이도 상향):
      '이와 반대로'·'반대로'·'한편' 시작 문장은 주장 후보 제외.
 
 usage:
-    python sfk4_build_label_set.py            # 파일럿 100 + 본측정 N(기본 400)
+    python sfk4_build_label_set.py            # 파일럿 100 + 본측정 N(기본 626, 추기3)
     python sfk4_build_label_set.py --n 520
     python sfk4_build_label_set.py --check    # 바이트 동일 + 구성 검사
     python sfk4_build_label_set.py --count    # 원천 풀만 센다(0 파일 쓰기)
@@ -171,7 +171,7 @@ def main() -> None:
                 if make_units(c, idx, pool)]
         print(f"창 {len(pool)}, 단위 생성 가능 {len(made)}, 기준서 {len({c['std'] for c in made})}")
         return
-    d = build(int(args[args.index("--n") + 1]) if "--n" in args else 400)
+    d = build(int(args[args.index("--n") + 1]) if "--n" in args else 626)   # 부속서9 추기3: 폭 파일럿 정원 N=626
     check_construction(d)
     blobs = {OUT[k]: json.dumps(d[k], ensure_ascii=False, indent=1, sort_keys=True) + "\n" for k in OUT}
     if "--check" in args:
