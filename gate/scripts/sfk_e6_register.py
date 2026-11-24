@@ -11,17 +11,20 @@ from instrument_check_run import load_units  # noqa: E402
 from mh_exp import EXP  # noqa: E402
 from mh_run_candidate import archive_path, prompt_sha256, resolve_builder  # noqa: E402
 
-assert EXP == "E6P", "MH_EXP=E6P 로 실행"
-row = [json.loads(l) for l in (S / "mh_archive_e5_C2.jsonl").open(encoding="utf-8")
-       if json.loads(l)["candidate_id"] == "c000"][-1]
+assert EXP in ("E6P", "E6"), "MH_EXP=E6P·E6 로 실행"
+CANDS = sys.argv[1:] or ["c000"]   # 부속서9 §4 폭 파일럿: c301 c302 추가 등록(append)
+rows = {json.loads(l)["candidate_id"]: json.loads(l) for l in (S / "mh_archive_e5_C2.jsonl").open(encoding="utf-8")}
 units = load_units()
-assert len(units) == 200 and all(u["question"] for u in units), "파일럿 단위 200·질문 기입 필요"
+assert all(u["question"] for u in units), "질문 미기입 단위가 있다"
 out = archive_path("C2")
-if out.exists():
-    raise SystemExit(f"{out.name} 이미 있음 — 덮어쓰지 않는다")
-h = dict(row["harness"])
-fn, kw, _ = resolve_builder(h)
-h["prompt_sha256"] = prompt_sha256(fn, kw, units)
-out.write_text(json.dumps({"candidate_id": "c000", "origin": "E5 원장 복사(부속서9 §2)", "harness": h,
-                           "status": "registered"}, ensure_ascii=False) + "\n", encoding="utf-8")
-print(out.name, "c000 등록, 단위", len(units), h["prompt_sha256"][:12])
+have = {json.loads(l)["candidate_id"] for l in out.open(encoding="utf-8")} if out.exists() else set()
+if have & set(CANDS):
+    raise SystemExit(f"{out.name} 에 이미 있음 {sorted(have & set(CANDS))} — 덮어쓰지 않는다")
+with out.open("a", encoding="utf-8") as f:
+    for cid in CANDS:
+        h = dict(rows[cid]["harness"])
+        fn, kw, _ = resolve_builder(h)
+        h["prompt_sha256"] = prompt_sha256(fn, kw, units)
+        f.write(json.dumps({"candidate_id": cid, "origin": "E5 원장 복사(부속서9 §2·§4)", "harness": h,
+                            "status": "registered"}, ensure_ascii=False) + "\n")
+        print(out.name, cid, "등록, 단위", len(units), h["prompt_sha256"][:12])
