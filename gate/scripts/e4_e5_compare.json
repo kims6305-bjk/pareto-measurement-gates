@@ -1,0 +1,108 @@
+{
+ "E4": {
+  "n_clusters": 72,
+  "n_units": 300,
+  "abs": {
+   "c000": {
+    "recall": 0.8442,
+    "specificity": 0.9247,
+    "sec_per_call": 4.06
+   },
+   "c301": {
+    "recall": 0.8182,
+    "specificity": 0.8973,
+    "sec_per_call": 5.15
+   },
+   "c302": {
+    "recall": 0.8506,
+    "specificity": 0.8836,
+    "sec_per_call": 5.0
+   }
+  },
+  "delta": {
+   "c301": {
+    "recall": [
+     -0.0805,
+     0.034
+    ],
+    "specificity": [
+     -0.0902,
+     0.0407
+    ],
+    "sec": [
+     0.8436,
+     1.3091
+    ],
+    "width_recall_pp": 11.5
+   },
+   "c302": {
+    "recall": [
+     -0.049,
+     0.0683
+    ],
+    "specificity": [
+     -0.1061,
+     0.0145
+    ],
+    "sec": [
+     0.6679,
+     1.1996
+    ],
+    "width_recall_pp": 11.7
+   }
+  }
+ },
+ "E5": {
+  "n_clusters": 400,
+  "n_units": 800,
+  "abs": {
+   "c000": {
+    "recall": 0.9575,
+    "specificity": 0.97,
+    "sec_per_call": 5.36
+   },
+   "c301": {
+    "recall": 0.94,
+    "specificity": 0.9825,
+    "sec_per_call": 5.18
+   },
+   "c302": {
+    "recall": 0.945,
+    "specificity": 0.9725,
+    "sec_per_call": 5.39
+   }
+  },
+  "delta": {
+   "c301": {
+    "recall": [
+     -0.0425,
+     0.005
+    ],
+    "specificity": [
+     -0.0075,
+     0.0325
+    ],
+    "sec": [
+     -0.2203,
+     -0.1479
+    ],
+    "width_recall_pp": 4.8
+   },
+   "c302": {
+    "recall": [
+     -0.035,
+     0.01
+    ],
+    "specificity": [
+     -0.0175,
+     0.0225
+    ],
+    "sec": [
+     -0.0035,
+     0.0554
+    ],
+    "width_recall_pp": 4.5
+   }
+  }
+ }
+}

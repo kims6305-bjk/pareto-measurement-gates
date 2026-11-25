@@ -1,0 +1,50 @@
+{
+ "tamper": [],
+ "blank": [],
+ "by_kind": {
+  "S": {
+   "n": 30,
+   "defect": 0,
+   "rate": 0.0,
+   "wilson95": [
+    0,
+    0.114
+   ],
+   "question_X": 0,
+   "full_cleanup": false,
+   "items": []
+  },
+  "Scf": {
+   "n": 30,
+   "defect": 0,
+   "rate": 0.0,
+   "wilson95": [
+    0,
+    0.114
+   ],
+   "question_X": 0,
+   "full_cleanup": false,
+   "items": []
+  },
+  "Idrop": {
+   "n": 30,
+   "defect": 1,
+   "rate": 0.033,
+   "wilson95": [
+    0.006,
+    0.167
+   ],
+   "question_X": 7,
+   "full_cleanup": false,
+   "items": [
+    {
+     "no": 50,
+     "id": "K1109w5.6.5-Idrop",
+     "gold": "I",
+     "op": "C",
+     "memo": "근거(문단 5.6.5)는 당기손익 영향 없어 재분류조정 미해당으로 명시(원래 5.6.7 누락으로 5.6.5와 충돌)"
+    }
+   ]
+  }
+ }
+}

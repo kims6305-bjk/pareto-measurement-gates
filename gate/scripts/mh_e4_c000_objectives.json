@@ -1,0 +1,245 @@
+{
+  "candidate_id": "c000",
+  "measurement": {
+    "label_sheet_sha256": "90282de0f713bc5f9b04c56d4b884525853531952517fac63d540f9c67aec183",
+    "n_units": 300,
+    "n_runs": 3,
+    "n_problem": 154,
+    "n_flagged": 141,
+    "n_detected": 130,
+    "n_split": 1,
+    "n_unresolved": 0,
+    "raw_files": [
+      "mh_e4_c000_run1.jsonl",
+      "mh_e4_c000_run2.jsonl",
+      "mh_e4_c000_run3.jsonl"
+    ]
+  },
+  "objectives": {
+    "recall": {
+      "value": 0.8442,
+      "ci_claim": [
+        0.7867,
+        0.8986
+      ],
+      "ci_qid": [
+        0.7716,
+        0.9103
+      ]
+    },
+    "specificity": {
+      "value": 0.9247,
+      "ci_claim": [
+        0.8777,
+        0.9648
+      ],
+      "ci_qid": [
+        0.8778,
+        0.966
+      ]
+    }
+  },
+  "reference_fields": {
+    "elapsed_median": 3.8,
+    "prompt_chars_median": null,
+    "search_cost_calls": 900,
+    "precision": 0.922,
+    "n_ok": 146
+  },
+  "sample_gate": {
+    "passed": true,
+    "violations": []
+  },
+  "bootstrap": {
+    "seed": 20260730,
+    "B": 2000,
+    "ci_method": "percentile_2.5_97.5",
+    "ci_used_for_judgment": "ci_qid",
+    "n_valid_resamples": {
+      "recall": {
+        "claim": 2000,
+        "qid": 2000
+      },
+      "specificity": {
+        "claim": 2000,
+        "qid": 2000
+      }
+    },
+    "cluster_unit": "qid(문항) = id.split('-')[0]"
+  },
+  "diagnostics": {
+    "n_contradicted": 67,
+    "n_unresolved_raw": 1,
+    "misses": [
+      {
+        "id": "Q004-sf-C037",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q006-sf-C038",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q011-sf-C056",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q013-sf-C031",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q030-sf-C067",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q030-sf-Idrop033",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q035-sf-C003",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q035-sf-Idrop015",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q035-sf-Idrop032",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q037-sf-Idrop029",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q042-sf-C070",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q042-sf-S052",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q042-sf-S123",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q062-sf-C019",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q070-sf-S096",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q085-sf-S028",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q101-sf-C054",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q105-sf-Idrop010",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q106-sf-C045",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q106-sf-C068",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q109-sf-C057",
+        "human": "C",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q111-sf-Idrop008",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q111-sf-Idrop028",
+        "human": "I",
+        "judge": "SUPPORTED"
+      },
+      {
+        "id": "Q113-sf-C046",
+        "human": "C",
+        "judge": "SUPPORTED"
+      }
+    ],
+    "false_alarms": [
+      {
+        "id": "Q015-sf-S100",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q016-sf-S014",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q029-sf-S122",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q042-sf-S127",
+        "judge": "INSUFFICIENT"
+      },
+      {
+        "id": "Q058-sf-S094",
+        "judge": "INSUFFICIENT"
+      },
+      {
+        "id": "Q058-sf-S117",
+        "judge": "INSUFFICIENT"
+      },
+      {
+        "id": "Q075-sf-S121",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q078-sf-S119",
+        "judge": "INSUFFICIENT"
+      },
+      {
+        "id": "Q079-sf-S109",
+        "judge": "INSUFFICIENT"
+      },
+      {
+        "id": "Q082-sf-S042",
+        "judge": "CONTRADICTED"
+      },
+      {
+        "id": "Q110-sf-S016",
+        "judge": "INSUFFICIENT"
+      }
+    ],
+    "splits": [
+      "Q059-sf-S009"
+    ]
+  }
+}

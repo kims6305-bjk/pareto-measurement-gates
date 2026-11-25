@@ -1,0 +1,41 @@
+{
+  "computed_at": "2026-11-23T20:13:31+09:00",
+  "archive_sha256": "7bf8ad63076fccecf707760c85cb462036dd2683402ea27dea4ed15e36b90841",
+  "axes": [
+    "recall",
+    "specificity"
+  ],
+  "ci_used": "ci_qid",
+  "front": [
+    "c000",
+    "c301",
+    "c302"
+  ],
+  "endpoints": {
+    "recall": "c302",
+    "specificity": "c000"
+  },
+  "dominated": [],
+  "pruned": [],
+  "unjudged": [],
+  "front_size": 3,
+  "front_changed": true,
+  "stall_rounds": 0,
+  "g1_excluded": [],
+  "uncovered": [],
+  "invalid": [],
+  "termination": {
+    "triggered": [
+      "T4"
+    ],
+    "stop": true,
+    "cumulative_calls": 2700,
+    "current_generation": 1,
+    "all_axes_tied": [
+      "c000",
+      "c301",
+      "c302"
+    ],
+    "prune_halt": null
+  }
+}

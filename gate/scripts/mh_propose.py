@@ -31,8 +31,13 @@ sys.path.insert(0, str(GATE / "scripts"))
 
 import phase3_build_prompts as p3  # noqa: E402
 
-PROPOSER_MODEL = "claude-sonnet-5"      # mh_propose.md §3 — same for every condition
+from mh_exp import E2  # noqa: E402
+
+PROPOSER_MODEL = "claude-fable-5-2" if E2 else "claude-sonnet-5"   # 부속서5 §9 추기4(추기1 철회) / mh_propose.md §3 — same for every condition
 CLI_TIMEOUT = 300
+# 축2 설명: E2 계열 = specificity(부속서5 §3), E1 = precision. E1 프롬프트 문자열은 그대로다.
+AXIS2_TEXT = ("specificity (correct claims NOT flagged)" if E2
+              else "precision (flags that are real problems)")
 
 # ── U11 surface list. Order = order of concatenation inside p3.JUDGE. ───────────
 JUDGE_PARTS = ("preamble", "task", "def_supported", "def_contradicted",
@@ -107,7 +112,7 @@ def is_deletion(old, new) -> bool:
 PROMPT_TEMPLATE = """You edit the instruction text of an LLM citation judge.
 The judge reads a claim plus evidence and outputs SUPPORTED / CONTRADICTED / INSUFFICIENT.
 Two objectives are measured outside your control on a fixed labelled set:
-recall (problem claims flagged) and precision (flags that are real problems).
+recall (problem claims flagged) and {axis2}.
 You never see or compute the scores of your own proposal.
 
 MODE: {mode}
@@ -144,7 +149,7 @@ def render_prompt(parents: list[dict], context: dict, mode: str,
                                "edited_surface": p["harness"].get("edited_surface")}
            for p in parents}
     return PROMPT_TEMPLATE.format(
-        mode=mode, mode_rule=MODE_RULES[mode], allowed="\n".join(f"- {s}" for s in allowed),
+        axis2=AXIS2_TEXT, mode=mode, mode_rule=MODE_RULES[mode], allowed="\n".join(f"- {s}" for s in allowed),
         forbidden=sorted(forbidden) or "none",
         parents=json.dumps(par, ensure_ascii=False, indent=1),
         context=json.dumps(context, ensure_ascii=False, indent=1))

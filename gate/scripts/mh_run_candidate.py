@@ -30,13 +30,14 @@ sys.path.insert(0, str(GATE / "scripts"))
 
 from instrument_check_run import call, load_units  # noqa: E402
 from mh_guard import ledger_lock  # noqa: E402
+from mh_exp import EXP, TAG  # noqa: E402
 
 RUNS = ("run1", "run2", "run3")
 CONDITIONS = ("C0", "C1", "C2")
 
 
 def archive_path(condition: str) -> Path:
-    return GATE / f"scripts/mh_archive_{condition}.jsonl"
+    return GATE / f"scripts/mh_archive_{TAG}{condition}.jsonl"
 
 
 def load_candidate(condition: str, cid: str) -> dict:
@@ -89,7 +90,7 @@ def run_one(cid: str, condition: str, run: str, fn, kwargs, model,
             f"prompt_sha256 불일치: 원장={expected_sha[:12]}… "
             f"실측={actual_sha[:12]}… — 원장의 harness 정의와 실물 빌더가 다르다")
 
-    out = GATE / f"scripts/mh_{cid}_{run}.jsonl"
+    out = GATE / f"scripts/mh_{TAG}{cid}_{run}.jsonl"
     with ledger_lock(out):
         done = set()
         if out.exists():
@@ -99,7 +100,7 @@ def run_one(cid: str, condition: str, run: str, fn, kwargs, model,
                 except Exception:  # noqa: BLE001
                     pass
         todo = [u for u in units if u["id"] not in done]
-        print(f"{cid}/{condition}/{run}: 대상 {len(units)}건, "
+        print(f"[{EXP}] {cid}/{condition}/{run}: 대상 {len(units)}건, "
               f"완료 {len(done)}, 남은 {len(todo)}", flush=True)
 
         n = 0
@@ -119,8 +120,7 @@ def run_one(cid: str, condition: str, run: str, fn, kwargs, model,
                 fh.flush()
                 n += 1
                 if n % 10 == 0 or n == len(todo):
-                    print(f"[{n}/{len(todo)}] {u['id']} human={u['human']} -> {label}",
-                          flush=True)
+                    print(f"[{n}/{len(todo)}] {u['id']}", flush=True)   # 판정·정답 미출력(블라인드)
     print(f"DONE {cid}/{run}: 신규 {n}건 -> {out.name}")
 
 

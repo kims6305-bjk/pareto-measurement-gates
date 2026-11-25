@@ -465,6 +465,17 @@ Phase 3는 순환 논증을 피하려고 "가설을 생성한 표본은 확증 �
 
 전문: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
+## 확증 실험 E5~E9 — 판정 절차 변경 c401 (2026-11-25)
+
+![E9 요약](gate/reports/e9_summary.ko.png)
+
+- 탐색 제안기가 낸 후보(c301·c302)는 기준선 c000을 넘지 못했다(E5·E6, 판정 불가).
+- 탐색 밖에서 설계한 **c401(주장 → 조건 분해 → 근거 문장 대조)**은 약한 판정기 haiku에서 두 축 모두 c000을 지배했다.
+  문제집 3판에서 recall/specificity +12.5/+10.2 (v4·E6) → +15.0/+10.9 (v5·E8) → +14.5/+10.9%p (v5.1·E9).
+- 강한 판정기(sonnet·opus)는 c000만으로 천장(opus recall 0.982)이라 **판정 불가**다 — 효과가 없다는 뜻이 아니라 이 문제군으로는 잴 수 없다는 뜻이다.
+- 문제집 라벨 결함률(운영자 블라인드 검수 90건): S 0/30 · Scf 0/30 · Idrop 1/30.
+- 모든 단계는 결과 열람 전에 커밋한 부속서로 고정했다: `gate/PARETO_META_HARNESS_PREREG_ADDENDUM9~13.md`, 보고서 `gate/REPORT_E6_E10.md`.
+
 ## 레포 구조
 
 ```

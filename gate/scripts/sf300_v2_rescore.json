@@ -1,0 +1,192 @@
+{
+ "label_v2_sha256": "90282de0f713bc5f9b04c56d4b884525853531952517fac63d540f9c67aec183",
+ "changes": {
+  "Q042-sf-S052": [
+   "I",
+   "예외 요건의 조건 하나를 단독 사실 진술로 떼어냄"
+  ],
+  "Q070-sf-S096": [
+   "I",
+   "고려 요건의 조건 하나를 단독 사실 진술로 떼어냄"
+  ],
+  "Q085-sf-S028": [
+   "I",
+   "'그 상황'이 지시하는 전제 조건이 빠짐"
+  ],
+  "Q042-sf-S123": [
+   "C",
+   "'다만' 이하 예외를 생략해 모든 경우 인식한다는 뜻이 됨"
+  ]
+ },
+ "models": {
+  "opus-5-5": {
+   "v1": {
+    "recall": 0.9933333333333333,
+    "specificity": 0.98,
+    "counts": {
+     "n_units": 300,
+     "n_problem": 150,
+     "n_flagged": 152,
+     "n_detected": 149,
+     "n_contradicted": 74,
+     "n_ok": 150,
+     "n_split": 0,
+     "n_unresolved": 0
+    },
+    "adopt": false
+   },
+   "v2": {
+    "recall": 0.987012987012987,
+    "specificity": 1.0,
+    "counts": {
+     "n_units": 300,
+     "n_problem": 154,
+     "n_flagged": 152,
+     "n_detected": 152,
+     "n_contradicted": 75,
+     "n_ok": 146,
+     "n_split": 0,
+     "n_unresolved": 0
+    },
+    "adopt": false
+   }
+  },
+  "sonnet-5-5": {
+   "v1": {
+    "recall": 0.9866666666666667,
+    "specificity": 0.96,
+    "counts": {
+     "n_units": 300,
+     "n_problem": 150,
+     "n_flagged": 154,
+     "n_detected": 148,
+     "n_contradicted": 74,
+     "n_ok": 150,
+     "n_split": 0,
+     "n_unresolved": 0
+    },
+    "adopt": false
+   },
+   "v2": {
+    "recall": 0.974025974025974,
+    "specificity": 0.9726027397260274,
+    "counts": {
+     "n_units": 300,
+     "n_problem": 154,
+     "n_flagged": 154,
+     "n_detected": 150,
+     "n_contradicted": 74,
+     "n_ok": 146,
+     "n_split": 0,
+     "n_unresolved": 0
+    },
+    "adopt": false
+   }
+  },
+  "haiku-5-5": {
+   "v1": {
+    "recall": 0.88,
+    "specificity": 0.9266666666666666,
+    "counts": {
+     "n_units": 300,
+     "n_problem": 150,
+     "n_flagged": 143,
+     "n_detected": 132,
+     "n_contradicted": 64,
+     "n_ok": 150,
+     "n_split": 1,
+     "n_unresolved": 0
+    },
+    "adopt": true
+   },
+   "v2": {
+    "recall": 0.8636363636363636,
+    "specificity": 0.9315068493150684,
+    "counts": {
+     "n_units": 300,
+     "n_problem": 154,
+     "n_flagged": 143,
+     "n_detected": 133,
+     "n_contradicted": 64,
+     "n_ok": 146,
+     "n_split": 1,
+     "n_unresolved": 0
+    },
+    "adopt": true
+   }
+  }
+ },
+ "haiku_ic1_v2": {
+  "r": 0.35,
+  "c1_over_specificity": true,
+  "c2_under_recall": true,
+  "c3_both_dominated": true,
+  "verdict": "PASS",
+  "records": {
+   "c000": {
+    "recall": {
+     "value": 0.8636363636363636,
+     "ci_qid": [
+      0.8052,
+      0.9153
+     ]
+    },
+    "specificity": {
+     "value": 0.9315068493150684,
+     "ci_qid": [
+      0.8973,
+      0.9667
+     ]
+    }
+   },
+   "n_over": {
+    "recall": {
+     "value": 0.9025974025974026,
+     "ci_qid": [
+      0.8507,
+      0.9483
+     ]
+    },
+    "specificity": {
+     "value": 0.6575342465753424,
+     "ci_qid": [
+      0.5921,
+      0.731
+     ]
+    }
+   },
+   "n_under": {
+    "recall": {
+     "value": 0.5324675324675324,
+     "ci_qid": [
+      0.4605,
+      0.6055
+     ]
+    },
+    "specificity": {
+     "value": 0.952054794520548,
+     "ci_qid": [
+      0.9226,
+      0.9808
+     ]
+    }
+   },
+   "n_both": {
+    "recall": {
+     "value": 0.7272727272727273,
+     "ci_qid": [
+      0.6509,
+      0.7968
+     ]
+    },
+    "specificity": {
+     "value": 0.8013698630136986,
+     "ci_qid": [
+      0.7432,
+      0.8658
+     ]
+    }
+   }
+  }
+ }
+}

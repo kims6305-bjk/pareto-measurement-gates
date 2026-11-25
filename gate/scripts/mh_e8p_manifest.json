@@ -1,0 +1,7 @@
+{
+  "label_sheet_xlsx_sha256": "a9fedde786a4c4f19961367a706989a8badac942a271c689a9f53bac85f8760f",
+  "label_sheet_json_sha256": "a9fedde786a4c4f19961367a706989a8badac942a271c689a9f53bac85f8760f",
+  "model": "claude-haiku-5-5",
+  "python": "3.11.15",
+  "platform": "macOS-27.2.1-arm64-arm-64bit"
+}

@@ -1,0 +1,66 @@
+{
+ "seed": 20261127,
+ "reviewer": "gpt-6-astra",
+ "groups": {
+  "target": {
+   "n": 29,
+   "agree": 27,
+   "by_kind": {
+    "C": [
+     2,
+     3
+    ],
+    "Idrop": [
+     12,
+     13
+    ],
+    "Iswap": [
+     1,
+     1
+    ],
+    "S": [
+     12,
+     12
+    ]
+   }
+  },
+  "control": {
+   "n": 29,
+   "agree": 29,
+   "by_kind": {
+    "C": [
+     2,
+     2
+    ],
+    "Idrop": [
+     6,
+     6
+    ],
+    "Iswap": [
+     8,
+     8
+    ],
+    "S": [
+     13,
+     13
+    ]
+   }
+  }
+ },
+ "disagree": [
+  {
+   "id": "K1113p42-Idrop",
+   "group": "target",
+   "gold": "I",
+   "reviewer": "S",
+   "note": "의무 불이행 관련 요소 고려"
+  },
+  {
+   "id": "K1115p38-C",
+   "group": "target",
+   "gold": "C",
+   "reviewer": "I",
+   "note": "일부 점유 가능과 양립 가능"
+  }
+ ]
+}

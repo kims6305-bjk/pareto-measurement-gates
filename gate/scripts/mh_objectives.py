@@ -33,6 +33,8 @@ from pathlib import Path
 from typing import Iterable, Optional, Sequence
 
 GATE = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(GATE / "scripts"))
+from mh_exp import E2  # noqa: E402
 
 # ── §13.1 고정값 (F1·F2·F4) — 실행마다 바꾸지 않는다 ────────────────────────────
 SEED = 20260730          # F1
@@ -53,6 +55,7 @@ R3_N_RUNS = 3            # 정확히 3판
 EXPECTED_RUNS = ("run1", "run2", "run3")
 R4_MAX_UNRESOLVED = 0.10
 R5_MAX_SPLIT = 0.20
+R6_MIN_OK = 8            # 부속서5 §4 (E2): 정답 S 수 — specificity 분모
 
 # 종료 코드 — 요구사항 5 "미달이면 판정 거부(에러 코드로 구분)"
 EXIT_OK = 0
@@ -126,6 +129,7 @@ def counts(units: Iterable[Unit]) -> dict:
         "n_flagged": len(flagged),
         "n_detected": len(detected),
         "n_contradicted": sum(1 for u in prob if u.maj == "CONTRADICTED"),
+        "n_ok": sum(1 for u in us if u.human == "S"),
         "n_split": sum(1 for u in us if u.maj == SPLIT),
         "n_unresolved": sum(1 for u in us if u.maj == "UNRESOLVED"),
     }
@@ -152,8 +156,17 @@ def precision_of(units: Iterable[Unit]) -> Optional[float]:
     return c["n_detected"] / c["n_flagged"]
 
 
-AXES = ("recall", "precision")
-_AXIS_FN = {"recall": recall_of, "precision": precision_of}
+def specificity_of(units: Iterable[Unit]) -> Optional[float]:
+    """부속서5 §3: 정답 S 중 다수결이 문제판정(C/I)이 아닌 비율.
+    SPLIT·UNRESOLVED 는 문제판정이 아니다(§3.4 SPLIT 규약과 같은 방향)."""
+    ok = [u for u in units if u.human == "S"]
+    if not ok:
+        return None
+    return sum(1 for u in ok if not u.is_flagged) / len(ok)
+
+
+AXES = ("recall", "specificity") if E2 else ("recall", "precision")
+_AXIS_FN = {"recall": recall_of, "precision": precision_of, "specificity": specificity_of}
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -274,6 +287,8 @@ def sample_gate(c: dict, n_runs: int, n_unresolved_raw: int,
     split_ratio = c["n_split"] / c["n_units"] if c["n_units"] else 1.0
     if split_ratio >= R5_MAX_SPLIT:
         v.append("R5")
+    if E2 and c["n_ok"] < R6_MIN_OK:
+        v.append("R6")
     return {"passed": not v, "violations": v}
 
 
@@ -445,6 +460,9 @@ def build_result(candidate_id: str, units: Sequence[Unit], per: dict,
             "prompt_chars_median": (int(statistics.median(chars)) if chars else None),
             "search_cost_calls": (len(rows) if search_cost_calls is None
                                   else search_cost_calls),
+            **({"precision": (None if precision_of(units) is None
+                              else round(precision_of(units), 4)),   # 부속서5 §3: 참고만
+                "n_ok": c["n_ok"]} if E2 else {}),
         },
         "sample_gate": gate,
         # ── 아래 2개는 §5.1 예시 스키마에 없는 추가 블록 ─────────────────────
@@ -509,8 +527,9 @@ def selftest(verbose: bool = True) -> bool:
     # (c) n_flagged = 0 → precision 미정의(None). 0.0 이 아니어야 한다 (§4.4 R2)
     pc = precision_of(b_units)
     chk("(c) n_flagged=0 → precision is None (0.0 아님)", pc is None, pc)
-    cib = bootstrap(b_units, "qid")["precision"]["ci"]
-    chk("(c) n_flagged=0 → precision CI is None", cib is None, cib)
+    if "precision" in AXES:
+        cib = bootstrap(b_units, "qid")["precision"]["ci"]
+        chk("(c) n_flagged=0 → precision CI is None", cib is None, cib)
 
     # 결정론: 같은 seed 2회 → 비트 단위 동일
     m = _synth(11, 44, judge_prob=True, flag_ok=True)
@@ -520,10 +539,27 @@ def selftest(verbose: bool = True) -> bool:
     chk("결정론(claim) 2회 호출 동일", c1 == c2, c1["recall"]["ci"])
 
     # 보수성: qid 클러스터 CI 가 claim CI 보다 좁지 않아야 한다(§4.3 판정용 근거)
-    w_qid = d1["precision"]["ci"][1] - d1["precision"]["ci"][0]
-    w_clm = c1["precision"]["ci"][1] - c1["precision"]["ci"][0]
+    ax2 = AXES[1]
+    if E2:   # E2 축2(specificity)가 m 에서 상수 0 → 폭 비교가 공허해지지 않게 S 정상건을 섞는다
+        mw = m + [Unit(f"R{i // 2:03d}-A-c{i}", "S", "SUPPORTED") for i in range(44)]
+        d1, c1 = bootstrap(mw, "qid"), bootstrap(mw, "claim")
+    w_qid = d1[ax2]["ci"][1] - d1[ax2]["ci"][0]
+    w_clm = c1[ax2]["ci"][1] - c1[ax2]["ci"][0]
     chk("qid CI 폭 >= claim CI 폭", w_qid >= w_clm - 1e-9,
         f"qid={w_qid:.4f} claim={w_clm:.4f}")
+
+    # (d) specificity (부속서5 IC-2′): 정답 S 전건 비플래그 → 1, 전건 플래그 → 0, S 0건 → None
+    chk("(d) specificity 전건 통과 == 1.0", specificity_of(a) == 1.0, specificity_of(a))
+    chk("(d) specificity 전건 과검출 == 0.0", specificity_of(m) == 0.0, specificity_of(m))
+    chk("(d) S 0건 → specificity is None", specificity_of(_synth(4, 0, True)) is None)
+    sp = [Unit("Q1-x", "S", "SPLIT"), Unit("Q2-x", "S", "UNRESOLVED"), Unit("Q3-x", "S", "CONTRADICTED")]
+    chk("(d) SPLIT·UNRESOLVED 는 문제판정 아님 → 2/3", abs(specificity_of(sp) - 2 / 3) < 1e-9)
+    if "specificity" in AXES:
+        cs = bootstrap(a, "qid")["specificity"]["ci"]
+        chk("(d) 전건 통과 specificity CI == [1.0, 1.0]", cs == [1.0, 1.0], cs)
+    if E2:
+        g = sample_gate(counts(_synth(12, 7, True)), 3, 0, 57)
+        chk("(e) R6: 정답 S 7건 → 판정 거부", "R6" in g["violations"], g)
 
     if verbose:
         print(f"\nIC-2 {'PASS' if ok else 'FAIL'} — CI 계산기 검침 (0콜)")

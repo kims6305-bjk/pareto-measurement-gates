@@ -454,6 +454,17 @@ cross-domain validation）。判定器提示词一个字都没改（直接 impor
 
 全文：[`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
+## 确证实验 E5–E9 — 判定流程变更 c401 (2026-11-25)
+
+![E9 摘要（韩文）](gate/reports/e9_summary.ko.png)
+
+- 搜索提议器给出的候选（c301、c302）未能超过基线 c000（E5、E6：无法判定）。
+- 在搜索之外设计的 **c401（主张 → 条件分解 → 证据句对照）** 在较弱判定器 haiku 上两个轴都支配 c000，
+  三个题库版本：recall/specificity +12.5/+10.2（v4·E6）→ +15.0/+10.9（v5·E8）→ +14.5/+10.9 pp（v5.1·E9）。
+- 较强判定器（sonnet、opus）在 c000 下已到天花板（opus recall 0.982），因此 **无法判定** —— 不是"没有效果"，而是在该题型上无法测量。
+- 题库标签缺陷率（操作者盲审 90 条）：S 0/30 · Scf 0/30 · Idrop 1/30。
+- 每一步都在查看结果前以附录提交固定：`gate/PARETO_META_HARNESS_PREREG_ADDENDUM9~13.md`，报告 `gate/REPORT_E6_E10.md`。
+
 ## 仓库结构
 
 ```

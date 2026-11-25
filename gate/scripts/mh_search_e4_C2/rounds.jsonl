@@ -1,0 +1,1 @@
+{"candidates": ["c301", "c302"], "detail": {"all_axes_tied": ["c000", "c301", "c302"], "cumulative_calls": 2700, "current_generation": 1, "prune_halt": null, "stop": true, "triggered": ["T4"]}, "round": 1, "spent_calls": 1800, "statuses": {"c301": "ON_FRONT", "c302": "ON_FRONT"}, "stops": ["T4"]}

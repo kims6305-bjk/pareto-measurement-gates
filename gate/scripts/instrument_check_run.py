@@ -25,6 +25,9 @@ GATE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(GATE / "scripts"))
 
 from phase3_build_prompts import CLAUDE_MODEL, build  # noqa: E402
+from mh_exp import E2, SF300 as _SF300  # noqa: E402
+
+SF300 = GATE / _SF300
 
 SHEET_XLSX = GATE / "scripts/phase1_human_label_sheet.xlsx"
 SHEET_JSON = GATE / "scripts/phase1_human_label_sheet.json"
@@ -33,7 +36,17 @@ VALID = {"SUPPORTED", "CONTRADICTED", "INSUFFICIENT"}
 
 
 def load_units() -> list[dict]:
-    """사람 라벨(xlsx G열) + 본문(json)을 합쳐 Phase 3 unit 형식으로 만든다."""
+    """사람 라벨(xlsx G열) + 본문(json)을 합쳐 Phase 3 unit 형식으로 만든다.
+
+    E2: SF-300 을 읽되 **정답을 싣지 않는다**(human=None) — 판정 원자료에 정답이 남지
+    않게 해 채점 전 원자료 열람 금지(부속서5 §2)를 구조로 지킨다. 형제 주장 없음.
+    """
+    if E2:
+        return sorted(({"id": u["id"], "question": u["question"], "evidence": u["evidence"],
+                        "claim_text": u["claim_text"], "claim_citation": u["claim_citation"],
+                        "siblings": [], "human": None}
+                       for u in json.load(open(SF300, encoding="utf-8"))),
+                      key=lambda u: u["id"])
     rows = {r["id"]: r for r in json.load(open(SHEET_JSON, encoding="utf-8"))}
 
     ws = openpyxl.load_workbook(SHEET_XLSX)["라벨링"]
@@ -68,23 +81,51 @@ def load_units() -> list[dict]:
     return units
 
 
-def call(prompt: str) -> tuple[str, str]:
-    """fail-closed — Phase 3와 동일 규약."""
+def _last_verdict(raw: str):
+    """출력 안의 `label` 가진 유효 JSON 객체 중 마지막 것. 없으면 None."""
+    dec, found, i = json.JSONDecoder(), None, raw.find("{")
+    while i != -1:
+        try:
+            obj, end = dec.raw_decode(raw, i)
+        except json.JSONDecodeError:
+            end = i + 1
+        else:
+            if isinstance(obj, dict) and "label" in obj:
+                found = obj
+        i = raw.find("{", end)
+    return found
+
+
+def call(prompt: str, model: str = CLAUDE_MODEL) -> tuple[str, str]:
+    """fail-closed — Phase 3와 동일 규약. model 인자 = 부속서9 E6P 강한 모델 팔(기본값은 판정기 그대로)."""
     try:
         p = subprocess.run(
-            [shutil.which("claude") or "claude", "-p", "--model", CLAUDE_MODEL, "--max-turns", "1"],
+            [shutil.which("claude") or "claude", "-p", "--model", model, "--max-turns", "1"],
             input=prompt, capture_output=True, text=True, timeout=CLI_TIMEOUT,
         )
         raw = (p.stdout or "").strip()
     except Exception as exc:  # noqa: BLE001
         return "UNRESOLVED", f"judge error: {type(exc).__name__}"
+    # 호출 실패는 판정이 아니다 — 원장에 쓰지 않고 멈춘다(부속서5 추기 4). 러너는 resume 구조라 재실행하면 이어 간다.
+    m = re.search(r"\{.*\}", raw, re.S)
+    if not m and re.search(r"hit your .{0,30}limit|rate.?limit|usage limit", raw + (p.stderr or ""), re.I):
+        raise SystemExit(f"judge CLI rate_limit: {(raw + (p.stderr or ''))[:200]}")
+    if p.returncode != 0:
+        raise SystemExit(f"judge CLI 실패 exit={p.returncode}: {((p.stderr or '') + raw)[:200]}")
+    return parse(raw)
+
+
+def parse(raw: str) -> tuple[str, str]:
+    """판정 출력 → (라벨, 사유). call() 과 E6P codex 팔이 같은 규약을 쓴다."""
     m = re.search(r"\{.*\}", raw, re.S)
     if not m:
         return "UNRESOLVED", "출력에 JSON 없음"
     try:
         obj = json.loads(m.group(0))
     except json.JSONDecodeError:
-        return "UNRESOLVED", "JSON 파싱 실패"
+        obj = _last_verdict(raw) if E2 else None   # 부속서6 추기 3: 자기 정정 출력은 마지막 답을 쓴다
+        if obj is None:
+            return "UNRESOLVED", "JSON 파싱 실패"
     label = str(obj.get("label", "")).upper()
     if label not in VALID:
         return "UNRESOLVED", f"미정의 라벨: {label}"

@@ -1,0 +1,26 @@
+{
+  "candidate_id": "c000",
+  "preregistration_commit": "b035fb4",
+  "verdict": "INVALID_RUN",
+  "interpretation": "Run compromised by Claude API rate limiting; model performance is not established. The runner classified missing JSON as UNRESOLVED.",
+  "provider_diagnostic": {
+    "source": "900 local Claude Code transcripts for the IC-0 execution window",
+    "is_api_error_rate_limit": 846,
+    "reported_reset": "2026-11-23 18:40 Asia/Seoul"
+  },
+  "n_attempts": 900,
+  "n_valid_outputs": 54,
+  "n_unresolved_raw": 846,
+  "n_unresolved_units": 282,
+  "n_contradicted_problem_units": 8,
+  "recall": 0.06666666666666667,
+  "specificity": 1.0,
+  "per_run": "Each run recorded 18 valid outputs followed by 282 UNRESOLVED (출력에 JSON 없음).",
+  "ic1": "NOT_RUN",
+  "search": "NOT_RUN",
+  "raw_sha256": {
+    "mh_e2_c000_run1.jsonl": "0080f7868d7ab6991ce7194024dea91a795701285fa605e834b28a43f9a74f2a",
+    "mh_e2_c000_run2.jsonl": "0ed9cc11f73435ef585826744050c4ebb1d0737b3ed9a8ebc12c647cbf813e38",
+    "mh_e2_c000_run3.jsonl": "ad6b0e3a6cd363ed5e4b45cf25a557294ca641ed38aa8b992391125f45708ff4"
+  }
+}
