@@ -7,6 +7,8 @@ S = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(S))
 import mh_objectives as M  # noqa: E402
 import sfk_e5 as E  # noqa: E402
+from sfk_build_label_set import SRC  # noqa: E402
+import pytest  # noqa: E402
 
 P = "CONTRADICTED"
 
@@ -37,6 +39,7 @@ def test_paired_identical_is_zero_and_better_is_positive():
     assert E.classify(r, 1, 2) == "판정 불가"                          # 한 축만 개선 → 지배 아님
 
 
+@pytest.mark.skipif(not any(SRC.glob("*.md")), reason="K-IFRS 원문 코퍼스(공개 레포 밖, 로컬 전용)가 없어 재생성 검사 불가")
 def test_sfk_generator_reproducible():
     r = subprocess.run([sys.executable, str(S / "sfk_build_label_set.py"), "--check"], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
