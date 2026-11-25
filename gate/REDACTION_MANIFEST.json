@@ -1,0 +1,46 @@
+{
+ "note": "공개본 익명화: 근거 문자열 끝 분류 링크의 로컬 폴더명만 <vault>/ 로 바꿈. 판정기가 본 원문은 익명화 직전 커밋 3418319 에 그대로 있다. 검증 tests/test_redaction.py",
+ "redaction_commit": "3b39280",
+ "original_commit": "3418319",
+ "files": {
+  "scripts/sfk_v2_pilot.json": {
+   "units": 200,
+   "changed_ids": [
+    "K1101p39Z-C",
+    "K1101p39Z-S"
+   ]
+  },
+  "scripts/sfk_v2_main.json": {
+   "units": 800,
+   "changed_ids": [
+    "K1028p16-Iswap",
+    "K1101p39L-Iswap"
+   ]
+  },
+  "scripts/sfk4_main.json": {
+   "units": 1252,
+   "changed_ids": [
+    "K1040w75-Iswap",
+    "K1107w4-Iswap",
+    "K1113w96-C",
+    "K1113w96-S"
+   ]
+  },
+  "scripts/sfk5_main.json": {
+   "units": 1252,
+   "changed_ids": [
+    "K1040w75-Iswap",
+    "K1113w96-Ccfmin",
+    "K1113w96-S"
+   ]
+  },
+  "scripts/sfk51_main.json": {
+   "units": 1252,
+   "changed_ids": [
+    "K1040w75-Iswap",
+    "K1113w96-Ccfmin",
+    "K1113w96-S"
+   ]
+  }
+ }
+}
