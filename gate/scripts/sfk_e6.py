@@ -58,7 +58,7 @@ def call_hermes(prompt: str, model: str) -> tuple[str, str]:
     sid = re.findall(r"session_id:\s*(\S+)", p.stderr or "")
     if p.returncode != 0 or not p.stdout.strip() or not sid:
         raise SystemExit(f"hermes 실패 rc={p.returncode}: {(p.stderr or '')[-200:]}")
-    db = sqlite3.connect(f"file:{os.path.expanduser('~/.hermes/state.db')}?mode=ro", uri=True)
+    db = sqlite3.connect(f"file:{os.environ['AGENT_STATE_DB']}?mode=ro", uri=True)
     got = db.execute("select model from session_model_usage where session_id=? and task='' and api_call_count>0",
                      (sid[-1],)).fetchall()
     if [r[0] for r in got] != [model]:

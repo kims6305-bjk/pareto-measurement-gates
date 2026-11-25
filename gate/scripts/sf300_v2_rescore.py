@@ -12,7 +12,7 @@ import mh_objectives as mo  # noqa: E402
 import sf_ic1  # noqa: E402
 
 V1, V2 = GATE / "scripts/sf300_label_set.json", GATE / "scripts/sf300_label_set_v2.json"
-# 운영자(bjkim) 판정 2026-11-23, 기준 A안(단독 명제) — sf300_label_review_10.md
+# 운영자 판정 2026-11-23, 기준 A안(단독 명제) — sf300_label_review_10.md
 CHANGES = {
     "Q042-sf-S052": ("I", "예외 요건의 조건 하나를 단독 사실 진술로 떼어냄"),
     "Q070-sf-S096": ("I", "고려 요건의 조건 하나를 단독 사실 진술로 떼어냄"),

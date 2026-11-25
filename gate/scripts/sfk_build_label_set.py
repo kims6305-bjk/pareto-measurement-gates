@@ -15,13 +15,14 @@ import hashlib
 import json
 import re
 import sys
+import os
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from sf_build_label_set import DROP_SIM, LABEL, h, negate, norm, sim  # noqa: E402
 
 GATE = Path(__file__).resolve().parents[1]
-SRC = Path.home() / "Documents/Obsidian Vault/20.회계사가 된 유성이/10.K-IFRS_기준서/전문"
+SRC = Path(os.environ.get("SFK_KIFRS_DIR", "/nonexistent-kifrs-corpus"))  # 로컬 K-IFRS 전문 폴더(레포 밖)
 AB = GATE.parent / "ab/ab_questions_FROZEN.json"
 QFILE = GATE / "scripts/sfk_questions_FROZEN.json"
 OUT = {k: GATE / f"scripts/sfk_{k}.json" for k in ("meta", "pilot", "main")}
