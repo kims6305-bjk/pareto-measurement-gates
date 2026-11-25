@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><style>
+:root{--ink:#141F38;--mut:#5B6475;--paper:#FAF9F6;--line:#E3E0D8;--hai:#0F7B5F;--opu:#5F6675;--grey:#C9CCD3}
+*{box-sizing:border-box;margin:0}body{width:1600px;padding:48px 56px;background:var(--paper);color:var(--ink);font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;word-break:keep-all}
+.k{font-size:20px;color:var(--mut);letter-spacing:.04em}h1{font-size:46px;margin:8px 0 6px}.sub{font-size:22px;color:var(--mut)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 30px}.ch{display:flex;justify-content:space-between;align-items:center;font-size:30px}
+.tag{color:#fff;font-size:20px;padding:6px 16px;border-radius:999px;white-space:nowrap}
+.m{margin-top:22px}.ml{font-size:19px;color:var(--mut);margin-bottom:6px}
+.bar{position:relative;height:30px;background:#F1EFEA;border-radius:6px;margin:5px 0}.bar span{position:absolute;left:12px;top:4px;font-size:17px;color:#fff;font-weight:600}
+.b0{height:100%;background:var(--grey);border-radius:6px}.b1{height:100%;border-radius:6px}.b0+span{color:var(--ink)}
+.d{font-size:30px;font-weight:800;margin-top:4px}.d small{font-size:18px;font-weight:500;color:var(--mut)}
+.note{margin-top:18px;font-size:19px;line-height:1.5;color:var(--ink)}
+.low{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}.box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 30px}
+.bt{font-size:22px;font-weight:700;margin-bottom:14px}.row{display:flex;gap:14px}
+.rp,.au{flex:1;background:#F4F7F5;border-radius:12px;padding:14px 16px}.rk,.ak{font-size:17px;color:var(--mut)}.rv{font-size:28px;font-weight:800;color:var(--hai)}
+.au{background:#F5F4F1}.av{font-size:30px;font-weight:800}.ac{font-size:15px;color:var(--mut)}.bn{font-size:16px;color:var(--mut);margin-top:10px}
+.concl{margin-top:28px;background:var(--ink);color:#fff;border-radius:16px;padding:22px 30px;font-size:24px;line-height:1.5}.concl b{color:#9FE3C9}
+.foot{margin-top:16px;font-size:15px;color:var(--mut)}
+</style>
+<div class="k">하네스 c401(조건 분해 대조) · 사전등록 확증 실험 E9 · 문제집 v5.1 1,252단위 · 2026-11-25</div>
+<h1>약한 판정기는 확실히 개선, 강한 판정기는 천장이라 잴 수 없음</h1>
+<div class="sub">같은 문항을 기준선 c000과 c401로 각각 판정해 비교. Δ와 구간 = 군집 부트스트랩 95%(군집 단위 계산이라 막대 값의 단순 차이와 0.1%p 다를 수 있음)</div>
+<div class="grid">
+<div class="card" style="border-top:8px solid var(--hai)"><div class="ch"><b>haiku-5-5 (약한 판정기)</b><span class="tag" style="background:var(--hai)">지배 — 개선</span></div><div class="m"><div class="ml">recall (오류 잡기)</div>
+<div class="bar"><div class="b0" style="width:82.7%"></div><span>c000 82.7%</span></div>
+<div class="bar"><div class="b1" style="width:97.3%;background:var(--hai)"></div><span>c401 97.3%</span></div>
+<div class="d" style="color:var(--hai)">+14.5%p <small>95% [+11.8, +17.6]</small></div></div><div class="m"><div class="ml">specificity (정상 통과)</div>
+<div class="bar"><div class="b0" style="width:83.7%"></div><span>c000 83.7%</span></div>
+<div class="bar"><div class="b1" style="width:94.6%;background:var(--hai)"></div><span>c401 94.6%</span></div>
+<div class="d" style="color:var(--hai)">+10.9%p <small>95% [+7.7, +14.1]</small></div></div><p class="note">두 축 모두 구간이 0보다 위. c401로 haiku가 <b>97.3%</b>까지 올라 강한 판정기 수준에 근접.</p></div>
+<div class="card" style="border-top:8px solid var(--opu)"><div class="ch"><b>opus-5-5 (강한 판정기)</b><span class="tag" style="background:var(--opu)">판정 불가 — 천장</span></div><div class="m"><div class="ml">recall (오류 잡기)</div>
+<div class="bar"><div class="b0" style="width:98.2%"></div><span>c000 98.2%</span></div>
+<div class="bar"><div class="b1" style="width:98.6%;background:var(--opu)"></div><span>c401 98.6%</span></div>
+<div class="d" style="color:var(--opu)">+0.3%p <small>95% [-0.5, +1.1]</small></div></div><div class="m"><div class="ml">specificity (정상 통과)</div>
+<div class="bar"><div class="b0" style="width:95.5%"></div><span>c000 95.5%</span></div>
+<div class="bar"><div class="b1" style="width:96.3%;background:var(--opu)"></div><span>c401 96.3%</span></div>
+<div class="d" style="color:var(--opu)">+0.8%p <small>95% [-0.3, +1.9]</small></div></div><p class="note">c000만으로 recall <b>98.2%</b>. 오를 여지가 1.8%p뿐이라 구간이 0을 포함. 효과 없음이 아니라 <b>측정 불가</b>.</p></div>
+</div>
+<div class="low">
+<div class="box"><div class="bt">haiku 개선은 문제집을 바꿔도 재현 (recall / specificity, %p)</div><div class="row"><div class="rp"><div class="rk">v4 · E6</div><div class="rv">+12.5 / +10.2</div></div><div class="rp"><div class="rk">v5 · E8</div><div class="rv">+15.0 / +10.9</div></div><div class="rp"><div class="rk">v5.1 · E9</div><div class="rv">+14.5 / +10.9</div></div></div>
+<div class="bn">v5.1 = v5에서 생성기 결함(이상↔이하 관용구 훼손) 17단위 수정. E9는 E8과 1,235단위 공유 → 따로&nbsp;한&nbsp;재현이&nbsp;아니라 민감도 확인.</div></div>
+<div class="box"><div class="bt">문제집 라벨 결함률 — 사람 블라인드 검수 90건</div><div class="row"><div class="au"><div class="ak">S</div><div class="av">0/30</div><div class="ac">결함률 0.0% · 상한 11.4%</div></div><div class="au"><div class="ak">Scf</div><div class="av">0/30</div><div class="ac">결함률 0.0% · 상한 11.4%</div></div><div class="au"><div class="ak">Idrop</div><div class="av">1/30</div><div class="ac">결함률 3.3% · 상한 16.7%</div></div></div>
+<div class="bn">판정기 응답 없이 무작위 추출. 점추정이 세 유형 모두 사전 기준 10% 미만(구간 상한은 10%를 넘음) → 라벨 잡음이 결과를 만들었다고 보기 어려움.</div></div>
+</div>
+<div class="concl">결론 — c401은 <b>약한 판정기의 recall을 강한 판정기 수준(97%대)으로 끌어올린다.</b> 이미 천장인 강한 판정기에서의 효과는 이 문제군으로는 검정할 수 없고, 사람이 만든 고난도 문제집이 다음 과제다.</div>
+<div class="foot">출처: 사전등록 부속서12·13, 원자료 mh_e9_arm_* (판정기·하네스별 1,252행). v4·E6 수치는 부속서10 추기1.</div>

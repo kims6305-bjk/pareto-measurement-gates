@@ -557,6 +557,17 @@ and was justified all nine times.
 
 Full text: [`gate/MEASUREMENT_FAILURES.md`](gate/MEASUREMENT_FAILURES.md)
 
+## Confirmatory experiments E5–E9 — judging-procedure change c401 (2026-11-25)
+
+![E9 summary (Korean)](gate/reports/e9_summary.ko.png)
+
+- Candidates proposed by the search proposer (c301, c302) did not beat the baseline c000 (E5, E6: indeterminate).
+- **c401 (claim → condition decomposition → evidence-sentence check)**, designed outside the search, dominated c000 on both axes with the weaker judge haiku,
+  across three problem-set versions: recall/specificity +12.5/+10.2 (v4, E6) → +15.0/+10.9 (v5, E8) → +14.5/+10.9 pp (v5.1, E9).
+- Stronger judges (sonnet, opus) are already at ceiling with c000 (opus recall 0.982), so the verdict is **indeterminate** — not "no effect", but not measurable on this problem family.
+- Label defect rate (operator blind review, 90 units): S 0/30 · Scf 0/30 · Idrop 1/30.
+- Every step was frozen in addenda committed before results were seen: `gate/PARETO_META_HARNESS_PREREG_ADDENDUM9~13.md`, report `gate/REPORT_E6_E10.md`.
+
 ## Repository structure
 
 ```
