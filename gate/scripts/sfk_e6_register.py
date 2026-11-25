@@ -11,9 +11,9 @@ from instrument_check_run import load_units  # noqa: E402
 from mh_exp import EXP  # noqa: E402
 from mh_run_candidate import archive_path, prompt_sha256, resolve_builder  # noqa: E402
 
-assert EXP in ("E6P", "E6", "E8P", "E8"), "MH_EXP=E6P·E6·E8P·E8 로 실행"
+assert EXP in ("E6P", "E6", "E8P", "E8", "E9"), "MH_EXP=E6P·E6·E8P·E8·E9 로 실행"
 CANDS = sys.argv[1:] or ["c000"]   # 부속서9 §4 폭 파일럿: c301 c302 추가 등록(append)
-SRC = "mh_archive_e6_C2.jsonl" if EXP in ("E8P", "E8") else "mh_archive_e5_C2.jsonl"   # 부속서12: c401 은 E6 원장에만 있다
+SRC = "mh_archive_e6_C2.jsonl" if EXP in ("E8P", "E8", "E9") else "mh_archive_e5_C2.jsonl"   # 부속서12: c401 은 E6 원장에만 있다
 rows = {json.loads(l)["candidate_id"]: json.loads(l) for l in (S / SRC).open(encoding="utf-8")}
 units = load_units()
 assert all(u["question"] for u in units), "질문 미기입 단위가 있다"

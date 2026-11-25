@@ -15,8 +15,8 @@ S = Path(__file__).resolve().parent
 sys.path.insert(0, str(S))
 from mh_exp import EXP, TAG  # noqa: E402
 
-STRONG = ("claude-opus-5-5",) if EXP == "E8" else ("claude-sonnet-5-5", "claude-opus-5-5")   # Holm 확증 가족 (E8 = 부속서12 추기1 게이트 통과분)
-MODELS = STRONG + (("claude-haiku-5-5",) if EXP in ("E8P", "E8") else ())
+STRONG = ("claude-opus-5-5",) if EXP in ("E8", "E9") else ("claude-sonnet-5-5", "claude-opus-5-5")   # Holm 확증 가족 (E8 = 부속서12 추기1 게이트 통과분)
+MODELS = STRONG + (("claude-haiku-5-5",) if EXP in ("E8P", "E8", "E9") else ())
 CIDS = ("c000", "c401")
 lock = threading.Lock()
 
@@ -29,7 +29,7 @@ def arm(model: str, cid: str, workers: int) -> None:
     from instrument_check_run import call, load_units
     from mh_guard import ledger_lock
     from mh_run_candidate import guard, load_candidate, prompt_sha256, resolve_builder
-    assert EXP in ("E6", "E8P", "E8") and model in MODELS and cid in CIDS, (EXP, model, cid)
+    assert EXP in ("E6", "E8P", "E8", "E9") and model in MODELS and cid in CIDS, (EXP, model, cid)
     guard()
     fn, kw, _ = resolve_builder(load_candidate("C2", cid)["harness"])   # 원장 등록본 그대로(모델만 교체)
     units = load_units()
@@ -69,7 +69,7 @@ def verdict() -> None:
     """§4. 모델 2개 = 가족 2 → Holm: 97.5% 로 먼저 확정되는 모델은 97.5%, 나머지는 95%."""
     import mh_objectives as M
     from sfk_e5 import classify, paired
-    assert EXP in ("E6", "E8")
+    assert EXP in ("E6", "E8", "E9")
     res = {}
     for m in MODELS:
         b, o = units_of(m, "c000"), units_of(m, "c401")
